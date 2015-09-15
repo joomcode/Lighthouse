@@ -35,6 +35,10 @@
 - (BOOL)searchForNodeRecursively:(id<RTRNode>)node currentPath:(NSMutableOrderedSet *)currentPath {
     id<RTRNode> parent = currentPath.lastObject;
     
+    if ([parent isEqual:node]) {
+        return YES;
+    }
+    
     for (id<RTRNode> child in [parent allChildren]) {
         [currentPath addObject:child];
         

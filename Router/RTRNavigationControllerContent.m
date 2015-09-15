@@ -26,7 +26,7 @@
 
 - (void)setupDataWithCommand:(id<RTRCommand>)command {
     if (!_data) {
-        _data = [[UINavigationController alloc] initWithRootViewController:nil];
+        _data = [[UINavigationController alloc] init];
         _data.delegate = self;
     }
 }

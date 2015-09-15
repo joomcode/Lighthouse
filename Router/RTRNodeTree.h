@@ -26,6 +26,6 @@
 
 @interface RTRNodeTree (Mutation)
 
-- (void)addNode:(id<RTRNode>)node afterNode:(id<RTRNode>)previousNode;
+- (void)addNode:(id<RTRNode>)node afterNodeOrNil:(id<RTRNode>)previousNode;
 
 @end

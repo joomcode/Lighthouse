@@ -7,14 +7,16 @@
 //
 
 #import "AppDelegate.h"
-#import "RTRRouter+Shared.h"
 #import "PXColorViewControllers.h"
 #import "PXPresentRed.h"
 #import "PXPresentGreen.h"
 #import "PXPresentBlue.h"
+#import "RTRRouter+Shared.h"
 #import <Router.h>
 
 @interface AppDelegate ()
+
+@property (nonatomic, strong) RTRRouter *router;
 
 @end
 
@@ -26,9 +28,11 @@
     self.window.backgroundColor = [UIColor whiteColor];
 
     [self setupRouter];
-    [[RTRRouter sharedInstance] executeCommand:[[PXPresentRed alloc] init] animated:NO];
+    [self.router executeCommand:[[PXPresentRed alloc] init] animated:NO];
     
     [self.window makeKeyAndVisible];
+    
+    [self performSelector:@selector(doSomething) withObject:nil afterDelay:3.0];
     
     return YES;
 }
@@ -41,9 +45,9 @@
     id<RTRNode> blueNode = [[RTRLeafNode alloc] init];
     
     RTRNodeTree *stackTree = [[RTRNodeTree alloc] init];
-    [stackTree addNode:redNode afterNode:nil];
-    [stackTree addNode:greenNode afterNode:redNode];
-    [stackTree addNode:blueNode afterNode:greenNode];
+    [stackTree addNode:redNode afterNodeOrNil:nil];
+    [stackTree addNode:greenNode afterNodeOrNil:redNode];
+    [stackTree addNode:blueNode afterNodeOrNil:greenNode];
     
     id<RTRNode> stackNode = [[RTRStackNode alloc] initWithTree:stackTree];
     
@@ -90,6 +94,12 @@
     router.rootNode = rootNode;
     router.nodeContentProviders = @[ nodeContentProvider ];
     router.commandRegistry = commandRegistry;
+    
+    self.router = router;
+}
+
+- (void)doSomething {
+    [self.router executeCommand:[[PXPresentBlue alloc] init] animated:YES];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
