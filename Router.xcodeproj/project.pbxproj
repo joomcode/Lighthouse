@@ -1,0 +1,351 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		013F68A71BA62BE900B5797B /* Router.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 013F68A61BA62BE900B5797B /* Router.h */; };
+		013F68A91BA62BE900B5797B /* Router.m in Sources */ = {isa = PBXBuildFile; fileRef = 013F68A81BA62BE900B5797B /* Router.m */; };
+		0160A96D1BA742C90035A331 /* RTRStackNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 0160A96C1BA742C90035A331 /* RTRStackNode.m */; };
+		0160A9701BA7434B0035A331 /* RTRNodeTree.m in Sources */ = {isa = PBXBuildFile; fileRef = 0160A96F1BA7434B0035A331 /* RTRNodeTree.m */; };
+		0160A9761BA7479C0035A331 /* RTRTabNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 0160A9751BA7479C0035A331 /* RTRTabNode.m */; };
+		0160A97F1BA782BA0035A331 /* RTRNodeChildrenState.m in Sources */ = {isa = PBXBuildFile; fileRef = 0160A97E1BA782BA0035A331 /* RTRNodeChildrenState.m */; };
+		0160A9851BA78EAC0035A331 /* RTRNavigationControllerContent.m in Sources */ = {isa = PBXBuildFile; fileRef = 0160A9841BA78EAC0035A331 /* RTRNavigationControllerContent.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		013F68A11BA62BE900B5797B /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+				013F68A71BA62BE900B5797B /* Router.h in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		013F68A31BA62BE900B5797B /* libRouter.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libRouter.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		013F68A61BA62BE900B5797B /* Router.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Router.h; sourceTree = "<group>"; };
+		013F68A81BA62BE900B5797B /* Router.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Router.m; sourceTree = "<group>"; };
+		0160A9671BA740730035A331 /* RTRNodeContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTRNodeContainer.h; sourceTree = "<group>"; };
+		0160A96B1BA742C90035A331 /* RTRStackNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTRStackNode.h; sourceTree = "<group>"; };
+		0160A96C1BA742C90035A331 /* RTRStackNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTRStackNode.m; sourceTree = "<group>"; };
+		0160A96E1BA7434B0035A331 /* RTRNodeTree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTRNodeTree.h; sourceTree = "<group>"; };
+		0160A96F1BA7434B0035A331 /* RTRNodeTree.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTRNodeTree.m; sourceTree = "<group>"; };
+		0160A9741BA7479C0035A331 /* RTRTabNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTRTabNode.h; sourceTree = "<group>"; };
+		0160A9751BA7479C0035A331 /* RTRTabNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTRTabNode.m; sourceTree = "<group>"; };
+		0160A9781BA780AD0035A331 /* RTRNodeContent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTRNodeContent.h; sourceTree = "<group>"; };
+		0160A97B1BA782540035A331 /* RTRNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTRNode.h; sourceTree = "<group>"; };
+		0160A97C1BA782940035A331 /* RTRNodeState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTRNodeState.h; sourceTree = "<group>"; };
+		0160A97D1BA782BA0035A331 /* RTRNodeChildrenState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTRNodeChildrenState.h; sourceTree = "<group>"; };
+		0160A97E1BA782BA0035A331 /* RTRNodeChildrenState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTRNodeChildrenState.m; sourceTree = "<group>"; };
+		0160A9811BA78CAE0035A331 /* RTRNodeContentUpdateContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTRNodeContentUpdateContext.h; sourceTree = "<group>"; };
+		0160A9831BA78EAC0035A331 /* RTRNavigationControllerContent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTRNavigationControllerContent.h; sourceTree = "<group>"; };
+		0160A9841BA78EAC0035A331 /* RTRNavigationControllerContent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTRNavigationControllerContent.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		013F68A01BA62BE900B5797B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		013F689A1BA62BE900B5797B = {
+			isa = PBXGroup;
+			children = (
+				013F68A51BA62BE900B5797B /* Router */,
+				013F68A41BA62BE900B5797B /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		013F68A41BA62BE900B5797B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				013F68A31BA62BE900B5797B /* libRouter.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		013F68A51BA62BE900B5797B /* Router */ = {
+			isa = PBXGroup;
+			children = (
+				013F68A61BA62BE900B5797B /* Router.h */,
+				013F68A81BA62BE900B5797B /* Router.m */,
+				0160A9651BA740480035A331 /* Node */,
+				0160A9771BA76CE70035A331 /* Node Content */,
+				0160A9661BA7404E0035A331 /* _thoughts_ */,
+			);
+			path = Router;
+			sourceTree = "<group>";
+		};
+		0160A9651BA740480035A331 /* Node */ = {
+			isa = PBXGroup;
+			children = (
+				0160A97B1BA782540035A331 /* RTRNode.h */,
+				0160A97C1BA782940035A331 /* RTRNodeState.h */,
+				0160A97D1BA782BA0035A331 /* RTRNodeChildrenState.h */,
+				0160A97E1BA782BA0035A331 /* RTRNodeChildrenState.m */,
+				0160A9711BA743B50035A331 /* Tree */,
+				0160A9681BA7416C0035A331 /* Stack */,
+				0160A96A1BA7418B0035A331 /* Tab */,
+			);
+			name = Node;
+			sourceTree = "<group>";
+		};
+		0160A9661BA7404E0035A331 /* _thoughts_ */ = {
+			isa = PBXGroup;
+			children = (
+				0160A9671BA740730035A331 /* RTRNodeContainer.h */,
+			);
+			name = _thoughts_;
+			sourceTree = "<group>";
+		};
+		0160A9681BA7416C0035A331 /* Stack */ = {
+			isa = PBXGroup;
+			children = (
+				0160A96B1BA742C90035A331 /* RTRStackNode.h */,
+				0160A96C1BA742C90035A331 /* RTRStackNode.m */,
+			);
+			name = Stack;
+			sourceTree = "<group>";
+		};
+		0160A96A1BA7418B0035A331 /* Tab */ = {
+			isa = PBXGroup;
+			children = (
+				0160A9741BA7479C0035A331 /* RTRTabNode.h */,
+				0160A9751BA7479C0035A331 /* RTRTabNode.m */,
+			);
+			name = Tab;
+			sourceTree = "<group>";
+		};
+		0160A9711BA743B50035A331 /* Tree */ = {
+			isa = PBXGroup;
+			children = (
+				0160A96E1BA7434B0035A331 /* RTRNodeTree.h */,
+				0160A96F1BA7434B0035A331 /* RTRNodeTree.m */,
+			);
+			name = Tree;
+			sourceTree = "<group>";
+		};
+		0160A9771BA76CE70035A331 /* Node Content */ = {
+			isa = PBXGroup;
+			children = (
+				0160A9781BA780AD0035A331 /* RTRNodeContent.h */,
+				0160A9811BA78CAE0035A331 /* RTRNodeContentUpdateContext.h */,
+				0160A9821BA78DE00035A331 /* View Controller Content */,
+			);
+			name = "Node Content";
+			sourceTree = "<group>";
+		};
+		0160A9821BA78DE00035A331 /* View Controller Content */ = {
+			isa = PBXGroup;
+			children = (
+				0160A9831BA78EAC0035A331 /* RTRNavigationControllerContent.h */,
+				0160A9841BA78EAC0035A331 /* RTRNavigationControllerContent.m */,
+			);
+			name = "View Controller Content";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		013F68A21BA62BE900B5797B /* Router */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 013F68AC1BA62BE900B5797B /* Build configuration list for PBXNativeTarget "Router" */;
+			buildPhases = (
+				013F689F1BA62BE900B5797B /* Sources */,
+				013F68A01BA62BE900B5797B /* Frameworks */,
+				013F68A11BA62BE900B5797B /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Router;
+			productName = Router;
+			productReference = 013F68A31BA62BE900B5797B /* libRouter.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		013F689B1BA62BE900B5797B /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = RTR;
+				LastUpgradeCheck = 0710;
+				ORGANIZATIONNAME = Pixty;
+				TargetAttributes = {
+					013F68A21BA62BE900B5797B = {
+						CreatedOnToolsVersion = 7.1;
+					};
+				};
+			};
+			buildConfigurationList = 013F689E1BA62BE900B5797B /* Build configuration list for PBXProject "Router" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 013F689A1BA62BE900B5797B;
+			productRefGroup = 013F68A41BA62BE900B5797B /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				013F68A21BA62BE900B5797B /* Router */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		013F689F1BA62BE900B5797B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0160A9701BA7434B0035A331 /* RTRNodeTree.m in Sources */,
+				0160A9761BA7479C0035A331 /* RTRTabNode.m in Sources */,
+				013F68A91BA62BE900B5797B /* Router.m in Sources */,
+				0160A96D1BA742C90035A331 /* RTRStackNode.m in Sources */,
+				0160A9851BA78EAC0035A331 /* RTRNavigationControllerContent.m in Sources */,
+				0160A97F1BA782BA0035A331 /* RTRNodeChildrenState.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		013F68AA1BA62BE900B5797B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		013F68AB1BA62BE900B5797B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		013F68AD1BA62BE900B5797B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		013F68AE1BA62BE900B5797B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		013F689E1BA62BE900B5797B /* Build configuration list for PBXProject "Router" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				013F68AA1BA62BE900B5797B /* Debug */,
+				013F68AB1BA62BE900B5797B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		013F68AC1BA62BE900B5797B /* Build configuration list for PBXNativeTarget "Router" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				013F68AD1BA62BE900B5797B /* Debug */,
+				013F68AE1BA62BE900B5797B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 013F689B1BA62BE900B5797B /* Project object */;
+}
