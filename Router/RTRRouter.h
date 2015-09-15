@@ -10,13 +10,13 @@
 
 @protocol RTRNode;
 @protocol RTRCommand;
-@class RTRCommandRegistry;
+@protocol RTRCommandRegistry;
 
 @interface RTRRouter : NSObject
 
 @property (nonatomic, strong) id<RTRNode> rootNode;
 
-@property (nonatomic, strong) RTRCommandRegistry *commandRegistry;
+@property (nonatomic, strong) id<RTRCommandRegistry> commandRegistry;
 
 @property (nonatomic, strong) NSArray *nodeContentProviders;
 

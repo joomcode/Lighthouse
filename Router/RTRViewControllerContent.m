@@ -8,6 +8,34 @@
 
 #import "RTRViewControllerContent.h"
 
+@interface RTRViewControllerContent ()
+
+@property (nonatomic, strong) Class viewControllerClass;
+
+@end
+
 @implementation RTRViewControllerContent
+
+- (instancetype)initWithViewControllerClass:(Class)viewControllerClass {
+    self = [super init];
+    if (!self) return nil;
+    
+    _viewControllerClass = viewControllerClass;
+    
+    return self;
+}
+
+#pragma mark - RTRNodeContent
+
+@synthesize data = _data;
+
+- (void)setupDataWithCommand:(id<RTRCommand>)command {
+    if (!_data) {
+        _data = [[self.viewControllerClass alloc] init];
+    }
+}
+
+- (void)performUpdateWithContext:(id<RTRNodeContentUpdateContext>)updateContext {
+}
 
 @end

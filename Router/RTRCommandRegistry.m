@@ -27,7 +27,7 @@
     return self;
 }
 
-- (void)bindCommandClass:(Class)commandClass toNode:(id<RTRNode>)node {
+- (void)bindNode:(id<RTRNode>)node toCommandClass:(Class)commandClass {
     self.nodesByCommandClass[(id<NSCopying>)commandClass] = node;
 }
 

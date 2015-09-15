@@ -11,15 +11,15 @@
 @protocol RTRNode;
 @protocol RTRCommand;
 
-@interface RTRCommandRegistry : NSObject
+@protocol RTRCommandRegistry <NSObject>
 
-- (void)bindCommandClass:(Class)commandClass toNode:(id<RTRNode>)node;
+- (id<RTRNode>)nodeForCommand:(id<RTRCommand>)command;
 
 @end
 
 
-@interface RTRCommandRegistry (Query)
+@interface RTRCommandRegistry : NSObject <RTRCommandRegistry>
 
-- (id<RTRNode>)nodeForCommand:(id<RTRCommand>)command;
+- (void)bindNode:(id<RTRNode>)node toCommandClass:(Class)commandClass;
 
 @end

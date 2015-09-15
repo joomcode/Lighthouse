@@ -15,6 +15,11 @@
 		013F68E11BA62CA300B5797B /* RouterDemoUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 013F68E01BA62CA300B5797B /* RouterDemoUITests.m */; };
 		013F68FE1BA62D0000B5797B /* libRouter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 013F68FD1BA62D0000B5797B /* libRouter.a */; };
 		01A01A611BA8324700608274 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01A01A601BA8324700608274 /* LaunchScreen.xib */; };
+		01A01A871BA8777100608274 /* PXColorViewControllers.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A01A861BA8777100608274 /* PXColorViewControllers.m */; };
+		01A01A8B1BA8782700608274 /* PXPresentRed.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A01A8A1BA8782700608274 /* PXPresentRed.m */; };
+		01A01A8E1BA8783600608274 /* PXPresentGreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A01A8D1BA8783600608274 /* PXPresentGreen.m */; };
+		01A01A911BA8783E00608274 /* PXPresentBlue.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A01A901BA8783E00608274 /* PXPresentBlue.m */; };
+		01A01A941BA8786F00608274 /* RTRRouter+Shared.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A01A931BA8786F00608274 /* RTRRouter+Shared.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +56,16 @@
 		013F68E21BA62CA300B5797B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		013F68FD1BA62D0000B5797B /* libRouter.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libRouter.a; path = "../build/Debug-iphoneos/libRouter.a"; sourceTree = "<group>"; };
 		01A01A601BA8324700608274 /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
+		01A01A851BA8777100608274 /* PXColorViewControllers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXColorViewControllers.h; sourceTree = "<group>"; };
+		01A01A861BA8777100608274 /* PXColorViewControllers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXColorViewControllers.m; sourceTree = "<group>"; };
+		01A01A891BA8782700608274 /* PXPresentRed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXPresentRed.h; sourceTree = "<group>"; };
+		01A01A8A1BA8782700608274 /* PXPresentRed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXPresentRed.m; sourceTree = "<group>"; };
+		01A01A8C1BA8783600608274 /* PXPresentGreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXPresentGreen.h; sourceTree = "<group>"; };
+		01A01A8D1BA8783600608274 /* PXPresentGreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXPresentGreen.m; sourceTree = "<group>"; };
+		01A01A8F1BA8783E00608274 /* PXPresentBlue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXPresentBlue.h; sourceTree = "<group>"; };
+		01A01A901BA8783E00608274 /* PXPresentBlue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXPresentBlue.m; sourceTree = "<group>"; };
+		01A01A921BA8786F00608274 /* RTRRouter+Shared.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RTRRouter+Shared.h"; sourceTree = "<group>"; };
+		01A01A931BA8786F00608274 /* RTRRouter+Shared.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "RTRRouter+Shared.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +118,10 @@
 		013F68BA1BA62CA300B5797B /* RouterDemo */ = {
 			isa = PBXGroup;
 			children = (
+				01A01A841BA8775600608274 /* View Controllers */,
+				01A01A881BA8780300608274 /* Commands */,
+				01A01A921BA8786F00608274 /* RTRRouter+Shared.h */,
+				01A01A931BA8786F00608274 /* RTRRouter+Shared.m */,
 				013F68BE1BA62CA300B5797B /* AppDelegate.h */,
 				013F68BF1BA62CA300B5797B /* AppDelegate.m */,
 				013F68C11BA62CA300B5797B /* ViewController.h */,
@@ -147,6 +166,28 @@
 				013F68FD1BA62D0000B5797B /* libRouter.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		01A01A841BA8775600608274 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				01A01A851BA8777100608274 /* PXColorViewControllers.h */,
+				01A01A861BA8777100608274 /* PXColorViewControllers.m */,
+			);
+			name = "View Controllers";
+			sourceTree = "<group>";
+		};
+		01A01A881BA8780300608274 /* Commands */ = {
+			isa = PBXGroup;
+			children = (
+				01A01A891BA8782700608274 /* PXPresentRed.h */,
+				01A01A8A1BA8782700608274 /* PXPresentRed.m */,
+				01A01A8C1BA8783600608274 /* PXPresentGreen.h */,
+				01A01A8D1BA8783600608274 /* PXPresentGreen.m */,
+				01A01A8F1BA8783E00608274 /* PXPresentBlue.h */,
+				01A01A901BA8783E00608274 /* PXPresentBlue.m */,
+			);
+			name = Commands;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -279,9 +320,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				01A01A941BA8786F00608274 /* RTRRouter+Shared.m in Sources */,
+				01A01A911BA8783E00608274 /* PXPresentBlue.m in Sources */,
+				01A01A871BA8777100608274 /* PXColorViewControllers.m in Sources */,
 				013F68C31BA62CA300B5797B /* ViewController.m in Sources */,
 				013F68C01BA62CA300B5797B /* AppDelegate.m in Sources */,
+				01A01A8E1BA8783600608274 /* PXPresentGreen.m in Sources */,
 				013F68BD1BA62CA300B5797B /* main.m in Sources */,
+				01A01A8B1BA8782700608274 /* PXPresentRed.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -353,11 +399,15 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"../Router/**",
+				);
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
-				USER_HEADER_SEARCH_PATHS = "../Router/**";
 			};
 			name = Debug;
 		};
@@ -391,10 +441,14 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"../Router/**",
+				);
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
-				USER_HEADER_SEARCH_PATHS = "../Router/**";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
