@@ -38,6 +38,10 @@
 
 #pragma mark - RTRNode
 
+- (NSSet *)allChildren {
+    return [self.tree allNodes];
+}
+
 - (id<RTRNodeChildrenState>)activateChild:(id<RTRNode>)child withCurrentState:(id<RTRNodeChildrenState>)currentState {
     NSOrderedSet *path = [self.tree pathToNode:child];
     if (!path) {

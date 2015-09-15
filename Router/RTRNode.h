@@ -10,8 +10,9 @@
 
 @protocol RTRNodeChildrenState;
 
-
 @protocol RTRNode <NSObject>
+
+- (NSSet *)allChildren;
 
 - (id<RTRNodeChildrenState>)activateChild:(id<RTRNode>)child withCurrentState:(id<RTRNodeChildrenState>)currentState;
 

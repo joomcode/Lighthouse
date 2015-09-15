@@ -10,8 +10,9 @@
 
 @protocol RTRNode;
 
-
 @interface RTRNodeTree : NSObject <NSCopying>
+
+- (NSSet *)allNodes;
 
 - (id<RTRNode>)previousNode:(id<RTRNode>)node;
 - (NSSet *)nextNodes:(id<RTRNode>)node;

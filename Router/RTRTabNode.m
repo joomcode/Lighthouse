@@ -37,6 +37,10 @@
 
 #pragma mark - PXRouterNode
 
+- (NSSet *)allChildren {
+    return [self.children set];
+}
+
 - (id<RTRNodeChildrenState>)activateChild:(id<RTRNode>)child withCurrentState:(id<RTRNodeChildrenState>)currentState {
     if (![self.children containsObject:child]) {
         return nil;

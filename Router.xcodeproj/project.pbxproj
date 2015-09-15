@@ -7,13 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		013F68A71BA62BE900B5797B /* Router.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 013F68A61BA62BE900B5797B /* Router.h */; };
-		013F68A91BA62BE900B5797B /* Router.m in Sources */ = {isa = PBXBuildFile; fileRef = 013F68A81BA62BE900B5797B /* Router.m */; };
 		0160A96D1BA742C90035A331 /* RTRStackNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 0160A96C1BA742C90035A331 /* RTRStackNode.m */; };
 		0160A9701BA7434B0035A331 /* RTRNodeTree.m in Sources */ = {isa = PBXBuildFile; fileRef = 0160A96F1BA7434B0035A331 /* RTRNodeTree.m */; };
 		0160A9761BA7479C0035A331 /* RTRTabNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 0160A9751BA7479C0035A331 /* RTRTabNode.m */; };
 		0160A97F1BA782BA0035A331 /* RTRNodeChildrenState.m in Sources */ = {isa = PBXBuildFile; fileRef = 0160A97E1BA782BA0035A331 /* RTRNodeChildrenState.m */; };
 		0160A9851BA78EAC0035A331 /* RTRNavigationControllerContent.m in Sources */ = {isa = PBXBuildFile; fileRef = 0160A9841BA78EAC0035A331 /* RTRNavigationControllerContent.m */; };
+		01A01A641BA8373B00608274 /* RTRViewControllerContent.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A01A631BA8373B00608274 /* RTRViewControllerContent.m */; };
+		01A01A671BA837B100608274 /* RTRRouter.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A01A661BA837B100608274 /* RTRRouter.m */; };
+		01A01A6D1BA83A1A00608274 /* RTRGraphPath.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A01A6C1BA83A1A00608274 /* RTRGraphPath.m */; };
+		01A01A721BA83B0B00608274 /* RTRGraph.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A01A711BA83B0B00608274 /* RTRGraph.m */; };
+		01A01A741BA83B4A00608274 /* RTRLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A01A731BA83B4A00608274 /* RTRLayer.m */; };
+		01A01A771BA83EA500608274 /* RTRCommandRegistry.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A01A761BA83EA500608274 /* RTRCommandRegistry.m */; };
+		01A01A801BA84D2500608274 /* RTRNodeStateData.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A01A7F1BA84D2500608274 /* RTRNodeStateData.m */; };
+		01A01A831BA869F200608274 /* RTRNodeContentUpdateContextImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A01A821BA869F200608274 /* RTRNodeContentUpdateContextImpl.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -23,7 +29,6 @@
 			dstPath = "include/$(PRODUCT_NAME)";
 			dstSubfolderSpec = 16;
 			files = (
-				013F68A71BA62BE900B5797B /* Router.h in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -31,8 +36,6 @@
 
 /* Begin PBXFileReference section */
 		013F68A31BA62BE900B5797B /* libRouter.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libRouter.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		013F68A61BA62BE900B5797B /* Router.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Router.h; sourceTree = "<group>"; };
-		013F68A81BA62BE900B5797B /* Router.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Router.m; sourceTree = "<group>"; };
 		0160A9671BA740730035A331 /* RTRNodeContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTRNodeContainer.h; sourceTree = "<group>"; };
 		0160A96B1BA742C90035A331 /* RTRStackNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTRStackNode.h; sourceTree = "<group>"; };
 		0160A96C1BA742C90035A331 /* RTRStackNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTRStackNode.m; sourceTree = "<group>"; };
@@ -48,6 +51,25 @@
 		0160A9811BA78CAE0035A331 /* RTRNodeContentUpdateContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTRNodeContentUpdateContext.h; sourceTree = "<group>"; };
 		0160A9831BA78EAC0035A331 /* RTRNavigationControllerContent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTRNavigationControllerContent.h; sourceTree = "<group>"; };
 		0160A9841BA78EAC0035A331 /* RTRNavigationControllerContent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTRNavigationControllerContent.m; sourceTree = "<group>"; };
+		0160A9871BA822170035A331 /* RTRCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTRCommand.h; sourceTree = "<group>"; };
+		0160A9881BA8299A0035A331 /* RTRNodeContentFeedbackChannel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTRNodeContentFeedbackChannel.h; sourceTree = "<group>"; };
+		01A01A621BA8373B00608274 /* RTRViewControllerContent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTRViewControllerContent.h; sourceTree = "<group>"; };
+		01A01A631BA8373B00608274 /* RTRViewControllerContent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTRViewControllerContent.m; sourceTree = "<group>"; };
+		01A01A651BA837B100608274 /* RTRRouter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTRRouter.h; sourceTree = "<group>"; };
+		01A01A661BA837B100608274 /* RTRRouter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTRRouter.m; sourceTree = "<group>"; };
+		01A01A6B1BA83A1A00608274 /* RTRGraphPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTRGraphPath.h; sourceTree = "<group>"; };
+		01A01A6C1BA83A1A00608274 /* RTRGraphPath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTRGraphPath.m; sourceTree = "<group>"; };
+		01A01A6F1BA83A4C00608274 /* RTRLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTRLayer.h; sourceTree = "<group>"; };
+		01A01A701BA83B0B00608274 /* RTRGraph.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTRGraph.h; sourceTree = "<group>"; };
+		01A01A711BA83B0B00608274 /* RTRGraph.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTRGraph.m; sourceTree = "<group>"; };
+		01A01A731BA83B4A00608274 /* RTRLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTRLayer.m; sourceTree = "<group>"; };
+		01A01A751BA83EA500608274 /* RTRCommandRegistry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTRCommandRegistry.h; sourceTree = "<group>"; };
+		01A01A761BA83EA500608274 /* RTRCommandRegistry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTRCommandRegistry.m; sourceTree = "<group>"; };
+		01A01A791BA8420000608274 /* RTRNodeContentProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTRNodeContentProvider.h; sourceTree = "<group>"; };
+		01A01A7E1BA84D2500608274 /* RTRNodeStateData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTRNodeStateData.h; sourceTree = "<group>"; };
+		01A01A7F1BA84D2500608274 /* RTRNodeStateData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTRNodeStateData.m; sourceTree = "<group>"; };
+		01A01A811BA869F200608274 /* RTRNodeContentUpdateContextImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTRNodeContentUpdateContextImpl.h; sourceTree = "<group>"; };
+		01A01A821BA869F200608274 /* RTRNodeContentUpdateContextImpl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTRNodeContentUpdateContextImpl.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,11 +102,15 @@
 		013F68A51BA62BE900B5797B /* Router */ = {
 			isa = PBXGroup;
 			children = (
-				013F68A61BA62BE900B5797B /* Router.h */,
-				013F68A81BA62BE900B5797B /* Router.m */,
 				0160A9651BA740480035A331 /* Node */,
 				0160A9771BA76CE70035A331 /* Node Content */,
+				01A01A781BA841DB00608274 /* Node Content Provider */,
+				01A01A6E1BA83A3C00608274 /* Layer */,
+				0160A9861BA821E10035A331 /* Command */,
+				01A01A7A1BA8428B00608274 /* Internals */,
 				0160A9661BA7404E0035A331 /* _thoughts_ */,
+				01A01A651BA837B100608274 /* RTRRouter.h */,
+				01A01A661BA837B100608274 /* RTRRouter.m */,
 			);
 			path = Router;
 			sourceTree = "<group>";
@@ -92,13 +118,13 @@
 		0160A9651BA740480035A331 /* Node */ = {
 			isa = PBXGroup;
 			children = (
+				0160A9711BA743B50035A331 /* Tree */,
+				0160A9681BA7416C0035A331 /* Stack */,
+				0160A96A1BA7418B0035A331 /* Tab */,
 				0160A97B1BA782540035A331 /* RTRNode.h */,
 				0160A97C1BA782940035A331 /* RTRNodeState.h */,
 				0160A97D1BA782BA0035A331 /* RTRNodeChildrenState.h */,
 				0160A97E1BA782BA0035A331 /* RTRNodeChildrenState.m */,
-				0160A9711BA743B50035A331 /* Tree */,
-				0160A9681BA7416C0035A331 /* Stack */,
-				0160A96A1BA7418B0035A331 /* Tab */,
 			);
 			name = Node;
 			sourceTree = "<group>";
@@ -106,6 +132,8 @@
 		0160A9661BA7404E0035A331 /* _thoughts_ */ = {
 			isa = PBXGroup;
 			children = (
+				01A01A6B1BA83A1A00608274 /* RTRGraphPath.h */,
+				01A01A6C1BA83A1A00608274 /* RTRGraphPath.m */,
 				0160A9671BA740730035A331 /* RTRNodeContainer.h */,
 			);
 			name = _thoughts_;
@@ -141,9 +169,10 @@
 		0160A9771BA76CE70035A331 /* Node Content */ = {
 			isa = PBXGroup;
 			children = (
+				0160A9821BA78DE00035A331 /* View Controller Content */,
 				0160A9781BA780AD0035A331 /* RTRNodeContent.h */,
 				0160A9811BA78CAE0035A331 /* RTRNodeContentUpdateContext.h */,
-				0160A9821BA78DE00035A331 /* View Controller Content */,
+				0160A9881BA8299A0035A331 /* RTRNodeContentFeedbackChannel.h */,
 			);
 			name = "Node Content";
 			sourceTree = "<group>";
@@ -151,10 +180,52 @@
 		0160A9821BA78DE00035A331 /* View Controller Content */ = {
 			isa = PBXGroup;
 			children = (
+				01A01A621BA8373B00608274 /* RTRViewControllerContent.h */,
+				01A01A631BA8373B00608274 /* RTRViewControllerContent.m */,
 				0160A9831BA78EAC0035A331 /* RTRNavigationControllerContent.h */,
 				0160A9841BA78EAC0035A331 /* RTRNavigationControllerContent.m */,
 			);
 			name = "View Controller Content";
+			sourceTree = "<group>";
+		};
+		0160A9861BA821E10035A331 /* Command */ = {
+			isa = PBXGroup;
+			children = (
+				0160A9871BA822170035A331 /* RTRCommand.h */,
+				01A01A751BA83EA500608274 /* RTRCommandRegistry.h */,
+				01A01A761BA83EA500608274 /* RTRCommandRegistry.m */,
+			);
+			name = Command;
+			sourceTree = "<group>";
+		};
+		01A01A6E1BA83A3C00608274 /* Layer */ = {
+			isa = PBXGroup;
+			children = (
+				01A01A6F1BA83A4C00608274 /* RTRLayer.h */,
+				01A01A731BA83B4A00608274 /* RTRLayer.m */,
+			);
+			name = Layer;
+			sourceTree = "<group>";
+		};
+		01A01A781BA841DB00608274 /* Node Content Provider */ = {
+			isa = PBXGroup;
+			children = (
+				01A01A791BA8420000608274 /* RTRNodeContentProvider.h */,
+			);
+			name = "Node Content Provider";
+			sourceTree = "<group>";
+		};
+		01A01A7A1BA8428B00608274 /* Internals */ = {
+			isa = PBXGroup;
+			children = (
+				01A01A701BA83B0B00608274 /* RTRGraph.h */,
+				01A01A711BA83B0B00608274 /* RTRGraph.m */,
+				01A01A7E1BA84D2500608274 /* RTRNodeStateData.h */,
+				01A01A7F1BA84D2500608274 /* RTRNodeStateData.m */,
+				01A01A811BA869F200608274 /* RTRNodeContentUpdateContextImpl.h */,
+				01A01A821BA869F200608274 /* RTRNodeContentUpdateContextImpl.m */,
+			);
+			name = Internals;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -216,10 +287,17 @@
 			files = (
 				0160A9701BA7434B0035A331 /* RTRNodeTree.m in Sources */,
 				0160A9761BA7479C0035A331 /* RTRTabNode.m in Sources */,
-				013F68A91BA62BE900B5797B /* Router.m in Sources */,
 				0160A96D1BA742C90035A331 /* RTRStackNode.m in Sources */,
+				01A01A771BA83EA500608274 /* RTRCommandRegistry.m in Sources */,
+				01A01A721BA83B0B00608274 /* RTRGraph.m in Sources */,
 				0160A9851BA78EAC0035A331 /* RTRNavigationControllerContent.m in Sources */,
+				01A01A641BA8373B00608274 /* RTRViewControllerContent.m in Sources */,
 				0160A97F1BA782BA0035A331 /* RTRNodeChildrenState.m in Sources */,
+				01A01A6D1BA83A1A00608274 /* RTRGraphPath.m in Sources */,
+				01A01A831BA869F200608274 /* RTRNodeContentUpdateContextImpl.m in Sources */,
+				01A01A801BA84D2500608274 /* RTRNodeStateData.m in Sources */,
+				01A01A741BA83B4A00608274 /* RTRLayer.m in Sources */,
+				01A01A671BA837B100608274 /* RTRRouter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1,5 +1,5 @@
 //
-//  RTRNodeContentUpdateContext.h
+//  RTRNodeContentProvider.h
 //  Router
 //
 //  Created by Nick Tymchenko on 15/09/15.
@@ -10,13 +10,8 @@
 
 @protocol RTRNode;
 @protocol RTRNodeContent;
-@protocol RTRNodeChildrenState;
 
-@protocol RTRNodeContentUpdateContext <NSObject>
-
-@property (nonatomic, readonly, getter = isAnimated) BOOL animated;
-
-@property (nonatomic, readonly) id<RTRNodeChildrenState> childrenState;
+@protocol RTRNodeContentProvider <NSObject>
 
 - (id<RTRNodeContent>)contentForNode:(id<RTRNode>)node;
 

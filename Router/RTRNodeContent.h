@@ -8,14 +8,21 @@
 
 #import <Foundation/Foundation.h>
 
+@protocol RTRCommand;
 @protocol RTRNodeContentUpdateContext;
+@protocol RTRNodeContentFeedbackChannel;
 
 @protocol RTRNodeContent <NSObject>
 
-// TODO: replace data property with some methods creating data?
+@property (nonatomic, strong, readonly) id data;
 
-@property (nonatomic, readonly) id data;
+- (void)setupDataWithCommand:(id<RTRCommand>)command;
 
 - (void)performUpdateWithContext:(id<RTRNodeContentUpdateContext>)updateContext;
+
+
+@optional
+
+@property (nonatomic, strong) id<RTRNodeContentFeedbackChannel> feedbackChannel;
 
 @end
