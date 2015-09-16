@@ -39,10 +39,6 @@
     self.graph = [[RTRGraph alloc] initWithRootNode:rootNode];
 }
 
-- (id<RTRNodeChildrenState>)rootChildrenState {
-    return [[RTRNodeChildrenState alloc] initWithInitializedChildren:nil activeChildren:[NSOrderedSet orderedSetWithObject:self.rootNode]];
-}
-
 #pragma mark - Command execution
 
 - (void)executeCommand:(id<RTRCommand>)command animated:(BOOL)animated {
@@ -82,15 +78,11 @@
     id<RTRNodeChildrenState> childrenState = [self dataForNode:parentNode].childrenState;
     
     for (id<RTRNode> childNode in childrenState.initializedChildren) {
-        [self dataForNode:childNode].state = RTRNodeStateInitialized;
-    }
-    
-    for (id<RTRNode> childNode in childrenState.activeChildren) {
-        [self dataForNode:childNode].state = RTRNodeStateActive;
+        [self dataForNode:childNode].state = [childrenState.activeChildren containsObject:childNode] ? RTRNodeStateActive : RTRNodeStateInitialized;
     }
     
     for (id<RTRNode> childNode in [parentNode allChildren]) {
-        if (![childrenState.initializedChildren containsObject:childNode] && ![childrenState.activeChildren containsObject:childNode]) {
+        if (![childrenState.initializedChildren containsObject:childNode]) {
             [self resetDataForNode:childNode];
         }
     }
@@ -108,11 +100,7 @@
     for (id<RTRNode> childNode in data.childrenState.initializedChildren) {
         [self updateNodeContentRecursively:childNode withCommand:command animated:NO];
     }
-    
-    for (id<RTRNode> childNode in data.childrenState.activeChildren) {
-        [self updateNodeContentRecursively:childNode withCommand:command animated:NO];
-    }
-    
+        
     [self updateNodeContent:node withCommand:command animated:animated];
 }
 

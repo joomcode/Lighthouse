@@ -10,6 +10,7 @@
 #import "RTRNodeContentUpdateContext.h"
 #import "RTRNodeChildrenState.h"
 #import "RTRNodeContentFeedbackChannel.h"
+#import "RTRViewControllerContentHelpers.h"
 
 @interface RTRNavigationControllerContent () <UINavigationControllerDelegate>
 
@@ -37,22 +38,13 @@
         _data.delegate = self;
     }
     
-    NSAssert(updateContext.childrenState.activeChildren.count <= 1, nil); // TODO
+    NSAssert(updateContext.childrenState.activeChildren.count <= 1, @""); // TODO
+    NSAssert(updateContext.childrenState.initializedChildren.lastObject == updateContext.childrenState.activeChildren.lastObject, @""); // TODO
     
-    NSMutableArray *childNodes = [[updateContext.childrenState.initializedChildren array] mutableCopy];
-    [childNodes addObject:updateContext.childrenState.activeChildren.firstObject];
-    
-    NSMutableArray *childViewControllers = [NSMutableArray arrayWithCapacity:childNodes.count];
-    
-    for (id<RTRNode> childNode in childNodes) {
-        id<RTRNodeContent> childContent = [updateContext contentForNode:childNode];
-        NSAssert([childContent.data isKindOfClass:[UIViewController class]], nil); // TODO
-        [childViewControllers addObject:childContent.data];
-    }
-    
+    NSArray *childViewControllers = [RTRViewControllerContentHelpers childViewControllersWithUpdateContext:updateContext];
     [self.data setViewControllers:childViewControllers animated:updateContext.animated];
     
-    self.childNodes = [childNodes copy];
+    self.childNodes = [updateContext.childrenState.initializedChildren array];
 }
 
 #pragma mark - UINavigationControllerDelegate

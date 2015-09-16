@@ -9,6 +9,7 @@
 #import "RTRModalPresentationContent.h"
 #import "RTRNodeContentUpdateContext.h"
 #import "RTRNodeChildrenState.h"
+#import "RTRViewControllerContentHelpers.h"
 
 typedef void (^RTRModalPresentationContentUpdateCompletionBlock)();
 typedef void (^RTRModalPresentationContentUpdateBlock)(RTRModalPresentationContentUpdateCompletionBlock completion);
@@ -49,7 +50,10 @@ typedef void (^RTRModalPresentationContentUpdateBlock)(RTRModalPresentationConte
 @synthesize data = _data;
 
 - (void)updateWithContext:(id<RTRNodeContentUpdateContext>)updateContext {
-    NSArray *viewControllers = [self viewControllerStackWithUpdateContext:updateContext];
+    NSAssert(updateContext.childrenState.activeChildren.count <= 1, @""); // TODO
+    NSAssert(updateContext.childrenState.initializedChildren.lastObject == updateContext.childrenState.activeChildren.lastObject, @""); // TODO
+    
+    NSArray *viewControllers = [RTRViewControllerContentHelpers childViewControllersWithUpdateContext:updateContext];
     NSArray *presentedViewControllers = [self presentedViewControllers];
     
     NSInteger commonPrefixLength = [self commonPrefixLengthForArray:viewControllers andArray:presentedViewControllers];
@@ -88,23 +92,6 @@ typedef void (^RTRModalPresentationContentUpdateBlock)(RTRModalPresentationConte
 }
 
 #pragma mark - Private
-
-- (NSArray *)viewControllerStackWithUpdateContext:(id<RTRNodeContentUpdateContext>)updateContext {
-    NSAssert(updateContext.childrenState.activeChildren.count <= 1, nil); // TODO
-    
-    NSMutableArray *childNodes = [[updateContext.childrenState.initializedChildren array] mutableCopy];
-    [childNodes addObject:updateContext.childrenState.activeChildren.firstObject];
-    
-    NSMutableArray *viewControllers = [NSMutableArray arrayWithCapacity:childNodes.count];
-    
-    for (id<RTRNode> childNode in childNodes) {
-        id<RTRNodeContent> childContent = [updateContext contentForNode:childNode];
-        NSAssert([childContent.data isKindOfClass:[UIViewController class]], nil); // TODO
-        [viewControllers addObject:childContent.data];
-    }
-    
-    return viewControllers;
-}
 
 - (NSArray *)presentedViewControllers {
     NSMutableArray *viewControllers = [[NSMutableArray alloc] init];

@@ -23,6 +23,7 @@
 
 #import "RTRViewControllerContent.h"
 #import "RTRNavigationControllerContent.h"
+#import "RTRTabBarControllerContent.h"
 #import "RTRModalPresentationContent.h"
 
 

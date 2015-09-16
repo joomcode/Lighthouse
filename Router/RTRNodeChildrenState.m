@@ -14,17 +14,22 @@
 @synthesize activeChildren = _activeChildren;
 
 - (instancetype)init {
-    return [self initWithInitializedChildren:nil activeChildren:nil];
+    return [self initWithInitializedChildren:nil activeChildrenIndexSet:nil];
 }
 
 - (instancetype)initWithInitializedChildren:(NSOrderedSet *)initializedChildren
-                             activeChildren:(NSOrderedSet *)activeChildren
+                     activeChildrenIndexSet:(NSIndexSet *)activeChildrenIndexSet
 {
     self = [super init];
     if (!self) return nil;
     
     _initializedChildren = [initializedChildren copy] ?: [NSOrderedSet orderedSet];
-    _activeChildren = [activeChildren copy] ?: [NSOrderedSet orderedSet];
+    
+    if (activeChildrenIndexSet) {
+        _activeChildren = [NSOrderedSet orderedSetWithArray:[_initializedChildren objectsAtIndexes:activeChildrenIndexSet]];
+    } else {
+        _activeChildren = [NSOrderedSet orderedSet];
+    }
     
     return self;
 }

@@ -20,6 +20,6 @@
 @interface RTRNodeChildrenState : NSObject <RTRNodeChildrenState>
 
 - (instancetype)initWithInitializedChildren:(NSOrderedSet *)initializedChildren
-                             activeChildren:(NSOrderedSet *)activeChildren;
+                     activeChildrenIndexSet:(NSIndexSet *)activeChildrenIndexSet;
 
 @end

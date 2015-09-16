@@ -61,12 +61,8 @@
         return nil;
     }
     
-    NSOrderedSet *activeChildren = [NSOrderedSet orderedSetWithObject:path.lastObject];
-    
-    NSMutableOrderedSet *initializedChildren = [path mutableCopy];
-    [initializedChildren removeObjectAtIndex:path.count - 1];
-    
-    return [[RTRNodeChildrenState alloc] initWithInitializedChildren:initializedChildren activeChildren:activeChildren];
+    return [[RTRNodeChildrenState alloc] initWithInitializedChildren:path
+                                              activeChildrenIndexSet:[NSIndexSet indexSetWithIndex:path.count - 1]];
 }
 
 @end

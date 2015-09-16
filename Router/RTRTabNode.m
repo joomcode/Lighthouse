@@ -46,16 +46,13 @@
 }
 
 - (id<RTRNodeChildrenState>)activateChild:(id<RTRNode>)child withCurrentState:(id<RTRNodeChildrenState>)currentState {
-    if (![self.children containsObject:child]) {
+    NSInteger childIndex = [self.children indexOfObject:child];
+    if (childIndex == NSNotFound) {
         return nil;
     }
     
-    NSMutableOrderedSet *initializedChildren = [self.children mutableCopy];
-    [initializedChildren removeObject:child];
-    
-    NSOrderedSet *activeChildren = [NSOrderedSet orderedSetWithObject:child];
-    
-    return [[RTRNodeChildrenState alloc] initWithInitializedChildren:initializedChildren activeChildren:activeChildren];
+    return [[RTRNodeChildrenState alloc] initWithInitializedChildren:self.children
+                                              activeChildrenIndexSet:[NSIndexSet indexSetWithIndex:childIndex]];
 }
 
 @end

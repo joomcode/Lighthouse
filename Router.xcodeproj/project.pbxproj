@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		012497981BA9D92E007CD98B /* RTRTabBarControllerContent.m in Sources */ = {isa = PBXBuildFile; fileRef = 012497971BA9D92E007CD98B /* RTRTabBarControllerContent.m */; };
+		0124979E1BA9E7B1007CD98B /* RTRViewControllerContentHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 0124979D1BA9E7B1007CD98B /* RTRViewControllerContentHelpers.m */; };
 		0160A96D1BA742C90035A331 /* RTRStackNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 0160A96C1BA742C90035A331 /* RTRStackNode.m */; };
 		0160A9701BA7434B0035A331 /* RTRNodeTree.m in Sources */ = {isa = PBXBuildFile; fileRef = 0160A96F1BA7434B0035A331 /* RTRNodeTree.m */; };
 		0160A9761BA7479C0035A331 /* RTRTabNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 0160A9751BA7479C0035A331 /* RTRTabNode.m */; };
@@ -39,6 +41,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		012497961BA9D92E007CD98B /* RTRTabBarControllerContent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTRTabBarControllerContent.h; sourceTree = "<group>"; };
+		012497971BA9D92E007CD98B /* RTRTabBarControllerContent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTRTabBarControllerContent.m; sourceTree = "<group>"; };
+		0124979C1BA9E7B1007CD98B /* RTRViewControllerContentHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTRViewControllerContentHelpers.h; sourceTree = "<group>"; };
+		0124979D1BA9E7B1007CD98B /* RTRViewControllerContentHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTRViewControllerContentHelpers.m; sourceTree = "<group>"; };
 		013F68A31BA62BE900B5797B /* libRouter.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libRouter.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		0160A96B1BA742C90035A331 /* RTRStackNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTRStackNode.h; sourceTree = "<group>"; };
 		0160A96C1BA742C90035A331 /* RTRStackNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTRStackNode.m; sourceTree = "<group>"; };
@@ -95,6 +101,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0124979F1BA9E825007CD98B /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				0124979C1BA9E7B1007CD98B /* RTRViewControllerContentHelpers.h */,
+				0124979D1BA9E7B1007CD98B /* RTRViewControllerContentHelpers.m */,
+			);
+			name = Helpers;
+			sourceTree = "<group>";
+		};
 		013F689A1BA62BE900B5797B = {
 			isa = PBXGroup;
 			children = (
@@ -183,10 +198,13 @@
 		0160A9821BA78DE00035A331 /* View Controller Content */ = {
 			isa = PBXGroup;
 			children = (
+				0124979F1BA9E825007CD98B /* Helpers */,
 				01A01A621BA8373B00608274 /* RTRViewControllerContent.h */,
 				01A01A631BA8373B00608274 /* RTRViewControllerContent.m */,
 				0160A9831BA78EAC0035A331 /* RTRNavigationControllerContent.h */,
 				0160A9841BA78EAC0035A331 /* RTRNavigationControllerContent.m */,
+				012497961BA9D92E007CD98B /* RTRTabBarControllerContent.h */,
+				012497971BA9D92E007CD98B /* RTRTabBarControllerContent.m */,
 				01A01A9F1BA88B4000608274 /* RTRModalPresentationContent.h */,
 				01A01AA01BA88B4000608274 /* RTRModalPresentationContent.m */,
 			);
@@ -324,11 +342,13 @@
 				0160A9701BA7434B0035A331 /* RTRNodeTree.m in Sources */,
 				01A01AB11BA97B7100608274 /* RTRCompositeNodeContentProvider.m in Sources */,
 				0160A9761BA7479C0035A331 /* RTRTabNode.m in Sources */,
+				0124979E1BA9E7B1007CD98B /* RTRViewControllerContentHelpers.m in Sources */,
 				0160A96D1BA742C90035A331 /* RTRStackNode.m in Sources */,
 				01A01A771BA83EA500608274 /* RTRCommandRegistry.m in Sources */,
 				01A01A721BA83B0B00608274 /* RTRGraph.m in Sources */,
 				0160A9851BA78EAC0035A331 /* RTRNavigationControllerContent.m in Sources */,
 				01A01A641BA8373B00608274 /* RTRViewControllerContent.m in Sources */,
+				012497981BA9D92E007CD98B /* RTRTabBarControllerContent.m in Sources */,
 				0160A97F1BA782BA0035A331 /* RTRNodeChildrenState.m in Sources */,
 				01A01AA11BA88B4000608274 /* RTRModalPresentationContent.m in Sources */,
 				01A01AAC1BA9743900608274 /* RTRCompositeNodeContent.m in Sources */,
