@@ -60,12 +60,12 @@
         NSArray *oldChildNodes = self.childNodes;
         
         self.childNodes = [self.childNodes subarrayWithRange:NSMakeRange(0, count)];
-        [self.feedbackChannel childNode:self.childNodes.lastObject didBecomeActive:YES];
+        [self.feedbackChannel childNodeDidBecomeActive:self.childNodes.lastObject];
         
         [navigationController.transitionCoordinator notifyWhenInteractionEndsUsingBlock:^(id<UIViewControllerTransitionCoordinatorContext> context) {
             if ([context isCancelled]) {
                 self.childNodes = oldChildNodes;
-                [self.feedbackChannel childNode:self.childNodes.lastObject didBecomeActive:YES];
+                [self.feedbackChannel childNodeDidBecomeActive:self.childNodes.lastObject];
             }
         }];
     }

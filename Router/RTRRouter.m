@@ -15,12 +15,14 @@
 #import "RTRNodeContentProvider.h"
 #import "RTRNodeChildrenState.h"
 #import "RTRNodeContentUpdateContextImpl.h"
+#import "RTRNodeContentFeedbackChannelImpl.h"
 
 @interface RTRRouter ()
 
 @property (nonatomic, strong) RTRGraph *graph;
 
 @property (nonatomic, strong) NSMapTable *stateDataByNode;
+@property (nonatomic, strong) NSSet *activeNodes;
 
 @end
 
@@ -63,6 +65,8 @@
         
         // TODO: figure out animations (queue or something like that?)
     }];
+    
+    [self updateActiveNodes];
 }
 
 - (void)touchParentNode:(id<RTRNode>)parentNode withNewChildNode:(id<RTRNode>)newChildNode command:(id<RTRCommand>)command {
@@ -100,14 +104,17 @@
 
 - (void)touchNode:(id<RTRNode>)node withCommand:(id<RTRCommand>)command state:(RTRNodeState)state {
     [self stateDataForNode:node].state = state;
-    [self setupNodeContent:node withCommand:command];
+    
+    if (command) {
+        [self setupNodeContent:node withCommand:command];
+    }
 }
 
 - (void)setupNodeContent:(id<RTRNode>)node withCommand:(id<RTRCommand>)command {
     RTRNodeStateData *stateData = [self stateDataForNode:node];
     
     if (!stateData.contentByProvider) {
-        stateData.contentByProvider = [self createContentTableForNode:node];
+        stateData.contentByProvider = [self createContentForNode:node];
     }
     
     for (id<RTRNodeContent> content in [stateData.contentByProvider objectEnumerator]) {
@@ -115,14 +122,28 @@
     }
 }
 
-- (NSMapTable *)createContentTableForNode:(id<RTRNode>)node {
+- (NSMapTable *)createContentForNode:(id<RTRNode>)node {
     NSMapTable *contentByProvider = [NSMapTable strongToStrongObjectsMapTable];
     
     for (id<RTRNodeContentProvider> provider in self.nodeContentProviders) {
         id<RTRNodeContent> content = [provider contentForNode:node];
-        if (content) {
-            [contentByProvider setObject:content forKey:provider];
+        if (!content) {
+            continue;
         }
+        
+        if ([content respondsToSelector:@selector(setFeedbackChannel:)]) {
+            RTRNodeContentFeedbackChannelImpl *feedbackChannel = [[RTRNodeContentFeedbackChannelImpl alloc] init];
+            
+            __weak __typeof(self) weakSelf = self;
+            feedbackChannel.childActivedBlock = ^(id<RTRNode> child) {
+                [weakSelf touchParentNode:node withNewChildNode:child command:nil];
+                [weakSelf updateActiveNodes];
+            };
+            
+            content.feedbackChannel = feedbackChannel;
+        }
+        
+        [contentByProvider setObject:content forKey:provider];
     }
     
     return contentByProvider;
@@ -147,6 +168,29 @@
         };
         
         [content performUpdateWithContext:contentUpdateContext];
+    }
+}
+
+- (void)updateActiveNodes {
+    self.activeNodes = [self calculateActiveNodes];
+}
+
+- (NSSet *)calculateActiveNodes {
+    NSMutableSet *activeNodes = [[NSMutableSet alloc] init];
+    [self calculateActiveNodesRecursivelyWithCurrentNode:self.rootNode activeNodes:activeNodes];
+    return [activeNodes copy];
+}
+
+- (void)calculateActiveNodesRecursivelyWithCurrentNode:(id<RTRNode>)node activeNodes:(NSMutableSet *)activeNodes {
+    RTRNodeStateData *stateData = [self stateDataForNode:node];
+    if (stateData.state != RTRNodeStateActive) {
+        return;
+    }
+    
+    [activeNodes addObject:node];
+    
+    for (id<RTRNode> child in stateData.childrenState.activeChildren) {
+        [self calculateActiveNodesRecursivelyWithCurrentNode:child activeNodes:activeNodes];
     }
 }
 
