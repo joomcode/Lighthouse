@@ -7,6 +7,7 @@
 //
 
 #import "RTRRouter.h"
+#import "RTRRouterDelegate.h"
 #import "RTRNode.h"
 #import "RTRNodeContent.h"
 #import "RTRGraph.h"
@@ -17,11 +18,15 @@
 #import "RTRNodeContentUpdateContextImpl.h"
 #import "RTRNodeContentFeedbackChannelImpl.h"
 
+NSString * const RTRRouterActiveNodesDidUpdateNotification = @"com.pixty.router.activeNodesDidUpdate";
+
+
 @interface RTRRouter ()
 
 @property (nonatomic, strong) RTRGraph *graph;
 
 @property (nonatomic, strong) NSMapTable *dataByNode;
+
 @property (nonatomic, strong) NSSet *activeNodes;
 
 @end
@@ -145,7 +150,14 @@
 #pragma mark - Active nodes
 
 - (void)updateActiveNodes {
-    self.activeNodes = [self calculateActiveNodes];
+    NSSet *activeNodes = [self calculateActiveNodes];
+    
+    if (![activeNodes isEqualToSet:self.activeNodes]) {
+        self.activeNodes = activeNodes;
+        
+        [self.delegate routerActiveNodesDidUpdate:self];
+        [[NSNotificationCenter defaultCenter] postNotificationName:RTRRouterActiveNodesDidUpdateNotification object:self];
+    }
 }
 
 - (NSSet *)calculateActiveNodes {

@@ -12,6 +12,8 @@
 @protocol RTRCommand;
 @protocol RTRCommandRegistry;
 @protocol RTRNodeContentProvider;
+@protocol RTRRouterDelegate;
+
 
 @interface RTRRouter : NSObject
 
@@ -20,6 +22,11 @@
 @property (nonatomic, strong) id<RTRNodeContentProvider> nodeContentProvider;
 
 @property (nonatomic, strong) id<RTRCommandRegistry> commandRegistry;
+
+
+@property (nonatomic, weak) id<RTRRouterDelegate> delegate;
+
+@property (nonatomic, readonly) NSSet *activeNodes;
 
 - (void)executeCommand:(id<RTRCommand>)command animated:(BOOL)animated;
 
