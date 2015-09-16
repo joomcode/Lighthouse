@@ -54,8 +54,12 @@
     id<RTRNode> deepModalNode = [[RTRLeafNode alloc] init];
     id<RTRNode> deepModalStackNode = [[RTRStackNode alloc] initWithNodes:@[ deepModalNode ]];
     
-    id<RTRNode> anotherModalNode = [[RTRLeafNode alloc] init];
-    id<RTRNode> anotherModalStackNode = [[RTRStackNode alloc] initWithNodes:@[ anotherModalNode ]];
+    id<RTRNode> anotherRedNode = [[RTRLeafNode alloc] init];
+    id<RTRNode> anotherGreenNode = [[RTRLeafNode alloc] init];
+    id<RTRNode> anotherBlueNode = [[RTRLeafNode alloc] init];
+    NSArray *anotherTabNodes = @[ anotherRedNode, anotherGreenNode, anotherBlueNode ];
+    id<RTRNode> anotherTabNode = [[RTRTabNode alloc] initWithChildren:[NSOrderedSet orderedSetWithArray:anotherTabNodes]];
+    id<RTRNode> anotherModalStackNode = [[RTRStackNode alloc] initWithNodes:@[ anotherTabNode ]];
     
     RTRNodeTree *rootTree = [[RTRNodeTree alloc] init];
     [rootTree addBranch:@[ mainStackNode, modalStackNode, deepModalStackNode ] afterNodeOrNil:nil];
@@ -68,6 +72,14 @@
     // Node Content
     
     RTRBlockNodeContentProvider *nodeContentProvider = [[RTRBlockNodeContentProvider alloc] init];
+    
+    [nodeContentProvider bindNodeClass:[RTRStackNode class] toBlock:^id<RTRNodeContent>(id<RTRNode> node) {
+        return [[RTRNavigationControllerContent alloc] init];
+    }];
+    
+    [nodeContentProvider bindNodeClass:[RTRTabNode class] toBlock:^id<RTRNodeContent>(id<RTRNode> node) {
+        return [[RTRTabBarControllerContent alloc] init];
+    }];
     
     [nodeContentProvider bindNode:redNode toBlock:^id<RTRNodeContent>(id<RTRNode> node) {
         return [[RTRViewControllerContent alloc] initWithViewControllerClass:[PXRedViewController class]];
@@ -89,12 +101,16 @@
         return [[RTRViewControllerContent alloc] initWithViewControllerClass:[PXGreenViewController class]];
     }];
     
-    [nodeContentProvider bindNode:anotherModalNode toBlock:^id<RTRNodeContent>(id<RTRNode> node) {
-        return [[RTRViewControllerContent alloc] initWithViewControllerClass:[PXBlueViewController class]];
+    [nodeContentProvider bindNode:anotherRedNode toBlock:^id<RTRNodeContent>(id<RTRNode> node) {
+        return [[RTRViewControllerContent alloc] initWithViewControllerClass:[PXRedViewController class]];
     }];
     
-    [nodeContentProvider bindNodeClass:[RTRStackNode class] toBlock:^id<RTRNodeContent>(id<RTRNode> node) {
-        return [[RTRNavigationControllerContent alloc] init];
+    [nodeContentProvider bindNode:anotherGreenNode toBlock:^id<RTRNodeContent>(id<RTRNode> node) {
+        return [[RTRViewControllerContent alloc] initWithViewControllerClass:[PXGreenViewController class]];
+    }];
+    
+    [nodeContentProvider bindNode:anotherBlueNode toBlock:^id<RTRNodeContent>(id<RTRNode> node) {
+        return [[RTRViewControllerContent alloc] initWithViewControllerClass:[PXBlueViewController class]];
     }];
     
     [nodeContentProvider bindNode:rootNode toBlock:^id<RTRNodeContent>(id<RTRNode> node) {
@@ -110,7 +126,7 @@
     [commandRegistry bindNode:greenNode toCommandClass:[PXPresentGreen class]];
     [commandRegistry bindNode:blueNode toCommandClass:[PXPresentBlue class]];
     [commandRegistry bindNode:deepModalNode toCommandClass:[PXPresentModal class]];
-    [commandRegistry bindNode:anotherModalNode toCommandClass:[PXPresentAnotherModal class]];
+    [commandRegistry bindNode:anotherBlueNode toCommandClass:[PXPresentAnotherModal class]];
 
     
     // Router

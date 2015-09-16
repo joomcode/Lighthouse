@@ -10,10 +10,14 @@
 
 @implementation PXRedViewController
 
+- (instancetype)init {
+    self = [super init];
+    self.title = @"Red";
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    self.title = @"Red";
     self.view.backgroundColor = [UIColor redColor];
 }
 
@@ -22,10 +26,14 @@
 
 @implementation PXGreenViewController
 
+- (instancetype)init {
+    self = [super init];
+    self.title = @"Green";
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    self.title = @"Green";
     self.view.backgroundColor = [UIColor greenColor];
 }
 
@@ -34,10 +42,14 @@
 
 @implementation PXBlueViewController
 
+- (instancetype)init {
+    self = [super init];
+    self.title = @"Blue";
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    self.title = @"Blue";
     self.view.backgroundColor = [UIColor blueColor];
 }
 
