@@ -15,7 +15,7 @@
 - (NSSet *)allNodes;
 
 - (id<RTRNode>)previousNode:(id<RTRNode>)node;
-- (NSSet *)nextNodes:(id<RTRNode>)node;
+- (NSOrderedSet *)nextNodes:(id<RTRNode>)node;
 
 - (NSOrderedSet *)pathToNode:(id<RTRNode>)node;
 

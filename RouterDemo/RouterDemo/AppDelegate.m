@@ -49,7 +49,10 @@
     id<RTRNode> modalNode = [[RTRLeafNode alloc] init];
     id<RTRNode> modalStackNode = [[RTRStackNode alloc] initWithNodes:@[ modalNode ]];
     
-    id<RTRNode> rootNode = [[RTRStackNode alloc] initWithNodes:@[ mainStackNode, modalStackNode ]];
+    id<RTRNode> deepModalNode = [[RTRLeafNode alloc] init];
+    id<RTRNode> deepModalStackNode = [[RTRStackNode alloc] initWithNodes:@[ deepModalNode ]];
+    
+    id<RTRNode> rootNode = [[RTRStackNode alloc] initWithNodes:@[ mainStackNode, modalStackNode, deepModalStackNode ]];
     
     
     // Node Content
@@ -72,6 +75,10 @@
         return [[RTRViewControllerContent alloc] initWithViewControllerClass:[PXModalViewController class]];
     }];
     
+    [nodeContentProvider bindNode:deepModalNode toBlock:^id<RTRNodeContent>(id<RTRNode> node) {
+        return [[RTRViewControllerContent alloc] initWithViewControllerClass:[PXGreenViewController class]];
+    }];
+    
     [nodeContentProvider bindNodeClass:[RTRStackNode class] toBlock:^id<RTRNodeContent>(id<RTRNode> node) {
         return [[RTRNavigationControllerContent alloc] init];
     }];
@@ -88,7 +95,7 @@
     [commandRegistry bindNode:redNode toCommandClass:[PXPresentRed class]];
     [commandRegistry bindNode:greenNode toCommandClass:[PXPresentGreen class]];
     [commandRegistry bindNode:blueNode toCommandClass:[PXPresentBlue class]];
-    [commandRegistry bindNode:modalNode toCommandClass:[PXPresentModal class]];
+    [commandRegistry bindNode:deepModalNode toCommandClass:[PXPresentModal class]];
 
     
     // Router
@@ -106,7 +113,6 @@
 }
 
 - (void)doSomethingLater {
-    [self.router executeCommand:[[PXPresentRed alloc] init] animated:NO];
     [self.router executeCommand:[[PXPresentModal alloc] init] animated:YES];
 }
 

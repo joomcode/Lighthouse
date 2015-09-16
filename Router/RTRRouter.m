@@ -54,8 +54,9 @@
     
     NSInteger contentUpdateRangeLocation = [self findContentUpdateRangeLocationForCommandTargetNodePath:pathToTargetNode];
     
-    [self touchNodePath:pathToTargetNode withCommand:command];
-    [self updateActiveNodes];
+    [self activateNodePath:pathToTargetNode];
+    
+    [self setupNodeContentRecursively:pathToTargetNode[0] withCommand:command];
     
     if (contentUpdateRangeLocation != NSNotFound) {
         NSMutableArray *nodes = [[pathToTargetNode array] mutableCopy];
@@ -67,57 +68,54 @@
 
 #pragma mark - Node data manipulation
 
-- (void)touchNodePath:(NSOrderedSet *)nodePath withCommand:(id<RTRCommand>)command {
+- (void)activateNodePath:(NSOrderedSet *)nodePath {
     for (NSInteger i = 0; i < nodePath.count; ++i) {
         if (i == 0) {
-            id<RTRNode> rootNode = nodePath[0];
-            [self touchNode:rootNode withCommand:command state:RTRNodeStateActive];
+            [self dataForNode:nodePath[0]].state = RTRNodeStateActive;
         } else {
-            id<RTRNode> parentNode = nodePath[i - 1];
-            id<RTRNode> childNode = nodePath[i];
-            [self touchParentNode:parentNode withNewChildNode:childNode command:command];
+            [self activateNewChildNode:nodePath[i] ofParentNode:nodePath[i - 1]];
         }
     }
+    
+    [self updateActiveNodes];
 }
 
-- (void)touchParentNode:(id<RTRNode>)parentNode withNewChildNode:(id<RTRNode>)newChildNode command:(id<RTRCommand>)command {
+- (void)activateNewChildNode:(id<RTRNode>)childNode ofParentNode:(id<RTRNode>)parentNode {
     RTRNodeData *parentData = [self dataForNode:parentNode];
-    id<RTRNodeChildrenState> oldChildrenState = parentData.childrenState;
+    parentData.childrenState = [parentNode activateChild:childNode withCurrentState:parentData.childrenState];
     
-    id<RTRNodeChildrenState> newChildrenState = [parentNode activateChild:newChildNode withCurrentState:oldChildrenState];
-    parentData.childrenState = newChildrenState;
-    
-    [self resetInactiveChildrenOfNode:parentNode];
-    [self touchChildrenOfNode:parentNode withCommand:command];
+    [self updateNodeChildrenState:parentNode];
 }
 
-- (void)resetInactiveChildrenOfNode:(id<RTRNode>)parentNode {
+- (void)updateNodeChildrenState:(id<RTRNode>)parentNode {
     id<RTRNodeChildrenState> childrenState = [self dataForNode:parentNode].childrenState;
     
-    for (id<RTRNode> child in [parentNode allChildren]) {
-        if (![childrenState.initializedChildren containsObject:child] && ![childrenState.activeChildren containsObject:child]) {
-            [self resetDataForNode:child];
+    for (id<RTRNode> childNode in childrenState.initializedChildren) {
+        [self dataForNode:childNode].state = RTRNodeStateInitialized;
+    }
+    
+    for (id<RTRNode> childNode in childrenState.activeChildren) {
+        [self dataForNode:childNode].state = RTRNodeStateActive;
+    }
+    
+    for (id<RTRNode> childNode in [parentNode allChildren]) {
+        if (![childrenState.initializedChildren containsObject:childNode] && ![childrenState.activeChildren containsObject:childNode]) {
+            [self resetDataForNode:childNode];
         }
     }
 }
 
-- (void)touchChildrenOfNode:(id<RTRNode>)parentNode withCommand:(id<RTRCommand>)command {
-    id<RTRNodeChildrenState> childrenState = [self dataForNode:parentNode].childrenState;
+- (void)setupNodeContentRecursively:(id<RTRNode>)node withCommand:(id<RTRCommand>)command {
+    [self setupNodeContent:node withCommand:command];
     
-    for (id<RTRNode> node in childrenState.initializedChildren) {
-        [self touchNode:node withCommand:command state:RTRNodeStateInitialized];
+    id<RTRNodeChildrenState> childrenState = [self dataForNode:node].childrenState;
+    
+    for (id<RTRNode> childNode in childrenState.initializedChildren) {
+        [self setupNodeContentRecursively:childNode withCommand:command];
     }
     
-    for (id<RTRNode> node in childrenState.activeChildren) {
-        [self touchNode:node withCommand:command state:RTRNodeStateActive];
-    }
-}
-
-- (void)touchNode:(id<RTRNode>)node withCommand:(id<RTRCommand>)command state:(RTRNodeState)state {
-    [self dataForNode:node].state = state;
-    
-    if (command) {
-        [self setupNodeContent:node withCommand:command];
+    for (id<RTRNode> childNode in childrenState.activeChildren) {
+        [self setupNodeContentRecursively:childNode withCommand:command];
     }
 }
 
@@ -143,7 +141,7 @@
         
         __weak __typeof(self) weakSelf = self;
         feedbackChannel.childActivedBlock = ^(id<RTRNode> child) {
-            [weakSelf touchParentNode:node withNewChildNode:child command:nil];
+            [weakSelf activateNewChildNode:child ofParentNode:node];
             [weakSelf updateActiveNodes];
         };
         
@@ -168,12 +166,21 @@
 }
 
 - (void)performNodeContentUpdateForNodes:(NSArray *)nodes animated:(BOOL)animated {
-    for (NSInteger i = nodes.count - 1; i >= 0; --i) {
-        id<RTRNode> node = nodes[i];
-        BOOL shouldAnimate = (i == 0) ? animated : NO;
-        
-        [self performNodeContentUpdate:node animated:shouldAnimate];
+    [self performNodeContentUpdateRecursively:nodes[0] animated:animated];
+}
+
+- (void)performNodeContentUpdateRecursively:(id<RTRNode>)node animated:(BOOL)animated {
+    RTRNodeData *data = [self dataForNode:node];
+    
+    for (id<RTRNode> childNode in data.childrenState.initializedChildren) {
+        [self performNodeContentUpdateRecursively:childNode animated:NO];
     }
+    
+    for (id<RTRNode> childNode in data.childrenState.activeChildren) {
+        [self performNodeContentUpdateRecursively:childNode animated:NO];
+    }
+    
+    [self performNodeContentUpdate:node animated:animated];
 }
 
 - (void)performNodeContentUpdate:(id<RTRNode>)node animated:(BOOL)animated {
@@ -228,9 +235,15 @@
 - (RTRNodeData *)dataForNode:(id<RTRNode>)node {
     RTRNodeData *data = [self.dataByNode objectForKey:node];
     if (!data) {
-        data = [[RTRNodeData alloc] init];
+        data = [self createDataForNode:node];
         [self.dataByNode setObject:data forKey:node];
     }
+    return data;
+}
+
+- (RTRNodeData *)createDataForNode:(id<RTRNode>)node {
+    RTRNodeData *data = [[RTRNodeData alloc] init];
+    data.childrenState = [node activateChild:[node defaultActiveChild] withCurrentState:nil];
     return data;
 }
 

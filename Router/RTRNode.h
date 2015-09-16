@@ -14,6 +14,8 @@
 
 - (NSSet *)allChildren;
 
+- (id<RTRNode>)defaultActiveChild;
+
 - (id<RTRNodeChildrenState>)activateChild:(id<RTRNode>)child withCurrentState:(id<RTRNodeChildrenState>)currentState;
 
 @end

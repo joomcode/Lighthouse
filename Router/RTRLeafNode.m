@@ -16,6 +16,10 @@
     return nil;
 }
 
+- (id<RTRNode>)defaultActiveChild {
+    return nil;
+}
+
 - (id<RTRNodeChildrenState>)activateChild:(id<RTRNode>)child withCurrentState:(id<RTRNodeChildrenState>)currentState {
     return nil;
 }

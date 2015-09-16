@@ -26,8 +26,8 @@
     if (!self) return nil;
     
     _nodes = [[NSMutableSet alloc] init];
-    _nextNodes = [NSMapTable weakToWeakObjectsMapTable];
-    _previousNodes = [NSMapTable weakToWeakObjectsMapTable];
+    _nextNodes = [NSMapTable strongToStrongObjectsMapTable];
+    _previousNodes = [NSMapTable strongToStrongObjectsMapTable];
     
     return self;
 }
@@ -54,7 +54,7 @@
     return [self.previousNodes objectForKey:node];
 }
 
-- (NSSet *)nextNodes:(id<RTRNode>)node {
+- (NSOrderedSet *)nextNodes:(id<RTRNode>)node {
     return [self.nextNodes objectForKey:(node ?: (id)[NSNull null])];
 }
 
@@ -80,9 +80,9 @@
         [self.previousNodes setObject:previousNode forKey:node];
     }
     
-    NSMutableSet *nextNodes = [self.nextNodes objectForKey:(previousNode ?: (id)[NSNull null])];
+    NSMutableOrderedSet *nextNodes = [self.nextNodes objectForKey:(previousNode ?: (id)[NSNull null])];
     if (!nextNodes) {
-        nextNodes = [[NSMutableSet alloc] init];
+        nextNodes = [[NSMutableOrderedSet alloc] init];
         [self.nextNodes setObject:nextNodes forKey:(previousNode ?: (id)[NSNull null])];
     }
     

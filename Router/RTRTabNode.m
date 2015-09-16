@@ -41,6 +41,10 @@
     return [self.children set];
 }
 
+- (id<RTRNode>)defaultActiveChild {
+    return self.children.firstObject;
+}
+
 - (id<RTRNodeChildrenState>)activateChild:(id<RTRNode>)child withCurrentState:(id<RTRNodeChildrenState>)currentState {
     if (![self.children containsObject:child]) {
         return nil;

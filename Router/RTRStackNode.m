@@ -51,6 +51,10 @@
     return [self.tree allNodes];
 }
 
+- (id<RTRNode>)defaultActiveChild {
+    return [self.tree nextNodes:nil].firstObject;
+}
+
 - (id<RTRNodeChildrenState>)activateChild:(id<RTRNode>)child withCurrentState:(id<RTRNodeChildrenState>)currentState {
     NSOrderedSet *path = [self.tree pathToNode:child];
     if (!path) {
