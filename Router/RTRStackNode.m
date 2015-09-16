@@ -25,6 +25,15 @@
     return [self initWithTree:nil];
 }
 
+- (instancetype)initWithNodes:(NSArray *)nodes {
+    NSParameterAssert(nodes != nil);
+    
+    RTRNodeTree *tree = [[RTRNodeTree alloc] init];
+    [tree addBranch:nodes afterNodeOrNil:nil];
+    
+    return [self initWithTree:tree];
+}
+
 - (instancetype)initWithTree:(RTRNodeTree *)tree {
     NSParameterAssert(tree != nil);
     

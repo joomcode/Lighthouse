@@ -44,25 +44,12 @@
     id<RTRNode> redNode = [[RTRLeafNode alloc] init];
     id<RTRNode> greenNode = [[RTRLeafNode alloc] init];
     id<RTRNode> blueNode = [[RTRLeafNode alloc] init];
-    
-    RTRNodeTree *mainTree = [[RTRNodeTree alloc] init];
-    [mainTree addBranch:@[ redNode, greenNode, blueNode ] afterNodeOrNil:nil];
-    
-    id<RTRNode> mainStackNode = [[RTRStackNode alloc] initWithTree:mainTree];
-    
+    id<RTRNode> mainStackNode = [[RTRStackNode alloc] initWithNodes:@[ redNode, greenNode, blueNode ]];
     
     id<RTRNode> modalNode = [[RTRLeafNode alloc] init];
+    id<RTRNode> modalStackNode = [[RTRStackNode alloc] initWithNodes:@[ modalNode ]];
     
-    RTRNodeTree *modalTree = [[RTRNodeTree alloc] init];
-    [modalTree addNode:modalNode afterNodeOrNil:nil];
-    
-    id<RTRNode> modalStackNode = [[RTRStackNode alloc] initWithTree:modalTree];
-    
-    
-    RTRNodeTree *rootTree = [[RTRNodeTree alloc] init];
-    [rootTree addBranch:@[ mainStackNode, modalStackNode ] afterNodeOrNil:nil];
-    
-    id<RTRNode> rootNode = [[RTRStackNode alloc] initWithTree:rootTree];
+    id<RTRNode> rootNode = [[RTRStackNode alloc] initWithNodes:@[ mainStackNode, modalStackNode ]];
     
     
     // Node Content
