@@ -14,6 +14,6 @@
 
 - (instancetype)initWithTree:(RTRNodeTree *)tree;
 
-- (instancetype)initWithNodes:(NSArray *)nodes;
+- (instancetype)initWithSingleBranch:(NSArray *)nodes;
 
 @end

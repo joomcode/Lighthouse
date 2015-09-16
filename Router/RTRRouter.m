@@ -131,7 +131,7 @@
         RTRNodeContentFeedbackChannelImpl *feedbackChannel = [[RTRNodeContentFeedbackChannelImpl alloc] init];
         
         __weak __typeof(self) weakSelf = self;
-        feedbackChannel.childActivedBlock = ^(id<RTRNode> child) {
+        feedbackChannel.childActivatedBlock = ^(id<RTRNode> child) {
             [weakSelf activateNewChildNode:child ofParentNode:node];
             [weakSelf updateActiveNodes];
         };

@@ -46,27 +46,26 @@
     id<RTRNode> redNode = [[RTRLeafNode alloc] init];
     id<RTRNode> greenNode = [[RTRLeafNode alloc] init];
     id<RTRNode> blueNode = [[RTRLeafNode alloc] init];
-    id<RTRNode> mainStackNode = [[RTRStackNode alloc] initWithNodes:@[ redNode, greenNode, blueNode ]];
+    id<RTRNode> mainStackNode = [[RTRStackNode alloc] initWithSingleBranch:@[ redNode, greenNode, blueNode ]];
     
     id<RTRNode> modalNode = [[RTRLeafNode alloc] init];
-    id<RTRNode> modalStackNode = [[RTRStackNode alloc] initWithNodes:@[ modalNode ]];
+    id<RTRNode> modalStackNode = [[RTRStackNode alloc] initWithSingleBranch:@[ modalNode ]];
     
     id<RTRNode> deepModalNode = [[RTRLeafNode alloc] init];
-    id<RTRNode> deepModalStackNode = [[RTRStackNode alloc] initWithNodes:@[ deepModalNode ]];
+    id<RTRNode> deepModalStackNode = [[RTRStackNode alloc] initWithSingleBranch:@[ deepModalNode ]];
     
     id<RTRNode> anotherRedNode = [[RTRLeafNode alloc] init];
     id<RTRNode> anotherGreenNode = [[RTRLeafNode alloc] init];
     id<RTRNode> anotherBlueNode = [[RTRLeafNode alloc] init];
     NSArray *anotherTabNodes = @[ anotherRedNode, anotherGreenNode, anotherBlueNode ];
     id<RTRNode> anotherTabNode = [[RTRTabNode alloc] initWithChildren:[NSOrderedSet orderedSetWithArray:anotherTabNodes]];
-    id<RTRNode> anotherModalStackNode = [[RTRStackNode alloc] initWithNodes:@[ anotherTabNode ]];
+    id<RTRNode> anotherModalStackNode = [[RTRStackNode alloc] initWithSingleBranch:@[ anotherTabNode ]];
     
     RTRNodeTree *rootTree = [[RTRNodeTree alloc] init];
     [rootTree addBranch:@[ mainStackNode, modalStackNode, deepModalStackNode ] afterNodeOrNil:nil];
     [rootTree addNode:anotherModalStackNode afterNodeOrNil:mainStackNode];
     
     id<RTRNode> rootNode = [[RTRStackNode alloc] initWithTree:rootTree];
-    
     
     
     // Node Content

@@ -25,7 +25,7 @@
     return [self initWithTree:nil];
 }
 
-- (instancetype)initWithNodes:(NSArray *)nodes {
+- (instancetype)initWithSingleBranch:(NSArray *)nodes {
     NSParameterAssert(nodes != nil);
     
     RTRNodeTree *tree = [[RTRNodeTree alloc] init];

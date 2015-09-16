@@ -20,6 +20,8 @@
 // Node Content
 
 #import "RTRNodeContent.h"
+#import "RTRNodeContentUpdateContext.h"
+#import "RTRNodeContentFeedbackChannel.h"
 
 #import "RTRViewControllerContent.h"
 #import "RTRNavigationControllerContent.h"
@@ -30,6 +32,7 @@
 // Node Content Provider
 
 #import "RTRNodeContentProvider.h"
+
 #import "RTRBlockNodeContentProvider.h"
 #import "RTRCompositeNodeContentProvider.h"
 

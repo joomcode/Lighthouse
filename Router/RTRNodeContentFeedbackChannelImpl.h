@@ -10,6 +10,6 @@
 
 @interface RTRNodeContentFeedbackChannelImpl : NSObject <RTRNodeContentFeedbackChannel>
 
-@property (nonatomic, copy) void (^childActivedBlock)(id<RTRNode> node);
+@property (nonatomic, copy) void (^childActivatedBlock)(id<RTRNode> node);
 
 @end

@@ -11,7 +11,7 @@
 @implementation RTRNodeContentFeedbackChannelImpl
 
 - (void)childNodeDidBecomeActive:(id<RTRNode>)node {
-    self.childActivedBlock(node);
+    self.childActivatedBlock(node);
 }
 
 @end

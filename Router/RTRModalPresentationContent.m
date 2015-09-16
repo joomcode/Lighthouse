@@ -59,13 +59,15 @@ typedef void (^RTRModalPresentationContentUpdateBlock)(RTRModalPresentationConte
     NSInteger commonPrefixLength = [self commonPrefixLengthForArray:viewControllers andArray:presentedViewControllers];
 
     for (NSInteger i = presentedViewControllers.count - 1; i >= commonPrefixLength; --i) {
-        if (i > 0) {
-            UIViewController *viewController = presentedViewControllers[i];
-            
-            [self enqueueUpdateWithBlock:^(RTRModalPresentationContentUpdateCompletionBlock completion) {
-                [viewController.presentingViewController dismissViewControllerAnimated:updateContext.animated completion:completion];
-            }];
+        if (i == 0) {
+            continue;
         }
+        
+        UIViewController *viewController = presentedViewControllers[i - 1];
+        
+        [self enqueueUpdateWithBlock:^(RTRModalPresentationContentUpdateCompletionBlock completion) {
+            [viewController dismissViewControllerAnimated:updateContext.animated completion:completion];
+        }];
     }
     
     for (NSInteger i = commonPrefixLength; i < viewControllers.count; ++i) {
