@@ -20,10 +20,15 @@
 #pragma mark - Init
 
 - (instancetype)init {
-    return [self initWithAnimated:NO childrenState:nil contentBlock:nil];
+    return [self initWithAnimated:NO command:nil childrenState:nil contentBlock:nil];
 }
 
-- (instancetype)initWithAnimated:(BOOL)animated childrenState:(id<RTRNodeChildrenState>)childrenState contentBlock:(id<RTRNodeContent> (^)(id<RTRNode>))contentBlock {
+- (instancetype)initWithAnimated:(BOOL)animated
+                         command:(id<RTRCommand>)command
+                   childrenState:(id<RTRNodeChildrenState>)childrenState
+                    contentBlock:(id<RTRNodeContent> (^)(id<RTRNode>))contentBlock
+{
+    NSParameterAssert(command != nil);
     NSParameterAssert(childrenState != nil);
     NSParameterAssert(contentBlock != nil);
     
@@ -31,6 +36,7 @@
     if (!self) return nil;
     
     _animated = animated;
+    _command = command;
     _childrenState = childrenState;
     _contentBlock = [contentBlock copy];
     
@@ -40,6 +46,7 @@
 #pragma mark - RTRNodeContentUpdateContext
 
 @synthesize animated = _animated;
+@synthesize command = _command;
 @synthesize childrenState = _childrenState;
 
 - (id<RTRNodeContent>)contentForNode:(id<RTRNode>)node {

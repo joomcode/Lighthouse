@@ -59,16 +59,11 @@
     return data;
 }
 
-- (void)setupDataWithCommand:(id<RTRCommand>)command {
-    for (id<RTRNodeContent> content in self.contentById.allValues) {
-        [content setupDataWithCommand:command];
-    }
-}
-
-- (void)performUpdateWithContext:(id<RTRNodeContentUpdateContext>)updateContext {
+- (void)updateWithContext:(id<RTRNodeContentUpdateContext>)updateContext {
     [self.contentById enumerateKeysAndObjectsUsingBlock:^(id<NSCopying> contentId, id<RTRNodeContent> content, BOOL *stop) {
-        [content performUpdateWithContext:
+        [content updateWithContext:
             [[RTRNodeContentUpdateContextImpl alloc] initWithAnimated:updateContext.animated
+                                                              command:updateContext.command
                                                         childrenState:updateContext.childrenState
                                                          contentBlock:^id<RTRNodeContent>(id<RTRNode> node) {
                                                              return ((RTRCompositeNodeContent *)[updateContext contentForNode:node]).contentById[contentId];

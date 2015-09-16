@@ -24,14 +24,12 @@
 @synthesize data = _data;
 @synthesize feedbackChannel = _feedbackChannel;
 
-- (void)setupDataWithCommand:(id<RTRCommand>)command {
+- (void)updateWithContext:(id<RTRNodeContentUpdateContext>)updateContext {
     if (!_data) {
         _data = [[UINavigationController alloc] init];
         _data.delegate = self;
     }
-}
-
-- (void)performUpdateWithContext:(id<RTRNodeContentUpdateContext>)updateContext {
+    
     NSAssert(updateContext.childrenState.activeChildren.count <= 1, nil); // TODO
     
     NSMutableArray *childNodes = [[updateContext.childrenState.initializedChildren array] mutableCopy];

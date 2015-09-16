@@ -29,13 +29,10 @@
 
 @synthesize data = _data;
 
-- (void)setupDataWithCommand:(id<RTRCommand>)command {
+- (void)updateWithContext:(id<RTRNodeContentUpdateContext>)updateContext {
     if (!_data) {
         _data = [[self.viewControllerClass alloc] init];
     }
-}
-
-- (void)performUpdateWithContext:(id<RTRNodeContentUpdateContext>)updateContext {
 }
 
 @end

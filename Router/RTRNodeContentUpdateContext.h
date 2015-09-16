@@ -9,12 +9,15 @@
 #import <Foundation/Foundation.h>
 
 @protocol RTRNode;
+@protocol RTRCommand;
 @protocol RTRNodeContent;
 @protocol RTRNodeChildrenState;
 
 @protocol RTRNodeContentUpdateContext <NSObject>
 
 @property (nonatomic, readonly, getter = isAnimated) BOOL animated;
+
+@property (nonatomic, readonly) id<RTRCommand> command;
 
 @property (nonatomic, readonly) id<RTRNodeChildrenState> childrenState;
 

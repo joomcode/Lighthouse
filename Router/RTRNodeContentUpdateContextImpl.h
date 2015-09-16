@@ -11,6 +11,7 @@
 @interface RTRNodeContentUpdateContextImpl : NSObject <RTRNodeContentUpdateContext>
 
 - (instancetype)initWithAnimated:(BOOL)animated
+                         command:(id<RTRCommand>)command
                    childrenState:(id<RTRNodeChildrenState>)childrenState
                     contentBlock:(id<RTRNodeContent> (^)(id<RTRNode> node))contentBlock;
 

@@ -40,10 +40,7 @@
 
 @synthesize data = _data;
 
-- (void)setupDataWithCommand:(id<RTRCommand>)command {
-}
-
-- (void)performUpdateWithContext:(id<RTRNodeContentUpdateContext>)updateContext {
+- (void)updateWithContext:(id<RTRNodeContentUpdateContext>)updateContext {
     NSArray *viewControllers = [self viewControllerStackWithUpdateContext:updateContext];
     NSArray *presentedViewControllers = [self presentedViewControllers];
     

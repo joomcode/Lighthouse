@@ -52,21 +52,12 @@
     NSOrderedSet *pathToTargetNode = [self.graph pathToNode:targetNode];
     NSAssert(pathToTargetNode != nil, @""); // TODO
     
-    NSInteger contentUpdateRangeLocation = [self findContentUpdateRangeLocationForCommandTargetNodePath:pathToTargetNode];
-    
     [self activateNodePath:pathToTargetNode];
     
-    [self setupNodeContentRecursively:pathToTargetNode[0] withCommand:command];
-    
-    if (contentUpdateRangeLocation != NSNotFound) {
-        NSMutableArray *nodes = [[pathToTargetNode array] mutableCopy];
-        [nodes removeObjectsInRange:NSMakeRange(0, MAX(0, contentUpdateRangeLocation - 1))];
-        
-        [self performNodeContentUpdateForNodes:nodes animated:animated];
-    }
+    [self updateContentForNodes:pathToTargetNode withCommand:command animated:animated];
 }
 
-#pragma mark - Node data manipulation
+#pragma mark - Node state manipulation
 
 - (void)activateNodePath:(NSOrderedSet *)nodePath {
     for (NSInteger i = 0; i < nodePath.count; ++i) {
@@ -105,28 +96,40 @@
     }
 }
 
-- (void)setupNodeContentRecursively:(id<RTRNode>)node withCommand:(id<RTRCommand>)command {
-    [self setupNodeContent:node withCommand:command];
-    
-    id<RTRNodeChildrenState> childrenState = [self dataForNode:node].childrenState;
-    
-    for (id<RTRNode> childNode in childrenState.initializedChildren) {
-        [self setupNodeContentRecursively:childNode withCommand:command];
-    }
-    
-    for (id<RTRNode> childNode in childrenState.activeChildren) {
-        [self setupNodeContentRecursively:childNode withCommand:command];
-    }
+#pragma mark - Node content manipulation
+
+- (void)updateContentForNodes:(NSOrderedSet *)nodes withCommand:(id<RTRCommand>)command animated:(BOOL)animated {
+    [self updateNodeContentRecursively:nodes[0] withCommand:command animated:animated];
 }
 
-- (void)setupNodeContent:(id<RTRNode>)node withCommand:(id<RTRCommand>)command {
+- (void)updateNodeContentRecursively:(id<RTRNode>)node withCommand:(id<RTRCommand>)command animated:(BOOL)animated {
+    RTRNodeData *data = [self dataForNode:node];
+    
+    for (id<RTRNode> childNode in data.childrenState.initializedChildren) {
+        [self updateNodeContentRecursively:childNode withCommand:command animated:NO];
+    }
+    
+    for (id<RTRNode> childNode in data.childrenState.activeChildren) {
+        [self updateNodeContentRecursively:childNode withCommand:command animated:NO];
+    }
+    
+    [self updateNodeContent:node withCommand:command animated:animated];
+}
+
+- (void)updateNodeContent:(id<RTRNode>)node withCommand:(id<RTRCommand>)command animated:(BOOL)animated {
     RTRNodeData *data = [self dataForNode:node];
     
     if (!data.content) {
         data.content = [self createContentForNode:node];
     }
     
-    [data.content setupDataWithCommand:command];
+    [data.content updateWithContext:
+        [[RTRNodeContentUpdateContextImpl alloc] initWithAnimated:animated
+                                                          command:command
+                                                    childrenState:data.childrenState
+                                                     contentBlock:^id<RTRNodeContent>(id<RTRNode> node) {
+                                                         return [self dataForNode:node].content;
+                                                     }]];
 }
 
 - (id<RTRNodeContent>)createContentForNode:(id<RTRNode>)node {
@@ -149,53 +152,6 @@
     }
     
     return content;
-}
-
-#pragma mark - Node content update
-
-- (NSInteger)findContentUpdateRangeLocationForCommandTargetNodePath:(NSOrderedSet *)nodePath {
-    for (NSInteger i = 0; i < nodePath.count; ++i) {
-        RTRNodeData *data = [self dataForNode:nodePath[i]];
-        
-        if (data.state != RTRNodeStateActive) {
-            return MAX(0, i - 1);
-        }
-    }
-    
-    return NSNotFound;
-}
-
-- (void)performNodeContentUpdateForNodes:(NSArray *)nodes animated:(BOOL)animated {
-    [self performNodeContentUpdateRecursively:nodes[0] animated:animated];
-}
-
-- (void)performNodeContentUpdateRecursively:(id<RTRNode>)node animated:(BOOL)animated {
-    RTRNodeData *data = [self dataForNode:node];
-    
-    for (id<RTRNode> childNode in data.childrenState.initializedChildren) {
-        [self performNodeContentUpdateRecursively:childNode animated:NO];
-    }
-    
-    for (id<RTRNode> childNode in data.childrenState.activeChildren) {
-        [self performNodeContentUpdateRecursively:childNode animated:NO];
-    }
-    
-    [self performNodeContentUpdate:node animated:animated];
-}
-
-- (void)performNodeContentUpdate:(id<RTRNode>)node animated:(BOOL)animated {
-    RTRNodeData *data = [self dataForNode:node];
-    
-    if (!data.content) {
-        return;
-    }
-    
-    [data.content performUpdateWithContext:
-        [[RTRNodeContentUpdateContextImpl alloc] initWithAnimated:animated
-                                                    childrenState:data.childrenState
-                                                     contentBlock:^id<RTRNodeContent>(id<RTRNode> node) {
-                                                         return [self dataForNode:node].content;
-                                                     }]];
 }
 
 #pragma mark - Active nodes
@@ -223,7 +179,7 @@
     }
 }
 
-#pragma mark - Node state
+#pragma mark - Node data
 
 - (NSMapTable *)dataByNode {
     if (!_dataByNode) {

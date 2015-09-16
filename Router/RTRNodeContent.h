@@ -16,9 +16,7 @@
 
 @property (nonatomic, strong, readonly) id data;
 
-- (void)setupDataWithCommand:(id<RTRCommand>)command;
-
-- (void)performUpdateWithContext:(id<RTRNodeContentUpdateContext>)updateContext;
+- (void)updateWithContext:(id<RTRNodeContentUpdateContext>)updateContext;
 
 
 @optional
