@@ -44,16 +44,68 @@
 }
 
 - (void)performUpdateWithContext:(id<RTRNodeContentUpdateContext>)updateContext {
-    // TODO: actual modal stuff
+    NSArray *viewControllers = [self viewControllerStackWithUpdateContext:updateContext];
+    NSArray *presentedViewControllers = [self presentedViewControllers];
     
+    NSInteger commonPrefixLength = [self commonPrefixLengthForArray:viewControllers andArray:presentedViewControllers];
+    
+    for (NSInteger i = presentedViewControllers.count - 1; i >= commonPrefixLength; --i) {
+        if (i > 0) {
+            UIViewController *viewController = presentedViewControllers[i];
+            [viewController.presentingViewController dismissViewControllerAnimated:updateContext.animated completion:nil];
+        }
+    }
+    
+    for (NSInteger i = commonPrefixLength; i < viewControllers.count; ++i) {
+        UIViewController *viewController = viewControllers[i];
+        
+        if (i == 0) {
+            self.window.rootViewController = viewController;
+        } else {
+            UIViewController *previousViewController = viewControllers[i - 1];
+            [previousViewController presentViewController:viewController animated:updateContext.animated completion:nil];
+        }
+    }
+}
+
+#pragma mark - Private
+
+- (NSArray *)viewControllerStackWithUpdateContext:(id<RTRNodeContentUpdateContext>)updateContext {
     NSAssert(updateContext.childrenState.activeChildren.count <= 1, nil); // TODO
     
-    id<RTRNode> rootNode = updateContext.childrenState.activeChildren.firstObject;
+    NSMutableArray *childNodes = [[updateContext.childrenState.initializedChildren array] mutableCopy];
+    [childNodes addObject:updateContext.childrenState.activeChildren.firstObject];
     
-    id<RTRNodeContent> rootNodeContent = [updateContext contentForNode:rootNode];
-    NSAssert([rootNodeContent.data isKindOfClass:[UIViewController class]], @""); // TODO
+    NSMutableArray *viewControllers = [NSMutableArray arrayWithCapacity:childNodes.count];
     
-    self.window.rootViewController = rootNodeContent.data;
+    for (id<RTRNode> childNode in childNodes) {
+        id<RTRNodeContent> childContent = [updateContext contentForNode:childNode];
+        NSAssert([childContent.data isKindOfClass:[UIViewController class]], nil); // TODO
+        [viewControllers addObject:childContent.data];
+    }
+    
+    return viewControllers;
+}
+
+- (NSArray *)presentedViewControllers {
+    NSMutableArray *viewControllers = [[NSMutableArray alloc] init];
+    
+    UIViewController *currentViewController = self.window.rootViewController;
+    
+    while (currentViewController) {
+        [viewControllers addObject:currentViewController];
+        currentViewController = currentViewController.presentedViewController;
+    }
+    
+    return viewControllers;
+}
+
+- (NSInteger)commonPrefixLengthForArray:(NSArray *)array1 andArray:(NSArray *)array2 {
+    NSInteger i = 0;
+    while (i < array1.count && i < array2.count && [array1[i] isEqual:array2[i]]) {
+        ++i;
+    }
+    return i;
 }
 
 @end

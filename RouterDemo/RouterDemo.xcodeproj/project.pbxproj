@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		012497921BA99994007CD98B /* PXPresentModal.m in Sources */ = {isa = PBXBuildFile; fileRef = 012497911BA99994007CD98B /* PXPresentModal.m */; };
 		013F68BD1BA62CA300B5797B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 013F68BC1BA62CA300B5797B /* main.m */; };
 		013F68C01BA62CA300B5797B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 013F68BF1BA62CA300B5797B /* AppDelegate.m */; };
 		013F68C31BA62CA300B5797B /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 013F68C21BA62CA300B5797B /* ViewController.m */; };
@@ -20,6 +21,7 @@
 		01A01A8E1BA8783600608274 /* PXPresentGreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A01A8D1BA8783600608274 /* PXPresentGreen.m */; };
 		01A01A911BA8783E00608274 /* PXPresentBlue.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A01A901BA8783E00608274 /* PXPresentBlue.m */; };
 		01A01A941BA8786F00608274 /* RTRRouter+Shared.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A01A931BA8786F00608274 /* RTRRouter+Shared.m */; };
+		01A01AB41BA9887D00608274 /* PXModalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A01AB31BA9887D00608274 /* PXModalViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +42,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		012497901BA99994007CD98B /* PXPresentModal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXPresentModal.h; sourceTree = "<group>"; };
+		012497911BA99994007CD98B /* PXPresentModal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXPresentModal.m; sourceTree = "<group>"; };
 		013F68B81BA62CA300B5797B /* RouterDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RouterDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		013F68BC1BA62CA300B5797B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		013F68BE1BA62CA300B5797B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -66,6 +70,8 @@
 		01A01A901BA8783E00608274 /* PXPresentBlue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXPresentBlue.m; sourceTree = "<group>"; };
 		01A01A921BA8786F00608274 /* RTRRouter+Shared.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RTRRouter+Shared.h"; sourceTree = "<group>"; };
 		01A01A931BA8786F00608274 /* RTRRouter+Shared.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "RTRRouter+Shared.m"; sourceTree = "<group>"; };
+		01A01AB21BA9887D00608274 /* PXModalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXModalViewController.h; sourceTree = "<group>"; };
+		01A01AB31BA9887D00608274 /* PXModalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXModalViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -173,6 +179,8 @@
 			children = (
 				01A01A851BA8777100608274 /* PXColorViewControllers.h */,
 				01A01A861BA8777100608274 /* PXColorViewControllers.m */,
+				01A01AB21BA9887D00608274 /* PXModalViewController.h */,
+				01A01AB31BA9887D00608274 /* PXModalViewController.m */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -186,6 +194,8 @@
 				01A01A8D1BA8783600608274 /* PXPresentGreen.m */,
 				01A01A8F1BA8783E00608274 /* PXPresentBlue.h */,
 				01A01A901BA8783E00608274 /* PXPresentBlue.m */,
+				012497901BA99994007CD98B /* PXPresentModal.h */,
+				012497911BA99994007CD98B /* PXPresentModal.m */,
 			);
 			name = Commands;
 			sourceTree = "<group>";
@@ -321,9 +331,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				01A01A941BA8786F00608274 /* RTRRouter+Shared.m in Sources */,
+				012497921BA99994007CD98B /* PXPresentModal.m in Sources */,
 				01A01A911BA8783E00608274 /* PXPresentBlue.m in Sources */,
 				01A01A871BA8777100608274 /* PXColorViewControllers.m in Sources */,
 				013F68C31BA62CA300B5797B /* ViewController.m in Sources */,
+				01A01AB41BA9887D00608274 /* PXModalViewController.m in Sources */,
 				013F68C01BA62CA300B5797B /* AppDelegate.m in Sources */,
 				01A01A8E1BA8783600608274 /* PXPresentGreen.m in Sources */,
 				013F68BD1BA62CA300B5797B /* main.m in Sources */,

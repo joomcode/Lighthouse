@@ -8,9 +8,11 @@
 
 #import "AppDelegate.h"
 #import "PXColorViewControllers.h"
+#import "PXModalViewController.h"
 #import "PXPresentRed.h"
 #import "PXPresentGreen.h"
 #import "PXPresentBlue.h"
+#import "PXPresentModal.h"
 #import "RTRRouter+Shared.h"
 #import <Router.h>
 
@@ -28,11 +30,10 @@
     self.window.backgroundColor = [UIColor whiteColor];
 
     [self setupRouter];
-    [self.router executeCommand:[[PXPresentRed alloc] init] animated:NO];
+    [self doSomething];
+    [self performSelector:@selector(doSomethingLater) withObject:nil afterDelay:3.0];
     
     [self.window makeKeyAndVisible];
-    
-    [self performSelector:@selector(doSomething) withObject:nil afterDelay:3.0];
     
     return YES;
 }
@@ -44,12 +45,24 @@
     id<RTRNode> greenNode = [[RTRLeafNode alloc] init];
     id<RTRNode> blueNode = [[RTRLeafNode alloc] init];
     
-    RTRNodeTree *stackTree = [[RTRNodeTree alloc] init];
-    [stackTree addBranch:@[ redNode, greenNode, blueNode ] afterNodeOrNil:nil];
+    RTRNodeTree *mainTree = [[RTRNodeTree alloc] init];
+    [mainTree addBranch:@[ redNode, greenNode, blueNode ] afterNodeOrNil:nil];
     
-    id<RTRNode> stackNode = [[RTRStackNode alloc] initWithTree:stackTree];
+    id<RTRNode> mainStackNode = [[RTRStackNode alloc] initWithTree:mainTree];
     
-    id<RTRNode> rootNode = [[RTRLayerNode alloc] initWithRootNode:stackNode];
+    
+    id<RTRNode> modalNode = [[RTRLeafNode alloc] init];
+    
+    RTRNodeTree *modalTree = [[RTRNodeTree alloc] init];
+    [modalTree addNode:modalNode afterNodeOrNil:nil];
+    
+    id<RTRNode> modalStackNode = [[RTRStackNode alloc] initWithTree:modalTree];
+    
+    
+    RTRNodeTree *rootTree = [[RTRNodeTree alloc] init];
+    [rootTree addBranch:@[ mainStackNode, modalStackNode ] afterNodeOrNil:nil];
+    
+    id<RTRNode> rootNode = [[RTRStackNode alloc] initWithTree:rootTree];
     
     
     // Node Content
@@ -68,7 +81,11 @@
         return [[RTRViewControllerContent alloc] initWithViewControllerClass:[PXBlueViewController class]];
     }];
     
-    [nodeContentProvider bindNode:stackNode toBlock:^id<RTRNodeContent>(id<RTRNode> node) {
+    [nodeContentProvider bindNode:modalNode toBlock:^id<RTRNodeContent>(id<RTRNode> node) {
+        return [[RTRViewControllerContent alloc] initWithViewControllerClass:[PXModalViewController class]];
+    }];
+    
+    [nodeContentProvider bindNodeClass:[RTRStackNode class] toBlock:^id<RTRNodeContent>(id<RTRNode> node) {
         return [[RTRNavigationControllerContent alloc] init];
     }];
     
@@ -84,6 +101,7 @@
     [commandRegistry bindNode:redNode toCommandClass:[PXPresentRed class]];
     [commandRegistry bindNode:greenNode toCommandClass:[PXPresentGreen class]];
     [commandRegistry bindNode:blueNode toCommandClass:[PXPresentBlue class]];
+    [commandRegistry bindNode:modalNode toCommandClass:[PXPresentModal class]];
 
     
     // Router
@@ -97,7 +115,11 @@
 }
 
 - (void)doSomething {
-    [self.router executeCommand:[[PXPresentBlue alloc] init] animated:YES];
+    [self.router executeCommand:[[PXPresentRed alloc] init] animated:NO];
+}
+
+- (void)doSomethingLater {
+    [self.router executeCommand:[[PXPresentModal alloc] init] animated:YES];
 }
 
 @end
