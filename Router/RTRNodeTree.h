@@ -30,4 +30,6 @@
 
 - (void)addBranch:(NSArray *)nodes afterNodeOrNil:(id<RTRNode>)previousNode;
 
+- (void)addFork:(NSArray *)nodes afterNodeOrNil:(id<RTRNode>)previousNode;
+
 @end

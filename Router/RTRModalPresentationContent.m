@@ -10,9 +10,16 @@
 #import "RTRNodeContentUpdateContext.h"
 #import "RTRNodeChildrenState.h"
 
+typedef void (^RTRModalPresentationContentUpdateCompletionBlock)();
+typedef void (^RTRModalPresentationContentUpdateBlock)(RTRModalPresentationContentUpdateCompletionBlock completion);
+
+
 @interface RTRModalPresentationContent ()
 
 @property (nonatomic, readonly) UIWindow *window;
+
+@property (nonatomic, strong) NSMutableArray *updateBlocks;
+@property (nonatomic, assign) BOOL updateInProgress;
 
 @end
 
@@ -32,6 +39,7 @@
     if (!self) return nil;
     
     _window = window;
+    _updateBlocks = [[NSMutableArray alloc] init];
     
     return self;
 }
@@ -45,11 +53,14 @@
     NSArray *presentedViewControllers = [self presentedViewControllers];
     
     NSInteger commonPrefixLength = [self commonPrefixLengthForArray:viewControllers andArray:presentedViewControllers];
-    
+
     for (NSInteger i = presentedViewControllers.count - 1; i >= commonPrefixLength; --i) {
         if (i > 0) {
             UIViewController *viewController = presentedViewControllers[i];
-            [viewController.presentingViewController dismissViewControllerAnimated:updateContext.animated completion:nil];
+            
+            [self enqueueUpdateWithBlock:^(RTRModalPresentationContentUpdateCompletionBlock completion) {
+                [viewController.presentingViewController dismissViewControllerAnimated:updateContext.animated completion:completion];
+            }];
         }
     }
     
@@ -57,10 +68,21 @@
         UIViewController *viewController = viewControllers[i];
         
         if (i == 0) {
-            self.window.rootViewController = viewController;
+            [self enqueueUpdateWithBlock:^(RTRModalPresentationContentUpdateCompletionBlock completion) {
+                self.window.rootViewController = viewController;
+                
+                if (self.window.hidden) {
+                    [self.window makeKeyAndVisible];
+                }
+                
+                completion();
+            }];
         } else {
             UIViewController *previousViewController = viewControllers[i - 1];
-            [previousViewController presentViewController:viewController animated:updateContext.animated completion:nil];
+            
+            [self enqueueUpdateWithBlock:^(RTRModalPresentationContentUpdateCompletionBlock completion) {
+                [previousViewController presentViewController:viewController animated:updateContext.animated completion:completion];
+            }];
         }
     }
 }
@@ -103,6 +125,27 @@
         ++i;
     }
     return i;
+}
+
+- (void)enqueueUpdateWithBlock:(RTRModalPresentationContentUpdateBlock)updateBlock {
+    [self.updateBlocks addObject:updateBlock];
+    [self dequeueUpdateIfPossible];
+}
+
+- (void)dequeueUpdateIfPossible {
+    if (self.updateInProgress || self.updateBlocks.count == 0) {
+        return;
+    }
+    
+    self.updateInProgress = YES;
+    
+    RTRModalPresentationContentUpdateBlock updateBlock = self.updateBlocks[0];
+    [self.updateBlocks removeObjectAtIndex:0];
+    
+    updateBlock(^{
+        self.updateInProgress = NO;
+        [self dequeueUpdateIfPossible];
+    });
 }
 
 @end

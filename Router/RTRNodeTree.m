@@ -95,4 +95,10 @@
     }];
 }
 
+- (void)addFork:(NSArray *)nodes afterNodeOrNil:(id<RTRNode>)previousNode {
+    for (id<RTRNode> node in nodes) {
+        [self addNode:node afterNodeOrNil:previousNode];
+    }
+}
+
 @end

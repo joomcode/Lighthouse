@@ -17,7 +17,14 @@
 
 @end
 
+
 @implementation RTRNavigationControllerContent
+
+#pragma mark - Dealloc
+
+- (void)dealloc {
+    _data.delegate = nil;
+}
 
 #pragma mark - RTRNodeContent
 

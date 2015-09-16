@@ -13,6 +13,7 @@
 #import "PXPresentGreen.h"
 #import "PXPresentBlue.h"
 #import "PXPresentModal.h"
+#import "PXPresentAnotherModal.h"
 #import "RTRRouter+Shared.h"
 #import <Router.h>
 
@@ -33,8 +34,6 @@
     [self doSomething];
     [self performSelector:@selector(doSomethingLater) withObject:nil afterDelay:3.0];
     
-    [self.window makeKeyAndVisible];
-    
     return YES;
 }
 
@@ -52,7 +51,15 @@
     id<RTRNode> deepModalNode = [[RTRLeafNode alloc] init];
     id<RTRNode> deepModalStackNode = [[RTRStackNode alloc] initWithNodes:@[ deepModalNode ]];
     
-    id<RTRNode> rootNode = [[RTRStackNode alloc] initWithNodes:@[ mainStackNode, modalStackNode, deepModalStackNode ]];
+    id<RTRNode> anotherModalNode = [[RTRLeafNode alloc] init];
+    id<RTRNode> anotherModalStackNode = [[RTRStackNode alloc] initWithNodes:@[ anotherModalNode ]];
+    
+    RTRNodeTree *rootTree = [[RTRNodeTree alloc] init];
+    [rootTree addBranch:@[ mainStackNode, modalStackNode, deepModalStackNode ] afterNodeOrNil:nil];
+    [rootTree addNode:anotherModalStackNode afterNodeOrNil:mainStackNode];
+    
+    id<RTRNode> rootNode = [[RTRStackNode alloc] initWithTree:rootTree];
+    
     
     
     // Node Content
@@ -79,6 +86,10 @@
         return [[RTRViewControllerContent alloc] initWithViewControllerClass:[PXGreenViewController class]];
     }];
     
+    [nodeContentProvider bindNode:anotherModalNode toBlock:^id<RTRNodeContent>(id<RTRNode> node) {
+        return [[RTRViewControllerContent alloc] initWithViewControllerClass:[PXBlueViewController class]];
+    }];
+    
     [nodeContentProvider bindNodeClass:[RTRStackNode class] toBlock:^id<RTRNodeContent>(id<RTRNode> node) {
         return [[RTRNavigationControllerContent alloc] init];
     }];
@@ -96,6 +107,7 @@
     [commandRegistry bindNode:greenNode toCommandClass:[PXPresentGreen class]];
     [commandRegistry bindNode:blueNode toCommandClass:[PXPresentBlue class]];
     [commandRegistry bindNode:deepModalNode toCommandClass:[PXPresentModal class]];
+    [commandRegistry bindNode:anotherModalNode toCommandClass:[PXPresentAnotherModal class]];
 
     
     // Router
@@ -109,11 +121,11 @@
 }
 
 - (void)doSomething {
-    [self.router executeCommand:[[PXPresentRed alloc] init] animated:NO];
+    [self.router executeCommand:[[PXPresentModal alloc] init] animated:NO];
 }
 
 - (void)doSomethingLater {
-    [self.router executeCommand:[[PXPresentModal alloc] init] animated:YES];
+    [self.router executeCommand:[[PXPresentAnotherModal alloc] init] animated:YES];
 }
 
 @end

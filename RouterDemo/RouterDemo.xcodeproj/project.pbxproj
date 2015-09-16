@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		012497921BA99994007CD98B /* PXPresentModal.m in Sources */ = {isa = PBXBuildFile; fileRef = 012497911BA99994007CD98B /* PXPresentModal.m */; };
+		012497951BA9C686007CD98B /* PXPresentAnotherModal.m in Sources */ = {isa = PBXBuildFile; fileRef = 012497941BA9C686007CD98B /* PXPresentAnotherModal.m */; };
 		013F68BD1BA62CA300B5797B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 013F68BC1BA62CA300B5797B /* main.m */; };
 		013F68C01BA62CA300B5797B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 013F68BF1BA62CA300B5797B /* AppDelegate.m */; };
 		013F68C31BA62CA300B5797B /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 013F68C21BA62CA300B5797B /* ViewController.m */; };
@@ -44,6 +45,8 @@
 /* Begin PBXFileReference section */
 		012497901BA99994007CD98B /* PXPresentModal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXPresentModal.h; sourceTree = "<group>"; };
 		012497911BA99994007CD98B /* PXPresentModal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXPresentModal.m; sourceTree = "<group>"; };
+		012497931BA9C686007CD98B /* PXPresentAnotherModal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXPresentAnotherModal.h; sourceTree = "<group>"; };
+		012497941BA9C686007CD98B /* PXPresentAnotherModal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXPresentAnotherModal.m; sourceTree = "<group>"; };
 		013F68B81BA62CA300B5797B /* RouterDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RouterDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		013F68BC1BA62CA300B5797B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		013F68BE1BA62CA300B5797B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -196,6 +199,8 @@
 				01A01A901BA8783E00608274 /* PXPresentBlue.m */,
 				012497901BA99994007CD98B /* PXPresentModal.h */,
 				012497911BA99994007CD98B /* PXPresentModal.m */,
+				012497931BA9C686007CD98B /* PXPresentAnotherModal.h */,
+				012497941BA9C686007CD98B /* PXPresentAnotherModal.m */,
 			);
 			name = Commands;
 			sourceTree = "<group>";
@@ -338,6 +343,7 @@
 				01A01AB41BA9887D00608274 /* PXModalViewController.m in Sources */,
 				013F68C01BA62CA300B5797B /* AppDelegate.m in Sources */,
 				01A01A8E1BA8783600608274 /* PXPresentGreen.m in Sources */,
+				012497951BA9C686007CD98B /* PXPresentAnotherModal.m in Sources */,
 				013F68BD1BA62CA300B5797B /* main.m in Sources */,
 				01A01A8B1BA8782700608274 /* PXPresentRed.m in Sources */,
 			);
