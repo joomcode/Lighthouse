@@ -67,16 +67,12 @@
 
 - (void)performUpdateWithContext:(id<RTRNodeContentUpdateContext>)updateContext {
     [self.contentById enumerateKeysAndObjectsUsingBlock:^(id<NSCopying> contentId, id<RTRNodeContent> content, BOOL *stop) {
-        id<RTRNodeContent> (^contentBlock)(id<RTRNode>) = ^(id<RTRNode> node) {
-            id<RTRNodeContent> nodeContent = [updateContext contentForNode:node];
-            NSAssert([nodeContent isKindOfClass:[RTRCompositeNodeContent class]], @""); // TODO
-            
-            return ((RTRCompositeNodeContent *)nodeContent).contentById[contentId];
-        };
-        
-        [content performUpdateWithContext:[[RTRNodeContentUpdateContextImpl alloc] initWithAnimated:updateContext.animated
-                                                                                      childrenState:updateContext.childrenState
-                                                                                       contentBlock:contentBlock]];
+        [content performUpdateWithContext:
+            [[RTRNodeContentUpdateContextImpl alloc] initWithAnimated:updateContext.animated
+                                                        childrenState:updateContext.childrenState
+                                                         contentBlock:^id<RTRNodeContent>(id<RTRNode> node) {
+                                                             return ((RTRCompositeNodeContent *)[updateContext contentForNode:node]).contentById[contentId];
+                                                         }]];
     }];
 }
 
