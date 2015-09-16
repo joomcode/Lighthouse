@@ -52,37 +52,32 @@
     NSOrderedSet *pathToTargetNode = [self.graph pathToNode:targetNode];
     NSAssert(pathToTargetNode != nil, @""); // TODO
     
-    NSInteger nodeContentUpdateRangeLocation = NSNotFound;
+    NSInteger contentUpdateRangeLocation = [self findContentUpdateRangeLocationForCommandTargetNodePath:pathToTargetNode];
     
-    for (NSInteger i = 0; i < pathToTargetNode.count; ++i) {
-        RTRNodeData *data = [self dataForNode:pathToTargetNode[i]];
-        if (data.state != RTRNodeStateActive) {
-            nodeContentUpdateRangeLocation = MAX(0, i - 1);
-            break;
-        }
+    [self touchNodePath:pathToTargetNode withCommand:command];
+    [self updateActiveNodes];
+    
+    if (contentUpdateRangeLocation != NSNotFound) {
+        NSMutableArray *nodes = [[pathToTargetNode array] mutableCopy];
+        [nodes removeObjectsInRange:NSMakeRange(0, MAX(0, contentUpdateRangeLocation - 1))];
+        
+        [self performNodeContentUpdateForNodes:nodes animated:animated];
     }
-    
-    for (NSInteger i = 0; i < pathToTargetNode.count; ++i) {
+}
+
+#pragma mark - Node data manipulation
+
+- (void)touchNodePath:(NSOrderedSet *)nodePath withCommand:(id<RTRCommand>)command {
+    for (NSInteger i = 0; i < nodePath.count; ++i) {
         if (i == 0) {
-            id<RTRNode> rootNode = pathToTargetNode[0];
+            id<RTRNode> rootNode = nodePath[0];
             [self touchNode:rootNode withCommand:command state:RTRNodeStateActive];
         } else {
-            id<RTRNode> parentNode = pathToTargetNode[i - 1];
-            id<RTRNode> childNode = pathToTargetNode[i];
+            id<RTRNode> parentNode = nodePath[i - 1];
+            id<RTRNode> childNode = nodePath[i];
             [self touchParentNode:parentNode withNewChildNode:childNode command:command];
         }
     }
-    
-    if (nodeContentUpdateRangeLocation != NSNotFound) {
-        for (NSInteger i = pathToTargetNode.count - 1; i >= nodeContentUpdateRangeLocation; --i) {
-            id<RTRNode> node = pathToTargetNode[i];
-            BOOL shouldAnimate = (i == nodeContentUpdateRangeLocation) ? animated : NO;
-            
-            [self performNodeContentUpdate:node animated:shouldAnimate];
-        }
-    }
-    
-    [self updateActiveNodes];
 }
 
 - (void)touchParentNode:(id<RTRNode>)parentNode withNewChildNode:(id<RTRNode>)newChildNode command:(id<RTRCommand>)command {
@@ -158,6 +153,29 @@
     return content;
 }
 
+#pragma mark - Node content update
+
+- (NSInteger)findContentUpdateRangeLocationForCommandTargetNodePath:(NSOrderedSet *)nodePath {
+    for (NSInteger i = 0; i < nodePath.count; ++i) {
+        RTRNodeData *data = [self dataForNode:nodePath[i]];
+        
+        if (data.state != RTRNodeStateActive) {
+            return MAX(0, i - 1);
+        }
+    }
+    
+    return NSNotFound;
+}
+
+- (void)performNodeContentUpdateForNodes:(NSArray *)nodes animated:(BOOL)animated {
+    for (NSInteger i = nodes.count - 1; i >= 0; --i) {
+        id<RTRNode> node = nodes[i];
+        BOOL shouldAnimate = (i == 0) ? animated : NO;
+        
+        [self performNodeContentUpdate:node animated:shouldAnimate];
+    }
+}
+
 - (void)performNodeContentUpdate:(id<RTRNode>)node animated:(BOOL)animated {
     RTRNodeData *data = [self dataForNode:node];
     
@@ -172,6 +190,8 @@
                                                          return [self dataForNode:node].content;
                                                      }]];
 }
+
+#pragma mark - Active nodes
 
 - (void)updateActiveNodes {
     self.activeNodes = [self calculateActiveNodes];
