@@ -1,5 +1,5 @@
 //
-//  RTRNodeStateData.h
+//  RTRNodeData.h
 //  Router
 //
 //  Created by Nick Tymchenko on 15/09/15.
@@ -12,7 +12,7 @@
 @protocol RTRNodeChildrenState;
 @protocol RTRNodeContent;
 
-@interface RTRNodeStateData : NSObject
+@interface RTRNodeData : NSObject
 
 @property (nonatomic, assign) RTRNodeState state;
 

@@ -1,13 +1,13 @@
 //
-//  RTRNodeStateData.m
+//  RTRNodeData.m
 //  Router
 //
 //  Created by Nick Tymchenko on 15/09/15.
 //  Copyright (c) 2015 Pixty. All rights reserved.
 //
 
-#import "RTRNodeStateData.h"
+#import "RTRNodeData.h"
 
-@implementation RTRNodeStateData
+@implementation RTRNodeData
 
 @end

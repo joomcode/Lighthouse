@@ -10,7 +10,7 @@
 #import "RTRNode.h"
 #import "RTRNodeContent.h"
 #import "RTRGraph.h"
-#import "RTRNodeStateData.h"
+#import "RTRNodeData.h"
 #import "RTRCommandRegistry.h"
 #import "RTRNodeContentProvider.h"
 #import "RTRNodeChildrenState.h"
@@ -21,7 +21,7 @@
 
 @property (nonatomic, strong) RTRGraph *graph;
 
-@property (nonatomic, strong) NSMapTable *stateDataByNode;
+@property (nonatomic, strong) NSMapTable *dataByNode;
 @property (nonatomic, strong) NSSet *activeNodes;
 
 @end
@@ -70,28 +70,28 @@
 }
 
 - (void)touchParentNode:(id<RTRNode>)parentNode withNewChildNode:(id<RTRNode>)newChildNode command:(id<RTRCommand>)command {
-    RTRNodeStateData *parentStateData = [self stateDataForNode:parentNode];
-    id<RTRNodeChildrenState> oldChildrenState = parentStateData.childrenState;
+    RTRNodeData *parentData = [self dataForNode:parentNode];
+    id<RTRNodeChildrenState> oldChildrenState = parentData.childrenState;
     
     id<RTRNodeChildrenState> newChildrenState = [parentNode activateChild:newChildNode withCurrentState:oldChildrenState];
-    parentStateData.childrenState = newChildrenState;
+    parentData.childrenState = newChildrenState;
     
     [self deactiveChildrenOfNode:parentNode];
     [self touchChildrenOfNode:parentNode withCommand:command];
 }
 
 - (void)deactiveChildrenOfNode:(id<RTRNode>)parentNode {
-    id<RTRNodeChildrenState> childrenState = [self stateDataForNode:parentNode].childrenState;
+    id<RTRNodeChildrenState> childrenState = [self dataForNode:parentNode].childrenState;
     
     for (id<RTRNode> child in [parentNode allChildren]) {
         if (![childrenState.initializedChildren containsObject:child] && ![childrenState.activeChildren containsObject:child]) {
-            [self resetStateDataForNode:child];
+            [self resetDataForNode:child];
         }
     }
 }
 
 - (void)touchChildrenOfNode:(id<RTRNode>)parentNode withCommand:(id<RTRCommand>)command {
-    id<RTRNodeChildrenState> childrenState = [self stateDataForNode:parentNode].childrenState;
+    id<RTRNodeChildrenState> childrenState = [self dataForNode:parentNode].childrenState;
     
     for (id<RTRNode> node in childrenState.initializedChildren) {
         [self touchNode:node withCommand:command state:RTRNodeStateInitialized];
@@ -103,7 +103,7 @@
 }
 
 - (void)touchNode:(id<RTRNode>)node withCommand:(id<RTRCommand>)command state:(RTRNodeState)state {
-    [self stateDataForNode:node].state = state;
+    [self dataForNode:node].state = state;
     
     if (command) {
         [self setupNodeContent:node withCommand:command];
@@ -111,13 +111,13 @@
 }
 
 - (void)setupNodeContent:(id<RTRNode>)node withCommand:(id<RTRCommand>)command {
-    RTRNodeStateData *stateData = [self stateDataForNode:node];
+    RTRNodeData *data = [self dataForNode:node];
     
-    if (!stateData.content) {
-        stateData.content = [self createContentForNode:node];
+    if (!data.content) {
+        data.content = [self createContentForNode:node];
     }
     
-    [stateData.content setupDataWithCommand:command];
+    [data.content setupDataWithCommand:command];
 }
 
 - (id<RTRNodeContent>)createContentForNode:(id<RTRNode>)node {
@@ -142,17 +142,17 @@
 }
 
 - (void)performNodeContentUpdate:(id<RTRNode>)node animated:(BOOL)animated {
-    RTRNodeStateData *stateData = [self stateDataForNode:node];
+    RTRNodeData *data = [self dataForNode:node];
     
-    if (!stateData.content) {
+    if (!data.content) {
         return;
     }
     
-    [stateData.content performUpdateWithContext:
+    [data.content performUpdateWithContext:
         [[RTRNodeContentUpdateContextImpl alloc] initWithAnimated:animated
-                                                    childrenState:stateData.childrenState
+                                                    childrenState:data.childrenState
                                                      contentBlock:^id<RTRNodeContent>(id<RTRNode> node) {
-                                                         return [self stateDataForNode:node].content;
+                                                         return [self dataForNode:node].content;
                                                      }]];
 }
 
@@ -167,38 +167,38 @@
 }
 
 - (void)calculateActiveNodesRecursivelyWithCurrentNode:(id<RTRNode>)node activeNodes:(NSMutableSet *)activeNodes {
-    RTRNodeStateData *stateData = [self stateDataForNode:node];
-    if (stateData.state != RTRNodeStateActive) {
+    RTRNodeData *data = [self dataForNode:node];
+    if (data.state != RTRNodeStateActive) {
         return;
     }
     
     [activeNodes addObject:node];
     
-    for (id<RTRNode> child in stateData.childrenState.activeChildren) {
+    for (id<RTRNode> child in data.childrenState.activeChildren) {
         [self calculateActiveNodesRecursivelyWithCurrentNode:child activeNodes:activeNodes];
     }
 }
 
 #pragma mark - Node state
 
-- (NSMapTable *)stateDataByNode {
-    if (!_stateDataByNode) {
-        _stateDataByNode = [NSMapTable strongToStrongObjectsMapTable];
+- (NSMapTable *)dataByNode {
+    if (!_dataByNode) {
+        _dataByNode = [NSMapTable strongToStrongObjectsMapTable];
     }
-    return _stateDataByNode;
+    return _dataByNode;
 }
 
-- (RTRNodeStateData *)stateDataForNode:(id<RTRNode>)node {
-    RTRNodeStateData *data = [self.stateDataByNode objectForKey:node];
+- (RTRNodeData *)dataForNode:(id<RTRNode>)node {
+    RTRNodeData *data = [self.dataByNode objectForKey:node];
     if (!data) {
-        data = [[RTRNodeStateData alloc] init];
-        [self.stateDataByNode setObject:data forKey:node];
+        data = [[RTRNodeData alloc] init];
+        [self.dataByNode setObject:data forKey:node];
     }
     return data;
 }
 
-- (void)resetStateDataForNode:(id<RTRNode>)node {
-    [self.stateDataByNode removeObjectForKey:node];
+- (void)resetDataForNode:(id<RTRNode>)node {
+    [self.dataByNode removeObjectForKey:node];
 }
 
 @end
