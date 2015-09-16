@@ -52,19 +52,35 @@
     NSOrderedSet *pathToTargetNode = [self.graph pathToNode:targetNode];
     NSAssert(pathToTargetNode != nil, @""); // TODO
     
-    [pathToTargetNode enumerateObjectsUsingBlock:^(id<RTRNode> node, NSUInteger idx, BOOL *stop) {
-        if (idx == 0) {
-            [self touchNode:node withCommand:command state:RTRNodeStateActive];
-            return;
+    NSInteger nodeContentUpdateRangeLocation = NSNotFound;
+    
+    for (NSInteger i = 0; i < pathToTargetNode.count; ++i) {
+        RTRNodeData *data = [self dataForNode:pathToTargetNode[i]];
+        if (data.state != RTRNodeStateActive) {
+            nodeContentUpdateRangeLocation = MAX(0, i - 1);
+            break;
         }
-        
-        id<RTRNode> parentNode = pathToTargetNode[idx - 1];
-        [self touchParentNode:parentNode withNewChildNode:node command:command];
-        
-        [self performNodeContentUpdate:parentNode animated:YES];
-        
-        // TODO: figure out animations (queue or something like that?)
-    }];
+    }
+    
+    for (NSInteger i = 0; i < pathToTargetNode.count; ++i) {
+        if (i == 0) {
+            id<RTRNode> rootNode = pathToTargetNode[0];
+            [self touchNode:rootNode withCommand:command state:RTRNodeStateActive];
+        } else {
+            id<RTRNode> parentNode = pathToTargetNode[i - 1];
+            id<RTRNode> childNode = pathToTargetNode[i];
+            [self touchParentNode:parentNode withNewChildNode:childNode command:command];
+        }
+    }
+    
+    if (nodeContentUpdateRangeLocation != NSNotFound) {
+        for (NSInteger i = pathToTargetNode.count - 1; i >= nodeContentUpdateRangeLocation; --i) {
+            id<RTRNode> node = pathToTargetNode[i];
+            BOOL shouldAnimate = (i == nodeContentUpdateRangeLocation) ? animated : NO;
+            
+            [self performNodeContentUpdate:node animated:shouldAnimate];
+        }
+    }
     
     [self updateActiveNodes];
 }

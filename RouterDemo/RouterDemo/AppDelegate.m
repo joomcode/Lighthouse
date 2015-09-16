@@ -119,6 +119,7 @@
 }
 
 - (void)doSomethingLater {
+    [self.router executeCommand:[[PXPresentRed alloc] init] animated:NO];
     [self.router executeCommand:[[PXPresentModal alloc] init] animated:YES];
 }
 

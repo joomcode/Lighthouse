@@ -7,7 +7,15 @@
 //
 
 #import "RTRNodeData.h"
+#import "RTRNodeChildrenState.h"
 
 @implementation RTRNodeData
+
+- (id<RTRNodeChildrenState>)childrenState {
+    if (!_childrenState) {
+        _childrenState = [[RTRNodeChildrenState alloc] init];
+    }
+    return _childrenState;
+}
 
 @end
