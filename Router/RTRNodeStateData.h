@@ -10,6 +10,7 @@
 #import "RTRNodeState.h"
 
 @protocol RTRNodeChildrenState;
+@protocol RTRNodeContent;
 
 @interface RTRNodeStateData : NSObject
 
@@ -17,6 +18,6 @@
 
 @property (nonatomic, strong) id<RTRNodeChildrenState> childrenState;
 
-@property (nonatomic, copy) NSMapTable *contentByProvider;
+@property (nonatomic, strong) id<RTRNodeContent> content;
 
 @end

@@ -10,10 +10,8 @@
 
 @interface RTRNodeContentUpdateContextImpl : NSObject <RTRNodeContentUpdateContext>
 
-@property (nonatomic, getter = isAnimated) BOOL animated;
-
-@property (nonatomic, strong) id<RTRNodeChildrenState> childrenState;
-
-@property (nonatomic, copy) id<RTRNodeContent> (^contentBlock)(id<RTRNode> node);
+- (instancetype)initWithAnimated:(BOOL)animated
+                   childrenState:(id<RTRNodeChildrenState>)childrenState
+                    contentBlock:(id<RTRNodeContent> (^)(id<RTRNode> node))contentBlock;
 
 @end

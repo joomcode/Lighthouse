@@ -113,62 +113,47 @@
 - (void)setupNodeContent:(id<RTRNode>)node withCommand:(id<RTRCommand>)command {
     RTRNodeStateData *stateData = [self stateDataForNode:node];
     
-    if (!stateData.contentByProvider) {
-        stateData.contentByProvider = [self createContentForNode:node];
+    if (!stateData.content) {
+        stateData.content = [self createContentForNode:node];
     }
     
-    for (id<RTRNodeContent> content in [stateData.contentByProvider objectEnumerator]) {
-        [content setupDataWithCommand:command];
-    }
+    [stateData.content setupDataWithCommand:command];
 }
 
-- (NSMapTable *)createContentForNode:(id<RTRNode>)node {
-    NSMapTable *contentByProvider = [NSMapTable strongToStrongObjectsMapTable];
-    
-    for (id<RTRNodeContentProvider> provider in self.nodeContentProviders) {
-        id<RTRNodeContent> content = [provider contentForNode:node];
-        if (!content) {
-            continue;
-        }
-        
-        if ([content respondsToSelector:@selector(setFeedbackChannel:)]) {
-            RTRNodeContentFeedbackChannelImpl *feedbackChannel = [[RTRNodeContentFeedbackChannelImpl alloc] init];
-            
-            __weak __typeof(self) weakSelf = self;
-            feedbackChannel.childActivedBlock = ^(id<RTRNode> child) {
-                [weakSelf touchParentNode:node withNewChildNode:child command:nil];
-                [weakSelf updateActiveNodes];
-            };
-            
-            content.feedbackChannel = feedbackChannel;
-        }
-        
-        [contentByProvider setObject:content forKey:provider];
+- (id<RTRNodeContent>)createContentForNode:(id<RTRNode>)node {
+    id<RTRNodeContent> content = [self.nodeContentProvider contentForNode:node];
+    if (!content) {
+        return nil;
     }
     
-    return contentByProvider;
+    if ([content respondsToSelector:@selector(setFeedbackChannel:)]) {
+        RTRNodeContentFeedbackChannelImpl *feedbackChannel = [[RTRNodeContentFeedbackChannelImpl alloc] init];
+        
+        __weak __typeof(self) weakSelf = self;
+        feedbackChannel.childActivedBlock = ^(id<RTRNode> child) {
+            [weakSelf touchParentNode:node withNewChildNode:child command:nil];
+            [weakSelf updateActiveNodes];
+        };
+        
+        content.feedbackChannel = feedbackChannel;
+    }
+    
+    return content;
 }
 
 - (void)performNodeContentUpdate:(id<RTRNode>)node animated:(BOOL)animated {
     RTRNodeStateData *stateData = [self stateDataForNode:node];
     
-    for (id<RTRNodeContentProvider> provider in self.nodeContentProviders) {
-        NSAssert(stateData.contentByProvider != nil, @""); // TODO
-        
-        id<RTRNodeContent> content = [stateData.contentByProvider objectForKey:provider];
-        if (!content) {
-            continue;
-        }
-        
-        RTRNodeContentUpdateContextImpl *contentUpdateContext = [[RTRNodeContentUpdateContextImpl alloc] init];
-        contentUpdateContext.animated = animated;
-        contentUpdateContext.childrenState = stateData.childrenState;
-        contentUpdateContext.contentBlock = ^(id<RTRNode> childNode) {
-            return [[self stateDataForNode:childNode].contentByProvider objectForKey:provider];
-        };
-        
-        [content performUpdateWithContext:contentUpdateContext];
+    if (!stateData.content) {
+        return;
     }
+    
+    [stateData.content performUpdateWithContext:
+        [[RTRNodeContentUpdateContextImpl alloc] initWithAnimated:animated
+                                                    childrenState:stateData.childrenState
+                                                     contentBlock:^id<RTRNodeContent>(id<RTRNode> node) {
+                                                         return [self stateDataForNode:node].content;
+                                                     }]];
 }
 
 - (void)updateActiveNodes {

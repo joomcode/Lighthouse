@@ -92,7 +92,7 @@
     
     RTRRouter *router = [RTRRouter sharedInstance];
     router.rootNode = rootNode;
-    router.nodeContentProviders = @[ nodeContentProvider ];
+    router.nodeContentProvider = nodeContentProvider;
     router.commandRegistry = commandRegistry;
     
     self.router = router;

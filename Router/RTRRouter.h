@@ -11,14 +11,15 @@
 @protocol RTRNode;
 @protocol RTRCommand;
 @protocol RTRCommandRegistry;
+@protocol RTRNodeContentProvider;
 
 @interface RTRRouter : NSObject
 
 @property (nonatomic, strong) id<RTRNode> rootNode;
 
-@property (nonatomic, strong) id<RTRCommandRegistry> commandRegistry;
+@property (nonatomic, strong) id<RTRNodeContentProvider> nodeContentProvider;
 
-@property (nonatomic, strong) NSArray *nodeContentProviders;
+@property (nonatomic, strong) id<RTRCommandRegistry> commandRegistry;
 
 - (void)executeCommand:(id<RTRCommand>)command animated:(BOOL)animated;
 

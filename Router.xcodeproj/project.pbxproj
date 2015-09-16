@@ -25,6 +25,8 @@
 		01A01AA11BA88B4000608274 /* RTRModalPresentationContent.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A01AA01BA88B4000608274 /* RTRModalPresentationContent.m */; };
 		01A01AA41BA8901100608274 /* RTRBlockNodeContentProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A01AA31BA8901100608274 /* RTRBlockNodeContentProvider.m */; };
 		01A01AA81BA8E9FB00608274 /* RTRNodeContentFeedbackChannelImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A01AA71BA8E9FB00608274 /* RTRNodeContentFeedbackChannelImpl.m */; };
+		01A01AAC1BA9743900608274 /* RTRCompositeNodeContent.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A01AAB1BA9743900608274 /* RTRCompositeNodeContent.m */; };
+		01A01AB11BA97B7100608274 /* RTRCompositeNodeContentProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A01AB01BA97B7100608274 /* RTRCompositeNodeContentProvider.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -86,6 +88,10 @@
 		01A01AA31BA8901100608274 /* RTRBlockNodeContentProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTRBlockNodeContentProvider.m; sourceTree = "<group>"; };
 		01A01AA61BA8E9FB00608274 /* RTRNodeContentFeedbackChannelImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTRNodeContentFeedbackChannelImpl.h; sourceTree = "<group>"; };
 		01A01AA71BA8E9FB00608274 /* RTRNodeContentFeedbackChannelImpl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTRNodeContentFeedbackChannelImpl.m; sourceTree = "<group>"; };
+		01A01AAA1BA9743900608274 /* RTRCompositeNodeContent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTRCompositeNodeContent.h; sourceTree = "<group>"; };
+		01A01AAB1BA9743900608274 /* RTRCompositeNodeContent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTRCompositeNodeContent.m; sourceTree = "<group>"; };
+		01A01AAF1BA97B7100608274 /* RTRCompositeNodeContentProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTRCompositeNodeContentProvider.h; sourceTree = "<group>"; };
+		01A01AB01BA97B7100608274 /* RTRCompositeNodeContentProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTRCompositeNodeContentProvider.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -230,9 +236,9 @@
 		01A01A781BA841DB00608274 /* Node Content Provider */ = {
 			isa = PBXGroup;
 			children = (
+				01A01AAD1BA97B3B00608274 /* Basic */,
+				01A01AAE1BA97B4500608274 /* Composite */,
 				01A01A791BA8420000608274 /* RTRNodeContentProvider.h */,
-				01A01AA21BA8901100608274 /* RTRBlockNodeContentProvider.h */,
-				01A01AA31BA8901100608274 /* RTRBlockNodeContentProvider.m */,
 			);
 			name = "Node Content Provider";
 			sourceTree = "<group>";
@@ -277,6 +283,26 @@
 				01A01A761BA83EA500608274 /* RTRCommandRegistry.m */,
 			);
 			name = "Command Registry";
+			sourceTree = "<group>";
+		};
+		01A01AAD1BA97B3B00608274 /* Basic */ = {
+			isa = PBXGroup;
+			children = (
+				01A01AA21BA8901100608274 /* RTRBlockNodeContentProvider.h */,
+				01A01AA31BA8901100608274 /* RTRBlockNodeContentProvider.m */,
+			);
+			name = Basic;
+			sourceTree = "<group>";
+		};
+		01A01AAE1BA97B4500608274 /* Composite */ = {
+			isa = PBXGroup;
+			children = (
+				01A01AAF1BA97B7100608274 /* RTRCompositeNodeContentProvider.h */,
+				01A01AB01BA97B7100608274 /* RTRCompositeNodeContentProvider.m */,
+				01A01AAA1BA9743900608274 /* RTRCompositeNodeContent.h */,
+				01A01AAB1BA9743900608274 /* RTRCompositeNodeContent.m */,
+			);
+			name = Composite;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -337,6 +363,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0160A9701BA7434B0035A331 /* RTRNodeTree.m in Sources */,
+				01A01AB11BA97B7100608274 /* RTRCompositeNodeContentProvider.m in Sources */,
 				0160A9761BA7479C0035A331 /* RTRTabNode.m in Sources */,
 				0160A96D1BA742C90035A331 /* RTRStackNode.m in Sources */,
 				01A01A771BA83EA500608274 /* RTRCommandRegistry.m in Sources */,
@@ -345,6 +372,7 @@
 				01A01A641BA8373B00608274 /* RTRViewControllerContent.m in Sources */,
 				0160A97F1BA782BA0035A331 /* RTRNodeChildrenState.m in Sources */,
 				01A01AA11BA88B4000608274 /* RTRModalPresentationContent.m in Sources */,
+				01A01AAC1BA9743900608274 /* RTRCompositeNodeContent.m in Sources */,
 				01A01A6D1BA83A1A00608274 /* RTRGraphPath.m in Sources */,
 				01A01A831BA869F200608274 /* RTRNodeContentUpdateContextImpl.m in Sources */,
 				01A01A9D1BA88B0100608274 /* RTRLayerNode.m in Sources */,

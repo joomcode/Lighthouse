@@ -31,6 +31,7 @@
 
 #import "RTRNodeContentProvider.h"
 #import "RTRBlockNodeContentProvider.h"
+#import "RTRCompositeNodeContentProvider.h"
 
 
 // Command
