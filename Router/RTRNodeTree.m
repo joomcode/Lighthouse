@@ -89,4 +89,10 @@
     [nextNodes addObject:node];
 }
 
+- (void)addBranch:(NSArray *)nodes afterNodeOrNil:(id<RTRNode>)previousNode {
+    [nodes enumerateObjectsUsingBlock:^(id<RTRNode> node, NSUInteger idx, BOOL *stop) {
+        [self addNode:node afterNodeOrNil:(idx == 0 ? previousNode : nodes[idx - 1])];
+    }];
+}
+
 @end

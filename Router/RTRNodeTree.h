@@ -28,4 +28,6 @@
 
 - (void)addNode:(id<RTRNode>)node afterNodeOrNil:(id<RTRNode>)previousNode;
 
+- (void)addBranch:(NSArray *)nodes afterNodeOrNil:(id<RTRNode>)previousNode;
+
 @end

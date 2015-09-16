@@ -45,9 +45,7 @@
     id<RTRNode> blueNode = [[RTRLeafNode alloc] init];
     
     RTRNodeTree *stackTree = [[RTRNodeTree alloc] init];
-    [stackTree addNode:redNode afterNodeOrNil:nil];
-    [stackTree addNode:greenNode afterNodeOrNil:redNode];
-    [stackTree addNode:blueNode afterNodeOrNil:greenNode];
+    [stackTree addBranch:@[ redNode, greenNode, blueNode ] afterNodeOrNil:nil];
     
     id<RTRNode> stackNode = [[RTRStackNode alloc] initWithTree:stackTree];
     

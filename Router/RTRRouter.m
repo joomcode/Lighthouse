@@ -76,11 +76,11 @@
     id<RTRNodeChildrenState> newChildrenState = [parentNode activateChild:newChildNode withCurrentState:oldChildrenState];
     parentData.childrenState = newChildrenState;
     
-    [self deactiveChildrenOfNode:parentNode];
+    [self resetInactiveChildrenOfNode:parentNode];
     [self touchChildrenOfNode:parentNode withCommand:command];
 }
 
-- (void)deactiveChildrenOfNode:(id<RTRNode>)parentNode {
+- (void)resetInactiveChildrenOfNode:(id<RTRNode>)parentNode {
     id<RTRNodeChildrenState> childrenState = [self dataForNode:parentNode].childrenState;
     
     for (id<RTRNode> child in [parentNode allChildren]) {
@@ -122,6 +122,7 @@
 
 - (id<RTRNodeContent>)createContentForNode:(id<RTRNode>)node {
     id<RTRNodeContent> content = [self.nodeContentProvider contentForNode:node];
+    
     if (!content) {
         return nil;
     }
