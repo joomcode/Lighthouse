@@ -28,6 +28,8 @@
 #import "RTRTabBarControllerContent.h"
 #import "RTRModalPresentationContent.h"
 
+#import "RTRCommandOrientedContent.h"
+
 
 // Node Content Provider
 
