@@ -37,6 +37,12 @@
     [self.blocksByNodes setObject:[block copy] forKey:node];
 }
 
+- (void)bindNodes:(NSArray *)nodes toBlock:(RTRNodeContentProvidingBlock)block {
+    for (id<RTRNode> node in nodes) {
+        [self bindNode:node toBlock:block];
+    }
+}
+
 - (void)bindNodeClass:(Class)nodeClass toBlock:(RTRNodeContentProvidingBlock)block {
     [self.blocksByNodeClasses setObject:[block copy] forKey:nodeClass];
 }

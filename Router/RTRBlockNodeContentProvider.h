@@ -17,6 +17,8 @@ typedef id<RTRNodeContent> (^RTRNodeContentProvidingBlock)(id<RTRNode> node);
 
 - (void)bindNode:(id<RTRNode>)node toBlock:(RTRNodeContentProvidingBlock)block;
 
+- (void)bindNodes:(NSArray *)nodes toBlock:(RTRNodeContentProvidingBlock)block;
+
 - (void)bindNodeClass:(Class)nodeClass toBlock:(RTRNodeContentProvidingBlock)block;
 
 @end

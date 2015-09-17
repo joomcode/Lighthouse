@@ -10,10 +10,14 @@
 
 @implementation PXModalViewController
 
+- (instancetype)init {
+    self = [super init];
+    self.title = @"Modal";
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    self.title = @"Modal";
     self.view.backgroundColor = [UIColor magentaColor];
 }
 

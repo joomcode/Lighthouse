@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0111CC271BAAED0D00C19022 /* PXDeepModalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0111CC261BAAED0D00C19022 /* PXDeepModalViewController.m */; };
 		012497921BA99994007CD98B /* PXPresentModal.m in Sources */ = {isa = PBXBuildFile; fileRef = 012497911BA99994007CD98B /* PXPresentModal.m */; };
 		012497951BA9C686007CD98B /* PXPresentAnotherModal.m in Sources */ = {isa = PBXBuildFile; fileRef = 012497941BA9C686007CD98B /* PXPresentAnotherModal.m */; };
 		013F68BD1BA62CA300B5797B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 013F68BC1BA62CA300B5797B /* main.m */; };
@@ -43,6 +44,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0111CC251BAAED0D00C19022 /* PXDeepModalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXDeepModalViewController.h; sourceTree = "<group>"; };
+		0111CC261BAAED0D00C19022 /* PXDeepModalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXDeepModalViewController.m; sourceTree = "<group>"; };
 		012497901BA99994007CD98B /* PXPresentModal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXPresentModal.h; sourceTree = "<group>"; };
 		012497911BA99994007CD98B /* PXPresentModal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXPresentModal.m; sourceTree = "<group>"; };
 		012497931BA9C686007CD98B /* PXPresentAnotherModal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXPresentAnotherModal.h; sourceTree = "<group>"; };
@@ -184,6 +187,8 @@
 				01A01A861BA8777100608274 /* PXColorViewControllers.m */,
 				01A01AB21BA9887D00608274 /* PXModalViewController.h */,
 				01A01AB31BA9887D00608274 /* PXModalViewController.m */,
+				0111CC251BAAED0D00C19022 /* PXDeepModalViewController.h */,
+				0111CC261BAAED0D00C19022 /* PXDeepModalViewController.m */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -339,6 +344,7 @@
 				012497921BA99994007CD98B /* PXPresentModal.m in Sources */,
 				01A01A911BA8783E00608274 /* PXPresentBlue.m in Sources */,
 				01A01A871BA8777100608274 /* PXColorViewControllers.m in Sources */,
+				0111CC271BAAED0D00C19022 /* PXDeepModalViewController.m in Sources */,
 				013F68C31BA62CA300B5797B /* ViewController.m in Sources */,
 				01A01AB41BA9887D00608274 /* PXModalViewController.m in Sources */,
 				013F68C01BA62CA300B5797B /* AppDelegate.m in Sources */,
