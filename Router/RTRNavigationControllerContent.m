@@ -42,7 +42,7 @@
     NSAssert(updateContext.childrenState.initializedChildren.lastObject == updateContext.childrenState.activeChildren.lastObject, @""); // TODO
     
     NSArray *childViewControllers = [RTRViewControllerContentHelpers childViewControllersWithUpdateContext:updateContext];
-    [self.data setViewControllers:childViewControllers animated:updateContext.animated];
+    [self.data setViewControllers:childViewControllers animated:updateContext.animated]; // TODO: use updateQueue
     
     self.childNodes = [updateContext.childrenState.initializedChildren array];
 }

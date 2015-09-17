@@ -65,6 +65,7 @@
         [content updateWithContext:
             [[RTRNodeContentUpdateContextImpl alloc] initWithAnimated:updateContext.animated
                                                               command:updateContext.command
+                                                          updateQueue:updateContext.updateQueue
                                                         childrenState:updateContext.childrenState
                                                          contentBlock:^id<RTRNodeContent>(id<RTRNode> node) {
                                                              return ((RTRCompositeNodeContent *)[updateContext contentForNode:node]).contentById[contentId];

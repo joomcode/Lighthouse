@@ -20,15 +20,17 @@
 #pragma mark - Init
 
 - (instancetype)init {
-    return [self initWithAnimated:NO command:nil childrenState:nil contentBlock:nil];
+    return [self initWithAnimated:NO command:nil updateQueue:nil childrenState:nil contentBlock:nil];
 }
 
 - (instancetype)initWithAnimated:(BOOL)animated
                          command:(id<RTRCommand>)command
+                     updateQueue:(id<RTRNodeContentUpdateQueue>)updateQueue
                    childrenState:(id<RTRNodeChildrenState>)childrenState
                     contentBlock:(id<RTRNodeContent> (^)(id<RTRNode>))contentBlock
 {
     NSParameterAssert(command != nil);
+    NSParameterAssert(updateQueue != nil);
     NSParameterAssert(childrenState != nil);
     NSParameterAssert(contentBlock != nil);
     
@@ -37,6 +39,7 @@
     
     _animated = animated;
     _command = command;
+    _updateQueue = updateQueue;
     _childrenState = childrenState;
     _contentBlock = [contentBlock copy];
     
@@ -47,6 +50,7 @@
 
 @synthesize animated = _animated;
 @synthesize command = _command;
+@synthesize updateQueue = _updateQueue;
 @synthesize childrenState = _childrenState;
 
 - (id<RTRNodeContent>)contentForNode:(id<RTRNode>)node {

@@ -21,6 +21,7 @@
 
 #import "RTRNodeContent.h"
 #import "RTRNodeContentUpdateContext.h"
+#import "RTRNodeContentUpdateQueue.h"
 #import "RTRNodeContentFeedbackChannel.h"
 
 #import "RTRViewControllerContent.h"

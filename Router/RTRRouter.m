@@ -16,6 +16,7 @@
 #import "RTRNodeContentProvider.h"
 #import "RTRNodeChildrenState.h"
 #import "RTRNodeContentUpdateContextImpl.h"
+#import "RTRNodeContentUpdateQueueImpl.h"
 #import "RTRNodeContentFeedbackChannelImpl.h"
 
 NSString * const RTRRouterActiveNodesDidUpdateNotification = @"com.pixty.router.activeNodesDidUpdate";
@@ -25,9 +26,11 @@ NSString * const RTRRouterActiveNodesDidUpdateNotification = @"com.pixty.router.
 
 @property (nonatomic, strong) RTRGraph *graph;
 
-@property (nonatomic, strong) NSMapTable *dataByNode;
+@property (nonatomic, strong, readonly) NSMapTable *dataByNode;
 
 @property (nonatomic, strong) NSSet *activeNodes;
+
+@property (nonatomic, strong, readonly) id<RTRNodeContentUpdateQueue> nodeContentUpdateQueue;
 
 @end
 
@@ -97,6 +100,15 @@ NSString * const RTRRouterActiveNodesDidUpdateNotification = @"com.pixty.router.
 
 #pragma mark - Node content manipulation
 
+@synthesize nodeContentUpdateQueue = _nodeContentUpdateQueue;
+
+- (id<RTRNodeContentUpdateQueue>)nodeContentUpdateQueue {
+    if (!_nodeContentUpdateQueue) {
+        _nodeContentUpdateQueue = [[RTRNodeContentUpdateQueueImpl alloc] init];
+    }
+    return _nodeContentUpdateQueue;
+}
+
 - (NSSet *)nodesForAnimatedContentUpdateForTargetNodePath:(NSOrderedSet *)nodePath {
     NSInteger firstInactiveNodeIndex = [self firstInactiveNodeIndexForTargetNodePath:nodePath];
     
@@ -136,13 +148,24 @@ NSString * const RTRRouterActiveNodesDidUpdateNotification = @"com.pixty.router.
         data.content = [self createContentForNode:node];
     }
     
+    [self.nodeContentUpdateQueue enqueueBlock:^(RTRNodeContentUpdateCompletionBlock completion) {
+        // TODO: track content state
+        completion();
+    }];
+    
     [data.content updateWithContext:
         [[RTRNodeContentUpdateContextImpl alloc] initWithAnimated:animated
                                                           command:command
+                                                      updateQueue:self.nodeContentUpdateQueue
                                                     childrenState:data.childrenState
                                                      contentBlock:^id<RTRNodeContent>(id<RTRNode> node) {
                                                          return [self dataForNode:node].content;
                                                      }]];
+    
+    [self.nodeContentUpdateQueue enqueueBlock:^(RTRNodeContentUpdateCompletionBlock completion) {
+        // TODO: track content state
+        completion();
+    }];
 }
 
 - (id<RTRNodeContent>)createContentForNode:(id<RTRNode>)node {
@@ -200,6 +223,8 @@ NSString * const RTRRouterActiveNodesDidUpdateNotification = @"com.pixty.router.
 }
 
 #pragma mark - Node data
+
+@synthesize dataByNode = _dataByNode;
 
 - (NSMapTable *)dataByNode {
     if (!_dataByNode) {

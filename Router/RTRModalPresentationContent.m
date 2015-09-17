@@ -8,19 +8,13 @@
 
 #import "RTRModalPresentationContent.h"
 #import "RTRNodeContentUpdateContext.h"
+#import "RTRNodeContentUpdateQueue.h"
 #import "RTRNodeChildrenState.h"
 #import "RTRViewControllerContentHelpers.h"
-
-typedef void (^RTRModalPresentationContentUpdateCompletionBlock)();
-typedef void (^RTRModalPresentationContentUpdateBlock)(RTRModalPresentationContentUpdateCompletionBlock completion);
-
 
 @interface RTRModalPresentationContent ()
 
 @property (nonatomic, readonly) UIWindow *window;
-
-@property (nonatomic, strong) NSMutableArray *updateBlocks;
-@property (nonatomic, assign) BOOL updateInProgress;
 
 @end
 
@@ -40,7 +34,6 @@ typedef void (^RTRModalPresentationContentUpdateBlock)(RTRModalPresentationConte
     if (!self) return nil;
     
     _window = window;
-    _updateBlocks = [[NSMutableArray alloc] init];
     
     return self;
 }
@@ -65,7 +58,7 @@ typedef void (^RTRModalPresentationContentUpdateBlock)(RTRModalPresentationConte
         
         UIViewController *viewController = presentedViewControllers[i - 1];
         
-        [self enqueueUpdateWithBlock:^(RTRModalPresentationContentUpdateCompletionBlock completion) {
+        [updateContext.updateQueue enqueueBlock:^(RTRNodeContentUpdateCompletionBlock completion) {
             [viewController dismissViewControllerAnimated:updateContext.animated completion:completion];
         }];
     }
@@ -74,7 +67,7 @@ typedef void (^RTRModalPresentationContentUpdateBlock)(RTRModalPresentationConte
         UIViewController *viewController = viewControllers[i];
         
         if (i == 0) {
-            [self enqueueUpdateWithBlock:^(RTRModalPresentationContentUpdateCompletionBlock completion) {
+            [updateContext.updateQueue enqueueBlock:^(RTRNodeContentUpdateCompletionBlock completion) {
                 self.window.rootViewController = viewController;
                 
                 if (self.window.hidden) {
@@ -86,7 +79,7 @@ typedef void (^RTRModalPresentationContentUpdateBlock)(RTRModalPresentationConte
         } else {
             UIViewController *previousViewController = viewControllers[i - 1];
             
-            [self enqueueUpdateWithBlock:^(RTRModalPresentationContentUpdateCompletionBlock completion) {
+            [updateContext.updateQueue enqueueBlock:^(RTRNodeContentUpdateCompletionBlock completion) {
                 [previousViewController presentViewController:viewController animated:updateContext.animated completion:completion];
             }];
         }
@@ -114,27 +107,6 @@ typedef void (^RTRModalPresentationContentUpdateBlock)(RTRModalPresentationConte
         ++i;
     }
     return i;
-}
-
-- (void)enqueueUpdateWithBlock:(RTRModalPresentationContentUpdateBlock)updateBlock {
-    [self.updateBlocks addObject:updateBlock];
-    [self dequeueUpdateIfPossible];
-}
-
-- (void)dequeueUpdateIfPossible {
-    if (self.updateInProgress || self.updateBlocks.count == 0) {
-        return;
-    }
-    
-    self.updateInProgress = YES;
-    
-    RTRModalPresentationContentUpdateBlock updateBlock = self.updateBlocks[0];
-    [self.updateBlocks removeObjectAtIndex:0];
-    
-    updateBlock(^{
-        self.updateInProgress = NO;
-        [self dequeueUpdateIfPossible];
-    });
 }
 
 @end

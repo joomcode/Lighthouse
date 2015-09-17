@@ -41,7 +41,7 @@
     NSAssert(updateContext.childrenState.activeChildren.count == 1, @""); // TODO
     
     NSArray *viewControllers = [RTRViewControllerContentHelpers childViewControllersWithUpdateContext:updateContext];
-    [self.data setViewControllers:viewControllers animated:updateContext.animated];
+    [self.data setViewControllers:viewControllers animated:updateContext.animated]; // TODO: use updateQueue
     
     id<RTRNode> activeChild = updateContext.childrenState.activeChildren.firstObject;
     [self.data setSelectedIndex:[updateContext.childrenState.initializedChildren indexOfObject:activeChild]];
