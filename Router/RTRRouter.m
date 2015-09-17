@@ -53,9 +53,11 @@ NSString * const RTRRouterActiveNodesDidUpdateNotification = @"com.pixty.router.
     NSOrderedSet *pathToTargetNode = [self.graph pathToNode:targetNode];
     NSAssert(pathToTargetNode != nil, @""); // TODO
     
+    NSSet *nodesForAnimatedContentUpdate = animated ? [self nodesForAnimatedContentUpdateForTargetNodePath:pathToTargetNode] : nil;
+    
     [self activateNodePath:pathToTargetNode];
     
-    [self updateContentForNodes:pathToTargetNode withCommand:command animated:animated];
+    [self updateNodeContentRecursively:pathToTargetNode[0] withCommand:command animateNodes:nodesForAnimatedContentUpdate];
 }
 
 #pragma mark - Node state manipulation
@@ -95,18 +97,36 @@ NSString * const RTRRouterActiveNodesDidUpdateNotification = @"com.pixty.router.
 
 #pragma mark - Node content manipulation
 
-- (void)updateContentForNodes:(NSOrderedSet *)nodes withCommand:(id<RTRCommand>)command animated:(BOOL)animated {
-    [self updateNodeContentRecursively:nodes[0] withCommand:command animated:animated];
+- (NSSet *)nodesForAnimatedContentUpdateForTargetNodePath:(NSOrderedSet *)nodePath {
+    NSInteger firstInactiveNodeIndex = [self firstInactiveNodeIndexForTargetNodePath:nodePath];
+    
+    if (firstInactiveNodeIndex == NSNotFound) {
+        return [nodePath set];
+    } else {
+        return [NSSet setWithArray:[[nodePath array] subarrayWithRange:NSMakeRange(0, MAX(1, firstInactiveNodeIndex))]];
+    }
 }
 
-- (void)updateNodeContentRecursively:(id<RTRNode>)node withCommand:(id<RTRCommand>)command animated:(BOOL)animated {
+- (NSInteger)firstInactiveNodeIndexForTargetNodePath:(NSOrderedSet *)nodePath {
+    for (NSInteger i = 0; i < nodePath.count; ++i) {
+        RTRNodeData *data = [self dataForNode:nodePath[i]];
+        
+        if (data.state != RTRNodeStateActive) {
+            return i;
+        }
+    }
+    
+    return NSNotFound;
+}
+
+- (void)updateNodeContentRecursively:(id<RTRNode>)node withCommand:(id<RTRCommand>)command animateNodes:(NSSet *)animatedNodes {
     RTRNodeData *data = [self dataForNode:node];
     
     for (id<RTRNode> childNode in data.childrenState.initializedChildren) {
-        [self updateNodeContentRecursively:childNode withCommand:command animated:NO];
+        [self updateNodeContentRecursively:childNode withCommand:command animateNodes:animatedNodes];
     }
-        
-    [self updateNodeContent:node withCommand:command animated:animated];
+    
+    [self updateNodeContent:node withCommand:command animated:[animatedNodes containsObject:node]];
 }
 
 - (void)updateNodeContent:(id<RTRNode>)node withCommand:(id<RTRCommand>)command animated:(BOOL)animated {

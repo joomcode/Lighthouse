@@ -138,20 +138,36 @@
     self.router = router;
 }
 
+//- (void)doSomething {
+//    [self.router executeCommand:[[PXPresentGreen alloc] init] animated:NO];
+//}
+//
+//- (void)doSomethingLater {
+//    [self.router executeCommand:[[PXPresentAnotherModal alloc] init] animated:YES];
+//}
+//
+//- (void)doSomethingEvenLater {
+//    [self.router executeCommand:[[PXPresentModal alloc] init] animated:YES];
+//}
+//
+//- (void)doSomethingEvenMoreLater {
+//    [self.router executeCommand:[[PXPresentBlue alloc] init] animated:YES];
+//}
+
 - (void)doSomething {
-    [self.router executeCommand:[[PXPresentGreen alloc] init] animated:NO];
+    [self.router executeCommand:[[PXPresentRed alloc] init] animated:NO];
 }
 
 - (void)doSomethingLater {
-    [self.router executeCommand:[[PXPresentAnotherModal alloc] init] animated:YES];
+    [self.router executeCommand:[[PXPresentBlue alloc] init] animated:YES];
 }
 
 - (void)doSomethingEvenLater {
-    [self.router executeCommand:[[PXPresentModal alloc] init] animated:YES];
+    [self.router executeCommand:[[PXPresentGreen alloc] init] animated:YES];
 }
 
 - (void)doSomethingEvenMoreLater {
-    [self.router executeCommand:[[PXPresentBlue alloc] init] animated:YES];
+    [self.router executeCommand:[[PXPresentRed alloc] init] animated:YES];
 }
 
 @end
