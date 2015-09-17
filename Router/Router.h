@@ -35,7 +35,7 @@
 
 #import "RTRNodeContentProvider.h"
 
-#import "RTRBlockNodeContentProvider.h"
+#import "RTRBasicNodeContentProvider.h"
 #import "RTRCompositeNodeContentProvider.h"
 
 
@@ -47,6 +47,8 @@
 // Command Registry
 
 #import "RTRCommandRegistry.h"
+
+#import "RTRBasicCommandRegistry.h"
 
 
 // Router

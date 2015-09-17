@@ -1,5 +1,5 @@
 //
-//  RTRBlockNodeContentProvider.h
+//  RTRBasicNodeContentProvider.h
 //  Router
 //
 //  Created by Nick Tymchenko on 15/09/15.
@@ -8,12 +8,9 @@
 
 #import "RTRNodeContentProvider.h"
 
-@protocol RTRNode;
-@protocol RTRNodeContent;
-
 typedef id<RTRNodeContent> (^RTRNodeContentProvidingBlock)(id<RTRNode> node);
 
-@interface RTRBlockNodeContentProvider : NSObject <RTRNodeContentProvider>
+@interface RTRBasicNodeContentProvider : NSObject <RTRNodeContentProvider>
 
 - (void)bindNode:(id<RTRNode>)node toBlock:(RTRNodeContentProvidingBlock)block;
 

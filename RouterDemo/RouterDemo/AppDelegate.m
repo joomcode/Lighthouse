@@ -71,7 +71,7 @@
     
     // Node Content
     
-    RTRBlockNodeContentProvider *nodeContentProvider = [[RTRBlockNodeContentProvider alloc] init];
+    RTRBasicNodeContentProvider *nodeContentProvider = [[RTRBasicNodeContentProvider alloc] init];
     
     [nodeContentProvider bindNodeClass:[RTRStackNode class] toBlock:^id<RTRNodeContent>(id<RTRNode> node) {
         return [[RTRNavigationControllerContent alloc] init];
@@ -108,13 +108,13 @@
 
     // Command Registry
     
-    RTRCommandRegistry *commandRegistry = [[RTRCommandRegistry alloc] init];
+    RTRBasicCommandRegistry *commandRegistry = [[RTRBasicCommandRegistry alloc] init];
     
-    [commandRegistry bindNode:redNode toCommandClass:[PXPresentRed class]];
-    [commandRegistry bindNode:greenNode toCommandClass:[PXPresentGreen class]];
-    [commandRegistry bindNode:blueNode toCommandClass:[PXPresentBlue class]];
-    [commandRegistry bindNode:deepModalNode toCommandClass:[PXPresentModal class]];
-    [commandRegistry bindNode:anotherBlueNode toCommandClass:[PXPresentAnotherModal class]];
+    [commandRegistry bindCommandClass:[PXPresentRed class] toNode:redNode];
+    [commandRegistry bindCommandClass:[PXPresentGreen class] toNode:greenNode];
+    [commandRegistry bindCommandClass:[PXPresentBlue class] toNode:blueNode];
+    [commandRegistry bindCommandClass:[PXPresentModal class] toNode:deepModalNode];
+    [commandRegistry bindCommandClass:[PXPresentAnotherModal class] toNode:anotherBlueNode];
 
     
     // Router

@@ -16,10 +16,3 @@
 - (id<RTRNode>)nodeForCommand:(id<RTRCommand>)command;
 
 @end
-
-
-@interface RTRCommandRegistry : NSObject <RTRCommandRegistry>
-
-- (void)bindNode:(id<RTRNode>)node toCommandClass:(Class)commandClass;
-
-@end

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0111CC241BAA470D00C19022 /* RTRCommandOrientedContent.m in Sources */ = {isa = PBXBuildFile; fileRef = 0111CC231BAA470D00C19022 /* RTRCommandOrientedContent.m */; };
+		0111CC2B1BAB026B00C19022 /* RTRBasicCommandRegistry.m in Sources */ = {isa = PBXBuildFile; fileRef = 0111CC2A1BAB026B00C19022 /* RTRBasicCommandRegistry.m */; };
 		012497981BA9D92E007CD98B /* RTRTabBarControllerContent.m in Sources */ = {isa = PBXBuildFile; fileRef = 012497971BA9D92E007CD98B /* RTRTabBarControllerContent.m */; };
 		0124979E1BA9E7B1007CD98B /* RTRViewControllerContentHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 0124979D1BA9E7B1007CD98B /* RTRViewControllerContentHelpers.m */; };
 		0160A96D1BA742C90035A331 /* RTRStackNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 0160A96C1BA742C90035A331 /* RTRStackNode.m */; };
@@ -18,12 +19,11 @@
 		01A01A641BA8373B00608274 /* RTRViewControllerContent.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A01A631BA8373B00608274 /* RTRViewControllerContent.m */; };
 		01A01A671BA837B100608274 /* RTRRouter.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A01A661BA837B100608274 /* RTRRouter.m */; };
 		01A01A721BA83B0B00608274 /* RTRGraph.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A01A711BA83B0B00608274 /* RTRGraph.m */; };
-		01A01A771BA83EA500608274 /* RTRCommandRegistry.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A01A761BA83EA500608274 /* RTRCommandRegistry.m */; };
 		01A01A801BA84D2500608274 /* RTRNodeData.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A01A7F1BA84D2500608274 /* RTRNodeData.m */; };
 		01A01A831BA869F200608274 /* RTRNodeContentUpdateContextImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A01A821BA869F200608274 /* RTRNodeContentUpdateContextImpl.m */; };
 		01A01A991BA8834500608274 /* RTRLeafNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A01A981BA8834500608274 /* RTRLeafNode.m */; };
 		01A01AA11BA88B4000608274 /* RTRModalPresentationContent.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A01AA01BA88B4000608274 /* RTRModalPresentationContent.m */; };
-		01A01AA41BA8901100608274 /* RTRBlockNodeContentProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A01AA31BA8901100608274 /* RTRBlockNodeContentProvider.m */; };
+		01A01AA41BA8901100608274 /* RTRBasicNodeContentProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A01AA31BA8901100608274 /* RTRBasicNodeContentProvider.m */; };
 		01A01AA81BA8E9FB00608274 /* RTRNodeContentFeedbackChannelImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A01AA71BA8E9FB00608274 /* RTRNodeContentFeedbackChannelImpl.m */; };
 		01A01AAC1BA9743900608274 /* RTRCompositeNodeContent.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A01AAB1BA9743900608274 /* RTRCompositeNodeContent.m */; };
 		01A01AB11BA97B7100608274 /* RTRCompositeNodeContentProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A01AB01BA97B7100608274 /* RTRCompositeNodeContentProvider.m */; };
@@ -44,6 +44,8 @@
 /* Begin PBXFileReference section */
 		0111CC221BAA470D00C19022 /* RTRCommandOrientedContent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTRCommandOrientedContent.h; sourceTree = "<group>"; };
 		0111CC231BAA470D00C19022 /* RTRCommandOrientedContent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTRCommandOrientedContent.m; sourceTree = "<group>"; };
+		0111CC291BAB026B00C19022 /* RTRBasicCommandRegistry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTRBasicCommandRegistry.h; sourceTree = "<group>"; };
+		0111CC2A1BAB026B00C19022 /* RTRBasicCommandRegistry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTRBasicCommandRegistry.m; sourceTree = "<group>"; };
 		012497961BA9D92E007CD98B /* RTRTabBarControllerContent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTRTabBarControllerContent.h; sourceTree = "<group>"; };
 		012497971BA9D92E007CD98B /* RTRTabBarControllerContent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTRTabBarControllerContent.m; sourceTree = "<group>"; };
 		0124979C1BA9E7B1007CD98B /* RTRViewControllerContentHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTRViewControllerContentHelpers.h; sourceTree = "<group>"; };
@@ -73,7 +75,6 @@
 		01A01A701BA83B0B00608274 /* RTRGraph.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTRGraph.h; sourceTree = "<group>"; };
 		01A01A711BA83B0B00608274 /* RTRGraph.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTRGraph.m; sourceTree = "<group>"; };
 		01A01A751BA83EA500608274 /* RTRCommandRegistry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTRCommandRegistry.h; sourceTree = "<group>"; };
-		01A01A761BA83EA500608274 /* RTRCommandRegistry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTRCommandRegistry.m; sourceTree = "<group>"; };
 		01A01A791BA8420000608274 /* RTRNodeContentProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTRNodeContentProvider.h; sourceTree = "<group>"; };
 		01A01A7E1BA84D2500608274 /* RTRNodeData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTRNodeData.h; sourceTree = "<group>"; };
 		01A01A7F1BA84D2500608274 /* RTRNodeData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTRNodeData.m; sourceTree = "<group>"; };
@@ -84,8 +85,8 @@
 		01A01A981BA8834500608274 /* RTRLeafNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTRLeafNode.m; sourceTree = "<group>"; };
 		01A01A9F1BA88B4000608274 /* RTRModalPresentationContent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTRModalPresentationContent.h; sourceTree = "<group>"; };
 		01A01AA01BA88B4000608274 /* RTRModalPresentationContent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTRModalPresentationContent.m; sourceTree = "<group>"; };
-		01A01AA21BA8901100608274 /* RTRBlockNodeContentProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTRBlockNodeContentProvider.h; sourceTree = "<group>"; };
-		01A01AA31BA8901100608274 /* RTRBlockNodeContentProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTRBlockNodeContentProvider.m; sourceTree = "<group>"; };
+		01A01AA21BA8901100608274 /* RTRBasicNodeContentProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTRBasicNodeContentProvider.h; sourceTree = "<group>"; };
+		01A01AA31BA8901100608274 /* RTRBasicNodeContentProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTRBasicNodeContentProvider.m; sourceTree = "<group>"; };
 		01A01AA61BA8E9FB00608274 /* RTRNodeContentFeedbackChannelImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTRNodeContentFeedbackChannelImpl.h; sourceTree = "<group>"; };
 		01A01AA71BA8E9FB00608274 /* RTRNodeContentFeedbackChannelImpl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTRNodeContentFeedbackChannelImpl.m; sourceTree = "<group>"; };
 		01A01AAA1BA9743900608274 /* RTRCompositeNodeContent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTRCompositeNodeContent.h; sourceTree = "<group>"; };
@@ -112,6 +113,15 @@
 				0111CC231BAA470D00C19022 /* RTRCommandOrientedContent.m */,
 			);
 			name = "Command Oriented Content";
+			sourceTree = "<group>";
+		};
+		0111CC281BAB025B00C19022 /* Basic */ = {
+			isa = PBXGroup;
+			children = (
+				0111CC291BAB026B00C19022 /* RTRBasicCommandRegistry.h */,
+				0111CC2A1BAB026B00C19022 /* RTRBasicCommandRegistry.m */,
+			);
+			name = Basic;
 			sourceTree = "<group>";
 		};
 		0124979F1BA9E825007CD98B /* Helpers */ = {
@@ -271,8 +281,8 @@
 		01A01AA51BA8927500608274 /* Command Registry */ = {
 			isa = PBXGroup;
 			children = (
+				0111CC281BAB025B00C19022 /* Basic */,
 				01A01A751BA83EA500608274 /* RTRCommandRegistry.h */,
-				01A01A761BA83EA500608274 /* RTRCommandRegistry.m */,
 			);
 			name = "Command Registry";
 			sourceTree = "<group>";
@@ -280,8 +290,8 @@
 		01A01AAD1BA97B3B00608274 /* Basic */ = {
 			isa = PBXGroup;
 			children = (
-				01A01AA21BA8901100608274 /* RTRBlockNodeContentProvider.h */,
-				01A01AA31BA8901100608274 /* RTRBlockNodeContentProvider.m */,
+				01A01AA21BA8901100608274 /* RTRBasicNodeContentProvider.h */,
+				01A01AA31BA8901100608274 /* RTRBasicNodeContentProvider.m */,
 			);
 			name = Basic;
 			sourceTree = "<group>";
@@ -359,7 +369,7 @@
 				0160A9761BA7479C0035A331 /* RTRTabNode.m in Sources */,
 				0124979E1BA9E7B1007CD98B /* RTRViewControllerContentHelpers.m in Sources */,
 				0160A96D1BA742C90035A331 /* RTRStackNode.m in Sources */,
-				01A01A771BA83EA500608274 /* RTRCommandRegistry.m in Sources */,
+				0111CC2B1BAB026B00C19022 /* RTRBasicCommandRegistry.m in Sources */,
 				01A01A721BA83B0B00608274 /* RTRGraph.m in Sources */,
 				0160A9851BA78EAC0035A331 /* RTRNavigationControllerContent.m in Sources */,
 				01A01A641BA8373B00608274 /* RTRViewControllerContent.m in Sources */,
@@ -373,7 +383,7 @@
 				01A01A991BA8834500608274 /* RTRLeafNode.m in Sources */,
 				01A01AA81BA8E9FB00608274 /* RTRNodeContentFeedbackChannelImpl.m in Sources */,
 				01A01A671BA837B100608274 /* RTRRouter.m in Sources */,
-				01A01AA41BA8901100608274 /* RTRBlockNodeContentProvider.m in Sources */,
+				01A01AA41BA8901100608274 /* RTRBasicNodeContentProvider.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

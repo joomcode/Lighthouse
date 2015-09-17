@@ -1,15 +1,15 @@
 //
-//  RTRBlockNodeContentProvider.m
+//  RTRBasicNodeContentProvider.m
 //  Router
 //
 //  Created by Nick Tymchenko on 15/09/15.
 //  Copyright (c) 2015 Pixty. All rights reserved.
 //
 
-#import "RTRBlockNodeContentProvider.h"
+#import "RTRBasicNodeContentProvider.h"
 #import "RTRNode.h"
 
-@interface RTRBlockNodeContentProvider ()
+@interface RTRBasicNodeContentProvider ()
 
 @property (nonatomic, strong) NSMapTable *blocksByNodes;
 @property (nonatomic, strong) NSMapTable *blocksByNodeClasses;
@@ -17,7 +17,7 @@
 @end
 
 
-@implementation RTRBlockNodeContentProvider
+@implementation RTRBasicNodeContentProvider
 
 #pragma mark - Init
 
