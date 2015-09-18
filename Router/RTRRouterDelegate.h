@@ -8,11 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
-extern NSString * const RTRRouterNodeContentDidUpdateNotification;
+extern NSString * const RTRRouterNodeStateDidUpdateNotification;
 
 
 @protocol RTRRouterDelegate <NSObject>
 
-- (void)routerNodeContentDidUpdate:(RTRRouter *)router;
+- (void)routerNodeStateDidUpdate:(RTRRouter *)router;
 
 @end

@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "RTRNodeContentState.h"
+#import "RTRNodeState.h"
 
 @protocol RTRNode;
 @protocol RTRCommand;
@@ -27,9 +27,9 @@
 @property (nonatomic, weak) id<RTRRouterDelegate> delegate;
 
 
-@property (nonatomic, readonly) NSSet *nodesWithInitializedContent;
+@property (nonatomic, readonly) NSSet *initializedNodes;
 
-- (RTRNodeContentState)contentStateForNode:(id<RTRNode>)node;
+- (RTRNodeState)stateForNode:(id<RTRNode>)node;
 
 
 - (void)executeCommand:(id<RTRCommand>)command animated:(BOOL)animated;

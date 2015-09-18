@@ -162,7 +162,7 @@
 
 #pragma mark - PXRouterDelegate
 
-- (void)routerNodeContentDidUpdate:(RTRRouter *)router {
+- (void)routerNodeStateDidUpdate:(RTRRouter *)router {
 }
 
 @end

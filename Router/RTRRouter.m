@@ -19,7 +19,7 @@
 #import "RTRNodeContentUpdateContextImpl.h"
 #import "RTRNodeContentFeedbackChannelImpl.h"
 
-NSString * const RTRRouterNodeContentDidUpdateNotification = @"com.pixty.router.nodeContentDidUpdate";
+NSString * const RTRRouterNodeStateDidUpdateNotification = @"com.pixty.router.nodeStateDidUpdate";
 
 
 @interface RTRRouter ()
@@ -31,9 +31,9 @@ NSString * const RTRRouterNodeContentDidUpdateNotification = @"com.pixty.router.
 
 @property (nonatomic, strong, readonly) NSMapTable *dataByNode;
 
-@property (nonatomic, strong) NSSet *nodesWithInitializedContent;
+@property (nonatomic, strong) NSSet *initializedNodes;
 
-@property (nonatomic, strong) NSMapTable *externalContentStateByNode;
+@property (nonatomic, strong) NSMapTable *resolvedStateByNode;
 
 @end
 
@@ -97,9 +97,8 @@ NSString * const RTRRouterNodeContentDidUpdateNotification = @"com.pixty.router.
 - (void)activateNodePath:(NSOrderedSet *)nodePath {
     for (NSInteger i = 0; i < nodePath.count; ++i) {
         if (i == 0) {
-            // TODO: move this somewhere
             [self dataForNode:nodePath[0]].state = RTRNodeStateActive;
-            [self dataForNode:nodePath[0]].contentState = RTRNodeContentStateActive;
+            [self dataForNode:nodePath[0]].presentationState = RTRNodeStateActive;
         } else {
             [self activateNewChildNode:nodePath[i] ofParentNode:nodePath[i - 1]];
         }
@@ -234,90 +233,79 @@ NSString * const RTRRouterNodeContentDidUpdateNotification = @"com.pixty.router.
     for (id<RTRNode> child in [node allChildren]) {
         RTRNodeData *childData = [self dataForNode:child];
         
-        RTRNodeContentState oldState = childData.contentState;
-        RTRNodeContentState newState = [self nodeContentStateFromNodeState:childData.state];
+        RTRNodeState oldState = childData.presentationState;
+        RTRNodeState newState = childData.state;
         
-        if ((oldState == RTRNodeContentStateInactive || oldState == RTRNodeContentStateNotInitialized) && newState == RTRNodeContentStateActive) {
-            childData.contentState = RTRNodeContentStateActivating;
-        } else if (oldState == RTRNodeContentStateActive && (newState == RTRNodeContentStateInactive || newState == RTRNodeContentStateNotInitialized)) {
-            childData.contentState = RTRNodeContentStateDeactivating;
+        if ((oldState == RTRNodeStateInactive || oldState == RTRNodeStateNotInitialized) && newState == RTRNodeStateActive) {
+            childData.presentationState = RTRNodeStateActivating;
+        } else if (oldState == RTRNodeStateActive && (newState == RTRNodeStateInactive || newState == RTRNodeStateNotInitialized)) {
+            childData.presentationState = RTRNodeStateDeactivating;
         }
     }
     
-    [self updateExternalNodeContentState];
+    [self updateResolvedNodeState];
 }
 
 - (void)didUpdateNodeContent:(id<RTRNode>)node {
     for (id<RTRNode> child in [node allChildren]) {
         RTRNodeData *childData = [self dataForNode:child];
-        childData.contentState = [self nodeContentStateFromNodeState:childData.state];
+        childData.presentationState = childData.state;
     }
     
-    [self updateExternalNodeContentState];
-}
-
-- (RTRNodeContentState)nodeContentStateFromNodeState:(RTRNodeState)nodeState {
-    switch (nodeState) {
-        case RTRNodeStateNotInitialized:
-            return RTRNodeContentStateNotInitialized;
-        case RTRNodeStateInactive:
-            return RTRNodeContentStateInactive;
-        case RTRNodeStateActive:
-            return RTRNodeContentStateActive;
-    }
+    [self updateResolvedNodeState];
 }
 
 #pragma mark - Node content state query
 
-- (RTRNodeContentState)contentStateForNode:(id<RTRNode>)node {
-    NSNumber *contentState = [self.externalContentStateByNode objectForKey:node];
-    return [contentState integerValue];
+- (RTRNodeState)stateForNode:(id<RTRNode>)node {
+    NSNumber *state = [self.resolvedStateByNode objectForKey:node];
+    return [state integerValue];
 }
 
-- (void)updateExternalNodeContentState {
-    NSMapTable *externalContentStateByNode = [self calculateExternalNodeContentState];
-    if ([externalContentStateByNode isEqual:self.externalContentStateByNode]) {
+- (void)updateResolvedNodeState {
+    NSMapTable *resolvedStateByNode = [self calculateResolvedNodeState];
+    if ([resolvedStateByNode isEqual:self.resolvedStateByNode]) {
         return;
     }
-    self.externalContentStateByNode = externalContentStateByNode;
+    self.resolvedStateByNode = resolvedStateByNode;
     
-    NSMutableSet *nodesWithInitializedContent = [NSMutableSet setWithCapacity:self.externalContentStateByNode.count];
-    for (id<RTRNode> node in self.externalContentStateByNode) {
-        [nodesWithInitializedContent addObject:node];
+    NSMutableSet *initializedNodes = [NSMutableSet setWithCapacity:self.resolvedStateByNode.count];
+    for (id<RTRNode> node in self.resolvedStateByNode) {
+        [initializedNodes addObject:node];
     }    
-    self.nodesWithInitializedContent = [nodesWithInitializedContent copy];
+    self.initializedNodes = [initializedNodes copy];
     
-    [self.delegate routerNodeContentDidUpdate:self];
-    [[NSNotificationCenter defaultCenter] postNotificationName:RTRRouterNodeContentDidUpdateNotification object:self];
+    [self.delegate routerNodeStateDidUpdate:self];
+    [[NSNotificationCenter defaultCenter] postNotificationName:RTRRouterNodeStateDidUpdateNotification object:self];
 }
 
-- (NSMapTable *)calculateExternalNodeContentState {
-    NSMapTable *externalContentStateByNode = [NSMapTable strongToStrongObjectsMapTable];
+- (NSMapTable *)calculateResolvedNodeState {
+    NSMapTable *resolvedStateByNode = [NSMapTable strongToStrongObjectsMapTable];
     
-    [self calculateExternalNodeContentStateRecursivelyWithCurrentNode:self.rootNode
-                                           externalContentStateByNode:externalContentStateByNode
-                                                           trumpState:RTRNodeContentStateActive];
+    [self calculateResolvedNodeStateRecursivelyWithCurrentNode:self.rootNode
+                                           resolvedStateByNode:resolvedStateByNode
+                                                   parentState:RTRNodeStateActive];
     
-    return externalContentStateByNode;
+    return resolvedStateByNode;
 }
 
-- (void)calculateExternalNodeContentStateRecursivelyWithCurrentNode:(id<RTRNode>)node
-                                         externalContentStateByNode:(NSMapTable *)externalContentStateByNode
-                                                         trumpState:(RTRNodeContentState)trumpState
+- (void)calculateResolvedNodeStateRecursivelyWithCurrentNode:(id<RTRNode>)node
+                                         resolvedStateByNode:(NSMapTable *)resolvedStateByNode
+                                                 parentState:(RTRNodeState)parentState
 {
     RTRNodeData *data = [self dataForNode:node];
     
-    RTRNodeContentState state = MIN(data.contentState, trumpState);
-    if (state == RTRNodeContentStateNotInitialized) {
+    RTRNodeState state = MIN(data.presentationState, parentState);
+    if (state == RTRNodeStateNotInitialized) {
         return;
     }
     
-    [externalContentStateByNode setObject:@(state) forKey:node];
+    [resolvedStateByNode setObject:@(state) forKey:node];
     
     for (id<RTRNode> child in [node allChildren]) {
-        [self calculateExternalNodeContentStateRecursivelyWithCurrentNode:child
-                                               externalContentStateByNode:externalContentStateByNode
-                                                               trumpState:state];
+        [self calculateResolvedNodeStateRecursivelyWithCurrentNode:child
+                                               resolvedStateByNode:resolvedStateByNode
+                                                        parentState:state];
     }
 }
 

@@ -47,7 +47,6 @@
 		0111CC231BAA470D00C19022 /* RTRCommandOrientedContent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTRCommandOrientedContent.m; sourceTree = "<group>"; };
 		0111CC291BAB026B00C19022 /* RTRBasicCommandRegistry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTRBasicCommandRegistry.h; sourceTree = "<group>"; };
 		0111CC2A1BAB026B00C19022 /* RTRBasicCommandRegistry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTRBasicCommandRegistry.m; sourceTree = "<group>"; };
-		0111CC361BAB8ADA00C19022 /* RTRNodeContentState.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RTRNodeContentState.h; sourceTree = "<group>"; };
 		0111CC391BAB963900C19022 /* RTRTaskQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTRTaskQueue.h; sourceTree = "<group>"; };
 		0111CC3A1BAB978300C19022 /* RTRTaskQueueImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTRTaskQueueImpl.h; sourceTree = "<group>"; };
 		0111CC3B1BAB978300C19022 /* RTRTaskQueueImpl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTRTaskQueueImpl.m; sourceTree = "<group>"; };
@@ -228,7 +227,6 @@
 				0160A9821BA78DE00035A331 /* View Controller Content */,
 				0111CC211BAA46E500C19022 /* Command Oriented Content */,
 				0160A9781BA780AD0035A331 /* RTRNodeContent.h */,
-				0111CC361BAB8ADA00C19022 /* RTRNodeContentState.h */,
 				0160A9811BA78CAE0035A331 /* RTRNodeContentUpdateContext.h */,
 				0160A9881BA8299A0035A331 /* RTRNodeContentFeedbackChannel.h */,
 			);
