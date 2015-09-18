@@ -88,7 +88,7 @@ NSString * const RTRRouterActiveNodesDidUpdateNotification = @"com.pixty.router.
     id<RTRNodeChildrenState> childrenState = [self dataForNode:parentNode].childrenState;
     
     for (id<RTRNode> childNode in childrenState.initializedChildren) {
-        [self dataForNode:childNode].state = [childrenState.activeChildren containsObject:childNode] ? RTRNodeStateActive : RTRNodeStateInitialized;
+        [self dataForNode:childNode].state = [childrenState.activeChildren containsObject:childNode] ? RTRNodeStateActive : RTRNodeStateInactive;
     }
     
     for (id<RTRNode> childNode in [parentNode allChildren]) {

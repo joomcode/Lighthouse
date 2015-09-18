@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 typedef NS_ENUM(NSInteger, RTRNodeState) {
-    RTRNodeStateInactive = 0,
-    RTRNodeStateInitialized = 1,
+    RTRNodeStateNotInitialized = 0,
+    RTRNodeStateInactive = 1,
     RTRNodeStateActive = 2
 };
