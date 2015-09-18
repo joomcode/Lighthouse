@@ -10,6 +10,7 @@
 
 @interface RTRNodeContentFeedbackChannelImpl : NSObject <RTRNodeContentFeedbackChannel>
 
-@property (nonatomic, copy) void (^childActivatedBlock)(id<RTRNode> node);
+- (instancetype)initWithWillBecomeActiveBlock:(void (^)(id<RTRNode> node))willBlock
+                         didBecomeActiveBlock:(void (^)(id<RTRNode> node))didBlock;
 
 @end

@@ -52,7 +52,12 @@
 #pragma mark - UITabBarBarControllerDelegate
 
 - (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController {
-    [self.feedbackChannel childNodeDidBecomeActive:self.childNodes[tabBarController.selectedIndex]];
+    // TODO: animated selection?..
+    
+    id<RTRNode> activeChild = self.childNodes[tabBarController.selectedIndex];
+    
+    [self.feedbackChannel childNodeWillBecomeActive:activeChild];
+    [self.feedbackChannel childNodeDidBecomeActive:activeChild];
 }
 
 @end

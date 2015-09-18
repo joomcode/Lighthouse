@@ -33,6 +33,11 @@
 #pragma mark - RTRTaskQueue
 
 - (void)enqueueBlock:(RTRTaskQueueBlock)block {
+    if (!self.inProgress) {
+        block();
+        return;
+    }
+    
     [self enqueueAsyncBlock:^(RTRTaskQueueAsyncCompletionBlock completion) {
         block();
         completion();

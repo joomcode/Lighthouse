@@ -19,33 +19,44 @@
 #import "RTRNodeContentUpdateContextImpl.h"
 #import "RTRNodeContentFeedbackChannelImpl.h"
 
-NSString * const RTRRouterActiveNodesDidUpdateNotification = @"com.pixty.router.activeNodesDidUpdate";
+NSString * const RTRRouterNodeContentDidUpdateNotification = @"com.pixty.router.nodeContentDidUpdate";
 
 
 @interface RTRRouter ()
+
+@property (nonatomic, strong, readonly) id<RTRTaskQueue> commandQueue;
+@property (nonatomic, strong, readonly) id<RTRTaskQueue> contentUpdateQueue;
 
 @property (nonatomic, strong) RTRGraph *graph;
 
 @property (nonatomic, strong, readonly) NSMapTable *dataByNode;
 
-@property (nonatomic, strong) NSSet *activeNodes;
+@property (nonatomic, strong) NSSet *nodesWithInitializedContent;
 
-@property (nonatomic, strong, readonly) id<RTRTaskQueue> taskQueue;
+@property (nonatomic, strong) NSMapTable *externalContentStateByNode;
 
 @end
 
 
 @implementation RTRRouter
 
-#pragma mark - Internal stuff
+#pragma mark - Task queues
 
-@synthesize taskQueue = _taskQueue;
+@synthesize commandQueue = _commandQueue;
+@synthesize contentUpdateQueue = _contentUpdateQueue;
 
-- (id<RTRTaskQueue>)taskQueue {
-    if (!_taskQueue) {
-        _taskQueue = [[RTRTaskQueueImpl alloc] init];
+- (id<RTRTaskQueue>)commandQueue {
+    if (!_commandQueue) {
+        _commandQueue = [[RTRTaskQueueImpl alloc] init];
     }
-    return _taskQueue;
+    return _commandQueue;
+}
+
+- (id<RTRTaskQueue>)contentUpdateQueue {
+    if (!_contentUpdateQueue) {
+        _contentUpdateQueue = [[RTRTaskQueueImpl alloc] init];
+    }
+    return _contentUpdateQueue;
 }
 
 #pragma mark - Config stuff
@@ -61,7 +72,7 @@ NSString * const RTRRouterActiveNodesDidUpdateNotification = @"com.pixty.router.
 #pragma mark - Command execution
 
 - (void)executeCommand:(id<RTRCommand>)command animated:(BOOL)animated {
-    [self.taskQueue enqueueBlock:^{
+    [self.commandQueue enqueueAsyncBlock:^(RTRTaskQueueAsyncCompletionBlock completion) {
         id<RTRNode> targetNode = [self.commandRegistry nodeForCommand:command];
         NSAssert(targetNode != nil, @""); // TODO
         
@@ -73,6 +84,11 @@ NSString * const RTRRouterActiveNodesDidUpdateNotification = @"com.pixty.router.
         [self activateNodePath:pathToTargetNode];
         
         [self updateNodeContentRecursively:pathToTargetNode[0] withCommand:command animateNodes:nodesForAnimatedContentUpdate];
+        
+        [self.contentUpdateQueue enqueueBlock:^{
+            [self cleanupNodePath:pathToTargetNode];
+            completion();
+        }];
     }];
 }
 
@@ -81,13 +97,13 @@ NSString * const RTRRouterActiveNodesDidUpdateNotification = @"com.pixty.router.
 - (void)activateNodePath:(NSOrderedSet *)nodePath {
     for (NSInteger i = 0; i < nodePath.count; ++i) {
         if (i == 0) {
+            // TODO: move this somewhere
             [self dataForNode:nodePath[0]].state = RTRNodeStateActive;
+            [self dataForNode:nodePath[0]].contentState = RTRNodeContentStateActive;
         } else {
             [self activateNewChildNode:nodePath[i] ofParentNode:nodePath[i - 1]];
         }
     }
-    
-    [self updateActiveNodes];
 }
 
 - (void)activateNewChildNode:(id<RTRNode>)childNode ofParentNode:(id<RTRNode>)parentNode {
@@ -106,7 +122,19 @@ NSString * const RTRRouterActiveNodesDidUpdateNotification = @"com.pixty.router.
     
     for (id<RTRNode> childNode in [parentNode allChildren]) {
         if (![childrenState.initializedChildren containsObject:childNode]) {
-            [self resetDataForNode:childNode];
+            [self dataForNode:childNode].state = RTRNodeStateNotInitialized;
+        }
+    }
+}
+
+- (void)cleanupNodePath:(NSOrderedSet *)nodePath {
+    for (id<RTRNode> node in nodePath) {
+        RTRNodeData *nodeData = [self dataForNode:node];
+        
+        for (id<RTRNode> childNode in [node allChildren]) {
+            if (![nodeData.childrenState.initializedChildren containsObject:childNode]) {
+                [self resetDataForNode:childNode];
+            }
         }
     }
 }
@@ -152,20 +180,28 @@ NSString * const RTRRouterActiveNodesDidUpdateNotification = @"com.pixty.router.
         data.content = [self createContentForNode:node];
     }
     
-    [self.taskQueue enqueueBlock:^{
+    [self.contentUpdateQueue enqueueBlock:^{
         [self willUpdateNodeContent:node];
     }];
     
-    [data.content updateWithContext:
-        [[RTRNodeContentUpdateContextImpl alloc] initWithAnimated:animated
-                                                          command:command
-                                                      updateQueue:self.taskQueue
-                                                    childrenState:data.childrenState
-                                                     contentBlock:^id<RTRNodeContent>(id<RTRNode> node) {
-                                                         return [self dataForNode:node].content;
-                                                     }]];
+    id<RTRTaskQueue> localUpdateQueue = [[RTRTaskQueueImpl alloc] init];
     
-    [self.taskQueue enqueueBlock:^{
+    [self.contentUpdateQueue enqueueAsyncBlock:^(RTRTaskQueueAsyncCompletionBlock completion) {
+        [data.content updateWithContext:
+            [[RTRNodeContentUpdateContextImpl alloc] initWithAnimated:animated
+                                                              command:command
+                                                          updateQueue:localUpdateQueue
+                                                        childrenState:data.childrenState
+                                                         contentBlock:^id<RTRNodeContent>(id<RTRNode> node) {
+                                                             return [self dataForNode:node].content;
+                                                         }]];
+        
+        [localUpdateQueue enqueueBlock:^{
+            completion();
+        }];
+    }];
+    
+    [self.contentUpdateQueue enqueueBlock:^{
         [self didUpdateNodeContent:node];
     }];
 }
@@ -178,13 +214,15 @@ NSString * const RTRRouterActiveNodesDidUpdateNotification = @"com.pixty.router.
     }
     
     if ([content respondsToSelector:@selector(setFeedbackChannel:)]) {
-        RTRNodeContentFeedbackChannelImpl *feedbackChannel = [[RTRNodeContentFeedbackChannelImpl alloc] init];
+         __weak __typeof(self) weakSelf = self;
         
-        __weak __typeof(self) weakSelf = self;
-        feedbackChannel.childActivatedBlock = ^(id<RTRNode> child) {
-            [weakSelf activateNewChildNode:child ofParentNode:node];
-            [weakSelf updateActiveNodes];
-        };
+        RTRNodeContentFeedbackChannelImpl *feedbackChannel =
+            [[RTRNodeContentFeedbackChannelImpl alloc] initWithWillBecomeActiveBlock:^(id<RTRNode> child) {
+                [weakSelf activateNewChildNode:child ofParentNode:node];
+                [weakSelf willUpdateNodeContent:node];
+            } didBecomeActiveBlock:^(id<RTRNode> child) {
+                [weakSelf didUpdateNodeContent:node];
+            }];
         
         content.feedbackChannel = feedbackChannel;
     }
@@ -193,28 +231,29 @@ NSString * const RTRRouterActiveNodesDidUpdateNotification = @"com.pixty.router.
 }
 
 - (void)willUpdateNodeContent:(id<RTRNode>)node {
-    for (id<RTRNode> child in [self dataForNode:node].childrenState.initializedChildren) {
+    for (id<RTRNode> child in [node allChildren]) {
         RTRNodeData *childData = [self dataForNode:child];
         
-        RTRNodeContentState futureChildContentState = [self nodeContentStateFromNodeState:childData.state];
-        if (childData.contentState == futureChildContentState) {
-            continue;
-        }
+        RTRNodeContentState oldState = childData.contentState;
+        RTRNodeContentState newState = [self nodeContentStateFromNodeState:childData.state];
         
-        if (futureChildContentState == RTRNodeContentStateActive) {
+        if ((oldState == RTRNodeContentStateInactive || oldState == RTRNodeContentStateNotInitialized) && newState == RTRNodeContentStateActive) {
             childData.contentState = RTRNodeContentStateActivating;
-        } else {
+        } else if (oldState == RTRNodeContentStateActive && (newState == RTRNodeContentStateInactive || newState == RTRNodeContentStateNotInitialized)) {
             childData.contentState = RTRNodeContentStateDeactivating;
         }
     }
+    
+    [self updateExternalNodeContentState];
 }
 
 - (void)didUpdateNodeContent:(id<RTRNode>)node {
-    for (id<RTRNode> child in [self dataForNode:node].childrenState.initializedChildren) {
+    for (id<RTRNode> child in [node allChildren]) {
         RTRNodeData *childData = [self dataForNode:child];
-        
         childData.contentState = [self nodeContentStateFromNodeState:childData.state];
     }
+    
+    [self updateExternalNodeContentState];
 }
 
 - (RTRNodeContentState)nodeContentStateFromNodeState:(RTRNodeState)nodeState {
@@ -228,35 +267,57 @@ NSString * const RTRRouterActiveNodesDidUpdateNotification = @"com.pixty.router.
     }
 }
 
-#pragma mark - Active nodes
+#pragma mark - Node content state query
 
-- (void)updateActiveNodes {
-    NSSet *activeNodes = [self calculateActiveNodes];
-    
-    if (![activeNodes isEqualToSet:self.activeNodes]) {
-        self.activeNodes = activeNodes;
-        
-        [self.delegate routerActiveNodesDidUpdate:self];
-        [[NSNotificationCenter defaultCenter] postNotificationName:RTRRouterActiveNodesDidUpdateNotification object:self];
+- (RTRNodeContentState)contentStateForNode:(id<RTRNode>)node {
+    NSNumber *contentState = [self.externalContentStateByNode objectForKey:node];
+    return [contentState integerValue];
+}
+
+- (void)updateExternalNodeContentState {
+    NSMapTable *externalContentStateByNode = [self calculateExternalNodeContentState];
+    if ([externalContentStateByNode isEqual:self.externalContentStateByNode]) {
+        return;
     }
+    self.externalContentStateByNode = externalContentStateByNode;
+    
+    NSMutableSet *nodesWithInitializedContent = [NSMutableSet setWithCapacity:self.externalContentStateByNode.count];
+    for (id<RTRNode> node in self.externalContentStateByNode) {
+        [nodesWithInitializedContent addObject:node];
+    }    
+    self.nodesWithInitializedContent = [nodesWithInitializedContent copy];
+    
+    [self.delegate routerNodeContentDidUpdate:self];
+    [[NSNotificationCenter defaultCenter] postNotificationName:RTRRouterNodeContentDidUpdateNotification object:self];
 }
 
-- (NSSet *)calculateActiveNodes {
-    NSMutableSet *activeNodes = [[NSMutableSet alloc] init];
-    [self calculateActiveNodesRecursivelyWithCurrentNode:self.rootNode activeNodes:activeNodes];
-    return [activeNodes copy];
+- (NSMapTable *)calculateExternalNodeContentState {
+    NSMapTable *externalContentStateByNode = [NSMapTable strongToStrongObjectsMapTable];
+    
+    [self calculateExternalNodeContentStateRecursivelyWithCurrentNode:self.rootNode
+                                           externalContentStateByNode:externalContentStateByNode
+                                                           trumpState:RTRNodeContentStateActive];
+    
+    return externalContentStateByNode;
 }
 
-- (void)calculateActiveNodesRecursivelyWithCurrentNode:(id<RTRNode>)node activeNodes:(NSMutableSet *)activeNodes {
+- (void)calculateExternalNodeContentStateRecursivelyWithCurrentNode:(id<RTRNode>)node
+                                         externalContentStateByNode:(NSMapTable *)externalContentStateByNode
+                                                         trumpState:(RTRNodeContentState)trumpState
+{
     RTRNodeData *data = [self dataForNode:node];
-    if (data.state != RTRNodeStateActive) {
+    
+    RTRNodeContentState state = MIN(data.contentState, trumpState);
+    if (state == RTRNodeContentStateNotInitialized) {
         return;
     }
     
-    [activeNodes addObject:node];
+    [externalContentStateByNode setObject:@(state) forKey:node];
     
-    for (id<RTRNode> child in data.childrenState.activeChildren) {
-        [self calculateActiveNodesRecursivelyWithCurrentNode:child activeNodes:activeNodes];
+    for (id<RTRNode> child in [node allChildren]) {
+        [self calculateExternalNodeContentStateRecursivelyWithCurrentNode:child
+                                               externalContentStateByNode:externalContentStateByNode
+                                                               trumpState:state];
     }
 }
 

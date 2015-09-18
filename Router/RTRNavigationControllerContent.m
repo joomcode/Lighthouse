@@ -11,6 +11,7 @@
 #import "RTRNodeChildrenState.h"
 #import "RTRNodeContentFeedbackChannel.h"
 #import "RTRViewControllerContentHelpers.h"
+#import "RTRTaskQueue.h"
 
 @interface RTRNavigationControllerContent () <UINavigationControllerDelegate>
 
@@ -42,9 +43,25 @@
     NSAssert(updateContext.childrenState.initializedChildren.lastObject == updateContext.childrenState.activeChildren.lastObject, @""); // TODO
     
     NSArray *childViewControllers = [RTRViewControllerContentHelpers childViewControllersWithUpdateContext:updateContext];
-    [self.data setViewControllers:childViewControllers animated:updateContext.animated]; // TODO: use updateQueue
     
-    self.childNodes = [updateContext.childrenState.initializedChildren array];
+    if ([childViewControllers isEqual:_data.viewControllers]) {
+        return;
+    }
+    
+    [updateContext.updateQueue enqueueAsyncBlock:^(RTRTaskQueueAsyncCompletionBlock completion) {
+        self.childNodes = [updateContext.childrenState.initializedChildren.array copy];
+        
+        [self.data setViewControllers:childViewControllers animated:updateContext.animated];
+        
+        if (updateContext.animated) {
+            UIViewController *topChildViewController = childViewControllers.lastObject;
+            [topChildViewController.transitionCoordinator animateAlongsideTransition:nil completion:^(id<UIViewControllerTransitionCoordinatorContext> context) {
+                completion();
+            }];
+        } else {
+            completion();
+        }
+    }];
 }
 
 #pragma mark - UINavigationControllerDelegate
@@ -53,19 +70,25 @@
     // Handle pop prompted by the default Back button or gesture
     
     NSUInteger count = [navigationController.viewControllers count];
-    if (count < [self.childNodes count]) {
-        NSArray *oldChildNodes = self.childNodes;
-        
-        self.childNodes = [self.childNodes subarrayWithRange:NSMakeRange(0, count)];
-        [self.feedbackChannel childNodeDidBecomeActive:self.childNodes.lastObject];
-        
-        [navigationController.transitionCoordinator notifyWhenInteractionEndsUsingBlock:^(id<UIViewControllerTransitionCoordinatorContext> context) {
-            if ([context isCancelled]) {
-                self.childNodes = oldChildNodes;
-                [self.feedbackChannel childNodeDidBecomeActive:self.childNodes.lastObject];
-            }
-        }];
+    if (count >= [self.childNodes count]) {
+        return;
     }
+    
+    NSArray *oldChildNodes = self.childNodes;
+    
+    self.childNodes = [self.childNodes subarrayWithRange:NSMakeRange(0, count)];
+    [self.feedbackChannel childNodeWillBecomeActive:self.childNodes.lastObject];
+    
+    [navigationController.transitionCoordinator notifyWhenInteractionEndsUsingBlock:^(id<UIViewControllerTransitionCoordinatorContext> context) {
+        if ([context isCancelled]) {
+            self.childNodes = oldChildNodes;
+            [self.feedbackChannel childNodeWillBecomeActive:self.childNodes.lastObject];
+        }
+    }];
+    
+    [navigationController.transitionCoordinator animateAlongsideTransition:nil completion:^(id<UIViewControllerTransitionCoordinatorContext> context) {
+        [self.feedbackChannel childNodeDidBecomeActive:self.childNodes.lastObject];
+    }];
 }
 
 @end

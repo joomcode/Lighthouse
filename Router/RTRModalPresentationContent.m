@@ -67,14 +67,12 @@
         UIViewController *viewController = viewControllers[i];
         
         if (i == 0) {
-            [updateContext.updateQueue enqueueAsyncBlock:^(RTRTaskQueueAsyncCompletionBlock completion) {
+            [updateContext.updateQueue enqueueBlock:^{
                 self.window.rootViewController = viewController;
                 
                 if (self.window.hidden) {
                     [self.window makeKeyAndVisible];
                 }
-                
-                completion();
             }];
         } else {
             UIViewController *previousViewController = viewControllers[i - 1];

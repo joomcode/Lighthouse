@@ -12,6 +12,8 @@
 
 @protocol RTRNodeContentFeedbackChannel <NSObject>
 
+- (void)childNodeWillBecomeActive:(id<RTRNode>)node;
+
 - (void)childNodeDidBecomeActive:(id<RTRNode>)node;
 
 @end
