@@ -15,8 +15,8 @@
 #import "RTRCommandRegistry.h"
 #import "RTRNodeContentProvider.h"
 #import "RTRNodeChildrenState.h"
+#import "RTRTaskQueueImpl.h"
 #import "RTRNodeContentUpdateContextImpl.h"
-#import "RTRNodeContentUpdateQueueImpl.h"
 #import "RTRNodeContentFeedbackChannelImpl.h"
 
 NSString * const RTRRouterActiveNodesDidUpdateNotification = @"com.pixty.router.activeNodesDidUpdate";
@@ -30,12 +30,23 @@ NSString * const RTRRouterActiveNodesDidUpdateNotification = @"com.pixty.router.
 
 @property (nonatomic, strong) NSSet *activeNodes;
 
-@property (nonatomic, strong, readonly) id<RTRNodeContentUpdateQueue> nodeContentUpdateQueue;
+@property (nonatomic, strong, readonly) id<RTRTaskQueue> taskQueue;
 
 @end
 
 
 @implementation RTRRouter
+
+#pragma mark - Internal stuff
+
+@synthesize taskQueue = _taskQueue;
+
+- (id<RTRTaskQueue>)taskQueue {
+    if (!_taskQueue) {
+        _taskQueue = [[RTRTaskQueueImpl alloc] init];
+    }
+    return _taskQueue;
+}
 
 #pragma mark - Config stuff
 
@@ -50,17 +61,19 @@ NSString * const RTRRouterActiveNodesDidUpdateNotification = @"com.pixty.router.
 #pragma mark - Command execution
 
 - (void)executeCommand:(id<RTRCommand>)command animated:(BOOL)animated {
-    id<RTRNode> targetNode = [self.commandRegistry nodeForCommand:command];
-    NSAssert(targetNode != nil, @""); // TODO
-    
-    NSOrderedSet *pathToTargetNode = [self.graph pathToNode:targetNode];
-    NSAssert(pathToTargetNode != nil, @""); // TODO
-    
-    NSSet *nodesForAnimatedContentUpdate = animated ? [self nodesForAnimatedContentUpdateForTargetNodePath:pathToTargetNode] : nil;
-    
-    [self activateNodePath:pathToTargetNode];
-    
-    [self updateNodeContentRecursively:pathToTargetNode[0] withCommand:command animateNodes:nodesForAnimatedContentUpdate];
+    [self.taskQueue enqueueBlock:^{
+        id<RTRNode> targetNode = [self.commandRegistry nodeForCommand:command];
+        NSAssert(targetNode != nil, @""); // TODO
+        
+        NSOrderedSet *pathToTargetNode = [self.graph pathToNode:targetNode];
+        NSAssert(pathToTargetNode != nil, @""); // TODO
+        
+        NSSet *nodesForAnimatedContentUpdate = animated ? [self nodesForAnimatedContentUpdateForTargetNodePath:pathToTargetNode] : nil;
+        
+        [self activateNodePath:pathToTargetNode];
+        
+        [self updateNodeContentRecursively:pathToTargetNode[0] withCommand:command animateNodes:nodesForAnimatedContentUpdate];
+    }];
 }
 
 #pragma mark - Node state manipulation
@@ -99,15 +112,6 @@ NSString * const RTRRouterActiveNodesDidUpdateNotification = @"com.pixty.router.
 }
 
 #pragma mark - Node content manipulation
-
-@synthesize nodeContentUpdateQueue = _nodeContentUpdateQueue;
-
-- (id<RTRNodeContentUpdateQueue>)nodeContentUpdateQueue {
-    if (!_nodeContentUpdateQueue) {
-        _nodeContentUpdateQueue = [[RTRNodeContentUpdateQueueImpl alloc] init];
-    }
-    return _nodeContentUpdateQueue;
-}
 
 - (NSSet *)nodesForAnimatedContentUpdateForTargetNodePath:(NSOrderedSet *)nodePath {
     NSInteger firstInactiveNodeIndex = [self firstInactiveNodeIndexForTargetNodePath:nodePath];
@@ -148,23 +152,21 @@ NSString * const RTRRouterActiveNodesDidUpdateNotification = @"com.pixty.router.
         data.content = [self createContentForNode:node];
     }
     
-    [self.nodeContentUpdateQueue enqueueBlock:^(RTRNodeContentUpdateCompletionBlock completion) {
-        // TODO: track content state
-        completion();
+    [self.taskQueue enqueueBlock:^{
+        [self willUpdateNodeContent:node];
     }];
     
     [data.content updateWithContext:
         [[RTRNodeContentUpdateContextImpl alloc] initWithAnimated:animated
                                                           command:command
-                                                      updateQueue:self.nodeContentUpdateQueue
+                                                      updateQueue:self.taskQueue
                                                     childrenState:data.childrenState
                                                      contentBlock:^id<RTRNodeContent>(id<RTRNode> node) {
                                                          return [self dataForNode:node].content;
                                                      }]];
     
-    [self.nodeContentUpdateQueue enqueueBlock:^(RTRNodeContentUpdateCompletionBlock completion) {
-        // TODO: track content state
-        completion();
+    [self.taskQueue enqueueBlock:^{
+        [self didUpdateNodeContent:node];
     }];
 }
 
@@ -188,6 +190,42 @@ NSString * const RTRRouterActiveNodesDidUpdateNotification = @"com.pixty.router.
     }
     
     return content;
+}
+
+- (void)willUpdateNodeContent:(id<RTRNode>)node {
+    for (id<RTRNode> child in [self dataForNode:node].childrenState.initializedChildren) {
+        RTRNodeData *childData = [self dataForNode:child];
+        
+        RTRNodeContentState futureChildContentState = [self nodeContentStateFromNodeState:childData.state];
+        if (childData.contentState == futureChildContentState) {
+            continue;
+        }
+        
+        if (futureChildContentState == RTRNodeContentStateActive) {
+            childData.contentState = RTRNodeContentStateActivating;
+        } else {
+            childData.contentState = RTRNodeContentStateDeactivating;
+        }
+    }
+}
+
+- (void)didUpdateNodeContent:(id<RTRNode>)node {
+    for (id<RTRNode> child in [self dataForNode:node].childrenState.initializedChildren) {
+        RTRNodeData *childData = [self dataForNode:child];
+        
+        childData.contentState = [self nodeContentStateFromNodeState:childData.state];
+    }
+}
+
+- (RTRNodeContentState)nodeContentStateFromNodeState:(RTRNodeState)nodeState {
+    switch (nodeState) {
+        case RTRNodeStateNotInitialized:
+            return RTRNodeContentStateNotInitialized;
+        case RTRNodeStateInactive:
+            return RTRNodeContentStateInactive;
+        case RTRNodeStateActive:
+            return RTRNodeContentStateActive;
+    }
 }
 
 #pragma mark - Active nodes

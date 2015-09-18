@@ -25,7 +25,7 @@
 
 - (instancetype)initWithAnimated:(BOOL)animated
                          command:(id<RTRCommand>)command
-                     updateQueue:(id<RTRNodeContentUpdateQueue>)updateQueue
+                     updateQueue:(id<RTRTaskQueue>)updateQueue
                    childrenState:(id<RTRNodeChildrenState>)childrenState
                     contentBlock:(id<RTRNodeContent> (^)(id<RTRNode>))contentBlock
 {

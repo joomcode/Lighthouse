@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "RTRNodeState.h"
+#import "RTRNodeContentState.h"
 
 @protocol RTRNodeChildrenState;
 @protocol RTRNodeContent;
@@ -19,5 +20,7 @@
 @property (nonatomic, strong) id<RTRNodeChildrenState> childrenState;
 
 @property (nonatomic, strong) id<RTRNodeContent> content;
+
+@property (nonatomic, assign) RTRNodeContentState contentState;
 
 @end

@@ -21,7 +21,6 @@
 
 #import "RTRNodeContent.h"
 #import "RTRNodeContentUpdateContext.h"
-#import "RTRNodeContentUpdateQueue.h"
 #import "RTRNodeContentFeedbackChannel.h"
 
 #import "RTRViewControllerContent.h"
@@ -50,6 +49,11 @@
 #import "RTRCommandRegistry.h"
 
 #import "RTRBasicCommandRegistry.h"
+
+
+// Misc
+
+#import "RTRTaskQueue.h"
 
 
 // Router

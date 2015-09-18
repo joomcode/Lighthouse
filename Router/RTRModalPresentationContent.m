@@ -8,7 +8,7 @@
 
 #import "RTRModalPresentationContent.h"
 #import "RTRNodeContentUpdateContext.h"
-#import "RTRNodeContentUpdateQueue.h"
+#import "RTRTaskQueue.h"
 #import "RTRNodeChildrenState.h"
 #import "RTRViewControllerContentHelpers.h"
 
@@ -58,7 +58,7 @@
         
         UIViewController *viewController = presentedViewControllers[i - 1];
         
-        [updateContext.updateQueue enqueueBlock:^(RTRNodeContentUpdateCompletionBlock completion) {
+        [updateContext.updateQueue enqueueAsyncBlock:^(RTRTaskQueueAsyncCompletionBlock completion) {
             [viewController dismissViewControllerAnimated:updateContext.animated completion:completion];
         }];
     }
@@ -67,7 +67,7 @@
         UIViewController *viewController = viewControllers[i];
         
         if (i == 0) {
-            [updateContext.updateQueue enqueueBlock:^(RTRNodeContentUpdateCompletionBlock completion) {
+            [updateContext.updateQueue enqueueAsyncBlock:^(RTRTaskQueueAsyncCompletionBlock completion) {
                 self.window.rootViewController = viewController;
                 
                 if (self.window.hidden) {
@@ -79,7 +79,7 @@
         } else {
             UIViewController *previousViewController = viewControllers[i - 1];
             
-            [updateContext.updateQueue enqueueBlock:^(RTRNodeContentUpdateCompletionBlock completion) {
+            [updateContext.updateQueue enqueueAsyncBlock:^(RTRTaskQueueAsyncCompletionBlock completion) {
                 [previousViewController presentViewController:viewController animated:updateContext.animated completion:completion];
             }];
         }

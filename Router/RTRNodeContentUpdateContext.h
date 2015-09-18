@@ -11,7 +11,7 @@
 @protocol RTRNode;
 @protocol RTRCommand;
 @protocol RTRNodeContent;
-@protocol RTRNodeContentUpdateQueue;
+@protocol RTRTaskQueue;
 @protocol RTRNodeChildrenState;
 
 @protocol RTRNodeContentUpdateContext <NSObject>
@@ -20,7 +20,7 @@
 
 @property (nonatomic, readonly) id<RTRCommand> command;
 
-@property (nonatomic, readonly) id<RTRNodeContentUpdateQueue> updateQueue;
+@property (nonatomic, readonly) id<RTRTaskQueue> updateQueue;
 
 @property (nonatomic, readonly) id<RTRNodeChildrenState> childrenState;
 
