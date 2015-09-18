@@ -12,13 +12,6 @@
 #import "RTRNodeChildrenState.h"
 #import "RTRViewControllerContentHelpers.h"
 
-@interface RTRModalPresentationContent ()
-
-@property (nonatomic, readonly) UIWindow *window;
-
-@end
-
-
 @implementation RTRModalPresentationContent
 
 #pragma mark - Init
@@ -33,7 +26,7 @@
     self = [super init];
     if (!self) return nil;
     
-    _window = window;
+    _data = window;
     
     return self;
 }
@@ -58,7 +51,7 @@
         
         UIViewController *viewController = presentedViewControllers[i - 1];
         
-        [updateContext.updateQueue enqueueAsyncBlock:^(RTRTaskQueueAsyncCompletionBlock completion) {
+        [updateContext.updateQueue runAsyncTaskWithBlock:^(RTRTaskQueueAsyncCompletionBlock completion) {
             [viewController dismissViewControllerAnimated:updateContext.animated completion:completion];
         }];
     }
@@ -67,17 +60,17 @@
         UIViewController *viewController = viewControllers[i];
         
         if (i == 0) {
-            [updateContext.updateQueue enqueueBlock:^{
-                self.window.rootViewController = viewController;
+            [updateContext.updateQueue runTaskWithBlock:^{
+                self.data.rootViewController = viewController;
                 
-                if (self.window.hidden) {
-                    [self.window makeKeyAndVisible];
+                if (self.data.hidden) {
+                    [self.data makeKeyAndVisible];
                 }
             }];
         } else {
             UIViewController *previousViewController = viewControllers[i - 1];
             
-            [updateContext.updateQueue enqueueAsyncBlock:^(RTRTaskQueueAsyncCompletionBlock completion) {
+            [updateContext.updateQueue runAsyncTaskWithBlock:^(RTRTaskQueueAsyncCompletionBlock completion) {
                 [previousViewController presentViewController:viewController animated:updateContext.animated completion:completion];
             }];
         }
@@ -89,7 +82,7 @@
 - (NSArray *)presentedViewControllers {
     NSMutableArray *viewControllers = [[NSMutableArray alloc] init];
     
-    UIViewController *currentViewController = self.window.rootViewController;
+    UIViewController *currentViewController = self.data.rootViewController;
     
     while (currentViewController) {
         [viewControllers addObject:currentViewController];

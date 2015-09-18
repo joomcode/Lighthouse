@@ -123,9 +123,9 @@
     router.rootNode = rootNode;
     router.nodeContentProvider = nodeContentProvider;
     router.commandRegistry = commandRegistry;
+    router.delegate = self;
     
     self.router = router;
-    self.router.delegate = self;
 }
 
 //- (void)doSomething {

@@ -11,6 +11,8 @@
 
 @interface RTRModalPresentationContent : NSObject <RTRNodeContent>
 
+@property (nonatomic, readonly) UIWindow *data;
+
 - (instancetype)initWithWindow:(UIWindow *)window;
 
 @end

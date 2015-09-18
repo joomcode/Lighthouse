@@ -13,8 +13,6 @@
 
 @property (nonatomic, readonly) UIViewController *data;
 
-// TODO: machinery for command-based initialization and command handling
-
 - (instancetype)initWithViewControllerClass:(Class)viewControllerClass;
 
 @end

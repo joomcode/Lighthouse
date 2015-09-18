@@ -15,8 +15,8 @@ typedef void (^RTRTaskQueueAsyncBlock)(RTRTaskQueueAsyncCompletionBlock completi
 
 @protocol RTRTaskQueue <NSObject>
 
-- (void)enqueueBlock:(RTRTaskQueueBlock)block;
+- (void)runTaskWithBlock:(RTRTaskQueueBlock)block;
 
-- (void)enqueueAsyncBlock:(RTRTaskQueueAsyncBlock)block;
+- (void)runAsyncTaskWithBlock:(RTRTaskQueueAsyncBlock)block;
 
 @end

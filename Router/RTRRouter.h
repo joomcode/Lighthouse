@@ -24,8 +24,8 @@
 
 @property (nonatomic, strong) id<RTRCommandRegistry> commandRegistry;
 
-
 @property (nonatomic, weak) id<RTRRouterDelegate> delegate;
+
 
 @property (nonatomic, readonly) NSSet *nodesWithInitializedContent;
 

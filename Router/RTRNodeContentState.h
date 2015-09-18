@@ -11,7 +11,7 @@
 typedef NS_ENUM(NSInteger, RTRNodeContentState) {
     RTRNodeContentStateNotInitialized = 0,
     RTRNodeContentStateInactive = 1,
-    RTRNodeContentStateActivating = 2,
-    RTRNodeContentStateDeactivating = 3,
+    RTRNodeContentStateDeactivating = 2,
+    RTRNodeContentStateActivating = 3,
     RTRNodeContentStateActive = 4
 };

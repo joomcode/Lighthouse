@@ -72,7 +72,7 @@ NSString * const RTRRouterNodeContentDidUpdateNotification = @"com.pixty.router.
 #pragma mark - Command execution
 
 - (void)executeCommand:(id<RTRCommand>)command animated:(BOOL)animated {
-    [self.commandQueue enqueueAsyncBlock:^(RTRTaskQueueAsyncCompletionBlock completion) {
+    [self.commandQueue runAsyncTaskWithBlock:^(RTRTaskQueueAsyncCompletionBlock completion) {
         id<RTRNode> targetNode = [self.commandRegistry nodeForCommand:command];
         NSAssert(targetNode != nil, @""); // TODO
         
@@ -85,7 +85,7 @@ NSString * const RTRRouterNodeContentDidUpdateNotification = @"com.pixty.router.
         
         [self updateNodeContentRecursively:pathToTargetNode[0] withCommand:command animateNodes:nodesForAnimatedContentUpdate];
         
-        [self.contentUpdateQueue enqueueBlock:^{
+        [self.contentUpdateQueue runTaskWithBlock:^{
             [self cleanupNodePath:pathToTargetNode];
             completion();
         }];
@@ -180,13 +180,13 @@ NSString * const RTRRouterNodeContentDidUpdateNotification = @"com.pixty.router.
         data.content = [self createContentForNode:node];
     }
     
-    [self.contentUpdateQueue enqueueBlock:^{
+    [self.contentUpdateQueue runTaskWithBlock:^{
         [self willUpdateNodeContent:node];
     }];
     
     id<RTRTaskQueue> localUpdateQueue = [[RTRTaskQueueImpl alloc] init];
     
-    [self.contentUpdateQueue enqueueAsyncBlock:^(RTRTaskQueueAsyncCompletionBlock completion) {
+    [self.contentUpdateQueue runAsyncTaskWithBlock:^(RTRTaskQueueAsyncCompletionBlock completion) {
         [data.content updateWithContext:
             [[RTRNodeContentUpdateContextImpl alloc] initWithAnimated:animated
                                                               command:command
@@ -196,12 +196,12 @@ NSString * const RTRRouterNodeContentDidUpdateNotification = @"com.pixty.router.
                                                              return [self dataForNode:node].content;
                                                          }]];
         
-        [localUpdateQueue enqueueBlock:^{
+        [localUpdateQueue runTaskWithBlock:^{
             completion();
         }];
     }];
     
-    [self.contentUpdateQueue enqueueBlock:^{
+    [self.contentUpdateQueue runTaskWithBlock:^{
         [self didUpdateNodeContent:node];
     }];
 }

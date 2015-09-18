@@ -48,7 +48,7 @@
         return;
     }
     
-    [updateContext.updateQueue enqueueAsyncBlock:^(RTRTaskQueueAsyncCompletionBlock completion) {
+    [updateContext.updateQueue runAsyncTaskWithBlock:^(RTRTaskQueueAsyncCompletionBlock completion) {
         self.childNodes = [updateContext.childrenState.initializedChildren.array copy];
         
         [self.data setViewControllers:childViewControllers animated:updateContext.animated];
