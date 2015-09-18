@@ -186,14 +186,16 @@ NSString * const RTRRouterNodeStateDidUpdateNotification = @"com.pixty.router.no
     id<RTRTaskQueue> localUpdateQueue = [[RTRTaskQueueImpl alloc] init];
     
     [self.contentUpdateQueue runAsyncTaskWithBlock:^(RTRTaskQueueAsyncCompletionBlock completion) {
-        [data.content updateWithContext:
+        id<RTRNodeContentUpdateContext> updateContext =
             [[RTRNodeContentUpdateContextImpl alloc] initWithAnimated:animated
                                                               command:command
                                                           updateQueue:localUpdateQueue
                                                         childrenState:data.childrenState
                                                          contentBlock:^id<RTRNodeContent>(id<RTRNode> node) {
                                                              return [self dataForNode:node].content;
-                                                         }]];
+                                                         }];
+        
+        [data.content updateWithContext:updateContext];
         
         [localUpdateQueue runTaskWithBlock:^{
             completion();
@@ -215,7 +217,7 @@ NSString * const RTRRouterNodeStateDidUpdateNotification = @"com.pixty.router.no
     if ([content respondsToSelector:@selector(setFeedbackChannel:)]) {
          __weak __typeof(self) weakSelf = self;
         
-        RTRNodeContentFeedbackChannelImpl *feedbackChannel =
+        id<RTRNodeContentFeedbackChannel> feedbackChannel =
             [[RTRNodeContentFeedbackChannelImpl alloc] initWithWillBecomeActiveBlock:^(id<RTRNode> child) {
                 [weakSelf activateNewChildNode:child ofParentNode:node];
                 [weakSelf willUpdateNodeContent:node];
@@ -282,16 +284,14 @@ NSString * const RTRRouterNodeStateDidUpdateNotification = @"com.pixty.router.no
 - (NSMapTable *)calculateResolvedNodeState {
     NSMapTable *resolvedStateByNode = [NSMapTable strongToStrongObjectsMapTable];
     
-    [self calculateResolvedNodeStateRecursivelyWithCurrentNode:self.rootNode
-                                           resolvedStateByNode:resolvedStateByNode
-                                                   parentState:RTRNodeStateActive];
+    [self calculateResolvedNodeStateRecursively:resolvedStateByNode withCurrentNode:self.rootNode parentState:RTRNodeStateActive];
     
     return resolvedStateByNode;
 }
 
-- (void)calculateResolvedNodeStateRecursivelyWithCurrentNode:(id<RTRNode>)node
-                                         resolvedStateByNode:(NSMapTable *)resolvedStateByNode
-                                                 parentState:(RTRNodeState)parentState
+- (void)calculateResolvedNodeStateRecursively:(NSMapTable *)resolvedStateByNode
+                              withCurrentNode:(id<RTRNode>)node
+                                  parentState:(RTRNodeState)parentState
 {
     RTRNodeData *data = [self dataForNode:node];
     
@@ -303,9 +303,7 @@ NSString * const RTRRouterNodeStateDidUpdateNotification = @"com.pixty.router.no
     [resolvedStateByNode setObject:@(state) forKey:node];
     
     for (id<RTRNode> child in [node allChildren]) {
-        [self calculateResolvedNodeStateRecursivelyWithCurrentNode:child
-                                               resolvedStateByNode:resolvedStateByNode
-                                                        parentState:state];
+        [self calculateResolvedNodeStateRecursively:resolvedStateByNode withCurrentNode:child parentState:state];
     }
 }
 
