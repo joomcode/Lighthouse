@@ -13,12 +13,14 @@
 #import "RTRGraph.h"
 #import "RTRNodeTree.h"
 #import "RTRNodeData.h"
+#import "RTRCommand.h"
 #import "RTRCommandRegistry.h"
 #import "RTRNodeContentProvider.h"
 #import "RTRNodeChildrenState.h"
 #import "RTRTaskQueueImpl.h"
 #import "RTRNodeContentUpdateContextImpl.h"
 #import "RTRNodeContentFeedbackChannelImpl.h"
+#import "RTRSnapshotCommandRegistry.h"
 
 NSString * const RTRRouterNodeStateDidUpdateNotification = @"com.pixty.router.nodeStateDidUpdate";
 
@@ -27,6 +29,8 @@ NSString * const RTRRouterNodeStateDidUpdateNotification = @"com.pixty.router.no
 
 @property (nonatomic, strong, readonly) id<RTRTaskQueue> commandQueue;
 @property (nonatomic, strong, readonly) id<RTRTaskQueue> contentUpdateQueue;
+
+@property (nonatomic, strong, readonly) RTRSnapshotCommandRegistry *snapshotCommandRegistry;
 
 @property (nonatomic, strong) RTRGraph *graph;
 
@@ -60,6 +64,17 @@ NSString * const RTRRouterNodeStateDidUpdateNotification = @"com.pixty.router.no
     return _contentUpdateQueue;
 }
 
+#pragma mark - Snapshot command registry
+
+@synthesize snapshotCommandRegistry = _snapshotCommandRegistry;
+
+- (RTRSnapshotCommandRegistry *)snapshotCommandRegistry {
+    if (!_snapshotCommandRegistry) {
+        _snapshotCommandRegistry = [[RTRSnapshotCommandRegistry alloc] init];
+    }
+    return _snapshotCommandRegistry;
+}
+
 #pragma mark - Config stuff
 
 - (id<RTRNode>)rootNode {
@@ -74,7 +89,7 @@ NSString * const RTRRouterNodeStateDidUpdateNotification = @"com.pixty.router.no
 
 - (void)executeCommand:(id<RTRCommand>)command animated:(BOOL)animated {
     [self.commandQueue runAsyncTaskWithBlock:^(RTRTaskQueueAsyncCompletionBlock completion) {
-        NSSet *targetNodes = [self.commandRegistry nodesForCommand:command];
+        NSSet *targetNodes = [self targetNodesForCommand:command];
         NSAssert(targetNodes.count > 0, @""); // TODO
         
         RTRNodeTree *targetNodesPathTree = [self.graph pathsToNodes:targetNodes];
@@ -94,6 +109,28 @@ NSString * const RTRRouterNodeStateDidUpdateNotification = @"com.pixty.router.no
     }];
 }
 
+- (void)bindCommandToActiveNodes:(id<RTRCommand>)command {
+    NSMutableSet *targetNodes = [[NSMutableSet alloc] init];
+    
+    for (id<RTRNode> node in self.initializedNodes) {
+        if ([self stateForNode:node] == RTRNodeStateActive) {
+            [targetNodes addObject:node];
+        }
+    }
+    
+    [self.snapshotCommandRegistry bindCommand:command toNodes:targetNodes];
+}
+
+- (NSSet *)targetNodesForCommand:(id<RTRCommand>)command {
+    NSSet *nodes = [self.snapshotCommandRegistry nodesForCommand:command];
+    
+    if (!nodes) {
+        nodes = [self.commandRegistry nodesForCommand:command];
+    }
+    
+    return nodes;
+}
+
 #pragma mark - Node state manipulation
 
 - (void)activateNodePathTree:(RTRNodeTree *)pathTree {
@@ -104,7 +141,9 @@ NSString * const RTRRouterNodeStateDidUpdateNotification = @"com.pixty.router.no
         }
         
         NSSet *children = [pathTree nextNodes:node].set;
-        [self activateChildren:children ofParentNode:node];
+        if (children) {
+            [self activateChildren:children ofParentNode:node];
+        }
     }];
 }
 

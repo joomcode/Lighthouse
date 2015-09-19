@@ -37,6 +37,7 @@
     [self performSelector:@selector(doSomethingLater) withObject:nil afterDelay:3.0];
     [self performSelector:@selector(doSomethingEvenLater) withObject:nil afterDelay:6.0];
     [self performSelector:@selector(doSomethingEvenMoreLater) withObject:nil afterDelay:9.0];
+    [self performSelector:@selector(doSomethingAfterAllThat) withObject:nil afterDelay:12.0];
     
     return YES;
 }
@@ -144,6 +145,14 @@
     [self.router executeCommand:[[PXPresentBlue alloc] init] animated:YES];
 }
 
+- (void)doSomethingAfterAllThat {
+    id<RTRCommand> dismissCommand = (id<RTRCommand>)[[NSObject alloc] init]; // duh
+    [self.router bindCommandToActiveNodes:dismissCommand];
+    
+    [self.router executeCommand:[[PXPresentModal alloc] init] animated:YES];
+    [self.router executeCommand:dismissCommand animated:YES];
+}
+
 //- (void)doSomething {
 //    [self.router executeCommand:[[PXPresentRed alloc] init] animated:NO];
 //}
@@ -158,6 +167,10 @@
 //
 //- (void)doSomethingEvenMoreLater {
 //    [self.router executeCommand:[[PXPresentRed alloc] init] animated:YES];
+//}
+//
+//- (void)doSomethingAfterAllThat {
+//    [self.router executeCommand:[[PXPresentGreen alloc] init] animated:YES];
 //}
 
 #pragma mark - PXRouterDelegate

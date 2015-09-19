@@ -34,4 +34,6 @@
 
 - (void)executeCommand:(id<RTRCommand>)command animated:(BOOL)animated;
 
+- (void)bindCommandToActiveNodes:(id<RTRCommand>)command;
+
 @end
