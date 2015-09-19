@@ -71,6 +71,48 @@
     return [path copy];
 }
 
+- (void)enumerateNodesWithBlock:(void (^)(id<RTRNode> node, NSInteger depth, BOOL *stop))enumerationBlock {
+    [self enumerateNodesRecursivelyWithCurrentNode:nil currentDepth:0 enumerationBlock:enumerationBlock];
+}
+
+- (BOOL)enumerateNodesRecursivelyWithCurrentNode:(id<RTRNode>)currentNode
+                                    currentDepth:(NSInteger)currentDepth
+                                enumerationBlock:(void (^)(id<RTRNode> node, NSInteger depth, BOOL *stop))enumerationBlock {
+    BOOL stop = NO;
+    
+    for (id<RTRNode> childNode in [self nextNodes:currentNode]) {
+        enumerationBlock(childNode, currentDepth, &stop);
+        
+        if (stop) {
+            break;
+        }
+        
+        stop = [self enumerateNodesRecursivelyWithCurrentNode:childNode
+                                                 currentDepth:currentDepth + 1
+                                             enumerationBlock:enumerationBlock];
+        
+        if (stop) {
+            break;
+        }
+    }
+    
+    return stop;
+}
+
+- (void)enumeratePathsToLeavesWithBlock:(void (^)(NSOrderedSet *path, BOOL *stop))enumerationBlock {
+    BOOL stop = NO;
+    
+    for (id<RTRNode> node in self.nodes) {
+        if ([self nextNodes:node].count == 0) {
+            enumerationBlock([self pathToNode:node], &stop);
+            
+            if (stop) {
+                break;
+            }
+        }
+    }
+}
+
 #pragma mark - Mutation
 
 - (void)addNode:(id<RTRNode>)node afterNodeOrNil:(id<RTRNode>)previousNode {

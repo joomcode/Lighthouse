@@ -19,6 +19,9 @@
 
 - (NSOrderedSet *)pathToNode:(id<RTRNode>)node;
 
+- (void)enumerateNodesWithBlock:(void (^)(id<RTRNode> node, NSInteger depth, BOOL *stop))enumerationBlock;
+- (void)enumeratePathsToLeavesWithBlock:(void (^)(NSOrderedSet *path, BOOL *stop))enumerationBlock;
+
 @end
 
 

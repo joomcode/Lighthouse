@@ -17,10 +17,18 @@
 
 @property (nonatomic, strong) NSArray *childNodes;
 
+@property (nonatomic, readonly) NSSet *activeChildNodes;
+
 @end
 
 
 @implementation RTRNavigationControllerContent
+
+#pragma mark - Nodes
+
+- (NSSet *)activeChildNodes {
+    return [NSSet setWithObject:self.childNodes.lastObject];
+}
 
 #pragma mark - Dealloc
 
@@ -77,17 +85,17 @@
     NSArray *oldChildNodes = self.childNodes;
     
     self.childNodes = [self.childNodes subarrayWithRange:NSMakeRange(0, count)];
-    [self.feedbackChannel childNodeWillBecomeActive:self.childNodes.lastObject];
+    [self.feedbackChannel childNodesWillBecomeActive:self.activeChildNodes];
     
     [navigationController.transitionCoordinator notifyWhenInteractionEndsUsingBlock:^(id<UIViewControllerTransitionCoordinatorContext> context) {
         if ([context isCancelled]) {
             self.childNodes = oldChildNodes;
-            [self.feedbackChannel childNodeWillBecomeActive:self.childNodes.lastObject];
+            [self.feedbackChannel childNodesWillBecomeActive:self.activeChildNodes];
         }
     }];
     
     [navigationController.transitionCoordinator animateAlongsideTransition:nil completion:^(id<UIViewControllerTransitionCoordinatorContext> context) {
-        [self.feedbackChannel childNodeDidBecomeActive:self.childNodes.lastObject];
+        [self.feedbackChannel childNodesDidBecomeActive:self.activeChildNodes];
     }];
 }
 

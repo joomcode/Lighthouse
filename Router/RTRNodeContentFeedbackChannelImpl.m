@@ -10,8 +10,8 @@
 
 @interface RTRNodeContentFeedbackChannelImpl ()
 
-@property (nonatomic, copy) void (^willBlock)(id<RTRNode> node);
-@property (nonatomic, copy) void (^didBlock)(id<RTRNode> node);
+@property (nonatomic, copy) void (^willBlock)(NSSet *nodes);
+@property (nonatomic, copy) void (^didBlock)(NSSet *nodes);
 
 @end
 
@@ -24,8 +24,8 @@
     return [self initWithWillBecomeActiveBlock:nil didBecomeActiveBlock:nil];
 }
 
-- (instancetype)initWithWillBecomeActiveBlock:(void (^)(id<RTRNode> node))willBlock
-                         didBecomeActiveBlock:(void (^)(id<RTRNode> node))didBlock
+- (instancetype)initWithWillBecomeActiveBlock:(void (^)(NSSet *nodes))willBlock
+                         didBecomeActiveBlock:(void (^)(NSSet *nodes))didBlock
 {
     NSParameterAssert(willBlock != nil);
     NSParameterAssert(didBlock != nil);
@@ -41,12 +41,12 @@
 
 #pragma mark - RTRNodeContentFeedbackChannel
 
-- (void)childNodeWillBecomeActive:(id<RTRNode>)node {
-    self.willBlock(node);
+- (void)childNodesWillBecomeActive:(NSSet *)nodes {
+    self.willBlock(nodes);
 }
 
-- (void)childNodeDidBecomeActive:(id<RTRNode>)node {
-    self.didBlock(node);
+- (void)childNodesDidBecomeActive:(NSSet *)nodes {
+    self.didBlock(nodes);
 }
 
 @end

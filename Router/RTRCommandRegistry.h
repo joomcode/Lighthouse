@@ -13,6 +13,6 @@
 
 @protocol RTRCommandRegistry <NSObject>
 
-- (id<RTRNode>)nodeForCommand:(id<RTRCommand>)command;
+- (NSSet *)nodesForCommand:(id<RTRCommand>)command;
 
 @end

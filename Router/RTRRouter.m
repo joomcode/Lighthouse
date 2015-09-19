@@ -11,6 +11,7 @@
 #import "RTRNode.h"
 #import "RTRNodeContent.h"
 #import "RTRGraph.h"
+#import "RTRNodeTree.h"
 #import "RTRNodeData.h"
 #import "RTRCommandRegistry.h"
 #import "RTRNodeContentProvider.h"
@@ -73,20 +74,21 @@ NSString * const RTRRouterNodeStateDidUpdateNotification = @"com.pixty.router.no
 
 - (void)executeCommand:(id<RTRCommand>)command animated:(BOOL)animated {
     [self.commandQueue runAsyncTaskWithBlock:^(RTRTaskQueueAsyncCompletionBlock completion) {
-        id<RTRNode> targetNode = [self.commandRegistry nodeForCommand:command];
-        NSAssert(targetNode != nil, @""); // TODO
+        NSSet *targetNodes = [self.commandRegistry nodesForCommand:command];
+        NSAssert(targetNodes.count > 0, @""); // TODO
         
-        NSOrderedSet *pathToTargetNode = [self.graph pathToNode:targetNode];
-        NSAssert(pathToTargetNode != nil, @""); // TODO
+        RTRNodeTree *targetNodesPathTree = [self.graph pathsToNodes:targetNodes];
+        NSAssert(targetNodesPathTree != nil, @""); // TODO
         
-        NSSet *nodesForAnimatedContentUpdate = animated ? [self nodesForAnimatedContentUpdateForTargetNodePath:pathToTargetNode] : nil;
+        NSSet *nodesForAnimatedContentUpdate = animated ? [self nodesForAnimatedContentUpdateForTargetNodesPathTree:targetNodesPathTree] : nil;
         
-        [self activateNodePath:pathToTargetNode];
+        [self activateNodePathTree:targetNodesPathTree];
+        [self assertNodePathTreeIsActive:targetNodesPathTree];
         
-        [self updateNodeContentRecursively:pathToTargetNode[0] withCommand:command animateNodes:nodesForAnimatedContentUpdate];
+        [self updateNodeContentRecursively:self.rootNode withCommand:command animateNodes:nodesForAnimatedContentUpdate];
         
         [self.contentUpdateQueue runTaskWithBlock:^{
-            [self cleanupNodePath:pathToTargetNode];
+            [self cleanupNodePathTree:targetNodesPathTree];
             completion();
         }];
     }];
@@ -94,20 +96,21 @@ NSString * const RTRRouterNodeStateDidUpdateNotification = @"com.pixty.router.no
 
 #pragma mark - Node state manipulation
 
-- (void)activateNodePath:(NSOrderedSet *)nodePath {
-    for (NSInteger i = 0; i < nodePath.count; ++i) {
-        if (i == 0) {
-            [self dataForNode:nodePath[0]].state = RTRNodeStateActive;
-            [self dataForNode:nodePath[0]].presentationState = RTRNodeStateActive;
-        } else {
-            [self activateChildNode:nodePath[i] ofParentNode:nodePath[i - 1]];
+- (void)activateNodePathTree:(RTRNodeTree *)pathTree {
+    [pathTree enumerateNodesWithBlock:^(id<RTRNode> node, NSInteger depth, BOOL *stop) {
+        if (depth == 0) {
+            [self dataForNode:node].state = RTRNodeStateActive;
+            [self dataForNode:node].presentationState = RTRNodeStateActive;
         }
-    }
+        
+        NSSet *children = [pathTree nextNodes:node].set;
+        [self activateChildren:children ofParentNode:node];
+    }];
 }
 
-- (void)activateChildNode:(id<RTRNode>)childNode ofParentNode:(id<RTRNode>)parentNode {
+- (void)activateChildren:(NSSet *)children ofParentNode:(id<RTRNode>)parentNode {
     RTRNodeData *parentData = [self dataForNode:parentNode];
-    parentData.childrenState = [parentNode activateChild:childNode withCurrentState:parentData.childrenState];
+    parentData.childrenState = [parentNode activateChildren:children withCurrentState:parentData.childrenState];
     
     [self updateNodeChildrenState:parentNode];
 }
@@ -126,8 +129,14 @@ NSString * const RTRRouterNodeStateDidUpdateNotification = @"com.pixty.router.no
     }
 }
 
-- (void)cleanupNodePath:(NSOrderedSet *)nodePath {
-    for (id<RTRNode> node in nodePath) {
+- (void)assertNodePathTreeIsActive:(RTRNodeTree *)pathTree {
+    [pathTree enumerateNodesWithBlock:^(id<RTRNode> node, NSInteger depth, BOOL *stop) {
+        NSAssert([self dataForNode:node].state == RTRNodeStateActive, @""); // TODO
+    }];
+}
+
+- (void)cleanupNodePathTree:(RTRNodeTree *)pathTree {
+    [pathTree enumerateNodesWithBlock:^(id<RTRNode> node, NSInteger depth, BOOL *stop) {
         RTRNodeData *nodeData = [self dataForNode:node];
         
         for (id<RTRNode> childNode in [node allChildren]) {
@@ -135,10 +144,20 @@ NSString * const RTRRouterNodeStateDidUpdateNotification = @"com.pixty.router.no
                 [self resetDataForNode:childNode];
             }
         }
-    }
+    }];
 }
 
 #pragma mark - Node content manipulation
+
+- (NSSet *)nodesForAnimatedContentUpdateForTargetNodesPathTree:(RTRNodeTree *)pathTree  {
+    NSMutableSet *nodesForAnimatedContentUpdate = [[NSMutableSet alloc] init];
+    
+    [pathTree enumeratePathsToLeavesWithBlock:^(NSOrderedSet *path, BOOL *stop) {
+        [nodesForAnimatedContentUpdate unionSet:[self nodesForAnimatedContentUpdateForTargetNodePath:path]];
+    }];
+    
+    return nodesForAnimatedContentUpdate;
+}
 
 - (NSSet *)nodesForAnimatedContentUpdateForTargetNodePath:(NSOrderedSet *)nodePath {
     NSInteger firstInactiveNodeIndex = [self firstInactiveNodeIndexForTargetNodePath:nodePath];
@@ -218,10 +237,10 @@ NSString * const RTRRouterNodeStateDidUpdateNotification = @"com.pixty.router.no
          __weak __typeof(self) weakSelf = self;
         
         id<RTRNodeContentFeedbackChannel> feedbackChannel =
-            [[RTRNodeContentFeedbackChannelImpl alloc] initWithWillBecomeActiveBlock:^(id<RTRNode> child) {
-                [weakSelf activateChildNode:child ofParentNode:node];
+            [[RTRNodeContentFeedbackChannelImpl alloc] initWithWillBecomeActiveBlock:^(NSSet *children) {
+                [weakSelf activateChildren:children ofParentNode:node];
                 [weakSelf willUpdateNodeContent:node];
-            } didBecomeActiveBlock:^(id<RTRNode> child) {
+            } didBecomeActiveBlock:^(NSSet *children) {
                 [weakSelf didUpdateNodeContent:node];
             }];
         

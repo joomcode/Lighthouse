@@ -41,12 +41,14 @@
     return [self.children set];
 }
 
-- (id<RTRNode>)defaultActiveChild {
-    return self.children.firstObject;
+- (NSSet *)defaultActiveChildren {
+    return [NSSet setWithObject:self.children.firstObject];
 }
 
-- (id<RTRNodeChildrenState>)activateChild:(id<RTRNode>)child withCurrentState:(id<RTRNodeChildrenState>)currentState {
-    NSInteger childIndex = [self.children indexOfObject:child];
+- (id<RTRNodeChildrenState>)activateChildren:(NSSet *)children withCurrentState:(id<RTRNodeChildrenState>)currentState {
+    NSAssert(children.count == 1, @""); // TODO
+    
+    NSInteger childIndex = [self.children indexOfObject:children.anyObject];
     if (childIndex == NSNotFound) {
         return nil;
     }

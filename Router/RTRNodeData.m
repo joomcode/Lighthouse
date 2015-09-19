@@ -23,9 +23,16 @@
     if (!self) return nil;
     
     _node = node;
-    _childrenState = [node activateChild:[node defaultActiveChild] withCurrentState:nil];
+    _childrenState = [node activateChildren:[node defaultActiveChildren] withCurrentState:nil];
     
     return self;
+}
+
+- (id<RTRNodeChildrenState>)childrenState {
+    if (!_childrenState) {
+        _childrenState = [[RTRNodeChildrenState alloc] init];
+    }
+    return _childrenState;
 }
 
 @end

@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @protocol RTRNode;
+@class RTRNodeTree;
 
 @interface RTRGraph : NSObject
 
@@ -16,6 +17,9 @@
 
 - (instancetype)initWithRootNode:(id<RTRNode>)rootNode;
 
+
 - (NSOrderedSet *)pathToNode:(id<RTRNode>)node;
+
+- (RTRNodeTree *)pathsToNodes:(NSSet *)nodes;
 
 @end

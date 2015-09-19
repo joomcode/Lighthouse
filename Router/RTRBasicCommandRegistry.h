@@ -8,12 +8,14 @@
 
 #import "RTRCommandRegistry.h"
 
-typedef id<RTRNode> (^RTRCommandNodeProvidingBlock)(id<RTRCommand> command);
+typedef NSSet * (^RTRCommandNodesProvidingBlock)(id<RTRCommand> command);
 
 @interface RTRBasicCommandRegistry : NSObject <RTRCommandRegistry>
 
 - (void)bindCommandClass:(Class)commandClass toNode:(id<RTRNode>)node;
 
-- (void)bindCommandClass:(Class)commandClass toBlock:(RTRCommandNodeProvidingBlock)block;
+- (void)bindCommandClass:(Class)commandClass toNodes:(NSSet *)nodes;
+
+- (void)bindCommandClass:(Class)commandClass toBlock:(RTRCommandNodesProvidingBlock)block;
 
 @end

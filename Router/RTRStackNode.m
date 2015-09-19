@@ -51,12 +51,14 @@
     return [self.tree allNodes];
 }
 
-- (id<RTRNode>)defaultActiveChild {
-    return [self.tree nextNodes:nil].firstObject;
+- (NSSet *)defaultActiveChildren {
+    return [NSSet setWithObject:[self.tree nextNodes:nil].firstObject];
 }
 
-- (id<RTRNodeChildrenState>)activateChild:(id<RTRNode>)child withCurrentState:(id<RTRNodeChildrenState>)currentState {
-    NSOrderedSet *path = [self.tree pathToNode:child];
+- (id<RTRNodeChildrenState>)activateChildren:(NSSet *)children withCurrentState:(id<RTRNodeChildrenState>)currentState {
+    NSAssert(children.count == 1, @""); // TODO
+    
+    NSOrderedSet *path = [self.tree pathToNode:children.anyObject];
     if (!path) {
         return nil;
     }

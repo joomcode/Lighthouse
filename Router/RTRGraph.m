@@ -8,8 +8,11 @@
 
 #import "RTRGraph.h"
 #import "RTRNode.h"
+#import "RTRNodeTree.h"
 
 @implementation RTRGraph
+
+#pragma mark - Init
 
 - (instancetype)init {
     return [self initWithRootNode:nil];
@@ -26,11 +29,30 @@
     return self;
 }
 
+#pragma mark - Public
+
 - (NSOrderedSet *)pathToNode:(id<RTRNode>)node {
     NSMutableOrderedSet *currentPath = [[NSMutableOrderedSet alloc] initWithObject:self.rootNode];
     
     return [self searchForNodeRecursively:node currentPath:currentPath] ? currentPath : nil;
 }
+
+- (RTRNodeTree *)pathsToNodes:(NSSet *)nodes {
+    RTRNodeTree *pathTree = [[RTRNodeTree alloc] init];
+    
+    for (id<RTRNode> node in nodes) {
+        NSOrderedSet *pathToNode = [self pathToNode:node];
+        if (!pathToNode) {
+            return nil;
+        }
+        
+        [pathTree addBranch:[pathToNode array] afterNodeOrNil:nil];
+    }
+    
+    return pathTree;
+}
+
+#pragma mark - Private
 
 - (BOOL)searchForNodeRecursively:(id<RTRNode>)node currentPath:(NSMutableOrderedSet *)currentPath {
     id<RTRNode> currentNode = currentPath.lastObject;

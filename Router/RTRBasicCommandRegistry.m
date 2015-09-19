@@ -32,19 +32,23 @@
 #pragma mark - Setup
 
 - (void)bindCommandClass:(Class)commandClass toNode:(id<RTRNode>)node {
-    [self bindCommandClass:commandClass toBlock:^id<RTRNode>(id<RTRCommand> command) {
-        return node;
+    [self bindCommandClass:commandClass toNodes:[NSSet setWithObject:node]];
+}
+
+- (void)bindCommandClass:(Class)commandClass toNodes:(NSSet *)nodes {
+    [self bindCommandClass:commandClass toBlock:^NSSet *(id<RTRCommand> command) {
+        return nodes;
     }];
 }
 
-- (void)bindCommandClass:(Class)commandClass toBlock:(RTRCommandNodeProvidingBlock)block {
+- (void)bindCommandClass:(Class)commandClass toBlock:(RTRCommandNodesProvidingBlock)block {
     [self.blocksByCommandClass setObject:[block copy] forKey:commandClass];
 }
 
 #pragma mark - RTRCommandRegistry
 
-- (id<RTRNode>)nodeForCommand:(id<RTRCommand>)command {
-    RTRCommandNodeProvidingBlock block = [self.blocksByCommandClass objectForKey:[command class]];
+- (NSSet *)nodesForCommand:(id<RTRCommand>)command {
+    RTRCommandNodesProvidingBlock block = [self.blocksByCommandClass objectForKey:[command class]];
     return block ? block(command) : nil;
 }
 

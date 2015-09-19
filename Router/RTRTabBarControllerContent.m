@@ -15,11 +15,20 @@
 @interface RTRTabBarControllerContent () <UITabBarControllerDelegate>
 
 @property (nonatomic, strong) NSOrderedSet *childNodes;
+@property (nonatomic, assign) NSInteger activeChildIndex;
+
+@property (nonatomic, readonly) NSSet *activeChildNodes;
 
 @end
 
 
 @implementation RTRTabBarControllerContent
+
+#pragma mark - Nodes
+
+- (NSSet *)activeChildNodes {
+    return [NSSet setWithObject:self.childNodes[self.activeChildIndex]];
+}
 
 #pragma mark - Dealloc
 
@@ -40,24 +49,29 @@
     
     NSAssert(updateContext.childrenState.activeChildren.count == 1, @""); // TODO
     
-    NSArray *viewControllers = [RTRViewControllerContentHelpers childViewControllersWithUpdateContext:updateContext];
-    [self.data setViewControllers:viewControllers animated:updateContext.animated]; // TODO: use updateQueue
-    
     id<RTRNode> activeChild = updateContext.childrenState.activeChildren.firstObject;
-    [self.data setSelectedIndex:[updateContext.childrenState.initializedChildren indexOfObject:activeChild]];
     
     self.childNodes = updateContext.childrenState.initializedChildren;
+    self.activeChildIndex = [self.childNodes indexOfObject:activeChild];
+    
+    NSArray *viewControllers = [RTRViewControllerContentHelpers childViewControllersWithUpdateContext:updateContext];
+    
+    [self.data setViewControllers:viewControllers animated:updateContext.animated]; // TODO: use updateQueue
+    [self.data setSelectedIndex:self.activeChildIndex];
 }
 
 #pragma mark - UITabBarBarControllerDelegate
 
+- (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
+    self.activeChildIndex = [tabBarController.viewControllers indexOfObject:viewController];
+    
+    [self.feedbackChannel childNodesWillBecomeActive:self.activeChildNodes];
+    
+    return YES;
+}
+
 - (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController {
-    // TODO: animated selection?..
-    
-    id<RTRNode> activeChild = self.childNodes[tabBarController.selectedIndex];
-    
-    [self.feedbackChannel childNodeWillBecomeActive:activeChild];
-    [self.feedbackChannel childNodeDidBecomeActive:activeChild];
+    [self.feedbackChannel childNodesDidBecomeActive:self.activeChildNodes];
 }
 
 @end

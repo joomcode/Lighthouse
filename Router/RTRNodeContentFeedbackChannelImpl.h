@@ -10,7 +10,7 @@
 
 @interface RTRNodeContentFeedbackChannelImpl : NSObject <RTRNodeContentFeedbackChannel>
 
-- (instancetype)initWithWillBecomeActiveBlock:(void (^)(id<RTRNode> node))willBlock
-                         didBecomeActiveBlock:(void (^)(id<RTRNode> node))didBlock;
+- (instancetype)initWithWillBecomeActiveBlock:(void (^)(NSSet *nodes))willBlock
+                         didBecomeActiveBlock:(void (^)(NSSet *nodes))didBlock;
 
 @end
