@@ -109,7 +109,7 @@ NSString * const RTRRouterNodeStateDidUpdateNotification = @"com.pixty.router.no
     }];
 }
 
-- (void)bindCommandToActiveNodes:(id<RTRCommand>)command {
+- (void)setupSnapshotCommand:(id<RTRCommand>)command {
     NSMutableSet *targetNodes = [[NSMutableSet alloc] init];
     
     for (id<RTRNode> node in self.initializedNodes) {

@@ -161,7 +161,7 @@
 
 - (void)doSomethingAfterAllThat {
     id<RTRCommand> dismissCommand = (id<RTRCommand>)[[NSObject alloc] init]; // duh
-    [self.router bindCommandToActiveNodes:dismissCommand];
+    [self.router setupSnapshotCommand:dismissCommand];
     
     [self.router executeCommand:[[PXPresentAlert alloc] init] animated:YES];
     [self.router executeCommand:dismissCommand animated:YES];
