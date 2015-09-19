@@ -29,6 +29,7 @@
 #import "RTRModalPresentationContent.h"
 
 #import "RTRCommandOrientedContent.h"
+#import "RTRCommandHandler.h"
 
 
 // Node Content Provider

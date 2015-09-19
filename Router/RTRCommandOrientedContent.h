@@ -9,16 +9,14 @@
 #import "RTRNodeContent.h"
 
 @protocol RTRCommand;
+@protocol RTRCommandHandler;
 
-typedef id (^RTRNodeContentDataInitBlock)(id<RTRCommand> command);
-typedef void (^RTRNodeContentDataUpdateBlock)(id data, id<RTRCommand> command, BOOL animated);
+typedef id (^RTRNodeContentDataInitBlock)(id<RTRCommand> command, id<RTRCommandHandler> commandHandler);
 
 @interface RTRCommandOrientedContent : NSObject <RTRNodeContent>
 
-- (void)setDefaultDataInitBlock:(RTRNodeContentDataInitBlock)block;
+@property (nonatomic, copy) RTRNodeContentDataInitBlock defaultDataInitBlock;
 
 - (void)bindCommandClass:(Class)commandClass toDataInitBlock:(RTRNodeContentDataInitBlock)block;
-
-- (void)bindCommandClass:(Class)commandClass toDataUpdateBlock:(RTRNodeContentDataUpdateBlock)block;
 
 @end

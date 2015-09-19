@@ -19,6 +19,7 @@
 		0160A9851BA78EAC0035A331 /* RTRNavigationControllerContent.m in Sources */ = {isa = PBXBuildFile; fileRef = 0160A9841BA78EAC0035A331 /* RTRNavigationControllerContent.m */; };
 		0186CAF21BACC29E00B22431 /* RTRDescriptionHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 0186CAF11BACC29E00B22431 /* RTRDescriptionHelpers.m */; settings = {ASSET_TAGS = (); }; };
 		0186CAF91BADECBC00B22431 /* RTRSnapshotCommandRegistry.m in Sources */ = {isa = PBXBuildFile; fileRef = 0186CAF81BADECBC00B22431 /* RTRSnapshotCommandRegistry.m */; settings = {ASSET_TAGS = (); }; };
+		0186CB001BADF93600B22431 /* RTRCommandHandlerImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 0186CAFF1BADF93600B22431 /* RTRCommandHandlerImpl.m */; settings = {ASSET_TAGS = (); }; };
 		01A01A641BA8373B00608274 /* RTRViewControllerContent.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A01A631BA8373B00608274 /* RTRViewControllerContent.m */; };
 		01A01A671BA837B100608274 /* RTRRouter.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A01A661BA837B100608274 /* RTRRouter.m */; };
 		01A01A721BA83B0B00608274 /* RTRGraph.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A01A711BA83B0B00608274 /* RTRGraph.m */; };
@@ -78,6 +79,9 @@
 		0186CAF11BACC29E00B22431 /* RTRDescriptionHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTRDescriptionHelpers.m; sourceTree = "<group>"; };
 		0186CAF71BADECBC00B22431 /* RTRSnapshotCommandRegistry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTRSnapshotCommandRegistry.h; sourceTree = "<group>"; };
 		0186CAF81BADECBC00B22431 /* RTRSnapshotCommandRegistry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTRSnapshotCommandRegistry.m; sourceTree = "<group>"; };
+		0186CAFD1BADF87F00B22431 /* RTRCommandHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTRCommandHandler.h; sourceTree = "<group>"; };
+		0186CAFE1BADF93600B22431 /* RTRCommandHandlerImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTRCommandHandlerImpl.h; sourceTree = "<group>"; };
+		0186CAFF1BADF93600B22431 /* RTRCommandHandlerImpl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTRCommandHandlerImpl.m; sourceTree = "<group>"; };
 		01A01A621BA8373B00608274 /* RTRViewControllerContent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTRViewControllerContent.h; sourceTree = "<group>"; };
 		01A01A631BA8373B00608274 /* RTRViewControllerContent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTRViewControllerContent.m; sourceTree = "<group>"; };
 		01A01A651BA837B100608274 /* RTRRouter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTRRouter.h; sourceTree = "<group>"; };
@@ -119,6 +123,9 @@
 		0111CC211BAA46E500C19022 /* Command Oriented */ = {
 			isa = PBXGroup;
 			children = (
+				0186CAFD1BADF87F00B22431 /* RTRCommandHandler.h */,
+				0186CAFE1BADF93600B22431 /* RTRCommandHandlerImpl.h */,
+				0186CAFF1BADF93600B22431 /* RTRCommandHandlerImpl.m */,
 				0111CC221BAA470D00C19022 /* RTRCommandOrientedContent.h */,
 				0111CC231BAA470D00C19022 /* RTRCommandOrientedContent.m */,
 			);
@@ -390,6 +397,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0186CAF91BADECBC00B22431 /* RTRSnapshotCommandRegistry.m in Sources */,
+				0186CB001BADF93600B22431 /* RTRCommandHandlerImpl.m in Sources */,
 				0160A9701BA7434B0035A331 /* RTRNodeTree.m in Sources */,
 				01A01AB11BA97B7100608274 /* RTRCompositeNodeContentProvider.m in Sources */,
 				0160A9761BA7479C0035A331 /* RTRTabNode.m in Sources */,

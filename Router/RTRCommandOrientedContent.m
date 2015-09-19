@@ -9,44 +9,23 @@
 #import "RTRCommandOrientedContent.h"
 #import "RTRCommand.h"
 #import "RTRNodeContentUpdateContext.h"
+#import "RTRCommandHandlerImpl.h"
 
 @interface RTRCommandOrientedContent ()
 
-@property (nonatomic, copy) RTRNodeContentDataInitBlock defaultDataInitBlock;
-
 @property (nonatomic, readonly) NSMapTable *dataInitBlocksByCommandClass;
 
-@property (nonatomic, readonly) NSMapTable *dataUpdateBlocksByCommandClass;
+@property (nonatomic, readonly) RTRCommandHandlerImpl *commandHandler;
 
 @end
 
 
 @implementation RTRCommandOrientedContent
 
-#pragma mark - Init
-
-- (instancetype)init {
-    self = [super init];
-    if (!self) return nil;
-    
-    _dataInitBlocksByCommandClass = [NSMapTable strongToStrongObjectsMapTable];
-    _dataUpdateBlocksByCommandClass = [NSMapTable strongToStrongObjectsMapTable];
-    
-    return self;
-}
-
-#pragma mark - Blocks
-
-- (void)setDefaultDataInitBlock:(RTRNodeContentDataInitBlock)block {
-    _defaultDataInitBlock = [block copy];
-}
+#pragma mark - Setup
 
 - (void)bindCommandClass:(Class)commandClass toDataInitBlock:(RTRNodeContentDataInitBlock)block {
     [self.dataInitBlocksByCommandClass setObject:[block copy] forKey:commandClass];
-}
-
-- (void)bindCommandClass:(Class)commandClass toDataUpdateBlock:(RTRNodeContentDataUpdateBlock)block {
-    [self.dataUpdateBlocksByCommandClass setObject:[block copy] forKey:commandClass];
 }
 
 #pragma mark - RTRNodeContent
@@ -64,17 +43,32 @@
         }
         
         if (block) {
-            _data = block(command);
+            _data = block(command, self.commandHandler);
         }
         
         NSAssert(_data != nil, @""); // TODO
     } else {
-        RTRNodeContentDataUpdateBlock block = [self.dataUpdateBlocksByCommandClass objectForKey:[command class]];
-        
-        if (block) {
-            block(_data, command, updateContext.animated);
-        }
+        [self.commandHandler handleCommand:command animated:updateContext.animated];
     }
+}
+
+#pragma mark - Lazy stuff
+
+@synthesize dataInitBlocksByCommandClass = _dataInitBlocksByCommandClass;
+@synthesize commandHandler = _commandHandler;
+
+- (NSMapTable *)dataInitBlocksByCommandClass {
+    if (!_dataInitBlocksByCommandClass) {
+        _dataInitBlocksByCommandClass = [NSMapTable strongToStrongObjectsMapTable];
+    }
+    return _dataInitBlocksByCommandClass;
+}
+
+- (RTRCommandHandlerImpl *)commandHandler {
+    if (!_commandHandler) {
+        _commandHandler = [[RTRCommandHandlerImpl alloc] init];
+    }
+    return _commandHandler;
 }
 
 @end
