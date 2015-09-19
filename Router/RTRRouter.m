@@ -27,12 +27,12 @@ NSString * const RTRRouterNodeStateDidUpdateNotification = @"com.pixty.router.no
 
 @interface RTRRouter ()
 
+@property (nonatomic, strong) RTRGraph *graph;
+
 @property (nonatomic, strong, readonly) id<RTRTaskQueue> commandQueue;
 @property (nonatomic, strong, readonly) id<RTRTaskQueue> contentUpdateQueue;
 
 @property (nonatomic, strong, readonly) RTRSnapshotCommandRegistry *snapshotCommandRegistry;
-
-@property (nonatomic, strong) RTRGraph *graph;
 
 @property (nonatomic, strong, readonly) NSMapTable *dataByNode;
 
@@ -44,36 +44,6 @@ NSString * const RTRRouterNodeStateDidUpdateNotification = @"com.pixty.router.no
 
 
 @implementation RTRRouter
-
-#pragma mark - Task queues
-
-@synthesize commandQueue = _commandQueue;
-@synthesize contentUpdateQueue = _contentUpdateQueue;
-
-- (id<RTRTaskQueue>)commandQueue {
-    if (!_commandQueue) {
-        _commandQueue = [[RTRTaskQueueImpl alloc] init];
-    }
-    return _commandQueue;
-}
-
-- (id<RTRTaskQueue>)contentUpdateQueue {
-    if (!_contentUpdateQueue) {
-        _contentUpdateQueue = [[RTRTaskQueueImpl alloc] init];
-    }
-    return _contentUpdateQueue;
-}
-
-#pragma mark - Snapshot command registry
-
-@synthesize snapshotCommandRegistry = _snapshotCommandRegistry;
-
-- (RTRSnapshotCommandRegistry *)snapshotCommandRegistry {
-    if (!_snapshotCommandRegistry) {
-        _snapshotCommandRegistry = [[RTRSnapshotCommandRegistry alloc] init];
-    }
-    return _snapshotCommandRegistry;
-}
 
 #pragma mark - Config stuff
 
@@ -98,7 +68,6 @@ NSString * const RTRRouterNodeStateDidUpdateNotification = @"com.pixty.router.no
         NSSet *nodesForAnimatedContentUpdate = animated ? [self nodesForAnimatedContentUpdateForTargetNodesPathTree:targetNodesPathTree] : nil;
         
         [self activateNodePathTree:targetNodesPathTree];
-        [self assertNodePathTreeIsActive:targetNodesPathTree];
         
         [self updateNodeContentRecursively:self.rootNode withCommand:command animateNodes:nodesForAnimatedContentUpdate];
         
@@ -145,6 +114,8 @@ NSString * const RTRRouterNodeStateDidUpdateNotification = @"com.pixty.router.no
             [self activateChildren:children ofParentNode:node];
         }
     }];
+    
+    [self assertNodePathTreeIsActive:pathTree];
 }
 
 - (void)activateChildren:(NSSet *)children ofParentNode:(id<RTRNode>)parentNode {
@@ -363,6 +334,36 @@ NSString * const RTRRouterNodeStateDidUpdateNotification = @"com.pixty.router.no
     for (id<RTRNode> child in [node allChildren]) {
         [self calculateResolvedNodeStateRecursively:resolvedStateByNode withCurrentNode:child parentState:state];
     }
+}
+
+#pragma mark - Task queues
+
+@synthesize commandQueue = _commandQueue;
+@synthesize contentUpdateQueue = _contentUpdateQueue;
+
+- (id<RTRTaskQueue>)commandQueue {
+    if (!_commandQueue) {
+        _commandQueue = [[RTRTaskQueueImpl alloc] init];
+    }
+    return _commandQueue;
+}
+
+- (id<RTRTaskQueue>)contentUpdateQueue {
+    if (!_contentUpdateQueue) {
+        _contentUpdateQueue = [[RTRTaskQueueImpl alloc] init];
+    }
+    return _contentUpdateQueue;
+}
+
+#pragma mark - Snapshot command registry
+
+@synthesize snapshotCommandRegistry = _snapshotCommandRegistry;
+
+- (RTRSnapshotCommandRegistry *)snapshotCommandRegistry {
+    if (!_snapshotCommandRegistry) {
+        _snapshotCommandRegistry = [[RTRSnapshotCommandRegistry alloc] init];
+    }
+    return _snapshotCommandRegistry;
 }
 
 #pragma mark - Node data
