@@ -17,6 +17,7 @@
 		013F68D61BA62CA300B5797B /* RouterDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 013F68D51BA62CA300B5797B /* RouterDemoTests.m */; };
 		013F68E11BA62CA300B5797B /* RouterDemoUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 013F68E01BA62CA300B5797B /* RouterDemoUITests.m */; };
 		013F68FE1BA62D0000B5797B /* libRouter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 013F68FD1BA62D0000B5797B /* libRouter.a */; };
+		0186CB101BAE190400B22431 /* PXPresentAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = 0186CB0F1BAE190400B22431 /* PXPresentAlert.m */; settings = {ASSET_TAGS = (); }; };
 		01A01A611BA8324700608274 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01A01A601BA8324700608274 /* LaunchScreen.xib */; };
 		01A01A871BA8777100608274 /* PXColorViewControllers.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A01A861BA8777100608274 /* PXColorViewControllers.m */; };
 		01A01A8B1BA8782700608274 /* PXPresentRed.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A01A8A1BA8782700608274 /* PXPresentRed.m */; };
@@ -65,6 +66,8 @@
 		013F68E01BA62CA300B5797B /* RouterDemoUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RouterDemoUITests.m; sourceTree = "<group>"; };
 		013F68E21BA62CA300B5797B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		013F68FD1BA62D0000B5797B /* libRouter.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libRouter.a; path = "../build/Debug-iphoneos/libRouter.a"; sourceTree = "<group>"; };
+		0186CB0E1BAE190400B22431 /* PXPresentAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXPresentAlert.h; sourceTree = "<group>"; };
+		0186CB0F1BAE190400B22431 /* PXPresentAlert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXPresentAlert.m; sourceTree = "<group>"; };
 		01A01A601BA8324700608274 /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
 		01A01A851BA8777100608274 /* PXColorViewControllers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXColorViewControllers.h; sourceTree = "<group>"; };
 		01A01A861BA8777100608274 /* PXColorViewControllers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXColorViewControllers.m; sourceTree = "<group>"; };
@@ -206,6 +209,8 @@
 				012497911BA99994007CD98B /* PXPresentModal.m */,
 				012497931BA9C686007CD98B /* PXPresentAnotherModal.h */,
 				012497941BA9C686007CD98B /* PXPresentAnotherModal.m */,
+				0186CB0E1BAE190400B22431 /* PXPresentAlert.h */,
+				0186CB0F1BAE190400B22431 /* PXPresentAlert.m */,
 			);
 			name = Commands;
 			sourceTree = "<group>";
@@ -342,6 +347,7 @@
 			files = (
 				01A01A941BA8786F00608274 /* RTRRouter+Shared.m in Sources */,
 				012497921BA99994007CD98B /* PXPresentModal.m in Sources */,
+				0186CB101BAE190400B22431 /* PXPresentAlert.m in Sources */,
 				01A01A911BA8783E00608274 /* PXPresentBlue.m in Sources */,
 				01A01A871BA8777100608274 /* PXColorViewControllers.m in Sources */,
 				0111CC271BAAED0D00C19022 /* PXDeepModalViewController.m in Sources */,

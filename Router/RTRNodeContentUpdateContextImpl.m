@@ -31,7 +31,6 @@
 {
     NSParameterAssert(command != nil);
     NSParameterAssert(updateQueue != nil);
-    NSParameterAssert(childrenState != nil);
     NSParameterAssert(contentBlock != nil);
     
     self = [super init];

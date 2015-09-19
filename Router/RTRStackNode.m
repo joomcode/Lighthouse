@@ -9,11 +9,13 @@
 #import "RTRStackNode.h"
 #import "RTRNodeTree.h"
 #import "RTRNodeForest.h"
-#import "RTRNodeChildrenState.h"
+#import "RTRStackNodeChildrenState.h"
 
 @interface RTRStackNode ()
 
-@property (nonatomic, copy, readonly) RTRNodeTree *tree;
+@property (nonatomic, copy, readonly) RTRNodeForest *forest;
+
+@property (nonatomic, strong, readonly) NSSet *allChildren;
 
 @end
 
@@ -23,7 +25,7 @@
 #pragma mark - Init
 
 - (instancetype)init {
-    return [self initWithTree:nil];
+    return [self initWithForest:nil];
 }
 
 - (instancetype)initWithSingleBranch:(NSArray *)nodes {
@@ -38,34 +40,90 @@
 - (instancetype)initWithTree:(RTRNodeTree *)tree {
     NSParameterAssert(tree != nil);
     
+    RTRNodeForest *forest = [[RTRNodeForest alloc] init];
+    [forest addItem:tree afterItemOrNil:nil];
+    
+    return [self initWithForest:forest];
+}
+
+- (instancetype)initWithForest:(RTRNodeForest *)forest {
+    NSParameterAssert(forest != nil);
+    
     self = [super init];
     if (!self) return nil;
     
-    _tree = [tree copy];
+    _forest = forest;
+    _allChildren = [self collectChildrenFromForest:forest];
     
     return self;
 }
 
-#pragma mark - RTRNode
-
-- (NSSet *)allChildren {
-    return [self.tree allItems];
+- (NSSet *)collectChildrenFromForest:(RTRNodeForest *)forest {
+    NSMutableSet *children = [[NSMutableSet alloc] init];
+    
+    for (RTRNodeTree *tree in [forest allItems]) {
+        [children unionSet:[tree allItems]];
+    }
+    
+    return [children copy];
 }
 
+#pragma mark - RTRNode
+
+@synthesize allChildren = _allChildren;
+
 - (NSSet *)defaultActiveChildren {
-    return [NSSet setWithObject:[self.tree nextItems:nil].firstObject];
+    RTRNodeTree *firstTree = [self.forest nextItems:nil].firstObject;
+    id<RTRNode> firstNode = [firstTree nextItems:nil].firstObject;
+    return [NSSet setWithObject:firstNode];
 }
 
 - (id<RTRNodeChildrenState>)activateChildren:(NSSet *)children withCurrentState:(id<RTRNodeChildrenState>)currentState {
-    NSAssert(children.count == 1, @""); // TODO
+    NSAssert(currentState == nil || [currentState isKindOfClass:[RTRStackNodeChildrenState class]], @""); // TODO
+    RTRStackNodeChildrenState *currentStackState = (RTRStackNodeChildrenState *)currentState;
     
-    NSOrderedSet *path = [self.tree pathToItem:children.anyObject];
-    if (!path) {
+    NSAssert(children.count == 1, @""); // TODO
+    id<RTRNode> targetNode = children.anyObject;
+    
+    RTRNodeTree *targetTree = [self treeForNode:targetNode];
+    if (!targetTree) {
         return nil;
     }
     
-    return [[RTRNodeChildrenState alloc] initWithInitializedChildren:path
-                                              activeChildrenIndexSet:[NSIndexSet indexSetWithIndex:path.count - 1]];
+    NSMapTable *initializedChildrenByTree = [currentStackState.initializedChildrenByTree copy] ?: [NSMapTable strongToStrongObjectsMapTable];
+    [initializedChildrenByTree setObject:[targetTree pathToItem:targetNode] forKey:targetTree];
+    
+    NSOrderedSet *path = [self nodePathToTree:targetTree initializedChildrenByTree:initializedChildrenByTree];
+    
+    return [[RTRStackNodeChildrenState alloc] initWithInitializedChildren:path initializedChildrenByTree:initializedChildrenByTree];
+}
+
+#pragma mark - Stuff
+
+- (RTRNodeTree *)treeForNode:(id<RTRNode>)node {
+    for (RTRNodeTree *tree in [self.forest allItems]) {
+        if ([[tree allItems] containsObject:node]) {
+            return tree;
+        }
+    }
+    
+    return nil;
+}
+
+- (NSOrderedSet *)nodePathToTree:(RTRNodeTree *)targetTree initializedChildrenByTree:(NSMapTable *)initializedChildrenByTree {
+    NSMutableOrderedSet *path = [[NSMutableOrderedSet alloc] init];
+    
+    for (RTRNodeTree *tree in [self.forest pathToItem:targetTree]) {
+        NSOrderedSet *initializedChildren = [initializedChildrenByTree objectForKey:tree];
+        if (!initializedChildren) {
+            initializedChildren = [NSOrderedSet orderedSetWithObject:[tree nextItems:nil].firstObject];
+            [initializedChildrenByTree setObject:initializedChildren forKey:tree];
+        }
+        
+        [path unionOrderedSet:initializedChildren];
+    }
+    
+    return path;
 }
 
 @end

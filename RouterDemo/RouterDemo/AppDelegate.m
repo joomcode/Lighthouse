@@ -15,6 +15,7 @@
 #import "PXPresentBlue.h"
 #import "PXPresentModal.h"
 #import "PXPresentAnotherModal.h"
+#import "PXPresentAlert.h"
 #import "RTRRouter+Shared.h"
 #import <Router.h>
 
@@ -63,11 +64,19 @@
     id<RTRNode> anotherTabNode = [[RTRTabNode alloc] initWithChildren:[NSOrderedSet orderedSetWithArray:anotherTabNodes]];
     id<RTRNode> anotherModalStackNode = [[RTRStackNode alloc] initWithSingleBranch:@[ anotherTabNode ]];
     
+    id<RTRNode> alertNode = [[RTRLeafNode alloc] init];
+    
     RTRNodeTree *rootTree = [[RTRNodeTree alloc] init];
     [rootTree addBranch:@[ mainStackNode, modalStackNode, deepModalStackNode ] afterItemOrNil:nil];
     [rootTree addItem:anotherModalStackNode afterItemOrNil:mainStackNode];
     
-    id<RTRNode> rootNode = [[RTRStackNode alloc] initWithTree:rootTree];
+    RTRNodeTree *alertTree = [[RTRNodeTree alloc] init];
+    [alertTree addBranch:@[ alertNode ] afterItemOrNil:nil];
+    
+    RTRNodeForest *rootForest = [[RTRNodeForest alloc] init];
+    [rootForest addBranch:@[ rootTree, alertTree ] afterItemOrNil:nil];
+    
+    id<RTRNode> rootNode = [[RTRStackNode alloc] initWithForest:rootForest];
     
     
     // Node Content
@@ -102,6 +111,10 @@
         return [[RTRViewControllerContent alloc] initWithViewControllerClass:[PXDeepModalViewController class]];
     }];
     
+    [nodeContentProvider bindNode:alertNode toBlock:^id<RTRNodeContent>(id<RTRNode> node) {
+        return [[RTRViewControllerContent alloc] initWithViewControllerClass:[PXModalViewController class]];
+    }];
+    
     [nodeContentProvider bindNode:rootNode toBlock:^id<RTRNodeContent>(id<RTRNode> node) {
         return [[RTRModalPresentationContent alloc] initWithWindow:self.window];
     }];
@@ -116,6 +129,7 @@
     [commandRegistry bindCommandClass:[PXPresentBlue class] toNode:blueNode];
     [commandRegistry bindCommandClass:[PXPresentModal class] toNode:deepModalNode];
     [commandRegistry bindCommandClass:[PXPresentAnotherModal class] toNode:anotherBlueNode];
+    [commandRegistry bindCommandClass:[PXPresentAlert class] toNode:alertNode];
 
     
     // Router
@@ -149,7 +163,7 @@
     id<RTRCommand> dismissCommand = (id<RTRCommand>)[[NSObject alloc] init]; // duh
     [self.router bindCommandToActiveNodes:dismissCommand];
     
-    [self.router executeCommand:[[PXPresentModal alloc] init] animated:YES];
+    [self.router executeCommand:[[PXPresentAlert alloc] init] animated:YES];
     [self.router executeCommand:dismissCommand animated:YES];
 }
 

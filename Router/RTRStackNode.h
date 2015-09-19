@@ -13,8 +13,10 @@
 
 @interface RTRStackNode : NSObject <RTRNode>
 
+- (instancetype)initWithSingleBranch:(NSArray *)nodes;
+
 - (instancetype)initWithTree:(RTRNodeTree *)tree;
 
-- (instancetype)initWithSingleBranch:(NSArray *)nodes;
+- (instancetype)initWithForest:(RTRNodeForest *)forest;
 
 @end
