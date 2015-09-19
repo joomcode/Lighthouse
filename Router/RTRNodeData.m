@@ -7,15 +7,25 @@
 //
 
 #import "RTRNodeData.h"
+#import "RTRNode.h"
 #import "RTRNodeChildrenState.h"
 
 @implementation RTRNodeData
 
-- (id<RTRNodeChildrenState>)childrenState {
-    if (!_childrenState) {
-        _childrenState = [[RTRNodeChildrenState alloc] init];
-    }
-    return _childrenState;
+- (instancetype)init {
+    return [self initWithNode:nil];
+}
+
+- (instancetype)initWithNode:(id<RTRNode>)node {
+    NSParameterAssert(node != nil);
+    
+    self = [super init];
+    if (!self) return nil;
+    
+    _node = node;
+    _childrenState = [node activateChild:[node defaultActiveChild] withCurrentState:nil];
+    
+    return self;
 }
 
 @end

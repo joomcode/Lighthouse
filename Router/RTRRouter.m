@@ -100,12 +100,12 @@ NSString * const RTRRouterNodeStateDidUpdateNotification = @"com.pixty.router.no
             [self dataForNode:nodePath[0]].state = RTRNodeStateActive;
             [self dataForNode:nodePath[0]].presentationState = RTRNodeStateActive;
         } else {
-            [self activateNewChildNode:nodePath[i] ofParentNode:nodePath[i - 1]];
+            [self activateChildNode:nodePath[i] ofParentNode:nodePath[i - 1]];
         }
     }
 }
 
-- (void)activateNewChildNode:(id<RTRNode>)childNode ofParentNode:(id<RTRNode>)parentNode {
+- (void)activateChildNode:(id<RTRNode>)childNode ofParentNode:(id<RTRNode>)parentNode {
     RTRNodeData *parentData = [self dataForNode:parentNode];
     parentData.childrenState = [parentNode activateChild:childNode withCurrentState:parentData.childrenState];
     
@@ -219,7 +219,7 @@ NSString * const RTRRouterNodeStateDidUpdateNotification = @"com.pixty.router.no
         
         id<RTRNodeContentFeedbackChannel> feedbackChannel =
             [[RTRNodeContentFeedbackChannelImpl alloc] initWithWillBecomeActiveBlock:^(id<RTRNode> child) {
-                [weakSelf activateNewChildNode:child ofParentNode:node];
+                [weakSelf activateChildNode:child ofParentNode:node];
                 [weakSelf willUpdateNodeContent:node];
             } didBecomeActiveBlock:^(id<RTRNode> child) {
                 [weakSelf didUpdateNodeContent:node];
@@ -328,9 +328,7 @@ NSString * const RTRRouterNodeStateDidUpdateNotification = @"com.pixty.router.no
 }
 
 - (RTRNodeData *)createDataForNode:(id<RTRNode>)node {
-    RTRNodeData *data = [[RTRNodeData alloc] init];
-    data.childrenState = [node activateChild:[node defaultActiveChild] withCurrentState:nil];
-    return data;
+    return [[RTRNodeData alloc] initWithNode:node];
 }
 
 - (void)resetDataForNode:(id<RTRNode>)node {

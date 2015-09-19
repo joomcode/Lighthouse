@@ -9,10 +9,13 @@
 #import <Foundation/Foundation.h>
 #import "RTRNodeState.h"
 
+@protocol RTRNode;
 @protocol RTRNodeChildrenState;
 @protocol RTRNodeContent;
 
 @interface RTRNodeData : NSObject
+
+@property (nonatomic, readonly) id<RTRNode> node;
 
 @property (nonatomic, assign) RTRNodeState state;
 
@@ -21,5 +24,7 @@
 @property (nonatomic, strong) id<RTRNodeChildrenState> childrenState;
 
 @property (nonatomic, strong) id<RTRNodeContent> content;
+
+- (instancetype)initWithNode:(id<RTRNode>)node;
 
 @end
