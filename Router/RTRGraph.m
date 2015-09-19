@@ -46,7 +46,7 @@
             return nil;
         }
         
-        [pathTree addBranch:[pathToNode array] afterNodeOrNil:nil];
+        [pathTree addBranch:[pathToNode array] afterItemOrNil:nil];
     }
     
     return pathTree;

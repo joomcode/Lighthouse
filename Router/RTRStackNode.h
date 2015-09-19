@@ -9,6 +9,7 @@
 #import "RTRNode.h"
 
 @class RTRNodeTree;
+@class RTRNodeForest;
 
 @interface RTRStackNode : NSObject <RTRNode>
 

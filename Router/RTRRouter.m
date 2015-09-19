@@ -134,13 +134,13 @@ NSString * const RTRRouterNodeStateDidUpdateNotification = @"com.pixty.router.no
 #pragma mark - Node state manipulation
 
 - (void)activateNodePathTree:(RTRNodeTree *)pathTree {
-    [pathTree enumerateNodesWithBlock:^(id<RTRNode> node, NSInteger depth, BOOL *stop) {
+    [pathTree enumerateItemsWithBlock:^(id<RTRNode> node, NSInteger depth, BOOL *stop) {
         if (depth == 0) {
             [self dataForNode:node].state = RTRNodeStateActive;
             [self dataForNode:node].presentationState = RTRNodeStateActive;
         }
         
-        NSSet *children = [pathTree nextNodes:node].set;
+        NSSet *children = [pathTree nextItems:node].set;
         if (children) {
             [self activateChildren:children ofParentNode:node];
         }
@@ -169,13 +169,13 @@ NSString * const RTRRouterNodeStateDidUpdateNotification = @"com.pixty.router.no
 }
 
 - (void)assertNodePathTreeIsActive:(RTRNodeTree *)pathTree {
-    [pathTree enumerateNodesWithBlock:^(id<RTRNode> node, NSInteger depth, BOOL *stop) {
+    [pathTree enumerateItemsWithBlock:^(id<RTRNode> node, NSInteger depth, BOOL *stop) {
         NSAssert([self dataForNode:node].state == RTRNodeStateActive, @""); // TODO
     }];
 }
 
 - (void)cleanupNodePathTree:(RTRNodeTree *)pathTree {
-    [pathTree enumerateNodesWithBlock:^(id<RTRNode> node, NSInteger depth, BOOL *stop) {
+    [pathTree enumerateItemsWithBlock:^(id<RTRNode> node, NSInteger depth, BOOL *stop) {
         RTRNodeData *nodeData = [self dataForNode:node];
         
         for (id<RTRNode> childNode in [node allChildren]) {

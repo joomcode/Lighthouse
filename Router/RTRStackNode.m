@@ -8,6 +8,7 @@
 
 #import "RTRStackNode.h"
 #import "RTRNodeTree.h"
+#import "RTRNodeForest.h"
 #import "RTRNodeChildrenState.h"
 
 @interface RTRStackNode ()
@@ -29,7 +30,7 @@
     NSParameterAssert(nodes != nil);
     
     RTRNodeTree *tree = [[RTRNodeTree alloc] init];
-    [tree addBranch:nodes afterNodeOrNil:nil];
+    [tree addBranch:nodes afterItemOrNil:nil];
     
     return [self initWithTree:tree];
 }
@@ -48,17 +49,17 @@
 #pragma mark - RTRNode
 
 - (NSSet *)allChildren {
-    return [self.tree allNodes];
+    return [self.tree allItems];
 }
 
 - (NSSet *)defaultActiveChildren {
-    return [NSSet setWithObject:[self.tree nextNodes:nil].firstObject];
+    return [NSSet setWithObject:[self.tree nextItems:nil].firstObject];
 }
 
 - (id<RTRNodeChildrenState>)activateChildren:(NSSet *)children withCurrentState:(id<RTRNodeChildrenState>)currentState {
     NSAssert(children.count == 1, @""); // TODO
     
-    NSOrderedSet *path = [self.tree pathToNode:children.anyObject];
+    NSOrderedSet *path = [self.tree pathToItem:children.anyObject];
     if (!path) {
         return nil;
     }

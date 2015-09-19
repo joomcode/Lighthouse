@@ -64,8 +64,8 @@
     id<RTRNode> anotherModalStackNode = [[RTRStackNode alloc] initWithSingleBranch:@[ anotherTabNode ]];
     
     RTRNodeTree *rootTree = [[RTRNodeTree alloc] init];
-    [rootTree addBranch:@[ mainStackNode, modalStackNode, deepModalStackNode ] afterNodeOrNil:nil];
-    [rootTree addNode:anotherModalStackNode afterNodeOrNil:mainStackNode];
+    [rootTree addBranch:@[ mainStackNode, modalStackNode, deepModalStackNode ] afterItemOrNil:nil];
+    [rootTree addItem:anotherModalStackNode afterItemOrNil:mainStackNode];
     
     id<RTRNode> rootNode = [[RTRStackNode alloc] initWithTree:rootTree];
     
