@@ -113,13 +113,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0111CC211BAA46E500C19022 /* Command Oriented Content */ = {
+		0111CC211BAA46E500C19022 /* Command Oriented */ = {
 			isa = PBXGroup;
 			children = (
 				0111CC221BAA470D00C19022 /* RTRCommandOrientedContent.h */,
 				0111CC231BAA470D00C19022 /* RTRCommandOrientedContent.m */,
 			);
-			name = "Command Oriented Content";
+			name = "Command Oriented";
 			sourceTree = "<group>";
 		};
 		0111CC281BAB025B00C19022 /* Basic */ = {
@@ -229,8 +229,8 @@
 		0160A9771BA76CE70035A331 /* Node Content */ = {
 			isa = PBXGroup;
 			children = (
-				0160A9821BA78DE00035A331 /* View Controller Content */,
-				0111CC211BAA46E500C19022 /* Command Oriented Content */,
+				0160A9821BA78DE00035A331 /* View Controllers */,
+				0111CC211BAA46E500C19022 /* Command Oriented */,
 				0160A9781BA780AD0035A331 /* RTRNodeContent.h */,
 				0160A9811BA78CAE0035A331 /* RTRNodeContentUpdateContext.h */,
 				0160A9881BA8299A0035A331 /* RTRNodeContentFeedbackChannel.h */,
@@ -238,7 +238,7 @@
 			name = "Node Content";
 			sourceTree = "<group>";
 		};
-		0160A9821BA78DE00035A331 /* View Controller Content */ = {
+		0160A9821BA78DE00035A331 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
 				0124979F1BA9E825007CD98B /* Helpers */,
@@ -251,7 +251,7 @@
 				01A01A9F1BA88B4000608274 /* RTRModalPresentationContent.h */,
 				01A01AA01BA88B4000608274 /* RTRModalPresentationContent.m */,
 			);
-			name = "View Controller Content";
+			name = "View Controllers";
 			sourceTree = "<group>";
 		};
 		0160A9861BA821E10035A331 /* Command */ = {
