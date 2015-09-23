@@ -16,8 +16,8 @@
 
 @property (nonatomic, readonly) id<RTRNodeChildrenState> childrenState;
 
-- (BOOL)activateChildren:(NSSet *)children;
-
 - (void)resetChildrenState;
+
+- (BOOL)activateChildren:(NSSet *)children;
 
 @end

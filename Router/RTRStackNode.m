@@ -15,7 +15,7 @@
 
 @property (nonatomic, copy, readonly) RTRNodeForest *forest;
 
-@property (nonatomic, strong, readonly) NSSet *allChildren;
+@property (nonatomic, strong) RTRStackNodeChildrenState *childrenState;
 
 @end
 
@@ -71,31 +71,39 @@
 #pragma mark - RTRNode
 
 @synthesize allChildren = _allChildren;
+@synthesize childrenState = _childrenState;
 
-- (NSSet *)defaultActiveChildren {
+- (void)resetChildrenState {
     RTRNodeTree *firstTree = [self.forest nextItems:nil].firstObject;
     id<RTRNode> firstNode = [firstTree nextItems:nil].firstObject;
-    return [NSSet setWithObject:firstNode];
+    
+    NSOrderedSet *initializedChildren = [NSOrderedSet orderedSetWithObject:firstNode];
+    
+    NSMapTable *initializedChildrenByTree = [NSMapTable strongToStrongObjectsMapTable];
+    [initializedChildrenByTree setObject:initializedChildren forKey:firstTree];
+    
+    self.childrenState = [[RTRStackNodeChildrenState alloc] initWithInitializedChildren:initializedChildren
+                                                              initializedChildrenByTree:initializedChildrenByTree];
 }
 
-- (id<RTRNodeChildrenState>)activateChildren:(NSSet *)children withCurrentState:(id<RTRNodeChildrenState>)currentState {
-    NSAssert(currentState == nil || [currentState isKindOfClass:[RTRStackNodeChildrenState class]], @""); // TODO
-    RTRStackNodeChildrenState *currentStackState = (RTRStackNodeChildrenState *)currentState;
-    
+- (BOOL)activateChildren:(NSSet *)children {
     NSAssert(children.count == 1, @""); // TODO
     id<RTRNode> targetNode = children.anyObject;
     
     RTRNodeTree *targetTree = [self treeForNode:targetNode];
     if (!targetTree) {
-        return nil;
+        return NO;
     }
     
-    NSMapTable *initializedChildrenByTree = [currentStackState.initializedChildrenByTree copy] ?: [NSMapTable strongToStrongObjectsMapTable];
+    NSMapTable *initializedChildrenByTree = [self.childrenState.initializedChildrenByTree copy];
     [initializedChildrenByTree setObject:[targetTree pathToItem:targetNode] forKey:targetTree];
     
     NSOrderedSet *path = [self nodePathToTree:targetTree initializedChildrenByTree:initializedChildrenByTree];
     
-    return [[RTRStackNodeChildrenState alloc] initWithInitializedChildren:path initializedChildrenByTree:initializedChildrenByTree];
+    self.childrenState = [[RTRStackNodeChildrenState alloc] initWithInitializedChildren:path
+                                                              initializedChildrenByTree:initializedChildrenByTree];
+    
+    return YES;
 }
 
 #pragma mark - Stuff

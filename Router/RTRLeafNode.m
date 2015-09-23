@@ -16,12 +16,15 @@
     return nil;
 }
 
-- (NSSet *)defaultActiveChildren {
+- (id<RTRNodeChildrenState>)childrenState {
     return nil;
 }
 
-- (id<RTRNodeChildrenState>)activateChildren:(NSSet *)children withCurrentState:(id<RTRNodeChildrenState>)currentState {
-    return nil;
+- (void)resetChildrenState {
+}
+
+- (BOOL)activateChildren:(NSSet *)children {
+    return NO;
 }
 
 @end

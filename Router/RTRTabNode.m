@@ -11,7 +11,9 @@
 
 @interface RTRTabNode ()
 
-@property (nonatomic, copy, readonly) NSOrderedSet *children;
+@property (nonatomic, copy, readonly) NSOrderedSet *orderedChildren;
+
+@property (nonatomic, strong) id<RTRNodeChildrenState> childrenState;
 
 @end
 
@@ -30,31 +32,36 @@
     self = [super init];
     if (!self) return nil;
     
-    _children = [children copy];
+    _orderedChildren = [children copy];
     
     return self;
 }
 
 #pragma mark - PXRouterNode
 
+@synthesize childrenState = _childrenState;
+
 - (NSSet *)allChildren {
-    return [self.children set];
+    return [self.orderedChildren set];
 }
 
-- (NSSet *)defaultActiveChildren {
-    return [NSSet setWithObject:self.children.firstObject];
+- (void)resetChildrenState {
+    self.childrenState = [[RTRNodeChildrenState alloc] initWithInitializedChildren:self.orderedChildren
+                                                            activeChildrenIndexSet:[NSIndexSet indexSetWithIndex:0]];
 }
 
-- (id<RTRNodeChildrenState>)activateChildren:(NSSet *)children withCurrentState:(id<RTRNodeChildrenState>)currentState {
+- (BOOL)activateChildren:(NSSet *)children {
     NSAssert(children.count == 1, @""); // TODO
     
-    NSInteger childIndex = [self.children indexOfObject:children.anyObject];
+    NSInteger childIndex = [self.orderedChildren indexOfObject:children.anyObject];
     if (childIndex == NSNotFound) {
-        return nil;
+        return NO;
     }
     
-    return [[RTRNodeChildrenState alloc] initWithInitializedChildren:self.children
-                                              activeChildrenIndexSet:[NSIndexSet indexSetWithIndex:childIndex]];
+    self.childrenState = [[RTRNodeChildrenState alloc] initWithInitializedChildren:self.orderedChildren
+                                                            activeChildrenIndexSet:[NSIndexSet indexSetWithIndex:childIndex]];
+    
+    return YES;
 }
 
 @end
