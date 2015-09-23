@@ -9,11 +9,10 @@
 #import <Foundation/Foundation.h>
 
 @protocol RTRNode;
+@protocol RTRNodeUpdate;
 
 @protocol RTRNodeContentFeedbackChannel <NSObject>
 
-- (void)childNodesWillBecomeActive:(NSSet *)nodes;
-
-- (void)childNodesDidBecomeActive:(NSSet *)nodes;
+- (id<RTRNodeUpdate>)startNodeUpdateWithBlock:(void (^)(id<RTRNode> node))updateBlock;
 
 @end

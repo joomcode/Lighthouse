@@ -12,10 +12,12 @@
 
 @protocol RTRNode <NSObject>
 
-- (NSSet *)allChildren;
+@property (nonatomic, readonly) NSSet *allChildren;
 
-- (NSSet *)defaultActiveChildren;
+@property (nonatomic, readonly) id<RTRNodeChildrenState> childrenState;
 
-- (id<RTRNodeChildrenState>)activateChildren:(NSSet *)children withCurrentState:(id<RTRNodeChildrenState>)currentState;
+- (BOOL)activateChildren:(NSSet *)children;
+
+- (void)resetChildrenState;
 
 @end
