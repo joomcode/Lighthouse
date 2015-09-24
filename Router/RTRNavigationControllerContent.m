@@ -12,6 +12,8 @@
 #import "RTRNodeContentFeedbackChannel.h"
 #import "RTRViewControllerContentHelpers.h"
 #import "RTRTaskQueue.h"
+#import "RTRNode.h"
+#import "RTRNodeUpdate.h"
 
 @interface RTRNavigationControllerContent () <UINavigationControllerDelegate>
 
@@ -84,18 +86,24 @@
     
     NSArray *oldChildNodes = self.childNodes;
     
-    self.childNodes = [self.childNodes subarrayWithRange:NSMakeRange(0, count)];
-    [self.feedbackChannel childNodesWillBecomeActive:self.activeChildNodes];
+    self.childNodes = [oldChildNodes subarrayWithRange:NSMakeRange(0, count)];
+    __block id<RTRNodeUpdate> update = [self startNodeUpdate];
     
     [navigationController.transitionCoordinator notifyWhenInteractionEndsUsingBlock:^(id<UIViewControllerTransitionCoordinatorContext> context) {
         if ([context isCancelled]) {
             self.childNodes = oldChildNodes;
-            [self.feedbackChannel childNodesWillBecomeActive:self.activeChildNodes];
+            update = [self startNodeUpdate];
         }
     }];
     
     [navigationController.transitionCoordinator animateAlongsideTransition:nil completion:^(id<UIViewControllerTransitionCoordinatorContext> context) {
-        [self.feedbackChannel childNodesDidBecomeActive:self.activeChildNodes];
+        [update finish];
+    }];
+}
+
+- (id<RTRNodeUpdate>)startNodeUpdate {
+    return [self.feedbackChannel startNodeUpdateWithBlock:^(id<RTRNode> node) {
+        [node activateChildren:self.activeChildNodes];
     }];
 }
 

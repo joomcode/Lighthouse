@@ -11,6 +11,8 @@
 #import "RTRNodeChildrenState.h"
 #import "RTRNodeContentFeedbackChannel.h"
 #import "RTRViewControllerContentHelpers.h"
+#import "RTRNode.h"
+#import "RTRNodeUpdate.h"
 
 @interface RTRTabBarControllerContent () <UITabBarControllerDelegate>
 
@@ -18,6 +20,7 @@
 @property (nonatomic, assign) NSInteger activeChildIndex;
 
 @property (nonatomic, readonly) NSSet *activeChildNodes;
+@property (nonatomic, strong) id<RTRNodeUpdate> currentNodeUpdate;
 
 @end
 
@@ -65,13 +68,16 @@
 - (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
     self.activeChildIndex = [tabBarController.viewControllers indexOfObject:viewController];
     
-    [self.feedbackChannel childNodesWillBecomeActive:self.activeChildNodes];
+    self.currentNodeUpdate = [self.feedbackChannel startNodeUpdateWithBlock:^(id<RTRNode> node) {
+        [node activateChildren:self.activeChildNodes];
+    }];
     
     return YES;
 }
 
 - (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController {
-    [self.feedbackChannel childNodesDidBecomeActive:self.activeChildNodes];
+    [self.currentNodeUpdate finish];
+    self.currentNodeUpdate = nil;
 }
 
 @end
