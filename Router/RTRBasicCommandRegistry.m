@@ -8,6 +8,7 @@
 
 #import "RTRBasicCommandRegistry.h"
 #import "RTRCommand.h"
+#import "RTRTargetNodes.h"
 
 @interface RTRBasicCommandRegistry ()
 
@@ -31,24 +32,28 @@
 
 #pragma mark - Setup
 
-- (void)bindCommandClass:(Class)commandClass toNode:(id<RTRNode>)node {
-    [self bindCommandClass:commandClass toNodes:[NSSet setWithObject:node]];
+- (void)bindCommandClass:(Class)commandClass toActiveNodeTarget:(id<RTRNode>)node {
+    [self bindCommandClass:commandClass toTargetNodes:[[RTRTargetNodes alloc] initWithActiveNode:node]];
 }
 
-- (void)bindCommandClass:(Class)commandClass toNodes:(NSSet *)nodes {
-    [self bindCommandClass:commandClass toBlock:^NSSet *(id<RTRCommand> command) {
-        return nodes;
+- (void)bindCommandClass:(Class)commandClass toInactiveNodeTarget:(id<RTRNode>)node {
+    [self bindCommandClass:commandClass toTargetNodes:[[RTRTargetNodes alloc] initWithInactiveNode:node]];
+}
+
+- (void)bindCommandClass:(Class)commandClass toTargetNodes:(RTRTargetNodes *)targetNodes {
+    [self bindCommandClass:commandClass toBlock:^RTRTargetNodes *(id<RTRCommand> command) {
+        return targetNodes;
     }];
 }
 
-- (void)bindCommandClass:(Class)commandClass toBlock:(RTRCommandNodesProvidingBlock)block {
+- (void)bindCommandClass:(Class)commandClass toBlock:(RTRCommandTargetNodesProvidingBlock)block {
     [self.blocksByCommandClass setObject:[block copy] forKey:commandClass];
 }
 
 #pragma mark - RTRCommandRegistry
 
-- (NSSet *)nodesForCommand:(id<RTRCommand>)command {
-    RTRCommandNodesProvidingBlock block = [self.blocksByCommandClass objectForKey:[command class]];
+- (RTRTargetNodes *)targetNodesForCommand:(id<RTRCommand>)command {
+    RTRCommandTargetNodesProvidingBlock block = [self.blocksByCommandClass objectForKey:[command class]];
     return block ? block(command) : nil;
 }
 

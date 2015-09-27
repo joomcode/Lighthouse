@@ -34,6 +34,4 @@
 
 - (void)executeCommand:(id<RTRCommand>)command animated:(BOOL)animated;
 
-- (void)setupSnapshotCommand:(id<RTRCommand>)command;
-
 @end

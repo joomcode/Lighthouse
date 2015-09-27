@@ -35,11 +35,11 @@
 
 @synthesize data = _data;
 
-- (void)updateWithContext:(id<RTRNodeContentUpdateContext>)updateContext {
-    NSAssert(updateContext.childrenState.activeChildren.count <= 1, @""); // TODO
-    NSAssert(updateContext.childrenState.initializedChildren.lastObject == updateContext.childrenState.activeChildren.lastObject, @""); // TODO
+- (void)updateWithContext:(id<RTRNodeContentUpdateContext>)context {
+    NSAssert(context.childrenState.activeChildren.count <= 1, @""); // TODO
+    NSAssert(context.childrenState.initializedChildren.lastObject == context.childrenState.activeChildren.lastObject, @""); // TODO
     
-    NSArray *viewControllers = [RTRViewControllerContentHelpers childViewControllersWithUpdateContext:updateContext];
+    NSArray *viewControllers = [RTRViewControllerContentHelpers childViewControllersWithUpdateContext:context];
     NSArray *presentedViewControllers = [self presentedViewControllers];
     
     NSInteger commonPrefixLength = [self commonPrefixLengthForArray:viewControllers andArray:presentedViewControllers];
@@ -51,8 +51,8 @@
         
         UIViewController *viewController = presentedViewControllers[i - 1];
         
-        [updateContext.updateQueue runAsyncTaskWithBlock:^(RTRTaskQueueAsyncCompletionBlock completion) {
-            [viewController dismissViewControllerAnimated:updateContext.animated completion:completion];
+        [context.updateQueue runAsyncTaskWithBlock:^(RTRTaskCompletionBlock completion) {
+            [viewController dismissViewControllerAnimated:context.animated completion:completion];
         }];
     }
     
@@ -60,7 +60,7 @@
         UIViewController *viewController = viewControllers[i];
         
         if (i == 0) {
-            [updateContext.updateQueue runTaskWithBlock:^{
+            [context.updateQueue runTaskWithBlock:^{
                 self.data.rootViewController = viewController;
                 
                 if (self.data.hidden) {
@@ -70,8 +70,8 @@
         } else {
             UIViewController *previousViewController = viewControllers[i - 1];
             
-            [updateContext.updateQueue runAsyncTaskWithBlock:^(RTRTaskQueueAsyncCompletionBlock completion) {
-                [previousViewController presentViewController:viewController animated:updateContext.animated completion:completion];
+            [context.updateQueue runAsyncTaskWithBlock:^(RTRTaskCompletionBlock completion) {
+                [previousViewController presentViewController:viewController animated:context.animated completion:completion];
             }];
         }
     }

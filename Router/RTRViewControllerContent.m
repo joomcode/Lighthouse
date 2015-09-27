@@ -30,7 +30,7 @@
 
 @synthesize data = _data;
 
-- (void)updateWithContext:(id<RTRNodeContentUpdateContext>)updateContext {
+- (void)updateWithContext:(id<RTRNodeContentUpdateContext>)context {
     if (!_data) {
         _data = [[self.viewControllerClass alloc] init];
     }

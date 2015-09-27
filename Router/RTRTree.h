@@ -17,7 +17,7 @@
 
 - (NSOrderedSet<ObjectType> *)pathToItem:(ObjectType)item;
 
-- (void)enumerateItemsWithBlock:(void (^)(ObjectType item, NSInteger depth, BOOL *stop))enumerationBlock;
+- (void)enumerateItemsWithBlock:(void (^)(ObjectType item, ObjectType previousItem, BOOL *stop))enumerationBlock;
 - (void)enumeratePathsToLeavesWithBlock:(void (^)(NSOrderedSet<ObjectType> *path, BOOL *stop))enumerationBlock;
 
 @end

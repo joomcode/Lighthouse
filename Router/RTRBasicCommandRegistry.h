@@ -8,14 +8,19 @@
 
 #import "RTRCommandRegistry.h"
 
-typedef NSSet * (^RTRCommandNodesProvidingBlock)(id<RTRCommand> command);
+@protocol RTRNode;
+@class RTRTargetNodes;
+
+typedef RTRTargetNodes * (^RTRCommandTargetNodesProvidingBlock)(id<RTRCommand> command);
 
 @interface RTRBasicCommandRegistry : NSObject <RTRCommandRegistry>
 
-- (void)bindCommandClass:(Class)commandClass toNode:(id<RTRNode>)node;
+- (void)bindCommandClass:(Class)commandClass toActiveNodeTarget:(id<RTRNode>)node;
 
-- (void)bindCommandClass:(Class)commandClass toNodes:(NSSet *)nodes;
+- (void)bindCommandClass:(Class)commandClass toInactiveNodeTarget:(id<RTRNode>)node;
 
-- (void)bindCommandClass:(Class)commandClass toBlock:(RTRCommandNodesProvidingBlock)block;
+- (void)bindCommandClass:(Class)commandClass toTargetNodes:(RTRTargetNodes *)targetNodes;
+
+- (void)bindCommandClass:(Class)commandClass toBlock:(RTRCommandTargetNodesProvidingBlock)block;
 
 @end

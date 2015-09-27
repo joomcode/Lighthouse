@@ -8,6 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
+@protocol RTRNode;
+
+typedef void (^RTRNodeUpdateBlock)(id<RTRNode> node);
+
 @protocol RTRNodeUpdate <NSObject>
 
 - (void)finish;

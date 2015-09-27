@@ -23,7 +23,6 @@
     if (!self) return nil;
     
     _node = node;
-    _childrenState = [node activateChildren:[node defaultActiveChildren] withCurrentState:nil];
     
     return self;
 }

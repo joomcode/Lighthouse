@@ -10,8 +10,7 @@
 
 @interface RTRNodeContentFeedbackChannelImpl ()
 
-@property (nonatomic, copy) void (^willBlock)(NSSet *nodes);
-@property (nonatomic, copy) void (^didBlock)(NSSet *nodes);
+@property (nonatomic, copy, readonly) id<RTRNodeUpdate> (^providerBlock)(RTRNodeUpdateBlock updateBlock);
 
 @end
 
@@ -21,32 +20,25 @@
 #pragma mark - Init
 
 - (instancetype)init {
-    return [self initWithWillBecomeActiveBlock:nil didBecomeActiveBlock:nil];
+    return [self initWithNodeUpdateProviderBlock:nil];
 }
 
-- (instancetype)initWithWillBecomeActiveBlock:(void (^)(NSSet *nodes))willBlock
-                         didBecomeActiveBlock:(void (^)(NSSet *nodes))didBlock
-{
-    NSParameterAssert(willBlock != nil);
-    NSParameterAssert(didBlock != nil);
+- (instancetype)initWithNodeUpdateProviderBlock:(id<RTRNodeUpdate> (^)(RTRNodeUpdateBlock updateBlock))block {
+    NSParameterAssert(block != nil);
     
     self = [super init];
     if (!self) return nil;
     
-    _willBlock = [willBlock copy];
-    _didBlock = [didBlock copy];
+    _providerBlock = [block copy];
     
     return self;
 }
 
 #pragma mark - RTRNodeContentFeedbackChannel
 
-- (void)childNodesWillBecomeActive:(NSSet *)nodes {
-    self.willBlock(nodes);
-}
-
-- (void)childNodesDidBecomeActive:(NSSet *)nodes {
-    self.didBlock(nodes);
+- (id<RTRNodeUpdate>)startNodeUpdateWithBlock:(RTRNodeUpdateBlock)updateBlock {
+    NSParameterAssert(updateBlock != nil);
+    return self.providerBlock(updateBlock);
 }
 
 @end

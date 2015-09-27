@@ -60,16 +60,24 @@
     return data;
 }
 
-- (void)updateWithContext:(id<RTRNodeContentUpdateContext>)updateContext {
+- (void)updateWithContext:(id<RTRNodeContentUpdateContext>)context {
     [self.contentById enumerateKeysAndObjectsUsingBlock:^(id<NSCopying> contentId, id<RTRNodeContent> content, BOOL *stop) {
         [content updateWithContext:
-            [[RTRNodeContentUpdateContextImpl alloc] initWithAnimated:updateContext.animated
-                                                              command:updateContext.command
-                                                          updateQueue:updateContext.updateQueue
-                                                        childrenState:updateContext.childrenState
+            [[RTRNodeContentUpdateContextImpl alloc] initWithAnimated:context.animated
+                                                              command:context.command
+                                                          updateQueue:context.updateQueue
+                                                        childrenState:context.childrenState
                                                          contentBlock:^id<RTRNodeContent>(id<RTRNode> node) {
-                                                             return ((RTRCompositeNodeContent *)[updateContext contentForNode:node]).contentById[contentId];
+                                                             return ((RTRCompositeNodeContent *)[context contentForNode:node]).contentById[contentId];
                                                          }]];
+    }];
+}
+
+- (void)stateDidChange:(RTRNodeState)state {
+    [self.contentById enumerateKeysAndObjectsUsingBlock:^(id<NSCopying> contentId, id<RTRNodeContent> content, BOOL *stop) {
+        if ([content respondsToSelector:@selector(stateDidChange:)]) {
+            [content stateDidChange:state];
+        }
     }];
 }
 

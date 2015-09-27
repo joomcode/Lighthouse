@@ -7,10 +7,10 @@
 //
 
 #import "RTRNodeContentFeedbackChannel.h"
+#import "RTRNodeUpdate.h"
 
 @interface RTRNodeContentFeedbackChannelImpl : NSObject <RTRNodeContentFeedbackChannel>
 
-- (instancetype)initWithWillBecomeActiveBlock:(void (^)(NSSet *nodes))willBlock
-                         didBecomeActiveBlock:(void (^)(NSSet *nodes))didBlock;
+- (instancetype)initWithNodeUpdateProviderBlock:(id<RTRNodeUpdate> (^)(RTRNodeUpdateBlock updateBlock))block;
 
 @end

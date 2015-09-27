@@ -7,20 +7,24 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "RTRNodeState.h"
 
 @protocol RTRCommand;
 @protocol RTRNodeContentUpdateContext;
+@protocol RTRNodeContentDidUpdateContext;
 @protocol RTRNodeContentFeedbackChannel;
 
 @protocol RTRNodeContent <NSObject>
 
 @property (nonatomic, strong, readonly) id data;
 
-- (void)updateWithContext:(id<RTRNodeContentUpdateContext>)updateContext;
+- (void)updateWithContext:(id<RTRNodeContentUpdateContext>)context;
 
 
 @optional
 
 @property (nonatomic, strong) id<RTRNodeContentFeedbackChannel> feedbackChannel;
+
+- (void)stateDidChange:(RTRNodeState)state;
 
 @end

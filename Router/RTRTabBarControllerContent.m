@@ -44,22 +44,22 @@
 @synthesize data = _data;
 @synthesize feedbackChannel = _feedbackChannel;
 
-- (void)updateWithContext:(id<RTRNodeContentUpdateContext>)updateContext {
+- (void)updateWithContext:(id<RTRNodeContentUpdateContext>)context {
     if (!_data) {
         _data = [[UITabBarController alloc] init];
         _data.delegate = self;
     }
     
-    NSAssert(updateContext.childrenState.activeChildren.count == 1, @""); // TODO
+    NSAssert(context.childrenState.activeChildren.count == 1, @""); // TODO
     
-    id<RTRNode> activeChild = updateContext.childrenState.activeChildren.firstObject;
+    id<RTRNode> activeChild = context.childrenState.activeChildren.firstObject;
     
-    self.childNodes = updateContext.childrenState.initializedChildren;
+    self.childNodes = context.childrenState.initializedChildren;
     self.activeChildIndex = [self.childNodes indexOfObject:activeChild];
     
-    NSArray *viewControllers = [RTRViewControllerContentHelpers childViewControllersWithUpdateContext:updateContext];
+    NSArray *viewControllers = [RTRViewControllerContentHelpers childViewControllersWithUpdateContext:context];
     
-    [self.data setViewControllers:viewControllers animated:updateContext.animated]; // TODO: use updateQueue
+    [self.data setViewControllers:viewControllers animated:context.animated]; // TODO: use updateQueue
     [self.data setSelectedIndex:self.activeChildIndex];
 }
 
@@ -67,10 +67,11 @@
 
 - (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
     self.activeChildIndex = [tabBarController.viewControllers indexOfObject:viewController];
-    
-    self.currentNodeUpdate = [self.feedbackChannel startNodeUpdateWithBlock:^(id<RTRNode> node) {
-        [node activateChildren:self.activeChildNodes];
-    }];
+
+    // TODO
+//    self.currentNodeUpdate = [self.feedbackChannel startNodeUpdateWithBlock:^(id<RTRNode> node) {
+//        [node activateChildren:self.activeChildNodes];
+//    }];
     
     return YES;
 }

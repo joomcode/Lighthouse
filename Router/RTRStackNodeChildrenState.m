@@ -12,35 +12,19 @@
 
 #pragma mark - Init
 
-- (instancetype)initWithInitializedChildren:(NSOrderedSet *)initializedChildren
-                  initializedChildrenByTree:(NSMapTable *)initializedChildrenByTree
-{
+- (instancetype)initWithStack:(NSOrderedSet *)stack {
     self = [super init];
     if (!self) return nil;
     
-    _initializedChildren = [initializedChildren copy];
-    _initializedChildrenByTree = [initializedChildrenByTree copy];
+    _initializedChildren = [stack copy];
+    _activeChildren = [NSOrderedSet orderedSetWithObject:stack.lastObject];
     
     return self;
-}
-
-#pragma mark - Stuff
-
-@synthesize initializedChildrenByTree = _initializedChildrenByTree;
-
-- (NSMapTable *)initializedChildrenByTree {
-    if (!_initializedChildrenByTree) {
-        _initializedChildrenByTree = [NSMapTable strongToStrongObjectsMapTable];
-    }
-    return _initializedChildrenByTree;
 }
 
 #pragma mark - RTRNodeChildrenState
 
 @synthesize initializedChildren = _initializedChildren;
-
-- (NSOrderedSet *)activeChildren {
-    return [NSOrderedSet orderedSetWithObject:self.initializedChildren.lastObject];
-}
+@synthesize activeChildren = _activeChildren;
 
 @end

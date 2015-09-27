@@ -7,12 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "RTRNodeState.h"
 
 @protocol RTRNode;
 @protocol RTRCommand;
 @protocol RTRNodeContent;
-@protocol RTRTaskQueue;
 @protocol RTRNodeChildrenState;
+@class RTRTaskQueue;
 
 @protocol RTRNodeContentUpdateContext <NSObject>
 
@@ -20,9 +21,9 @@
 
 @property (nonatomic, readonly) id<RTRCommand> command;
 
-@property (nonatomic, readonly) id<RTRTaskQueue> updateQueue;
-
 @property (nonatomic, readonly) id<RTRNodeChildrenState> childrenState;
+
+@property (nonatomic, readonly) RTRTaskQueue *updateQueue;
 
 - (id<RTRNodeContent>)contentForNode:(id<RTRNode>)node;
 

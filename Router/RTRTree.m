@@ -71,25 +71,22 @@
     return [path copy];
 }
 
-- (void)enumerateItemsWithBlock:(void (^)(id item, NSInteger depth, BOOL *stop))enumerationBlock {
-    [self enumerateItemsRecursivelyWithCurrentItem:nil currentDepth:0 enumerationBlock:enumerationBlock];
+- (void)enumerateItemsWithBlock:(void (^)(id item, id previousItem, BOOL *stop))enumerationBlock {
+    [self enumerateItemsRecursivelyWithCurrentItem:nil enumerationBlock:enumerationBlock];
 }
 
 - (BOOL)enumerateItemsRecursivelyWithCurrentItem:(id)currentItem
-                                    currentDepth:(NSInteger)currentDepth
-                                enumerationBlock:(void (^)(id item, NSInteger depth, BOOL *stop))enumerationBlock {
+                                enumerationBlock:(void (^)(id item, id previousItem, BOOL *stop))enumerationBlock {
     BOOL stop = NO;
     
     for (id childItem in [self nextItems:currentItem]) {
-        enumerationBlock(childItem, currentDepth, &stop);
+        enumerationBlock(childItem, currentItem, &stop);
         
         if (stop) {
             break;
         }
         
-        stop = [self enumerateItemsRecursivelyWithCurrentItem:childItem
-                                                 currentDepth:currentDepth + 1
-                                             enumerationBlock:enumerationBlock];
+        stop = [self enumerateItemsRecursivelyWithCurrentItem:childItem enumerationBlock:enumerationBlock];
         
         if (stop) {
             break;

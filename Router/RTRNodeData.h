@@ -10,7 +10,6 @@
 #import "RTRNodeState.h"
 
 @protocol RTRNode;
-@protocol RTRNodeChildrenState;
 @protocol RTRNodeContent;
 
 @interface RTRNodeData : NSObject
@@ -20,8 +19,6 @@
 @property (nonatomic, assign) RTRNodeState state;
 
 @property (nonatomic, assign) RTRNodeState presentationState;
-
-@property (nonatomic, strong) id<RTRNodeChildrenState> childrenState;
 
 @property (nonatomic, strong) id<RTRNodeContent> content;
 

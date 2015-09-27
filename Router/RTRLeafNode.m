@@ -23,7 +23,7 @@
 - (void)resetChildrenState {
 }
 
-- (BOOL)activateChildren:(NSSet *)children {
+- (BOOL)updateChildrenState:(RTRTargetNodes *)targetNodes {
     return NO;
 }
 

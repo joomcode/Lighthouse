@@ -25,6 +25,7 @@
 		01A01A911BA8783E00608274 /* PXPresentBlue.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A01A901BA8783E00608274 /* PXPresentBlue.m */; };
 		01A01A941BA8786F00608274 /* RTRRouter+Shared.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A01A931BA8786F00608274 /* RTRRouter+Shared.m */; };
 		01A01AB41BA9887D00608274 /* PXModalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A01AB31BA9887D00608274 /* PXModalViewController.m */; };
+		01C6F8DD1BB8871200A13C1E /* PXDismissAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = 01C6F8DC1BB8871200A13C1E /* PXDismissAlert.m */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -81,6 +82,8 @@
 		01A01A931BA8786F00608274 /* RTRRouter+Shared.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "RTRRouter+Shared.m"; sourceTree = "<group>"; };
 		01A01AB21BA9887D00608274 /* PXModalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXModalViewController.h; sourceTree = "<group>"; };
 		01A01AB31BA9887D00608274 /* PXModalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXModalViewController.m; sourceTree = "<group>"; };
+		01C6F8DB1BB8871200A13C1E /* PXDismissAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXDismissAlert.h; sourceTree = "<group>"; };
+		01C6F8DC1BB8871200A13C1E /* PXDismissAlert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXDismissAlert.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -211,6 +214,8 @@
 				012497941BA9C686007CD98B /* PXPresentAnotherModal.m */,
 				0186CB0E1BAE190400B22431 /* PXPresentAlert.h */,
 				0186CB0F1BAE190400B22431 /* PXPresentAlert.m */,
+				01C6F8DB1BB8871200A13C1E /* PXDismissAlert.h */,
+				01C6F8DC1BB8871200A13C1E /* PXDismissAlert.m */,
 			);
 			name = Commands;
 			sourceTree = "<group>";
@@ -356,6 +361,7 @@
 				013F68C01BA62CA300B5797B /* AppDelegate.m in Sources */,
 				01A01A8E1BA8783600608274 /* PXPresentGreen.m in Sources */,
 				012497951BA9C686007CD98B /* PXPresentAnotherModal.m in Sources */,
+				01C6F8DD1BB8871200A13C1E /* PXDismissAlert.m in Sources */,
 				013F68BD1BA62CA300B5797B /* main.m in Sources */,
 				01A01A8B1BA8782700608274 /* PXPresentRed.m in Sources */,
 			);

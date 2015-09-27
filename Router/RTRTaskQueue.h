@@ -7,13 +7,20 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "RTRTask.h"
 
 typedef void (^RTRTaskQueueBlock)();
+typedef void (^RTRTaskQueueAsyncBlock)(RTRTaskCompletionBlock completion);
 
-typedef void (^RTRTaskQueueAsyncCompletionBlock)();
-typedef void (^RTRTaskQueueAsyncBlock)(RTRTaskQueueAsyncCompletionBlock completion);
 
 @protocol RTRTaskQueue <NSObject>
+
+- (void)runTask:(id<RTRTask>)task;
+
+@end
+
+
+@interface RTRTaskQueue : NSObject <RTRTaskQueue>
 
 - (void)runTaskWithBlock:(RTRTaskQueueBlock)block;
 

@@ -12,9 +12,6 @@
 
 @interface RTRStackNodeChildrenState : NSObject <RTRNodeChildrenState>
 
-@property (nonatomic, readonly) NSMapTable *initializedChildrenByTree;
-
-- (instancetype)initWithInitializedChildren:(NSOrderedSet *)initializedChildren
-                  initializedChildrenByTree:(NSMapTable *)initializedChildrenByTree;
+- (instancetype)initWithStack:(NSOrderedSet *)stack;
 
 @end

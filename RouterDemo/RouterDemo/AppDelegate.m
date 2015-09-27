@@ -16,6 +16,7 @@
 #import "PXPresentModal.h"
 #import "PXPresentAnotherModal.h"
 #import "PXPresentAlert.h"
+#import "PXDismissAlert.h"
 #import "RTRRouter+Shared.h"
 #import <Router.h>
 
@@ -124,12 +125,13 @@
     
     RTRBasicCommandRegistry *commandRegistry = [[RTRBasicCommandRegistry alloc] init];
     
-    [commandRegistry bindCommandClass:[PXPresentRed class] toNode:redNode];
-    [commandRegistry bindCommandClass:[PXPresentGreen class] toNode:greenNode];
-    [commandRegistry bindCommandClass:[PXPresentBlue class] toNode:blueNode];
-    [commandRegistry bindCommandClass:[PXPresentModal class] toNode:deepModalNode];
-    [commandRegistry bindCommandClass:[PXPresentAnotherModal class] toNode:anotherBlueNode];
-    [commandRegistry bindCommandClass:[PXPresentAlert class] toNode:alertNode];
+    [commandRegistry bindCommandClass:[PXPresentRed class] toActiveNodeTarget:redNode];
+    [commandRegistry bindCommandClass:[PXPresentGreen class] toActiveNodeTarget:greenNode];
+    [commandRegistry bindCommandClass:[PXPresentBlue class] toActiveNodeTarget:blueNode];
+    [commandRegistry bindCommandClass:[PXPresentModal class] toActiveNodeTarget:deepModalNode];
+    [commandRegistry bindCommandClass:[PXPresentAnotherModal class] toActiveNodeTarget:anotherBlueNode];
+    [commandRegistry bindCommandClass:[PXPresentAlert class] toActiveNodeTarget:alertNode];
+    [commandRegistry bindCommandClass:[PXDismissAlert class] toInactiveNodeTarget:alertNode];
 
     
     // Router
@@ -149,22 +151,10 @@
 
 - (void)doSomethingLater {
     [self.router executeCommand:[[PXPresentAnotherModal alloc] init] animated:YES];
-}
-
-- (void)doSomethingEvenLater {
     [self.router executeCommand:[[PXPresentModal alloc] init] animated:YES];
-}
-
-- (void)doSomethingEvenMoreLater {
     [self.router executeCommand:[[PXPresentBlue alloc] init] animated:YES];
-}
-
-- (void)doSomethingAfterAllThat {
-    id<RTRCommand> dismissCommand = (id<RTRCommand>)[[NSObject alloc] init]; // duh
-    [self.router setupSnapshotCommand:dismissCommand];
-    
     [self.router executeCommand:[[PXPresentAlert alloc] init] animated:YES];
-    [self.router executeCommand:dismissCommand animated:YES];
+    [self.router executeCommand:[[PXDismissAlert alloc] init] animated:YES];
 }
 
 //- (void)doSomething {
@@ -173,19 +163,19 @@
 //
 //- (void)doSomethingLater {
 //    [self.router executeCommand:[[PXPresentBlue alloc] init] animated:YES];
-//}
-//
-//- (void)doSomethingEvenLater {
 //    [self.router executeCommand:[[PXPresentGreen alloc] init] animated:YES];
-//}
-//
-//- (void)doSomethingEvenMoreLater {
 //    [self.router executeCommand:[[PXPresentRed alloc] init] animated:YES];
-//}
-//
-//- (void)doSomethingAfterAllThat {
 //    [self.router executeCommand:[[PXPresentGreen alloc] init] animated:YES];
 //}
+
+- (void)doSomethingEvenLater {
+}
+
+- (void)doSomethingEvenMoreLater {
+}
+
+- (void)doSomethingAfterAllThat {
+}
 
 #pragma mark - PXRouterDelegate
 

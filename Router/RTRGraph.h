@@ -22,4 +22,9 @@
 
 - (RTRNodeTree *)pathsToNodes:(NSSet *)nodes;
 
+
+- (RTRNodeTree *)initializedNodesTree;
+
+- (RTRNodeTree *)activeNodesTree;
+
 @end

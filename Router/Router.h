@@ -9,6 +9,9 @@
 // Node
 
 #import "RTRNode.h"
+#import "RTRNodeState.h"
+#import "RTRNodeChildrenState.h"
+#import "RTRTargetNodes.h"
 
 #import "RTRLeafNode.h"
 #import "RTRStackNode.h"
@@ -56,6 +59,7 @@
 // Misc
 
 #import "RTRTaskQueue.h"
+#import "RTRNodeUpdate.h"
 #import "RTRDescriptionHelpers.h"
 
 

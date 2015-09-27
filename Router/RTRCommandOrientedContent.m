@@ -32,8 +32,8 @@
 
 @synthesize data = _data;
 
-- (void)updateWithContext:(id<RTRNodeContentUpdateContext>)updateContext {
-    id<RTRCommand> command = updateContext.command;
+- (void)updateWithContext:(id<RTRNodeContentUpdateContext>)context {
+    id<RTRCommand> command = context.command;
     
     if (!_data) {
         RTRNodeContentDataInitBlock block = [self.dataInitBlocksByCommandClass objectForKey:[command class]];
@@ -48,7 +48,7 @@
         
         NSAssert(_data != nil, @""); // TODO
     } else {
-        [self.commandHandler handleCommand:command animated:updateContext.animated];
+        [self.commandHandler handleCommand:command animated:context.animated];
     }
 }
 

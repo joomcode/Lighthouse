@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+// TODO: handle state changes
+
 @protocol RTRCommand;
 
 typedef void (^RTRCommandHandlerBlock)(id<RTRCommand> command, BOOL animated);

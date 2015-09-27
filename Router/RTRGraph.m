@@ -9,6 +9,7 @@
 #import "RTRGraph.h"
 #import "RTRNode.h"
 #import "RTRNodeTree.h"
+#import "RTRNodeChildrenState.h"
 
 @implementation RTRGraph
 
@@ -52,6 +53,24 @@
     return pathTree;
 }
 
+- (RTRNodeTree *)initializedNodesTree {
+    RTRNodeTree *tree = [[RTRNodeTree alloc] init];
+    [tree addItem:self.rootNode afterItemOrNil:nil];
+    
+    [self collectInitializedNodesRecursively:self.rootNode currentTree:tree];
+    
+    return tree;
+}
+
+- (RTRNodeTree *)activeNodesTree {
+    RTRNodeTree *tree = [[RTRNodeTree alloc] init];
+    [tree addItem:self.rootNode afterItemOrNil:nil];
+    
+    [self collectActiveNodesRecursively:self.rootNode currentTree:tree];
+    
+    return tree;
+}
+
 #pragma mark - Private
 
 - (BOOL)searchForNodeRecursively:(id<RTRNode>)node currentPath:(NSMutableOrderedSet *)currentPath {
@@ -72,6 +91,22 @@
     }
     
     return NO;
+}
+
+- (void)collectInitializedNodesRecursively:(id<RTRNode>)node currentTree:(RTRNodeTree *)currentTree {
+    [currentTree addFork:[node.childrenState.initializedChildren array] afterItemOrNil:node];
+    
+    for (id<RTRNode> childNode in node.childrenState.initializedChildren) {
+        [self collectInitializedNodesRecursively:childNode currentTree:currentTree];
+    }
+}
+
+- (void)collectActiveNodesRecursively:(id<RTRNode>)node currentTree:(RTRNodeTree *)currentTree {
+    [currentTree addFork:[node.childrenState.activeChildren array] afterItemOrNil:node];
+    
+    for (id<RTRNode> childNode in node.childrenState.activeChildren) {
+        [self collectInitializedNodesRecursively:childNode currentTree:currentTree];
+    }
 }
 
 @end

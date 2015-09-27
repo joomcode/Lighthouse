@@ -8,6 +8,7 @@
 
 #import "RTRTabNode.h"
 #import "RTRNodeChildrenState.h"
+#import "RTRTargetNodes.h"
 
 @interface RTRTabNode ()
 
@@ -34,10 +35,12 @@
     
     _orderedChildren = [children copy];
     
+    [self resetChildrenState];
+    
     return self;
 }
 
-#pragma mark - PXRouterNode
+#pragma mark - RTRNode
 
 @synthesize childrenState = _childrenState;
 
@@ -50,10 +53,11 @@
                                                             activeChildrenIndexSet:[NSIndexSet indexSetWithIndex:0]];
 }
 
-- (BOOL)activateChildren:(NSSet *)children {
-    NSAssert(children.count == 1, @""); // TODO
+- (BOOL)updateChildrenState:(RTRTargetNodes *)targetNodes {
+    NSAssert(targetNodes.activeNodes.count == 1, @""); // TODO
+    NSAssert(targetNodes.inactiveNodes.count == 0, @""); // TODO
     
-    NSInteger childIndex = [self.orderedChildren indexOfObject:children.anyObject];
+    NSInteger childIndex = [self.orderedChildren indexOfObject:targetNodes.activeNodes.anyObject];
     if (childIndex == NSNotFound) {
         return NO;
     }
