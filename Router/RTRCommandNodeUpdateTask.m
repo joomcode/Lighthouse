@@ -9,6 +9,7 @@
 #import "RTRCommandNodeUpdateTask.h"
 #import "RTRCommand.h"
 #import "RTRCommandRegistry.h"
+#import "RTRComponents.h"
 #import "RTRNode.h"
 #import "RTRTargetNodes.h"
 #import "RTRGraph.h"
@@ -16,19 +17,27 @@
 @interface RTRCommandNodeUpdateTask ()
 
 @property (nonatomic, readonly) id<RTRCommand> command;
-@property (nonatomic, readonly) id<RTRCommandRegistry> commandRegistry;
 
 @end
 
 
 @implementation RTRCommandNodeUpdateTask
 
-- (void)setCommand:(id<RTRCommand>)command commandRegistry:(id<RTRCommandRegistry>)commandRegistry {
+#pragma mark - Init
+
+- (instancetype)initWithComponents:(RTRComponents *)components animated:(BOOL)animated {
+    return [self initWithComponents:components command:nil animated:animated];
+}
+
+- (instancetype)initWithComponents:(RTRComponents *)components command:(id<RTRCommand>)command animated:(BOOL)animated {
     NSParameterAssert(command != nil);
-    NSParameterAssert(commandRegistry != nil);
+    
+    self = [super initWithComponents:components animated:animated];
+    if (!self) return nil;
     
     _command = command;
-    _commandRegistry = commandRegistry;
+    
+    return self;
 }
 
 #pragma mark - RTRNodeUpdateTask
@@ -54,10 +63,10 @@
 - (NSMapTable *)targetNodesByParent {
     NSMapTable *targetNodesByParent = [NSMapTable strongToStrongObjectsMapTable];
     
-    RTRTargetNodes *commandTargetNodes = [self.commandRegistry targetNodesForCommand:self.command];
+    RTRTargetNodes *commandTargetNodes = [self.components.commandRegistry targetNodesForCommand:self.command];
     
     for (id<RTRNode> activeNode in commandTargetNodes.activeNodes) {
-        NSOrderedSet *pathToNode = [self.graph pathToNode:activeNode];
+        NSOrderedSet *pathToNode = [self.components.graph pathToNode:activeNode];
         
         [pathToNode enumerateObjectsUsingBlock:^(id<RTRNode> node, NSUInteger idx, BOOL *stop) {
             if (idx == 0) {
@@ -80,7 +89,7 @@
     }
     
     for (id<RTRNode> inactiveNode in commandTargetNodes.inactiveNodes) {
-        NSOrderedSet *pathToNode = [self.graph pathToNode:inactiveNode];
+        NSOrderedSet *pathToNode = [self.components.graph pathToNode:inactiveNode];
         
         id<RTRNode> parent = pathToNode[pathToNode.count - 2];
         

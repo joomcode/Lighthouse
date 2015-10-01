@@ -10,22 +10,14 @@
 
 @protocol RTRNode;
 @protocol RTRCommand;
-@protocol RTRNodeContentProvider;
-@class RTRGraph;
-@class RTRNodeDataStorage;
-
+@class RTRComponents;
 
 @interface RTRNodeUpdateTask : NSObject <RTRTask>
 
-@property (nonatomic, strong, readonly) RTRNodeDataStorage *nodeDataStorage;
-@property (nonatomic, strong, readonly) id<RTRNodeContentProvider> nodeContentProvider;
-@property (nonatomic, strong, readonly) RTRGraph *graph;
-@property (nonatomic, getter = isAnimated, readonly) BOOL animated;
+@property (nonatomic, readonly) RTRComponents *components;
+@property (nonatomic, readonly, getter = isAnimated) BOOL animated;
 
-- (instancetype)initWithNodeDataStorage:(RTRNodeDataStorage *)nodeDataStorage
-                    nodeContentProvider:(id<RTRNodeContentProvider>)nodeContentProvider
-                                  graph:(RTRGraph *)graph
-                               animated:(BOOL)animated;
+- (instancetype)initWithComponents:(RTRComponents *)components animated:(BOOL)animated;
 
 @end
 

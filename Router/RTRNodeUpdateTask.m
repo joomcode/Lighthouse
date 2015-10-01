@@ -7,6 +7,7 @@
 //
 
 #import "RTRNodeUpdateTask.h"
+#import "RTRComponents.h"
 #import "RTRNodeDataStorage.h"
 #import "RTRNodeData.h"
 #import "RTRGraph.h"
@@ -36,30 +37,22 @@
 #pragma mark - Init
 
 - (instancetype)init {
-    return [self initWithNodeDataStorage:nil nodeContentProvider:nil graph:nil animated:NO];
+    return [self initWithComponents:nil animated:NO];
 }
 
-- (instancetype)initWithNodeDataStorage:(RTRNodeDataStorage *)nodeDataStorage
-                    nodeContentProvider:(id<RTRNodeContentProvider>)nodeContentProvider
-                                  graph:(RTRGraph *)graph
-                               animated:(BOOL)animated
-{
-    NSParameterAssert(nodeDataStorage != nil);
-    NSParameterAssert(nodeContentProvider != nil);
-    NSParameterAssert(graph != nil);
+- (instancetype)initWithComponents:(RTRComponents *)components animated:(BOOL)animated {
+    NSParameterAssert(components != nil);
     
     self = [super init];
     if (!self) return nil;
     
-    _nodeDataStorage = nodeDataStorage;
-    _nodeContentProvider = nodeContentProvider;
-    _graph = graph;
+    _components = components;
     _animated = animated;
     
     _contentUpdateQueue = [[RTRTaskQueue alloc] init];
     
     _affectedNodes = [[RTRNodeTree alloc] init];
-    [_affectedNodes addItem:_graph.rootNode afterItemOrNil:nil];
+    [_affectedNodes addItem:_components.graph.rootNode afterItemOrNil:nil];
     
     return self;
 }
@@ -68,7 +61,7 @@
 
 - (void)startWithCompletionBlock:(RTRTaskCompletionBlock)completionBlock {
     if (self.animated) {
-        self.nodesForAnimatedContentUpdate = [[self.graph activeNodesTree] allItems];
+        self.nodesForAnimatedContentUpdate = [[self.components.graph activeNodesTree] allItems];
     }
     
     [self markAffectedNodes];
@@ -104,17 +97,17 @@
 - (NSMapTable *)takeNodeResolvedStateSnapshot {
     NSMapTable *stateByNodes = [NSMapTable strongToStrongObjectsMapTable];
     
-    RTRNodeTree *tree = [self.graph initializedNodesTree];
+    RTRNodeTree *tree = [self.components.graph initializedNodesTree];
     
     [tree enumerateItemsWithBlock:^(id<RTRNode> node, id<RTRNode> previousNode, BOOL *stop) {
-        [stateByNodes setObject:@([self.nodeDataStorage resolvedStateForNode:node]) forKey:node];
+        [stateByNodes setObject:@([self.components.nodeDataStorage resolvedStateForNode:node]) forKey:node];
     }];
     
     return stateByNodes;
 }
 
 - (void)markAffectedNodes {
-    RTRNodeTree *tree = [self.graph initializedNodesTree];
+    RTRNodeTree *tree = [self.components.graph initializedNodesTree];
     
     [tree enumerateItemsWithBlock:^(id<RTRNode> node, id<RTRNode> previousNode, BOOL *stop) {
         [self.affectedNodes addItem:node afterItemOrNil:previousNode];
@@ -124,7 +117,7 @@
 - (void)updateAffectedNodesState {
     [self.affectedNodes enumerateItemsWithBlock:^(id<RTRNode> node, id<RTRNode> previousNode, BOOL *stop) {
         if (!previousNode) {
-            RTRNodeData *data = [self.nodeDataStorage dataForNode:node];
+            RTRNodeData *data = [self.components.nodeDataStorage dataForNode:node];
             data.state = RTRNodeStateActive;
             data.presentationState = RTRNodeStateActive;
         }
@@ -140,7 +133,7 @@
                 childState = RTRNodeStateNotInitialized;
             }
             
-            [self.nodeDataStorage dataForNode:childNode].state = childState;
+            [self.components.nodeDataStorage dataForNode:childNode].state = childState;
         }
     }];
 }
@@ -148,7 +141,7 @@
 - (void)cleanupAffectedNodes {
     [self.affectedNodes enumerateItemsWithBlock:^(id<RTRNode> node, id<RTRNode> previousNode, BOOL *stop) {
         if (previousNode && ![previousNode.childrenState.initializedChildren containsObject:node]) {
-            [self.nodeDataStorage resetDataForNode:node];
+            [self.components.nodeDataStorage resetDataForNode:node];
         }
     }];
 }
@@ -156,7 +149,7 @@
 #pragma mark - Node content manipulation
 
 - (void)updateNodeContent {
-    [self updateNodeContentRecursively:self.graph.rootNode];
+    [self updateNodeContentRecursively:self.components.graph.rootNode];
 }
 
 - (void)updateNodeContentRecursively:(id<RTRNode>)node {
@@ -170,7 +163,7 @@
 }
 
 - (void)updateNodeContent:(id<RTRNode>)node {
-    RTRNodeData *data = [self.nodeDataStorage dataForNode:node];
+    RTRNodeData *data = [self.components.nodeDataStorage dataForNode:node];
     RTRTaskQueue *localUpdateQueue = [[RTRTaskQueue alloc] init];
     
     if (!data.content) {
@@ -188,7 +181,7 @@
                                                           updateQueue:localUpdateQueue
                                                         childrenState:node.childrenState
                                                          contentBlock:^id<RTRNodeContent>(id<RTRNode> node) {
-                                                             return [self.nodeDataStorage dataForNode:node].content;
+                                                             return [self.components.nodeDataStorage dataForNode:node].content;
                                                          }];
         
         [data.content updateWithContext:updateContext];
@@ -204,7 +197,7 @@
 }
 
 - (id<RTRNodeContent>)createContentForNode:(id<RTRNode>)node {
-    id<RTRNodeContent> content = [self.nodeContentProvider contentForNode:node];
+    id<RTRNodeContent> content = [self.components.nodeContentProvider contentForNode:node];
     
     if (!content) {
         return nil;
@@ -231,7 +224,7 @@
 
 - (void)willUpdateNodeContent:(id<RTRNode>)node {
     for (id<RTRNode> child in [node allChildren]) {
-        RTRNodeData *childData = [self.nodeDataStorage dataForNode:child];
+        RTRNodeData *childData = [self.components.nodeDataStorage dataForNode:child];
         
         RTRNodeState oldState = childData.presentationState;
         RTRNodeState newState = childData.state;
@@ -243,16 +236,16 @@
         }
     }
     
-    [self.nodeDataStorage updateResolvedStateForNodes:self.affectedNodes];
+    [self.components.nodeDataStorage updateResolvedStateForNodes:self.affectedNodes];
 }
 
 - (void)didUpdateNodeContent:(id<RTRNode>)node {
     for (id<RTRNode> child in [node allChildren]) {
-        RTRNodeData *childData = [self.nodeDataStorage dataForNode:child];
+        RTRNodeData *childData = [self.components.nodeDataStorage dataForNode:child];
         childData.presentationState = childData.state;
     }
     
-    [self.nodeDataStorage updateResolvedStateForNodes:self.affectedNodes];
+    [self.components.nodeDataStorage updateResolvedStateForNodes:self.affectedNodes];
 }
 
 @end

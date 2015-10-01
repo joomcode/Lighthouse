@@ -12,6 +12,7 @@
 #import "RTRNodeContent.h"
 #import "RTRNodeDataStorage.h"
 #import "RTRNodeData.h"
+#import "RTRComponents.h"
 #import "RTRGraph.h"
 #import "RTRCommand.h"
 #import "RTRCommandRegistry.h"
@@ -23,38 +24,51 @@ NSString * const RTRRouterNodeStateDidUpdateNotification = @"com.pixty.router.no
 
 @interface RTRRouter () <RTRNodeDataStorageDelegate>
 
-@property (nonatomic, strong) RTRGraph *graph;
-@property (nonatomic, strong) RTRNodeDataStorage *nodeDataStorage;
+@property (nonatomic, readonly) RTRComponents *components;
 
 @property (nonatomic, strong, readonly) RTRTaskQueue *commandQueue;
-
-@property (nonatomic, strong, readonly) NSMapTable *dataByNode;
-
-@property (nonatomic, strong) NSSet *initializedNodes;
-
-@property (nonatomic, strong) NSMapTable *resolvedStateByNode;
 
 @end
 
 
 @implementation RTRRouter
 
-#pragma mark - Config stuff
+#pragma mark - Components
+
+@synthesize components = _components;
+
+- (RTRComponents *)components {
+    if (!_components) {
+        _components = [[RTRComponents alloc] init];
+        
+        _components.nodeDataStorage = [[RTRNodeDataStorage alloc] init];
+        _components.nodeDataStorage.delegate = self;
+    }
+    return _components;
+}
+
+- (id<RTRNodeContentProvider>)nodeContentProvider {
+    return self.components.nodeContentProvider;
+}
+
+- (void)setNodeContentProvider:(id<RTRNodeContentProvider>)nodeContentProvider {
+    self.components.nodeContentProvider = nodeContentProvider;
+}
+
+- (id<RTRCommandRegistry>)commandRegistry {
+    return self.components.commandRegistry;
+}
+
+- (void)setCommandRegistry:(id<RTRCommandRegistry>)commandRegistry {
+    self.components.commandRegistry = commandRegistry;
+}
 
 - (id<RTRNode>)rootNode {
-    return self.graph.rootNode;
+    return self.components.graph.rootNode;
 }
 
 - (void)setRootNode:(id<RTRNode>)rootNode {
-    self.graph = [[RTRGraph alloc] initWithRootNode:rootNode];
-}
-
-- (RTRNodeDataStorage *)nodeDataStorage {
-    if (!_nodeDataStorage) {
-        _nodeDataStorage = [[RTRNodeDataStorage alloc] init];
-        _nodeDataStorage.delegate = self;
-    }
-    return _nodeDataStorage;
+    self.components.graph = [[RTRGraph alloc] initWithRootNode:rootNode];
 }
 
 #pragma mark - Command execution
@@ -69,11 +83,9 @@ NSString * const RTRRouterNodeStateDidUpdateNotification = @"com.pixty.router.no
 }
 
 - (void)executeCommand:(id<RTRCommand>)command animated:(BOOL)animated {
-    RTRCommandNodeUpdateTask *task = [[RTRCommandNodeUpdateTask alloc] initWithNodeDataStorage:self.nodeDataStorage
-                                                                           nodeContentProvider:self.nodeContentProvider
-                                                                                         graph:self.graph
-                                                                                      animated:animated];
-    [task setCommand:command commandRegistry:self.commandRegistry];
+    RTRCommandNodeUpdateTask *task = [[RTRCommandNodeUpdateTask alloc] initWithComponents:self.components
+                                                                                  command:command
+                                                                                 animated:animated];
     
     [self.commandQueue runTask:task];
 }
@@ -81,21 +93,21 @@ NSString * const RTRRouterNodeStateDidUpdateNotification = @"com.pixty.router.no
 #pragma mark - Node content state query
 
 - (NSSet *)initializedNodes {
-    return [self.nodeDataStorage initializedNodes];
+    return [self.components.nodeDataStorage initializedNodes];
 }
 
 - (RTRNodeState)stateForNode:(id<RTRNode>)node {
-    return [self.nodeDataStorage resolvedStateForNode:node];
+    return [self.components.nodeDataStorage resolvedStateForNode:node];
 }
 
 #pragma mark - RTRNodeDataStorageDelegate
 
 - (void)nodeDataStorage:(RTRNodeDataStorage *)storage didChangeResolvedStateForNode:(id<RTRNode>)node {
-    if ([self.nodeDataStorage hasDataForNode:node]) {
-        id<RTRNodeContent> nodeContent = [self.nodeDataStorage dataForNode:node].content;
+    if ([self.components.nodeDataStorage hasDataForNode:node]) {
+        id<RTRNodeContent> nodeContent = [self.components.nodeDataStorage dataForNode:node].content;
         
         if ([nodeContent respondsToSelector:@selector(stateDidChange:)]) {
-            [nodeContent stateDidChange:[self.nodeDataStorage resolvedStateForNode:node]];
+            [nodeContent stateDidChange:[self.components.nodeDataStorage resolvedStateForNode:node]];
         }
     }
     
