@@ -11,6 +11,7 @@
 @protocol RTRNode;
 @protocol RTRCommand;
 @class RTRComponents;
+@class RTRTaskQueue;
 
 @interface RTRNodeUpdateTask : NSObject <RTRTask>
 
@@ -22,12 +23,12 @@
 @end
 
 
-@interface RTRNodeUpdateTask (Abstract)
+@interface RTRNodeUpdateTask (Subclassing)
 
 - (id<RTRCommand>)command;
 
 - (void)updateNodes;
 
-- (BOOL)shouldUpdateContentForNode:(id<RTRNode>)node;
+- (void)updateContentForNode:(id<RTRNode>)node withUpdateQueue:(RTRTaskQueue *)updateQueue;
 
 @end

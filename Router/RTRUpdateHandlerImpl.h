@@ -1,15 +1,17 @@
 //
-//  RTRCommandHandlerImpl.h
+//  RTRUpdateHandlerImpl.h
 //  Router
 //
 //  Created by Nick Tymchenko on 19/09/15.
 //  Copyright © 2015 Pixty. All rights reserved.
 //
 
-#import "RTRCommandHandler.h"
+#import "RTRUpdateHandler.h"
 
-@interface RTRCommandHandlerImpl : NSObject <RTRCommandHandler>
+@interface RTRUpdateHandlerImpl : NSObject <RTRUpdateHandler>
 
 - (void)handleCommand:(id<RTRCommand>)command animated:(BOOL)animated;
+
+- (void)handleStateUpdate:(RTRNodeState)state;
 
 @end

@@ -1,25 +1,27 @@
 //
-//  RTRCommandHandlerImpl.m
+//  RTRUpdateHandlerImpl.m
 //  Router
 //
 //  Created by Nick Tymchenko on 19/09/15.
 //  Copyright © 2015 Pixty. All rights reserved.
 //
 
-#import "RTRCommandHandlerImpl.h"
+#import "RTRUpdateHandlerImpl.h"
 #import "RTRCommand.h"
 
-@interface RTRCommandHandlerImpl ()
+@interface RTRUpdateHandlerImpl ()
 
 @property (nonatomic, readonly) NSMapTable *handlerBlocksByCommandClasses;
 @property (nonatomic, readonly) NSMapTable *handlerBlocksByCommands;
 
+@property (nonatomic, copy) RTRStateHandlerBlock stateHandlerBlock;
+
 @end
 
 
-@implementation RTRCommandHandlerImpl
+@implementation RTRUpdateHandlerImpl
 
-#pragma mark - RTRCommandHandler
+#pragma mark - RTRUpdateHandler
 
 - (void)handleCommandClass:(Class)commandClass withBlock:(RTRCommandHandlerBlock)block {
     [self.handlerBlocksByCommandClasses setObject:[block copy] forKey:commandClass];
@@ -27,6 +29,10 @@
 
 - (void)handleCommand:(id<RTRCommand>)command withBlock:(RTRCommandHandlerBlock)block {
     [self.handlerBlocksByCommandClasses setObject:[block copy] forKey:command];
+}
+
+- (void)handleStateUpdatesWithBlock:(RTRStateHandlerBlock)block {
+    self.stateHandlerBlock = [block copy];
 }
 
 #pragma mark - Handling
@@ -40,6 +46,12 @@
     
     if (handlerBlock) {
         handlerBlock(command, animated);
+    }
+}
+
+- (void)handleStateUpdate:(RTRNodeState)state {
+    if (self.stateHandlerBlock) {
+        self.stateHandlerBlock(state);
     }
 }
 

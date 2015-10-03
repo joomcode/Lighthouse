@@ -26,10 +26,10 @@
 #pragma mark - Init
 
 - (instancetype)initWithComponents:(RTRComponents *)components animated:(BOOL)animated {
-    return [self initWithComponents:components command:nil animated:animated];
+    return [self initWithComponents:components animated:animated command:nil];
 }
 
-- (instancetype)initWithComponents:(RTRComponents *)components command:(id<RTRCommand>)command animated:(BOOL)animated {
+- (instancetype)initWithComponents:(RTRComponents *)components animated:(BOOL)animated command:(id<RTRCommand>)command {
     NSParameterAssert(command != nil);
     
     self = [super initWithComponents:components animated:animated];

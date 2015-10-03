@@ -7,10 +7,12 @@
 //
 
 #import "RTRNodeContentFeedbackChannel.h"
-#import "RTRNodeUpdate.h"
+
+@class RTRComponents;
+@class RTRTaskQueue;
 
 @interface RTRNodeContentFeedbackChannelImpl : NSObject <RTRNodeContentFeedbackChannel>
 
-- (instancetype)initWithNodeUpdateProviderBlock:(id<RTRNodeUpdate> (^)(RTRNodeUpdateBlock updateBlock))block;
+- (instancetype)initWithNode:(id<RTRNode>)node components:(RTRComponents *)components updateQueue:(RTRTaskQueue *)updateQueue;
 
 @end

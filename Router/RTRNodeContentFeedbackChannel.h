@@ -7,10 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "RTRNodeUpdate.h"
+
+@protocol RTRNode;
 
 @protocol RTRNodeContentFeedbackChannel <NSObject>
 
-- (id<RTRNodeUpdate>)startNodeUpdateWithBlock:(RTRNodeUpdateBlock)updateBlock;
+- (void)startNodeUpdateWithBlock:(void (^)(id<RTRNode> node))updateBlock;
+
+- (void)finishNodeUpdate;
 
 @end

@@ -10,4 +10,11 @@
 
 @interface RTRContentFeedbackUpdateTask : RTRNodeUpdateTask
 
+- (instancetype)initWithComponents:(RTRComponents *)components
+                          animated:(BOOL)animated
+                        sourceNode:(id<RTRNode>)node
+                   nodeUpdateBlock:(void (^)())block;
+
+- (void)sourceNodeContentUpdateDidFinish;
+
 @end

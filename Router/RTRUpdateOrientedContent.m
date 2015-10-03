@@ -1,26 +1,26 @@
 //
-//  RTRCommandOrientedContent.m
+//  RTRUpdateOrientedContent.m
 //  Router
 //
 //  Created by Nick Tymchenko on 17/09/15.
 //  Copyright (c) 2015 Pixty. All rights reserved.
 //
 
-#import "RTRCommandOrientedContent.h"
+#import "RTRUpdateOrientedContent.h"
 #import "RTRCommand.h"
 #import "RTRNodeContentUpdateContext.h"
-#import "RTRCommandHandlerImpl.h"
+#import "RTRUpdateHandlerImpl.h"
 
-@interface RTRCommandOrientedContent ()
+@interface RTRUpdateOrientedContent ()
 
 @property (nonatomic, readonly) NSMapTable *dataInitBlocksByCommandClass;
 
-@property (nonatomic, readonly) RTRCommandHandlerImpl *commandHandler;
+@property (nonatomic, readonly) RTRUpdateHandlerImpl *updateHandler;
 
 @end
 
 
-@implementation RTRCommandOrientedContent
+@implementation RTRUpdateOrientedContent
 
 #pragma mark - Setup
 
@@ -43,19 +43,23 @@
         }
         
         if (block) {
-            _data = block(command, self.commandHandler);
+            _data = block(command, self.updateHandler);
         }
         
         NSAssert(_data != nil, @""); // TODO
     } else {
-        [self.commandHandler handleCommand:command animated:context.animated];
+        [self.updateHandler handleCommand:command animated:context.animated];
     }
+}
+
+- (void)stateDidChange:(RTRNodeState)state {
+    [self.updateHandler handleStateUpdate:state];
 }
 
 #pragma mark - Lazy stuff
 
 @synthesize dataInitBlocksByCommandClass = _dataInitBlocksByCommandClass;
-@synthesize commandHandler = _commandHandler;
+@synthesize updateHandler = _updateHandler;
 
 - (NSMapTable *)dataInitBlocksByCommandClass {
     if (!_dataInitBlocksByCommandClass) {
@@ -64,11 +68,11 @@
     return _dataInitBlocksByCommandClass;
 }
 
-- (RTRCommandHandlerImpl *)commandHandler {
-    if (!_commandHandler) {
-        _commandHandler = [[RTRCommandHandlerImpl alloc] init];
+- (RTRUpdateHandlerImpl *)updateHandler {
+    if (!_updateHandler) {
+        _updateHandler = [[RTRUpdateHandlerImpl alloc] init];
     }
-    return _commandHandler;
+    return _updateHandler;
 }
 
 @end

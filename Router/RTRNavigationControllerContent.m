@@ -13,24 +13,16 @@
 #import "RTRViewControllerContentHelpers.h"
 #import "RTRTaskQueue.h"
 #import "RTRNode.h"
-#import "RTRNodeUpdate.h"
+#import "RTRTargetNodes.h"
 
 @interface RTRNavigationControllerContent () <UINavigationControllerDelegate>
 
 @property (nonatomic, strong) NSArray *childNodes;
 
-@property (nonatomic, readonly) NSSet *activeChildNodes;
-
 @end
 
 
 @implementation RTRNavigationControllerContent
-
-#pragma mark - Nodes
-
-- (NSSet *)activeChildNodes {
-    return [NSSet setWithObject:self.childNodes.lastObject];
-}
 
 #pragma mark - Dealloc
 
@@ -85,29 +77,27 @@
     }
     
     NSArray *oldChildNodes = self.childNodes;
-    
     self.childNodes = [oldChildNodes subarrayWithRange:NSMakeRange(0, count)];
-    __block id<RTRNodeUpdate> update = [self startNodeUpdate];
+    
+    [self startNodeUpdate];
     
     [navigationController.transitionCoordinator notifyWhenInteractionEndsUsingBlock:^(id<UIViewControllerTransitionCoordinatorContext> context) {
         if ([context isCancelled]) {
             self.childNodes = oldChildNodes;
-            update = [self startNodeUpdate];
+            
+            [self startNodeUpdate];
         }
     }];
     
     [navigationController.transitionCoordinator animateAlongsideTransition:nil completion:^(id<UIViewControllerTransitionCoordinatorContext> context) {
-        [update finish];
+        [self.feedbackChannel finishNodeUpdate];
     }];
 }
 
-- (id<RTRNodeUpdate>)startNodeUpdate {
-    // TODO
-    return nil;
-    
-//    return [self.feedbackChannel startNodeUpdateWithBlock:^(id<RTRNode> node) {
-//        [node activateChildren:self.activeChildNodes];
-//    }];
+- (void)startNodeUpdate {
+    [self.feedbackChannel startNodeUpdateWithBlock:^(id<RTRNode> node) {
+        [node updateChildrenState:[[RTRTargetNodes alloc] initWithActiveNode:self.childNodes.lastObject]];
+    }];
 }
 
 @end

@@ -13,6 +13,6 @@
 
 @interface RTRCommandNodeUpdateTask : RTRNodeUpdateTask
 
-- (instancetype)initWithComponents:(RTRComponents *)components command:(id<RTRCommand>)command animated:(BOOL)animated;
+- (instancetype)initWithComponents:(RTRComponents *)components animated:(BOOL)animated command:(id<RTRCommand>)command;
 
 @end

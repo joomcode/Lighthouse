@@ -46,14 +46,11 @@
 - (RTRNodeData *)dataForNode:(id<RTRNode>)node {
     RTRNodeData *data = [self.dataByNode objectForKey:node];
     if (!data) {
-        data = [self createDataForNode:node];
+        data = [[RTRNodeData alloc] initWithNode:node];
+        
         [self.dataByNode setObject:data forKey:node];
+        [self.delegate nodeDataStorage:self didCreateData:data forNode:node];
     }
-    return data;
-}
-
-- (RTRNodeData *)createDataForNode:(id<RTRNode>)node {
-    RTRNodeData *data = [[RTRNodeData alloc] initWithNode:node];
     return data;
 }
 
@@ -62,7 +59,7 @@
         return;
     }
     
-    [node resetChildrenState];
+    [self.delegate nodeDataStorage:self willResetData:[self.dataByNode objectForKey:node] forNode:node];
     [self.dataByNode removeObjectForKey:node];
 }
 

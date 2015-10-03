@@ -32,8 +32,8 @@
 #import "RTRTabBarControllerContent.h"
 #import "RTRModalPresentationContent.h"
 
-#import "RTRCommandOrientedContent.h"
-#import "RTRCommandHandler.h"
+#import "RTRUpdateOrientedContent.h"
+#import "RTRUpdateHandler.h"
 
 
 // Node Content Provider
@@ -59,7 +59,6 @@
 // Misc
 
 #import "RTRTaskQueue.h"
-#import "RTRNodeUpdate.h"
 #import "RTRDescriptionHelpers.h"
 
 

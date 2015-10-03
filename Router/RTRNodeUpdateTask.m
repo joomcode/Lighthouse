@@ -70,7 +70,7 @@
     
     [self updateAffectedNodesState];
     
-    [self updateNodeContent];
+    [self updateNodesContent];
     
     [self.contentUpdateQueue runTaskWithBlock:^{
         [self cleanupAffectedNodes];
@@ -79,7 +79,7 @@
     }];
 }
 
-#pragma mark - Abstract
+#pragma mark - Subclassing
 
 - (id<RTRCommand>)command {
     return nil;
@@ -88,23 +88,22 @@
 - (void)updateNodes {
 }
 
-- (BOOL)shouldUpdateContentForNode:(id<RTRNode>)node {
-    return NO;
+- (void)updateContentForNode:(id<RTRNode>)node withUpdateQueue:(RTRTaskQueue *)updateQueue {
+    id<RTRNodeContent> nodeContent = [self.components.nodeDataStorage dataForNode:node].content;
+    
+    id<RTRNodeContentUpdateContext> updateContext =
+        [[RTRNodeContentUpdateContextImpl alloc] initWithAnimated:[self.nodesForAnimatedContentUpdate containsObject:node]
+                                                          command:[self command]
+                                                      updateQueue:updateQueue
+                                                    childrenState:node.childrenState
+                                                     contentBlock:^id<RTRNodeContent>(id<RTRNode> node) {
+                                                         return [self.components.nodeDataStorage dataForNode:node].content;
+                                                     }];
+    
+    [nodeContent updateWithContext:updateContext];
 }
 
 #pragma mark - Node state manipulation
-
-- (NSMapTable *)takeNodeResolvedStateSnapshot {
-    NSMapTable *stateByNodes = [NSMapTable strongToStrongObjectsMapTable];
-    
-    RTRNodeTree *tree = [self.components.graph initializedNodesTree];
-    
-    [tree enumerateItemsWithBlock:^(id<RTRNode> node, id<RTRNode> previousNode, BOOL *stop) {
-        [stateByNodes setObject:@([self.components.nodeDataStorage resolvedStateForNode:node]) forKey:node];
-    }];
-    
-    return stateByNodes;
-}
 
 - (void)markAffectedNodes {
     RTRNodeTree *tree = [self.components.graph initializedNodesTree];
@@ -148,7 +147,7 @@
 
 #pragma mark - Node content manipulation
 
-- (void)updateNodeContent {
+- (void)updateNodesContent {
     [self updateNodeContentRecursively:self.components.graph.rootNode];
 }
 
@@ -156,36 +155,23 @@
     for (id<RTRNode> childNode in [self.affectedNodes nextItems:node]) {
         [self updateNodeContentRecursively:childNode];
     }
-    
-    if ([self shouldUpdateContentForNode:node]) {
-        [self updateNodeContent:node];
-    }
+        
+    [self updateNodeContent:node];
 }
 
 - (void)updateNodeContent:(id<RTRNode>)node {
     RTRNodeData *data = [self.components.nodeDataStorage dataForNode:node];
     RTRTaskQueue *localUpdateQueue = [[RTRTaskQueue alloc] init];
     
-    if (!data.content) {
-        data.content = [self createContentForNode:node];
-    }
+    NSAssert(data.content != nil, @""); // TODO
     
     [self.contentUpdateQueue runTaskWithBlock:^{
         [self willUpdateNodeContent:node];
     }];
     
     [self.contentUpdateQueue runAsyncTaskWithBlock:^(RTRTaskCompletionBlock completion) {
-        id<RTRNodeContentUpdateContext> updateContext =
-            [[RTRNodeContentUpdateContextImpl alloc] initWithAnimated:[self.nodesForAnimatedContentUpdate containsObject:node]
-                                                              command:[self command]
-                                                          updateQueue:localUpdateQueue
-                                                        childrenState:node.childrenState
-                                                         contentBlock:^id<RTRNodeContent>(id<RTRNode> node) {
-                                                             return [self.components.nodeDataStorage dataForNode:node].content;
-                                                         }];
+        [self updateContentForNode:node withUpdateQueue:localUpdateQueue];
         
-        [data.content updateWithContext:updateContext];
-  
         [localUpdateQueue runTaskWithBlock:^{
             completion();
         }];
@@ -194,32 +180,6 @@
     [self.contentUpdateQueue runTaskWithBlock:^{
         [self didUpdateNodeContent:node];
     }];
-}
-
-- (id<RTRNodeContent>)createContentForNode:(id<RTRNode>)node {
-    id<RTRNodeContent> content = [self.components.nodeContentProvider contentForNode:node];
-    
-    if (!content) {
-        return nil;
-    }
-    
-    if ([content respondsToSelector:@selector(setFeedbackChannel:)]) {
-        __weak __typeof(self) weakSelf = self;
-
-        // TODO
-        
-//        id<RTRNodeContentFeedbackChannel> feedbackChannel =
-//            [[RTRNodeContentFeedbackChannelImpl alloc] initWithWillBecomeActiveBlock:^(NSSet *children) {
-//                [weakSelf activateChildren:children ofParentNode:node];
-//                [weakSelf willUpdateNodeContent:node];
-//            } didBecomeActiveBlock:^(NSSet *children) {
-//                [weakSelf didUpdateNodeContent:node];
-//            }];
-//        
-//        content.feedbackChannel = feedbackChannel;
-    }
-    
-    return content;
 }
 
 - (void)willUpdateNodeContent:(id<RTRNode>)node {

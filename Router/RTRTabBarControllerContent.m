@@ -12,26 +12,17 @@
 #import "RTRNodeContentFeedbackChannel.h"
 #import "RTRViewControllerContentHelpers.h"
 #import "RTRNode.h"
-#import "RTRNodeUpdate.h"
+#import "RTRTargetNodes.h"
 
 @interface RTRTabBarControllerContent () <UITabBarControllerDelegate>
 
 @property (nonatomic, strong) NSOrderedSet *childNodes;
 @property (nonatomic, assign) NSInteger activeChildIndex;
 
-@property (nonatomic, readonly) NSSet *activeChildNodes;
-@property (nonatomic, strong) id<RTRNodeUpdate> currentNodeUpdate;
-
 @end
 
 
 @implementation RTRTabBarControllerContent
-
-#pragma mark - Nodes
-
-- (NSSet *)activeChildNodes {
-    return [NSSet setWithObject:self.childNodes[self.activeChildIndex]];
-}
 
 #pragma mark - Dealloc
 
@@ -68,17 +59,16 @@
 - (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
     self.activeChildIndex = [tabBarController.viewControllers indexOfObject:viewController];
 
-    // TODO
-//    self.currentNodeUpdate = [self.feedbackChannel startNodeUpdateWithBlock:^(id<RTRNode> node) {
-//        [node activateChildren:self.activeChildNodes];
-//    }];
+    [self.feedbackChannel startNodeUpdateWithBlock:^(id<RTRNode> node) {
+        id<RTRNode> activeChild = self.childNodes[self.activeChildIndex];
+        [node updateChildrenState:[[RTRTargetNodes alloc] initWithActiveNode:activeChild]];
+    }];
     
     return YES;
 }
 
 - (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController {
-    [self.currentNodeUpdate finish];
-    self.currentNodeUpdate = nil;
+    [self.feedbackChannel finishNodeUpdate];
 }
 
 @end

@@ -1,5 +1,5 @@
 //
-//  RTRCommandOrientedContent.h
+//  RTRUpdateOrientedContent.h
 //  Router
 //
 //  Created by Nick Tymchenko on 17/09/15.
@@ -9,11 +9,11 @@
 #import "RTRNodeContent.h"
 
 @protocol RTRCommand;
-@protocol RTRCommandHandler;
+@protocol RTRUpdateHandler;
 
-typedef id (^RTRNodeContentDataInitBlock)(id<RTRCommand> command, id<RTRCommandHandler> commandHandler);
+typedef id (^RTRNodeContentDataInitBlock)(id<RTRCommand> command, id<RTRUpdateHandler> updateHandler);
 
-@interface RTRCommandOrientedContent : NSObject <RTRNodeContent>
+@interface RTRUpdateOrientedContent : NSObject <RTRNodeContent>
 
 @property (nonatomic, copy) RTRNodeContentDataInitBlock defaultDataInitBlock;
 

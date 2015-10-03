@@ -7,10 +7,17 @@
 //
 
 #import "RTRNodeContentFeedbackChannelImpl.h"
+#import "RTRComponents.h"
+#import "RTRTaskQueue.h"
+#import "RTRContentFeedbackUpdateTask.h"
 
 @interface RTRNodeContentFeedbackChannelImpl ()
 
-@property (nonatomic, copy, readonly) id<RTRNodeUpdate> (^providerBlock)(RTRNodeUpdateBlock updateBlock);
+@property (nonatomic, strong, readonly) id<RTRNode> node;
+@property (nonatomic, strong, readonly) RTRComponents *components;
+@property (nonatomic, strong, readonly) RTRTaskQueue *updateQueue;
+
+@property (nonatomic, strong) RTRContentFeedbackUpdateTask *currentTask;
 
 @end
 
@@ -20,25 +27,47 @@
 #pragma mark - Init
 
 - (instancetype)init {
-    return [self initWithNodeUpdateProviderBlock:nil];
+    return [self initWithNode:nil components:nil updateQueue:nil];
 }
 
-- (instancetype)initWithNodeUpdateProviderBlock:(id<RTRNodeUpdate> (^)(RTRNodeUpdateBlock updateBlock))block {
-    NSParameterAssert(block != nil);
+- (instancetype)initWithNode:(id<RTRNode>)node components:(RTRComponents *)components updateQueue:(RTRTaskQueue *)updateQueue {
+    NSParameterAssert(node != nil);
+    NSParameterAssert(components != nil);
+    NSParameterAssert(updateQueue != nil);
     
     self = [super init];
     if (!self) return nil;
     
-    _providerBlock = [block copy];
+    _node = node;
+    _components = components;
+    _updateQueue = updateQueue;
     
     return self;
 }
 
-#pragma mark - RTRNodeContentFeedbackChannel
+#pragma mark - RTRNodeContentFeedback
 
-- (id<RTRNodeUpdate>)startNodeUpdateWithBlock:(RTRNodeUpdateBlock)updateBlock {
+- (void)startNodeUpdateWithBlock:(void (^)(id<RTRNode> node))updateBlock {
     NSParameterAssert(updateBlock != nil);
-    return self.providerBlock(updateBlock);
+
+    if (self.currentTask) {
+        [self finishNodeUpdate];
+    }
+    
+    self.currentTask = [[RTRContentFeedbackUpdateTask alloc] initWithComponents:self.components
+                                                                       animated:YES
+                                                                     sourceNode:self.node
+                                                                nodeUpdateBlock:^{
+                                                                    updateBlock(self.node);
+                                                                }];
+    
+    [self.updateQueue runTask:self.currentTask];
+}
+
+- (void)finishNodeUpdate {
+    [self.currentTask sourceNodeContentUpdateDidFinish];
+    
+    self.currentTask = nil;
 }
 
 @end

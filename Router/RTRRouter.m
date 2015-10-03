@@ -10,6 +10,7 @@
 #import "RTRRouterDelegate.h"
 #import "RTRNode.h"
 #import "RTRNodeContent.h"
+#import "RTRNodeContentProvider.h"
 #import "RTRNodeDataStorage.h"
 #import "RTRNodeData.h"
 #import "RTRComponents.h"
@@ -18,6 +19,8 @@
 #import "RTRCommandRegistry.h"
 #import "RTRTaskQueue.h"
 #import "RTRCommandNodeUpdateTask.h"
+#import "RTRManualNodeUpdateTask.h"
+#import "RTRNodeContentFeedbackChannelImpl.h"
 
 NSString * const RTRRouterNodeStateDidUpdateNotification = @"com.pixty.router.nodeStateDidUpdate";
 
@@ -84,8 +87,8 @@ NSString * const RTRRouterNodeStateDidUpdateNotification = @"com.pixty.router.no
 
 - (void)executeCommand:(id<RTRCommand>)command animated:(BOOL)animated {
     RTRCommandNodeUpdateTask *task = [[RTRCommandNodeUpdateTask alloc] initWithComponents:self.components
-                                                                                  command:command
-                                                                                 animated:animated];
+                                                                                 animated:animated
+                                                                                  command:command];
     
     [self.commandQueue runTask:task];
 }
@@ -101,6 +104,30 @@ NSString * const RTRRouterNodeStateDidUpdateNotification = @"com.pixty.router.no
 }
 
 #pragma mark - RTRNodeDataStorageDelegate
+
+- (void)nodeDataStorage:(RTRNodeDataStorage *)storage didCreateData:(RTRNodeData *)data forNode:(id<RTRNode>)node {
+    data.content = [self createContentForNode:node];
+}
+
+- (id<RTRNodeContent>)createContentForNode:(id<RTRNode>)node {
+    id<RTRNodeContent> content = [self.components.nodeContentProvider contentForNode:node];
+    
+    if (!content) {
+        return nil;
+    }
+    
+    if ([content respondsToSelector:@selector(setFeedbackChannel:)]) {
+        content.feedbackChannel = [[RTRNodeContentFeedbackChannelImpl alloc] initWithNode:node
+                                                                               components:self.components
+                                                                              updateQueue:self.commandQueue];
+    }
+    
+    return content;
+}
+
+- (void)nodeDataStorage:(RTRNodeDataStorage *)storage willResetData:(RTRNodeData *)data forNode:(id<RTRNode>)node {
+    [node resetChildrenState];
+}
 
 - (void)nodeDataStorage:(RTRNodeDataStorage *)storage didChangeResolvedStateForNode:(id<RTRNode>)node {
     if ([self.components.nodeDataStorage hasDataForNode:node]) {
