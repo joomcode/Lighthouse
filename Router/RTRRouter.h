@@ -34,4 +34,6 @@
 
 - (void)executeCommand:(id<RTRCommand>)command animated:(BOOL)animated;
 
+// TODO: manual update
+
 @end

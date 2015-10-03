@@ -51,6 +51,7 @@
     NSParameterAssert(updateBlock != nil);
 
     if (self.currentTask) {
+        [self.currentTask cancel];
         [self finishNodeUpdate];
     }
     

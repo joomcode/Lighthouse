@@ -20,6 +20,8 @@
 
 - (instancetype)initWithComponents:(RTRComponents *)components animated:(BOOL)animated;
 
+- (void)cancel;
+
 @end
 
 

@@ -29,6 +29,8 @@
 
 @property (nonatomic, strong) NSSet *nodesForAnimatedContentUpdate;
 
+@property (nonatomic, assign, getter = isCancelled) BOOL cancelled;
+
 @end
 
 
@@ -73,10 +75,21 @@
     [self updateNodesContent];
     
     [self.contentUpdateQueue runTaskWithBlock:^{
-        [self cleanupAffectedNodes];
+        if (!self.cancelled) {
+            [self cleanupAffectedNodes];
+        }
         
         completionBlock();
     }];
+}
+
+#pragma mark - Cancellation
+
+- (void)cancel {
+    self.cancelled = YES;
+    
+    // TODO: do anything else here?
+    // e.g. is there a way to cancel ongoing node content update?
 }
 
 #pragma mark - Subclassing
@@ -189,7 +202,9 @@
         RTRNodeState oldState = childData.presentationState;
         RTRNodeState newState = childData.state;
         
-        if ((oldState == RTRNodeStateInactive || oldState == RTRNodeStateNotInitialized) && newState == RTRNodeStateActive) {
+        if (oldState == RTRNodeStateNotInitialized && newState == RTRNodeStateInactive) {
+            childData.presentationState = RTRNodeStateInactive;
+        } else if ((oldState == RTRNodeStateInactive || oldState == RTRNodeStateNotInitialized) && newState == RTRNodeStateActive) {
             childData.presentationState = RTRNodeStateActivating;
         } else if (oldState == RTRNodeStateActive && (newState == RTRNodeStateInactive || newState == RTRNodeStateNotInitialized)) {
             childData.presentationState = RTRNodeStateDeactivating;

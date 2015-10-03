@@ -10,8 +10,8 @@
 
 @implementation PXModalViewController
 
-- (instancetype)init {
-    self = [super init];
+- (instancetype)initWithUpdateHandler:(id<RTRUpdateHandler>)updateHandler {
+    self = [super initWithUpdateHandler:updateHandler];
     self.title = @"Modal";
     return self;
 }

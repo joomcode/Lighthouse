@@ -29,7 +29,6 @@
                    childrenState:(id<RTRNodeChildrenState>)childrenState
                     contentBlock:(id<RTRNodeContent> (^)(id<RTRNode>))contentBlock
 {
-    NSParameterAssert(command != nil);
     NSParameterAssert(updateQueue != nil);
     NSParameterAssert(contentBlock != nil);
     

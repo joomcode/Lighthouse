@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "PXStateDisplayingViewControllerContent.h"
 #import "PXColorViewControllers.h"
 #import "PXModalViewController.h"
 #import "PXDeepModalViewController.h"
@@ -35,11 +36,7 @@
 
     [self setupRouter];
     
-    [self doSomething];
-    [self performSelector:@selector(doSomethingLater) withObject:nil afterDelay:3.0];
-    [self performSelector:@selector(doSomethingEvenLater) withObject:nil afterDelay:6.0];
-    [self performSelector:@selector(doSomethingEvenMoreLater) withObject:nil afterDelay:9.0];
-    [self performSelector:@selector(doSomethingAfterAllThat) withObject:nil afterDelay:12.0];
+    [self performStuff];
     
     return YES;
 }
@@ -84,6 +81,10 @@
     
     RTRBasicNodeContentProvider *nodeContentProvider = [[RTRBasicNodeContentProvider alloc] init];
     
+    [nodeContentProvider bindNode:rootNode toBlock:^id<RTRNodeContent>(id<RTRNode> node) {
+        return [[RTRModalPresentationContent alloc] initWithWindow:self.window];
+    }];
+    
     [nodeContentProvider bindNodeClass:[RTRStackNode class] toBlock:^id<RTRNodeContent>(id<RTRNode> node) {
         return [[RTRNavigationControllerContent alloc] init];
     }];
@@ -93,31 +94,23 @@
     }];
     
     [nodeContentProvider bindNodes:@[ redNode, anotherRedNode ] toBlock:^id<RTRNodeContent>(id<RTRNode> node) {
-        return [[RTRViewControllerContent alloc] initWithViewControllerClass:[PXRedViewController class]];
+        return [[PXStateDisplayingViewControllerContent alloc] initWithViewControllerClass:[PXRedViewController class]];
     }];
     
     [nodeContentProvider bindNodes:@[ greenNode, anotherGreenNode ] toBlock:^id<RTRNodeContent>(id<RTRNode> node) {
-        return [[RTRViewControllerContent alloc] initWithViewControllerClass:[PXGreenViewController class]];
+        return [[PXStateDisplayingViewControllerContent alloc] initWithViewControllerClass:[PXGreenViewController class]];
     }];
     
     [nodeContentProvider bindNodes:@[ blueNode, anotherBlueNode ] toBlock:^id<RTRNodeContent>(id<RTRNode> node) {
-        return [[RTRViewControllerContent alloc] initWithViewControllerClass:[PXBlueViewController class]];
+        return [[PXStateDisplayingViewControllerContent alloc] initWithViewControllerClass:[PXBlueViewController class]];
     }];
     
-    [nodeContentProvider bindNode:modalNode toBlock:^id<RTRNodeContent>(id<RTRNode> node) {
-        return [[RTRViewControllerContent alloc] initWithViewControllerClass:[PXModalViewController class]];
+    [nodeContentProvider bindNodes:@[ modalNode, alertNode ] toBlock:^id<RTRNodeContent>(id<RTRNode> node) {
+        return [[PXStateDisplayingViewControllerContent alloc] initWithViewControllerClass:[PXModalViewController class]];
     }];
     
     [nodeContentProvider bindNode:deepModalNode toBlock:^id<RTRNodeContent>(id<RTRNode> node) {
-        return [[RTRViewControllerContent alloc] initWithViewControllerClass:[PXDeepModalViewController class]];
-    }];
-    
-    [nodeContentProvider bindNode:alertNode toBlock:^id<RTRNodeContent>(id<RTRNode> node) {
-        return [[RTRViewControllerContent alloc] initWithViewControllerClass:[PXModalViewController class]];
-    }];
-    
-    [nodeContentProvider bindNode:rootNode toBlock:^id<RTRNodeContent>(id<RTRNode> node) {
-        return [[RTRModalPresentationContent alloc] initWithWindow:self.window];
+        return [[PXStateDisplayingViewControllerContent alloc] initWithViewControllerClass:[PXDeepModalViewController class]];
     }];
 
 
@@ -145,37 +138,57 @@
     self.router = router;
 }
 
+#pragma mark - Stuff
+
+- (void)performStuff {
+    [self doSomething];
+    [self performSelector:@selector(doSomethingLater) withObject:nil afterDelay:3.0];
+    [self performSelector:@selector(doSomethingEvenLater) withObject:nil afterDelay:6.0];
+    [self performSelector:@selector(doSomethingEvenMoreLater) withObject:nil afterDelay:9.0];
+    [self performSelector:@selector(doSomethingAfterAllThat) withObject:nil afterDelay:12.0];
+    [self performSelector:@selector(doSomethingAfterAllThatToo) withObject:nil afterDelay:15.0];
+}
+
 - (void)doSomething {
     [self.router executeCommand:[[PXPresentGreen alloc] init] animated:NO];
 }
 
 - (void)doSomethingLater {
     [self.router executeCommand:[[PXPresentAnotherModal alloc] init] animated:YES];
+    
+//    [self.router executeCommand:[[PXPresentModal alloc] init] animated:YES];
+//    [self.router executeCommand:[[PXPresentBlue alloc] init] animated:YES];
+//    [self.router executeCommand:[[PXPresentAlert alloc] init] animated:YES];
+//    [self.router executeCommand:[[PXDismissAlert alloc] init] animated:YES];
+}
+
+- (void)doSomethingEvenLater {
     [self.router executeCommand:[[PXPresentModal alloc] init] animated:YES];
+}
+
+- (void)doSomethingEvenMoreLater {
     [self.router executeCommand:[[PXPresentBlue alloc] init] animated:YES];
+}
+
+- (void)doSomethingAfterAllThat {
     [self.router executeCommand:[[PXPresentAlert alloc] init] animated:YES];
+}
+
+- (void)doSomethingAfterAllThatToo {
     [self.router executeCommand:[[PXDismissAlert alloc] init] animated:YES];
 }
+
 
 //- (void)doSomething {
 //    [self.router executeCommand:[[PXPresentRed alloc] init] animated:NO];
 //}
-//
+
 //- (void)doSomethingLater {
 //    [self.router executeCommand:[[PXPresentBlue alloc] init] animated:YES];
-//    [self.router executeCommand:[[PXPresentGreen alloc] init] animated:YES];
-//    [self.router executeCommand:[[PXPresentRed alloc] init] animated:YES];
-//    [self.router executeCommand:[[PXPresentGreen alloc] init] animated:YES];
+////    [self.router executeCommand:[[PXPresentGreen alloc] init] animated:YES];
+////    [self.router executeCommand:[[PXPresentRed alloc] init] animated:YES];
+////    [self.router executeCommand:[[PXPresentGreen alloc] init] animated:YES];
 //}
-
-- (void)doSomethingEvenLater {
-}
-
-- (void)doSomethingEvenMoreLater {
-}
-
-- (void)doSomethingAfterAllThat {
-}
 
 #pragma mark - PXRouterDelegate
 
