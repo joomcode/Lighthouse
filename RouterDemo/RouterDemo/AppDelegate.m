@@ -11,14 +11,8 @@
 #import "PXColorViewControllers.h"
 #import "PXModalViewController.h"
 #import "PXDeepModalViewController.h"
-#import "PXPresentRed.h"
-#import "PXPresentGreen.h"
-#import "PXPresentBlue.h"
-#import "PXPresentModal.h"
-#import "PXPresentAnotherModal.h"
-#import "PXPresentAlert.h"
-#import "PXDismissAlert.h"
 #import "PXNodeHierarchy.h"
+#import "PXCommands.h"
 #import <Router.h>
 
 @interface AppDelegate () <RTRRouterDelegate>
@@ -74,12 +68,25 @@
         return [[PXStateDisplayingViewControllerContent alloc] initWithViewControllerClass:[PXBlueViewController class]];
     }];
     
-    [nodeContentProvider bindNodes:@[ hierarchy.modalNode, hierarchy.alertNode ] toBlock:^id<RTRNodeContent>(id<RTRNode> node) {
+    [nodeContentProvider bindNodes:@[ hierarchy.modalNode ] toBlock:^id<RTRNodeContent>(id<RTRNode> node) {
         return [[PXStateDisplayingViewControllerContent alloc] initWithViewControllerClass:[PXModalViewController class]];
     }];
     
     [nodeContentProvider bindNode:hierarchy.deepModalNode toBlock:^id<RTRNodeContent>(id<RTRNode> node) {
         return [[PXStateDisplayingViewControllerContent alloc] initWithViewControllerClass:[PXDeepModalViewController class]];
+    }];
+    
+    [nodeContentProvider bindNode:hierarchy.alertNode toBlock:^id<RTRNodeContent>(id<RTRNode> node) {
+        RTRUpdateOrientedContent *content = [[RTRUpdateOrientedContent alloc] init];
+        content.defaultDataInitBlock = ^(id<RTRCommand> command, id<RTRUpdateHandler> updateHandler) {
+            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Hello there!" message:nil preferredStyle:UIAlertControllerStyleAlert];
+            
+            [alertController addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
+            [alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil]];            
+            
+            return alertController;
+        };
+        return content;
     }];
 
 
@@ -91,9 +98,9 @@
     [commandRegistry bindCommandClass:[PXPresentGreen class] toActiveNodeTarget:hierarchy.greenNode];
     [commandRegistry bindCommandClass:[PXPresentBlue class] toActiveNodeTarget:hierarchy.blueNode];
     [commandRegistry bindCommandClass:[PXPresentModal class] toActiveNodeTarget:hierarchy.deepModalNode];
+    [commandRegistry bindCommandClass:[PXDismissModal class] toTargetNodes:[RTRTargetNodes withInactiveNodes:@[ hierarchy.modalStackNode, hierarchy.deepModalStackNode ]]];
     [commandRegistry bindCommandClass:[PXPresentAnotherModal class] toActiveNodeTarget:hierarchy.anotherBlueNode];
     [commandRegistry bindCommandClass:[PXPresentAlert class] toActiveNodeTarget:hierarchy.alertNode];
-    [commandRegistry bindCommandClass:[PXDismissAlert class] toInactiveNodeTarget:hierarchy.alertNode];
 
     
     // Router
@@ -115,7 +122,6 @@
     [self performSelector:@selector(doSomethingEvenLater) withObject:nil afterDelay:6.0];
     [self performSelector:@selector(doSomethingEvenMoreLater) withObject:nil afterDelay:9.0];
     [self performSelector:@selector(doSomethingAfterAllThat) withObject:nil afterDelay:12.0];
-    [self performSelector:@selector(doSomethingAfterAllThatToo) withObject:nil afterDelay:15.0];
 }
 
 - (void)doSomething {
@@ -136,15 +142,11 @@
 }
 
 - (void)doSomethingEvenMoreLater {
-    [self.router executeCommand:[[PXPresentBlue alloc] init] animated:YES];
+    [self.router executeCommand:[[PXDismissModal alloc] init] animated:YES];
 }
 
 - (void)doSomethingAfterAllThat {
     [self.router executeCommand:[[PXPresentAlert alloc] init] animated:YES];
-}
-
-- (void)doSomethingAfterAllThatToo {
-    [self.router executeCommand:[[PXDismissAlert alloc] init] animated:YES];
 }
 
 

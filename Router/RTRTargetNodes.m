@@ -14,14 +14,6 @@
     return [self initWithActiveNodes:nil inactiveNodes:nil];
 }
 
-- (instancetype)initWithActiveNode:(id<RTRNode>)activeNode {
-    return [self initWithActiveNodes:[NSSet setWithObject:activeNode] inactiveNodes:nil];
-}
-
-- (instancetype)initWithInactiveNode:(id<RTRNode>)inactiveNode {
-    return [self initWithActiveNodes:nil inactiveNodes:[NSSet setWithObject:inactiveNode]];
-}
-
 - (instancetype)initWithActiveNodes:(NSSet *)activeNodes inactiveNodes:(NSSet *)inactiveNodes {
     self = [super init];
     if (!self) return nil;
@@ -30,6 +22,27 @@
     _inactiveNodes = [inactiveNodes copy] ?: [NSSet set];
     
     return self;
+}
+
+@end
+
+
+@implementation RTRTargetNodes (Convenience)
+
++ (instancetype)withActiveNode:(id<RTRNode>)activeNode {
+    return [[[self class] alloc] initWithActiveNodes:[NSSet setWithObject:activeNode] inactiveNodes:nil];
+}
+
++ (instancetype)withActiveNodes:(NSArray *)activeNodes {
+    return [[[self class] alloc] initWithActiveNodes:[NSSet setWithArray:activeNodes] inactiveNodes:nil];
+}
+
++ (instancetype)withInactiveNode:(id<RTRNode>)inactiveNode {
+    return [[[self class] alloc] initWithActiveNodes:nil inactiveNodes:[NSSet setWithObject:inactiveNode]];
+}
+
++ (instancetype)withInactiveNodes:(NSArray *)inactiveNodes {
+    return [[[self class] alloc] initWithActiveNodes:nil inactiveNodes:[NSSet setWithArray:inactiveNodes]];
 }
 
 @end

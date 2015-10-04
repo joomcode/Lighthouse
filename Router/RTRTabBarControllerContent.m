@@ -61,7 +61,7 @@
 
     [self.feedbackChannel startNodeUpdateWithBlock:^(id<RTRNode> node) {
         id<RTRNode> activeChild = self.childNodes[self.activeChildIndex];
-        [node updateChildrenState:[[RTRTargetNodes alloc] initWithActiveNode:activeChild]];
+        [node updateChildrenState:[RTRTargetNodes withActiveNode:activeChild]];
     }];
     
     return YES;

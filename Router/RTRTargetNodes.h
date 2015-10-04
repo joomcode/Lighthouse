@@ -15,10 +15,19 @@
 @property (nonatomic, copy, readonly) NSSet *activeNodes;
 @property (nonatomic, copy, readonly) NSSet *inactiveNodes;
 
-- (instancetype)initWithActiveNode:(id<RTRNode>)activeNode;
-
-- (instancetype)initWithInactiveNode:(id<RTRNode>)inactiveNode;
-
 - (instancetype)initWithActiveNodes:(NSSet *)activeNodes inactiveNodes:(NSSet *)inactiveNodes;
+
+@end
+
+
+@interface RTRTargetNodes (Convenience)
+
++ (instancetype)withActiveNode:(id<RTRNode>)activeNode;
+
++ (instancetype)withActiveNodes:(NSArray *)activeNodes;
+
++ (instancetype)withInactiveNode:(id<RTRNode>)inactiveNode;
+
++ (instancetype)withInactiveNodes:(NSArray *)inactiveNodes;
 
 @end

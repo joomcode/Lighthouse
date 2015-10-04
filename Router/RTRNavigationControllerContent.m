@@ -50,9 +50,9 @@
         return;
     }
     
+    self.childNodes = [context.childrenState.initializedChildren.array copy];
+    
     [context.updateQueue runAsyncTaskWithBlock:^(RTRTaskCompletionBlock completion) {
-        self.childNodes = [context.childrenState.initializedChildren.array copy];
-        
         [self.data setViewControllers:childViewControllers animated:context.animated];
         
         if (context.animated) {
@@ -77,15 +77,12 @@
     }
     
     NSArray *oldChildNodes = self.childNodes;
-    self.childNodes = [oldChildNodes subarrayWithRange:NSMakeRange(0, count)];
     
-    [self startNodeUpdate];
+    [self startNodeUpdateWithChildNodes:[oldChildNodes subarrayWithRange:NSMakeRange(0, count)]];
     
     [navigationController.transitionCoordinator notifyWhenInteractionEndsUsingBlock:^(id<UIViewControllerTransitionCoordinatorContext> context) {
         if ([context isCancelled]) {
-            self.childNodes = oldChildNodes;
-            
-            [self startNodeUpdate];
+            [self startNodeUpdateWithChildNodes:oldChildNodes];
         }
     }];
     
@@ -94,9 +91,11 @@
     }];
 }
 
-- (void)startNodeUpdate {
+- (void)startNodeUpdateWithChildNodes:(NSArray *)childNodes {
+    self.childNodes = childNodes;
+    
     [self.feedbackChannel startNodeUpdateWithBlock:^(id<RTRNode> node) {
-        [node updateChildrenState:[[RTRTargetNodes alloc] initWithActiveNode:self.childNodes.lastObject]];
+        [node updateChildrenState:[RTRTargetNodes withActiveNode:self.childNodes.lastObject]];
     }];
 }
 

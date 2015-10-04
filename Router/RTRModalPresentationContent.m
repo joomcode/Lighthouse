@@ -9,8 +9,19 @@
 #import "RTRModalPresentationContent.h"
 #import "RTRNodeContentUpdateContext.h"
 #import "RTRTaskQueue.h"
+#import "RTRNode.h"
 #import "RTRNodeChildrenState.h"
+#import "RTRNodeContentFeedbackChannel.h"
+#import "RTRTargetNodes.h"
 #import "RTRViewControllerContentHelpers.h"
+#import "UIViewController+RTRDismissalTracking.h"
+
+@interface RTRModalPresentationContent ()
+
+@property (nonatomic, strong) NSArray *childNodes;
+
+@end
+
 
 @implementation RTRModalPresentationContent
 
@@ -34,25 +45,26 @@
 #pragma mark - RTRNodeContent
 
 @synthesize data = _data;
+@synthesize feedbackChannel = _feedbackChannel;
 
 - (void)updateWithContext:(id<RTRNodeContentUpdateContext>)context {
     NSAssert(context.childrenState.activeChildren.count <= 1, @""); // TODO
     NSAssert(context.childrenState.initializedChildren.lastObject == context.childrenState.activeChildren.lastObject, @""); // TODO
+    
+    self.childNodes = [context.childrenState.initializedChildren.array copy];
     
     NSArray *viewControllers = [RTRViewControllerContentHelpers childViewControllersWithUpdateContext:context];
     NSArray *presentedViewControllers = [self presentedViewControllers];
     
     NSInteger commonPrefixLength = [self commonPrefixLengthForArray:viewControllers andArray:presentedViewControllers];
 
-    for (NSInteger i = presentedViewControllers.count - 1; i >= commonPrefixLength; --i) {
-        if (i == 0) {
-            continue;
-        }
-        
-        UIViewController *viewController = presentedViewControllers[i - 1];
+    for (NSInteger i = presentedViewControllers.count - 1; i >= MAX(commonPrefixLength, 1); --i) {
+        UIViewController *viewController = presentedViewControllers[i];
+        UIViewController *presentingViewController = presentedViewControllers[i - 1];
         
         [context.updateQueue runAsyncTaskWithBlock:^(RTRTaskCompletionBlock completion) {
-            [viewController dismissViewControllerAnimated:context.animated completion:completion];
+            viewController.rtr_onDismissalBlock = nil;
+            [presentingViewController dismissViewControllerAnimated:context.animated completion:completion];
         }];
     }
     
@@ -68,10 +80,11 @@
                 }
             }];
         } else {
-            UIViewController *previousViewController = viewControllers[i - 1];
+            UIViewController *presentingViewController = viewControllers[i - 1];
             
             [context.updateQueue runAsyncTaskWithBlock:^(RTRTaskCompletionBlock completion) {
-                [previousViewController presentViewController:viewController animated:context.animated completion:completion];
+                viewController.rtr_onDismissalBlock = [self onDismissalBlockForViewControllerAtIndex:i];
+                [presentingViewController presentViewController:viewController animated:context.animated completion:completion];
             }];
         }
     }
@@ -98,6 +111,38 @@
         ++i;
     }
     return i;
+}
+
+- (RTRViewControllerDismissalTrackingBlock)onDismissalBlockForViewControllerAtIndex:(NSInteger)index {
+    return ^(UIViewController *viewController, BOOL animated) {
+        // TODO: support non-animated?
+        
+        NSArray *oldChildNodes = self.childNodes;
+        
+        [self startNodeUpdateWithChildNodes:[self.childNodes subarrayWithRange:NSMakeRange(0, index)]];
+        
+        [viewController.transitionCoordinator notifyWhenInteractionEndsUsingBlock:^(id<UIViewControllerTransitionCoordinatorContext> context) {
+            if ([context isCancelled]) {
+                [self startNodeUpdateWithChildNodes:oldChildNodes];
+            }
+        }];
+        
+        [viewController.transitionCoordinator animateAlongsideTransition:nil completion:^(id<UIViewControllerTransitionCoordinatorContext> context) {
+            if (![context isCancelled]) {
+                viewController.rtr_onDismissalBlock = nil;
+            }
+            
+            [self.feedbackChannel finishNodeUpdate];
+        }];
+    };
+}
+
+- (void)startNodeUpdateWithChildNodes:(NSArray *)childNodes {
+    self.childNodes = childNodes;
+    
+    [self.feedbackChannel startNodeUpdateWithBlock:^(id<RTRNode> node) {
+        [node updateChildrenState:[RTRTargetNodes withActiveNode:childNodes.lastObject]];
+    }];
 }
 
 @end
