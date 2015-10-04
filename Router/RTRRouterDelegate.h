@@ -9,10 +9,13 @@
 #import <Foundation/Foundation.h>
 
 extern NSString * const RTRRouterNodeStateDidUpdateNotification;
+extern NSString * const RTRRouterNodeUserInfoKey;
 
+
+@protocol RTRNode;
 
 @protocol RTRRouterDelegate <NSObject>
 
-- (void)routerNodeStateDidUpdate:(RTRRouter *)router;
+- (void)router:(RTRRouter *)router nodeStateDidUpdate:(id<RTRNode>)node;
 
 @end

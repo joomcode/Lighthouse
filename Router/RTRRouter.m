@@ -23,6 +23,7 @@
 #import "RTRNodeContentFeedbackChannelImpl.h"
 
 NSString * const RTRRouterNodeStateDidUpdateNotification = @"com.pixty.router.nodeStateDidUpdate";
+NSString * const RTRRouterNodeUserInfoKey = @"com.pixty.router.node";
 
 
 @interface RTRRouter () <RTRNodeDataStorageDelegate>
@@ -146,9 +147,11 @@ NSString * const RTRRouterNodeStateDidUpdateNotification = @"com.pixty.router.no
         }
     }
     
-    // TODO
-//    [self.delegate routerNodeStateDidUpdate:self];
-//    [[NSNotificationCenter defaultCenter] postNotificationName:RTRRouterNodeStateDidUpdateNotification object:self];
+    [self.delegate router:self nodeStateDidUpdate:node];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:RTRRouterNodeStateDidUpdateNotification
+                                                        object:self
+                                                      userInfo:@{ RTRRouterNodeUserInfoKey: node }];
 }
 
 @end
