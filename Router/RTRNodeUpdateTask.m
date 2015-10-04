@@ -211,7 +211,7 @@
         }
     }
     
-    [self.components.nodeDataStorage updateResolvedStateForNodes:self.affectedNodes];
+    [self.components.nodeDataStorage updateResolvedStateForAffectedNodeTree:self.affectedNodes];
 }
 
 - (void)didUpdateNodeContent:(id<RTRNode>)node {
@@ -220,7 +220,7 @@
         childData.presentationState = childData.state;
     }
     
-    [self.components.nodeDataStorage updateResolvedStateForNodes:self.affectedNodes];
+    [self.components.nodeDataStorage updateResolvedStateForAffectedNodeTree:self.affectedNodes];
 }
 
 @end

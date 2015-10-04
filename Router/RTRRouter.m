@@ -105,11 +105,23 @@ NSString * const RTRRouterNodeUserInfoKey = @"com.pixty.router.node";
 #pragma mark - Node content state query
 
 - (NSSet *)initializedNodes {
-    return [self.components.nodeDataStorage initializedNodes];
+    return self.components.nodeDataStorage.resolvedInitializedNodes;
 }
 
 - (RTRNodeState)stateForNode:(id<RTRNode>)node {
     return [self.components.nodeDataStorage resolvedStateForNode:node];
+}
+
+#pragma mark - KVO
+
++ (NSSet *)keyPathsForValuesAffectingValueForKey:(NSString *)key {
+    NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
+    
+    if ([key isEqualToString:@"initializedNodes"]) {
+        keyPaths = [keyPaths setByAddingObject:@"components.nodeDataStorage.resolvedInitializedNodes"];
+    }
+    
+    return keyPaths;
 }
 
 #pragma mark - RTRNodeDataStorageDelegate

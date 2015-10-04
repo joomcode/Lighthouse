@@ -34,11 +34,11 @@
 
 @interface RTRNodeDataStorage (State)
 
-- (NSSet *)initializedNodes;
+@property (nonatomic, readonly) NSSet *resolvedInitializedNodes;
 
 - (RTRNodeState)resolvedStateForNode:(id<RTRNode>)node;
 
-- (void)updateResolvedStateForNodes:(RTRNodeTree *)nodes;
+- (void)updateResolvedStateForAffectedNodeTree:(RTRNodeTree *)nodeTree;
 
 @end
 
