@@ -19,6 +19,7 @@
 		013F68FE1BA62D0000B5797B /* libRouter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 013F68FD1BA62D0000B5797B /* libRouter.a */; };
 		017E5B1B1BC0281B00C6C831 /* PXStateDisplayingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 017E5B1A1BC0281B00C6C831 /* PXStateDisplayingViewController.m */; settings = {ASSET_TAGS = (); }; };
 		017E5B1E1BC031EE00C6C831 /* PXStateDisplayingViewControllerContent.m in Sources */ = {isa = PBXBuildFile; fileRef = 017E5B1D1BC031EE00C6C831 /* PXStateDisplayingViewControllerContent.m */; settings = {ASSET_TAGS = (); }; };
+		017E5B211BC14BBE00C6C831 /* PXNodeHierarchy.m in Sources */ = {isa = PBXBuildFile; fileRef = 017E5B201BC14BBE00C6C831 /* PXNodeHierarchy.m */; settings = {ASSET_TAGS = (); }; };
 		0186CB101BAE190400B22431 /* PXPresentAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = 0186CB0F1BAE190400B22431 /* PXPresentAlert.m */; settings = {ASSET_TAGS = (); }; };
 		01A01A611BA8324700608274 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01A01A601BA8324700608274 /* LaunchScreen.xib */; };
 		01A01A871BA8777100608274 /* PXColorViewControllers.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A01A861BA8777100608274 /* PXColorViewControllers.m */; };
@@ -73,6 +74,8 @@
 		017E5B1A1BC0281B00C6C831 /* PXStateDisplayingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXStateDisplayingViewController.m; sourceTree = "<group>"; };
 		017E5B1C1BC031EE00C6C831 /* PXStateDisplayingViewControllerContent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXStateDisplayingViewControllerContent.h; sourceTree = "<group>"; };
 		017E5B1D1BC031EE00C6C831 /* PXStateDisplayingViewControllerContent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXStateDisplayingViewControllerContent.m; sourceTree = "<group>"; };
+		017E5B1F1BC14BBE00C6C831 /* PXNodeHierarchy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXNodeHierarchy.h; sourceTree = "<group>"; };
+		017E5B201BC14BBE00C6C831 /* PXNodeHierarchy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXNodeHierarchy.m; sourceTree = "<group>"; };
 		0186CB0E1BAE190400B22431 /* PXPresentAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXPresentAlert.h; sourceTree = "<group>"; };
 		0186CB0F1BAE190400B22431 /* PXPresentAlert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXPresentAlert.m; sourceTree = "<group>"; };
 		01A01A601BA8324700608274 /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
@@ -146,6 +149,8 @@
 				01A01A881BA8780300608274 /* Commands */,
 				01A01A921BA8786F00608274 /* RTRRouter+Shared.h */,
 				01A01A931BA8786F00608274 /* RTRRouter+Shared.m */,
+				017E5B1F1BC14BBE00C6C831 /* PXNodeHierarchy.h */,
+				017E5B201BC14BBE00C6C831 /* PXNodeHierarchy.m */,
 				013F68BE1BA62CA300B5797B /* AppDelegate.h */,
 				013F68BF1BA62CA300B5797B /* AppDelegate.m */,
 				013F68C11BA62CA300B5797B /* ViewController.h */,
@@ -361,6 +366,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				01A01A941BA8786F00608274 /* RTRRouter+Shared.m in Sources */,
+				017E5B211BC14BBE00C6C831 /* PXNodeHierarchy.m in Sources */,
 				012497921BA99994007CD98B /* PXPresentModal.m in Sources */,
 				0186CB101BAE190400B22431 /* PXPresentAlert.m in Sources */,
 				017E5B1B1BC0281B00C6C831 /* PXStateDisplayingViewController.m in Sources */,

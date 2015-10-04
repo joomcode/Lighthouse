@@ -18,7 +18,7 @@
 #import "PXPresentAnotherModal.h"
 #import "PXPresentAlert.h"
 #import "PXDismissAlert.h"
-#import "RTRRouter+Shared.h"
+#import "PXNodeHierarchy.h"
 #import <Router.h>
 
 @interface AppDelegate () <RTRRouterDelegate>
@@ -43,42 +43,14 @@
 
 - (void)setupRouter {
     // Nodes
-    
-    id<RTRNode> redNode = [[RTRLeafNode alloc] init];
-    id<RTRNode> greenNode = [[RTRLeafNode alloc] init];
-    id<RTRNode> blueNode = [[RTRLeafNode alloc] init];
-    id<RTRNode> mainStackNode = [[RTRStackNode alloc] initWithSingleBranch:@[ redNode, greenNode, blueNode ]];
-    
-    id<RTRNode> modalNode = [[RTRLeafNode alloc] init];
-    id<RTRNode> modalStackNode = [[RTRStackNode alloc] initWithSingleBranch:@[ modalNode ]];
-    
-    id<RTRNode> deepModalNode = [[RTRLeafNode alloc] init];
-    id<RTRNode> deepModalStackNode = [[RTRStackNode alloc] initWithSingleBranch:@[ deepModalNode ]];
-    
-    id<RTRNode> anotherRedNode = [[RTRLeafNode alloc] init];
-    id<RTRNode> anotherGreenNode = [[RTRLeafNode alloc] init];
-    id<RTRNode> anotherBlueNode = [[RTRLeafNode alloc] init];
-    NSArray *anotherTabNodes = @[ anotherRedNode, anotherGreenNode, anotherBlueNode ];
-    id<RTRNode> anotherTabNode = [[RTRTabNode alloc] initWithChildren:[NSOrderedSet orderedSetWithArray:anotherTabNodes]];
-    id<RTRNode> anotherModalStackNode = [[RTRStackNode alloc] initWithSingleBranch:@[ anotherTabNode ]];
-    
-    id<RTRNode> alertNode = [[RTRLeafNode alloc] init];
-    
-    RTRNodeTree *rootTree = [[RTRNodeTree alloc] init];
-    [rootTree addBranch:@[ mainStackNode, modalStackNode, deepModalStackNode ] afterItemOrNil:nil];
-    [rootTree addItem:anotherModalStackNode afterItemOrNil:mainStackNode];
-    
-    RTRNodeTree *alertTree = [[RTRNodeTree alloc] init];
-    [alertTree addBranch:@[ alertNode ] afterItemOrNil:nil];
-        
-    id<RTRNode> rootNode = [[RTRFreeStackNode alloc] initWithTrees:@[ rootTree, alertTree ]];
+    PXNodeHierarchy *hierarchy = [[PXNodeHierarchy alloc] init];
     
     
     // Node Content
     
     RTRBasicNodeContentProvider *nodeContentProvider = [[RTRBasicNodeContentProvider alloc] init];
     
-    [nodeContentProvider bindNode:rootNode toBlock:^id<RTRNodeContent>(id<RTRNode> node) {
+    [nodeContentProvider bindNode:hierarchy.rootNode toBlock:^id<RTRNodeContent>(id<RTRNode> node) {
         return [[RTRModalPresentationContent alloc] initWithWindow:self.window];
     }];
     
@@ -90,23 +62,23 @@
         return [[RTRTabBarControllerContent alloc] init];
     }];
     
-    [nodeContentProvider bindNodes:@[ redNode, anotherRedNode ] toBlock:^id<RTRNodeContent>(id<RTRNode> node) {
+    [nodeContentProvider bindNodes:@[ hierarchy.redNode, hierarchy.anotherRedNode ] toBlock:^id<RTRNodeContent>(id<RTRNode> node) {
         return [[PXStateDisplayingViewControllerContent alloc] initWithViewControllerClass:[PXRedViewController class]];
     }];
     
-    [nodeContentProvider bindNodes:@[ greenNode, anotherGreenNode ] toBlock:^id<RTRNodeContent>(id<RTRNode> node) {
+    [nodeContentProvider bindNodes:@[ hierarchy.greenNode, hierarchy.anotherGreenNode ] toBlock:^id<RTRNodeContent>(id<RTRNode> node) {
         return [[PXStateDisplayingViewControllerContent alloc] initWithViewControllerClass:[PXGreenViewController class]];
     }];
     
-    [nodeContentProvider bindNodes:@[ blueNode, anotherBlueNode ] toBlock:^id<RTRNodeContent>(id<RTRNode> node) {
+    [nodeContentProvider bindNodes:@[ hierarchy.blueNode, hierarchy.anotherBlueNode ] toBlock:^id<RTRNodeContent>(id<RTRNode> node) {
         return [[PXStateDisplayingViewControllerContent alloc] initWithViewControllerClass:[PXBlueViewController class]];
     }];
     
-    [nodeContentProvider bindNodes:@[ modalNode, alertNode ] toBlock:^id<RTRNodeContent>(id<RTRNode> node) {
+    [nodeContentProvider bindNodes:@[ hierarchy.modalNode, hierarchy.alertNode ] toBlock:^id<RTRNodeContent>(id<RTRNode> node) {
         return [[PXStateDisplayingViewControllerContent alloc] initWithViewControllerClass:[PXModalViewController class]];
     }];
     
-    [nodeContentProvider bindNode:deepModalNode toBlock:^id<RTRNodeContent>(id<RTRNode> node) {
+    [nodeContentProvider bindNode:hierarchy.deepModalNode toBlock:^id<RTRNodeContent>(id<RTRNode> node) {
         return [[PXStateDisplayingViewControllerContent alloc] initWithViewControllerClass:[PXDeepModalViewController class]];
     }];
 
@@ -115,19 +87,19 @@
     
     RTRBasicCommandRegistry *commandRegistry = [[RTRBasicCommandRegistry alloc] init];
     
-    [commandRegistry bindCommandClass:[PXPresentRed class] toActiveNodeTarget:redNode];
-    [commandRegistry bindCommandClass:[PXPresentGreen class] toActiveNodeTarget:greenNode];
-    [commandRegistry bindCommandClass:[PXPresentBlue class] toActiveNodeTarget:blueNode];
-    [commandRegistry bindCommandClass:[PXPresentModal class] toActiveNodeTarget:deepModalNode];
-    [commandRegistry bindCommandClass:[PXPresentAnotherModal class] toActiveNodeTarget:anotherBlueNode];
-    [commandRegistry bindCommandClass:[PXPresentAlert class] toActiveNodeTarget:alertNode];
-    [commandRegistry bindCommandClass:[PXDismissAlert class] toInactiveNodeTarget:alertNode];
+    [commandRegistry bindCommandClass:[PXPresentRed class] toActiveNodeTarget:hierarchy.redNode];
+    [commandRegistry bindCommandClass:[PXPresentGreen class] toActiveNodeTarget:hierarchy.greenNode];
+    [commandRegistry bindCommandClass:[PXPresentBlue class] toActiveNodeTarget:hierarchy.blueNode];
+    [commandRegistry bindCommandClass:[PXPresentModal class] toActiveNodeTarget:hierarchy.deepModalNode];
+    [commandRegistry bindCommandClass:[PXPresentAnotherModal class] toActiveNodeTarget:hierarchy.anotherBlueNode];
+    [commandRegistry bindCommandClass:[PXPresentAlert class] toActiveNodeTarget:hierarchy.alertNode];
+    [commandRegistry bindCommandClass:[PXDismissAlert class] toInactiveNodeTarget:hierarchy.alertNode];
 
     
     // Router
     
-    RTRRouter *router = [RTRRouter sharedInstance];
-    router.rootNode = rootNode;
+    RTRRouter *router = [[RTRRouter alloc] init];
+    router.rootNode = hierarchy.rootNode;
     router.nodeContentProvider = nodeContentProvider;
     router.commandRegistry = commandRegistry;
     router.delegate = self;
