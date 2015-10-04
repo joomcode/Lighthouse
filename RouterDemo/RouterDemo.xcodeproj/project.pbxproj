@@ -12,7 +12,6 @@
 		012497951BA9C686007CD98B /* PXPresentAnotherModal.m in Sources */ = {isa = PBXBuildFile; fileRef = 012497941BA9C686007CD98B /* PXPresentAnotherModal.m */; };
 		013F68BD1BA62CA300B5797B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 013F68BC1BA62CA300B5797B /* main.m */; };
 		013F68C01BA62CA300B5797B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 013F68BF1BA62CA300B5797B /* AppDelegate.m */; };
-		013F68C31BA62CA300B5797B /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 013F68C21BA62CA300B5797B /* ViewController.m */; };
 		013F68C81BA62CA300B5797B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 013F68C71BA62CA300B5797B /* Assets.xcassets */; };
 		013F68D61BA62CA300B5797B /* RouterDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 013F68D51BA62CA300B5797B /* RouterDemoTests.m */; };
 		013F68E11BA62CA300B5797B /* RouterDemoUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 013F68E01BA62CA300B5797B /* RouterDemoUITests.m */; };
@@ -59,8 +58,6 @@
 		013F68BC1BA62CA300B5797B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		013F68BE1BA62CA300B5797B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		013F68BF1BA62CA300B5797B /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		013F68C11BA62CA300B5797B /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		013F68C21BA62CA300B5797B /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		013F68C71BA62CA300B5797B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		013F68CC1BA62CA300B5797B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		013F68D11BA62CA300B5797B /* RouterDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RouterDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -153,8 +150,6 @@
 				017E5B201BC14BBE00C6C831 /* PXNodeHierarchy.m */,
 				013F68BE1BA62CA300B5797B /* AppDelegate.h */,
 				013F68BF1BA62CA300B5797B /* AppDelegate.m */,
-				013F68C11BA62CA300B5797B /* ViewController.h */,
-				013F68C21BA62CA300B5797B /* ViewController.m */,
 				01A01A601BA8324700608274 /* LaunchScreen.xib */,
 				013F68C71BA62CA300B5797B /* Assets.xcassets */,
 				013F68CC1BA62CA300B5797B /* Info.plist */,
@@ -373,7 +368,6 @@
 				01A01A911BA8783E00608274 /* PXPresentBlue.m in Sources */,
 				01A01A871BA8777100608274 /* PXColorViewControllers.m in Sources */,
 				0111CC271BAAED0D00C19022 /* PXDeepModalViewController.m in Sources */,
-				013F68C31BA62CA300B5797B /* ViewController.m in Sources */,
 				01A01AB41BA9887D00608274 /* PXModalViewController.m in Sources */,
 				013F68C01BA62CA300B5797B /* AppDelegate.m in Sources */,
 				017E5B1E1BC031EE00C6C831 /* PXStateDisplayingViewControllerContent.m in Sources */,
