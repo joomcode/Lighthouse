@@ -70,11 +70,8 @@
     
     RTRNodeTree *alertTree = [[RTRNodeTree alloc] init];
     [alertTree addBranch:@[ alertNode ] afterItemOrNil:nil];
-    
-    RTRNodeForest *rootForest = [[RTRNodeForest alloc] init];
-    [rootForest addBranch:@[ rootTree, alertTree ] afterItemOrNil:nil];
-    
-    id<RTRNode> rootNode = [[RTRStackNode alloc] initWithForest:rootForest];
+        
+    id<RTRNode> rootNode = [[RTRFreeStackNode alloc] initWithTrees:@[ rootTree, alertTree ]];
     
     
     // Node Content

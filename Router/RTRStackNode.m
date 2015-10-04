@@ -8,14 +8,12 @@
 
 #import "RTRStackNode.h"
 #import "RTRNodeTree.h"
-#import "RTRNodeForest.h"
 #import "RTRStackNodeChildrenState.h"
 #import "RTRTargetNodes.h"
 
 @interface RTRStackNode ()
 
-@property (nonatomic, copy, readonly) RTRNodeForest *forest;
-@property (nonatomic, strong, readonly) NSMapTable *initializedChildrenByTree;
+@property (nonatomic, copy, readonly) RTRNodeTree *tree;
 
 @property (nonatomic, strong) RTRStackNodeChildrenState *childrenState;
 
@@ -27,7 +25,7 @@
 #pragma mark - Init
 
 - (instancetype)init {
-    return [self initWithForest:nil];
+    return [self initWithTree:nil];
 }
 
 - (instancetype)initWithSingleBranch:(NSArray *)nodes {
@@ -42,118 +40,67 @@
 - (instancetype)initWithTree:(RTRNodeTree *)tree {
     NSParameterAssert(tree != nil);
     
-    RTRNodeForest *forest = [[RTRNodeForest alloc] init];
-    [forest addItem:tree afterItemOrNil:nil];
-    
-    return [self initWithForest:forest];
-}
-
-- (instancetype)initWithForest:(RTRNodeForest *)forest {
-    NSParameterAssert(forest != nil);
-    
     self = [super init];
     if (!self) return nil;
-    
-    _forest = forest;
-    _allChildren = [self collectChildrenFromForest:forest];
-    
-    _initializedChildrenByTree = [NSMapTable strongToStrongObjectsMapTable];
+
+    _tree = tree;
     
     [self resetChildrenState];
     
     return self;
 }
 
-- (NSSet *)collectChildrenFromForest:(RTRNodeForest *)forest {
-    NSMutableSet *children = [[NSMutableSet alloc] init];
-    
-    for (RTRNodeTree *tree in [forest allItems]) {
-        [children unionSet:[tree allItems]];
-    }
-    
-    return [children copy];
-}
-
 #pragma mark - RTRNode
 
-@synthesize allChildren = _allChildren;
 @synthesize childrenState = _childrenState;
 
+- (NSSet *)allChildren {
+    return [self.tree allItems];
+}
+
 - (void)resetChildrenState {
-    [self.initializedChildrenByTree removeAllObjects];
-    [self.forest enumerateItemsWithBlock:^(RTRNodeTree *tree, id previousItem, BOOL *stop) {
-        id<RTRNode> firstNode = [tree nextItems:nil].firstObject;
-        [self.initializedChildrenByTree setObject:[NSOrderedSet orderedSetWithObject:firstNode] forKey:tree];
-    }];
-    
-    RTRNodeTree *firstTree = [self.forest nextItems:nil].firstObject;
-    self.childrenState = [[RTRStackNodeChildrenState alloc] initWithStack:[self nodePathToTree:firstTree]];
+    id<RTRNode> firstChild = [self.tree nextItems:nil].firstObject;
+    self.childrenState = [[RTRStackNodeChildrenState alloc] initWithStack:[NSOrderedSet orderedSetWithObject:firstChild]];
 }
 
 - (BOOL)updateChildrenState:(RTRTargetNodes *)targetNodes {
-    id<RTRNode> targetNode = [self targetChildForNodes:targetNodes];
-    if (!targetNode) {
+    id<RTRNode> activeChild = [self activeChildForTargetNodes:targetNodes];
+    if (!activeChild) {
         return NO;
     }
     
-    RTRNodeTree *targetTree = [self treeForNode:targetNode];
-    if (!targetTree) {
-        return NO;
-    }
-    
-    [self.initializedChildrenByTree setObject:[targetTree pathToItem:targetNode] forKey:targetTree];
-
-    self.childrenState = [[RTRStackNodeChildrenState alloc] initWithStack:[self nodePathToTree:targetTree]];
+    self.childrenState = [[RTRStackNodeChildrenState alloc] initWithStack:[self.tree pathToItem:activeChild]];
     
     return YES;
 }
 
 #pragma mark - Stuff
 
-- (id<RTRNode>)targetChildForNodes:(RTRTargetNodes *)targetNodes {
+- (id<RTRNode>)activeChildForTargetNodes:(RTRTargetNodes *)targetNodes {
     if (targetNodes.activeNodes.count > 1) {
         NSAssert(NO, nil); // TODO
         return nil;
     }
     
-    id<RTRNode> result = targetNodes.activeNodes.anyObject;
+    id<RTRNode> childForTargetActiveNodes = targetNodes.activeNodes.anyObject;
     
-    if ([targetNodes.inactiveNodes containsObject:self.childrenState.initializedChildren.lastObject]) {
-        for (id<RTRNode> node in [self.childrenState.initializedChildren reverseObjectEnumerator]) {
-            if ([targetNodes.inactiveNodes containsObject:node]) {
-                continue;
+    id<RTRNode> childForTargetInactiveNodes;
+    
+    for (id<RTRNode> node in [self.childrenState.initializedChildren reverseObjectEnumerator]) {
+        if (![targetNodes.inactiveNodes containsObject:node]) {
+            if (node != self.childrenState.initializedChildren.lastObject) {
+                childForTargetInactiveNodes = node;
             }
-
-            if (result && result != node) {
-                NSAssert(NO, nil); // TODO
-                return nil;
-            } else {
-                return node;
-            }
+            break;
         }
     }
     
-    return result;
-}
-
-- (RTRNodeTree *)treeForNode:(id<RTRNode>)node {
-    for (RTRNodeTree *tree in [self.forest allItems]) {
-        if ([[tree allItems] containsObject:node]) {
-            return tree;
-        }
+    if (childForTargetActiveNodes && childForTargetInactiveNodes && childForTargetActiveNodes != childForTargetInactiveNodes) {
+        NSAssert(NO, nil); // TODO
+        return nil;
     }
     
-    return nil;
-}
-
-- (NSOrderedSet *)nodePathToTree:(RTRNodeTree *)targetTree {
-    NSMutableOrderedSet *path = [[NSMutableOrderedSet alloc] init];
-    
-    for (RTRNodeTree *tree in [self.forest pathToItem:targetTree]) {
-        [path unionOrderedSet:[self.initializedChildrenByTree objectForKey:tree]];
-    }
-    
-    return path;
+    return childForTargetActiveNodes ?: childForTargetInactiveNodes;
 }
 
 @end

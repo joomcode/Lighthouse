@@ -15,10 +15,10 @@
 
 #import "RTRLeafNode.h"
 #import "RTRStackNode.h"
+#import "RTRFreeStackNode.h"
 #import "RTRTabNode.h"
 
 #import "RTRNodeTree.h"
-#import "RTRNodeForest.h"
 
 
 // Node Content

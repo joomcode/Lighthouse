@@ -9,14 +9,11 @@
 #import "RTRNode.h"
 
 @class RTRNodeTree;
-@class RTRNodeForest;
 
 @interface RTRStackNode : NSObject <RTRNode>
 
 - (instancetype)initWithSingleBranch:(NSArray *)nodes;
 
 - (instancetype)initWithTree:(RTRNodeTree *)tree;
-
-- (instancetype)initWithForest:(RTRNodeForest *)forest;
 
 @end

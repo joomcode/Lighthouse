@@ -17,6 +17,7 @@
 		0160A9761BA7479C0035A331 /* RTRTabNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 0160A9751BA7479C0035A331 /* RTRTabNode.m */; };
 		0160A97F1BA782BA0035A331 /* RTRNodeChildrenState.m in Sources */ = {isa = PBXBuildFile; fileRef = 0160A97E1BA782BA0035A331 /* RTRNodeChildrenState.m */; };
 		0160A9851BA78EAC0035A331 /* RTRNavigationControllerContent.m in Sources */ = {isa = PBXBuildFile; fileRef = 0160A9841BA78EAC0035A331 /* RTRNavigationControllerContent.m */; };
+		017E5B251BC14DE300C6C831 /* RTRFreeStackNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 017E5B241BC14DE300C6C831 /* RTRFreeStackNode.m */; settings = {ASSET_TAGS = (); }; };
 		0186CAF21BACC29E00B22431 /* RTRDescriptionHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 0186CAF11BACC29E00B22431 /* RTRDescriptionHelpers.m */; settings = {ASSET_TAGS = (); }; };
 		0186CB001BADF93600B22431 /* RTRUpdateHandlerImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 0186CAFF1BADF93600B22431 /* RTRUpdateHandlerImpl.m */; settings = {ASSET_TAGS = (); }; };
 		0186CB071BAE038600B22431 /* RTRTree.m in Sources */ = {isa = PBXBuildFile; fileRef = 0186CB061BAE038600B22431 /* RTRTree.m */; settings = {ASSET_TAGS = (); }; };
@@ -85,6 +86,8 @@
 		0160A9841BA78EAC0035A331 /* RTRNavigationControllerContent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTRNavigationControllerContent.m; sourceTree = "<group>"; };
 		0160A9871BA822170035A331 /* RTRCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTRCommand.h; sourceTree = "<group>"; };
 		0160A9881BA8299A0035A331 /* RTRNodeContentFeedbackChannel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTRNodeContentFeedbackChannel.h; sourceTree = "<group>"; };
+		017E5B231BC14DE300C6C831 /* RTRFreeStackNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTRFreeStackNode.h; sourceTree = "<group>"; };
+		017E5B241BC14DE300C6C831 /* RTRFreeStackNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTRFreeStackNode.m; sourceTree = "<group>"; };
 		0186CAF01BACC29E00B22431 /* RTRDescriptionHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTRDescriptionHelpers.h; sourceTree = "<group>"; };
 		0186CAF11BACC29E00B22431 /* RTRDescriptionHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTRDescriptionHelpers.m; sourceTree = "<group>"; };
 		0186CAFD1BADF87F00B22431 /* RTRUpdateHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTRUpdateHandler.h; sourceTree = "<group>"; };
@@ -245,6 +248,7 @@
 				012356BE1BC0052B002DB75A /* Structures */,
 				01A01A961BA882F900608274 /* Leaf */,
 				0160A9681BA7416C0035A331 /* Stack */,
+				017E5B221BC14DB800C6C831 /* Free Stack */,
 				0160A96A1BA7418B0035A331 /* Tab */,
 				0160A97B1BA782540035A331 /* RTRNode.h */,
 				0160A97C1BA782940035A331 /* RTRNodeState.h */,
@@ -310,6 +314,15 @@
 				0160A9871BA822170035A331 /* RTRCommand.h */,
 			);
 			name = Command;
+			sourceTree = "<group>";
+		};
+		017E5B221BC14DB800C6C831 /* Free Stack */ = {
+			isa = PBXGroup;
+			children = (
+				017E5B231BC14DE300C6C831 /* RTRFreeStackNode.h */,
+				017E5B241BC14DE300C6C831 /* RTRFreeStackNode.m */,
+			);
+			name = "Free Stack";
 			sourceTree = "<group>";
 		};
 		01A01A781BA841DB00608274 /* Node Content Provider */ = {
@@ -473,6 +486,7 @@
 				01C6F8DA1BB8315A00A13C1E /* RTRTargetNodes.m in Sources */,
 				0186CB071BAE038600B22431 /* RTRTree.m in Sources */,
 				0186CB001BADF93600B22431 /* RTRUpdateHandlerImpl.m in Sources */,
+				017E5B251BC14DE300C6C831 /* RTRFreeStackNode.m in Sources */,
 				0160A9701BA7434B0035A331 /* RTRNodeTree.m in Sources */,
 				01A01AB11BA97B7100608274 /* RTRCompositeNodeContentProvider.m in Sources */,
 				01C6F8D01BB6D8DD00A13C1E /* RTRBlockTask.m in Sources */,
