@@ -74,7 +74,7 @@ NSString * const RTRRouterNodeStateDidUpdateNotification = @"com.pixty.router.no
     self.components.graph = [[RTRGraph alloc] initWithRootNode:rootNode];
 }
 
-#pragma mark - Command execution
+#pragma mark - Updates
 
 @synthesize commandQueue = _commandQueue;
 
@@ -89,6 +89,14 @@ NSString * const RTRRouterNodeStateDidUpdateNotification = @"com.pixty.router.no
     RTRCommandNodeUpdateTask *task = [[RTRCommandNodeUpdateTask alloc] initWithComponents:self.components
                                                                                  animated:animated
                                                                                   command:command];
+    
+    [self.commandQueue runTask:task];
+}
+
+- (void)updateNodesWithBlock:(void (^)())block animated:(BOOL)animated {
+    RTRManualNodeUpdateTask *task = [[RTRManualNodeUpdateTask alloc] initWithComponents:self.components
+                                                                               animated:animated
+                                                                        nodeUpdateBlock:block];
     
     [self.commandQueue runTask:task];
 }

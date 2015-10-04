@@ -27,13 +27,13 @@
 @property (nonatomic, weak) id<RTRRouterDelegate> delegate;
 
 
+- (void)executeCommand:(id<RTRCommand>)command animated:(BOOL)animated;
+
+- (void)updateNodesWithBlock:(void (^)())block animated:(BOOL)animated;
+
+
 @property (nonatomic, readonly) NSSet *initializedNodes;
 
 - (RTRNodeState)stateForNode:(id<RTRNode>)node;
-
-
-- (void)executeCommand:(id<RTRCommand>)command animated:(BOOL)animated;
-
-// TODO: manual update
 
 @end
