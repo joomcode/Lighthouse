@@ -1,5 +1,5 @@
 //
-//  RTRTargetNodes.h
+//  RTRTarget.h
 //  Router
 //
 //  Created by Nick Tymchenko on 27/09/15.
@@ -10,7 +10,7 @@
 
 @protocol RTRNode;
 
-@interface RTRTargetNodes : NSObject
+@interface RTRTarget : NSObject
 
 @property (nonatomic, copy, readonly) NSSet *activeNodes;
 @property (nonatomic, copy, readonly) NSSet *inactiveNodes;
@@ -20,7 +20,7 @@
 @end
 
 
-@interface RTRTargetNodes (Convenience)
+@interface RTRTarget (Convenience)
 
 + (instancetype)withActiveNode:(id<RTRNode>)activeNode;
 

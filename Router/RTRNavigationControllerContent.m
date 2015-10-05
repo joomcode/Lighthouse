@@ -13,7 +13,7 @@
 #import "RTRViewControllerContentHelpers.h"
 #import "RTRTaskQueue.h"
 #import "RTRNode.h"
-#import "RTRTargetNodes.h"
+#import "RTRTarget.h"
 
 @interface RTRNavigationControllerContent () <UINavigationControllerDelegate>
 
@@ -95,7 +95,7 @@
     self.childNodes = childNodes;
     
     [self.feedbackChannel startNodeUpdateWithBlock:^(id<RTRNode> node) {
-        [node updateChildrenState:[RTRTargetNodes withActiveNode:self.childNodes.lastObject]];
+        [node updateChildrenState:[RTRTarget withActiveNode:self.childNodes.lastObject]];
     }];
 }
 

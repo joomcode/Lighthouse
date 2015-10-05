@@ -1,14 +1,14 @@
 //
-//  RTRTargetNodes.m
+//  RTRTarget.m
 //  Router
 //
 //  Created by Nick Tymchenko on 27/09/15.
 //  Copyright © 2015 Pixty. All rights reserved.
 //
 
-#import "RTRTargetNodes.h"
+#import "RTRTarget.h"
 
-@implementation RTRTargetNodes
+@implementation RTRTarget
 
 - (instancetype)init {
     return [self initWithActiveNodes:nil inactiveNodes:nil];
@@ -27,7 +27,7 @@
 @end
 
 
-@implementation RTRTargetNodes (Convenience)
+@implementation RTRTarget (Convenience)
 
 + (instancetype)withActiveNode:(id<RTRNode>)activeNode {
     return [[[self class] alloc] initWithActiveNodes:[NSSet setWithObject:activeNode] inactiveNodes:nil];

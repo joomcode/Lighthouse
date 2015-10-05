@@ -8,7 +8,7 @@
 
 #import "RTRTabNode.h"
 #import "RTRNodeChildrenState.h"
-#import "RTRTargetNodes.h"
+#import "RTRTarget.h"
 
 @interface RTRTabNode ()
 
@@ -53,11 +53,11 @@
                                                             activeChildrenIndexSet:[NSIndexSet indexSetWithIndex:0]];
 }
 
-- (BOOL)updateChildrenState:(RTRTargetNodes *)targetNodes {
-    NSAssert(targetNodes.activeNodes.count == 1, @""); // TODO
-    NSAssert(targetNodes.inactiveNodes.count == 0, @""); // TODO
+- (BOOL)updateChildrenState:(RTRTarget *)target {
+    NSAssert(target.activeNodes.count == 1, @""); // TODO
+    NSAssert(target.inactiveNodes.count == 0, @""); // TODO
     
-    NSInteger childIndex = [self.orderedChildren indexOfObject:targetNodes.activeNodes.anyObject];
+    NSInteger childIndex = [self.orderedChildren indexOfObject:target.activeNodes.anyObject];
     if (childIndex == NSNotFound) {
         return NO;
     }

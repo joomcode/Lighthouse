@@ -12,7 +12,7 @@
 #import "RTRNode.h"
 #import "RTRNodeChildrenState.h"
 #import "RTRNodeContentFeedbackChannel.h"
-#import "RTRTargetNodes.h"
+#import "RTRTarget.h"
 #import "RTRViewControllerContentHelpers.h"
 #import "UIViewController+RTRDismissalTracking.h"
 
@@ -141,7 +141,7 @@
     self.childNodes = childNodes;
     
     [self.feedbackChannel startNodeUpdateWithBlock:^(id<RTRNode> node) {
-        [node updateChildrenState:[RTRTargetNodes withActiveNode:childNodes.lastObject]];
+        [node updateChildrenState:[RTRTarget withActiveNode:childNodes.lastObject]];
     }];
 }
 

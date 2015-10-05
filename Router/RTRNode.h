@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@class RTRTargetNodes;
+@class RTRTarget;
 @protocol RTRNodeChildrenState;
 
 @protocol RTRNode <NSObject>
@@ -19,6 +19,6 @@
 
 - (void)resetChildrenState;
 
-- (BOOL)updateChildrenState:(RTRTargetNodes *)targetNodes;
+- (BOOL)updateChildrenState:(RTRTarget *)target;
 
 @end

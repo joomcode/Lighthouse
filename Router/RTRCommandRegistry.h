@@ -10,10 +10,10 @@
 
 @protocol RTRNode;
 @protocol RTRCommand;
-@class RTRTargetNodes;
+@class RTRTarget;
 
 @protocol RTRCommandRegistry <NSObject>
 
-- (RTRTargetNodes *)targetNodesForCommand:(id<RTRCommand>)command;
+- (RTRTarget *)targetForCommand:(id<RTRCommand>)command;
 
 @end

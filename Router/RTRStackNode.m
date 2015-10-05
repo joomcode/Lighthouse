@@ -9,7 +9,7 @@
 #import "RTRStackNode.h"
 #import "RTRNodeTree.h"
 #import "RTRStackNodeChildrenState.h"
-#import "RTRTargetNodes.h"
+#import "RTRTarget.h"
 
 @interface RTRStackNode ()
 
@@ -63,8 +63,8 @@
     self.childrenState = [[RTRStackNodeChildrenState alloc] initWithStack:[NSOrderedSet orderedSetWithObject:firstChild]];
 }
 
-- (BOOL)updateChildrenState:(RTRTargetNodes *)targetNodes {
-    id<RTRNode> activeChild = [self activeChildForTargetNodes:targetNodes];
+- (BOOL)updateChildrenState:(RTRTarget *)target {
+    id<RTRNode> activeChild = [self activeChildForTarget:target];
     if (!activeChild) {
         return NO;
     }
@@ -76,18 +76,18 @@
 
 #pragma mark - Stuff
 
-- (id<RTRNode>)activeChildForTargetNodes:(RTRTargetNodes *)targetNodes {
-    if (targetNodes.activeNodes.count > 1) {
+- (id<RTRNode>)activeChildForTarget:(RTRTarget *)target {
+    if (target.activeNodes.count > 1) {
         NSAssert(NO, nil); // TODO
         return nil;
     }
     
-    id<RTRNode> childForTargetActiveNodes = targetNodes.activeNodes.anyObject;
+    id<RTRNode> childForTargetActiveNodes = target.activeNodes.anyObject;
     
     id<RTRNode> childForTargetInactiveNodes;
     
     for (id<RTRNode> node in [self.childrenState.initializedChildren reverseObjectEnumerator]) {
-        if (![targetNodes.inactiveNodes containsObject:node]) {
+        if (![target.inactiveNodes containsObject:node]) {
             if (node != self.childrenState.initializedChildren.lastObject) {
                 childForTargetInactiveNodes = node;
             }

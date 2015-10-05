@@ -11,7 +11,7 @@
 #import "RTRNode.h"
 #import "RTRNodeState.h"
 #import "RTRNodeChildrenState.h"
-#import "RTRTargetNodes.h"
+#import "RTRTarget.h"
 
 #import "RTRLeafNode.h"
 #import "RTRStackNode.h"

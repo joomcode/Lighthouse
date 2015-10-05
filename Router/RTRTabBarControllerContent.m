@@ -12,7 +12,7 @@
 #import "RTRNodeContentFeedbackChannel.h"
 #import "RTRViewControllerContentHelpers.h"
 #import "RTRNode.h"
-#import "RTRTargetNodes.h"
+#import "RTRTarget.h"
 
 @interface RTRTabBarControllerContent () <UITabBarControllerDelegate>
 
@@ -61,7 +61,7 @@
 
     [self.feedbackChannel startNodeUpdateWithBlock:^(id<RTRNode> node) {
         id<RTRNode> activeChild = self.childNodes[self.activeChildIndex];
-        [node updateChildrenState:[RTRTargetNodes withActiveNode:activeChild]];
+        [node updateChildrenState:[RTRTarget withActiveNode:activeChild]];
     }];
     
     return YES;

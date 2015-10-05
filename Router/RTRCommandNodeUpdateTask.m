@@ -11,7 +11,7 @@
 #import "RTRCommandRegistry.h"
 #import "RTRComponents.h"
 #import "RTRNode.h"
-#import "RTRTargetNodes.h"
+#import "RTRTarget.h"
 #import "RTRGraph.h"
 
 @interface RTRCommandNodeUpdateTask ()
@@ -43,12 +43,12 @@
 #pragma mark - RTRNodeUpdateTask
 
 - (void)updateNodes {
-    NSMapTable *targetNodesByParent = [self targetNodesByParent];
+    NSMapTable *targetsByParent = [self calculateTargetsByParent];
     
-    for (id<RTRNode> parent in targetNodesByParent) {
-        RTRTargetNodes *targetNodes = [targetNodesByParent objectForKey:parent];
+    for (id<RTRNode> parent in targetsByParent) {
+        RTRTarget *target = [targetsByParent objectForKey:parent];
         
-        if (![parent updateChildrenState:targetNodes]) {
+        if (![parent updateChildrenState:target]) {
             NSAssert(NO, @""); // TODO
         }
     }
@@ -60,12 +60,12 @@
 
 #pragma mark - Stuff
 
-- (NSMapTable *)targetNodesByParent {
-    NSMapTable *targetNodesByParent = [NSMapTable strongToStrongObjectsMapTable];
+- (NSMapTable *)calculateTargetsByParent {
+    NSMapTable *targetsByParent = [NSMapTable strongToStrongObjectsMapTable];
     
-    RTRTargetNodes *commandTargetNodes = [self.components.commandRegistry targetNodesForCommand:self.command];
+    RTRTarget *commandTarget = [self.components.commandRegistry targetForCommand:self.command];
     
-    for (id<RTRNode> activeNode in commandTargetNodes.activeNodes) {
+    for (id<RTRNode> activeNode in commandTarget.activeNodes) {
         NSOrderedSet *pathToNode = [self.components.graph pathToNode:activeNode];
         
         [pathToNode enumerateObjectsUsingBlock:^(id<RTRNode> node, NSUInteger idx, BOOL *stop) {
@@ -75,37 +75,37 @@
             
             id<RTRNode> parent = pathToNode[idx - 1];
             
-            RTRTargetNodes *targetNodes = [targetNodesByParent objectForKey:parent];
+            RTRTarget *target = [targetsByParent objectForKey:parent];
             
-            if (targetNodes) {
-                targetNodes = [[RTRTargetNodes alloc] initWithActiveNodes:[targetNodes.activeNodes setByAddingObject:node]
-                                                            inactiveNodes:targetNodes.inactiveNodes];
+            if (target) {
+                target = [[RTRTarget alloc] initWithActiveNodes:[target.activeNodes setByAddingObject:node]
+                                                  inactiveNodes:target.inactiveNodes];
             } else {
-                targetNodes = [[RTRTargetNodes alloc] initWithActiveNodes:[NSSet setWithObject:node] inactiveNodes:nil];
+                target = [RTRTarget withActiveNode:node];
             }
             
-            [targetNodesByParent setObject:targetNodes forKey:parent];
+            [targetsByParent setObject:target forKey:parent];
         }];
     }
     
-    for (id<RTRNode> inactiveNode in commandTargetNodes.inactiveNodes) {
+    for (id<RTRNode> inactiveNode in commandTarget.inactiveNodes) {
         NSOrderedSet *pathToNode = [self.components.graph pathToNode:inactiveNode];
         
         id<RTRNode> parent = pathToNode[pathToNode.count - 2];
         
-        RTRTargetNodes *targetNodes = [targetNodesByParent objectForKey:parent];
+        RTRTarget *target = [targetsByParent objectForKey:parent];
         
-        if (targetNodes) {
-            targetNodes = [[RTRTargetNodes alloc] initWithActiveNodes:targetNodes.activeNodes
-                                                        inactiveNodes:[targetNodes.inactiveNodes setByAddingObject:inactiveNode]];
+        if (target) {
+            target = [[RTRTarget alloc] initWithActiveNodes:target.activeNodes
+                                              inactiveNodes:[target.inactiveNodes setByAddingObject:inactiveNode]];
         } else {
-            targetNodes = [[RTRTargetNodes alloc] initWithActiveNodes:nil inactiveNodes:[NSSet setWithObject:inactiveNode]];
+            target = [RTRTarget withInactiveNode:inactiveNode];
         }
         
-        [targetNodesByParent setObject:targetNodes forKey:parent];
+        [targetsByParent setObject:target forKey:parent];
     }
     
-    return targetNodesByParent;
+    return targetsByParent;
 }
 
 @end
