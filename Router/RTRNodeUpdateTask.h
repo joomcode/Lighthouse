@@ -31,6 +31,6 @@
 
 - (void)updateNodes;
 
-- (void)updateContentForNode:(id<RTRNode>)node withUpdateQueue:(RTRTaskQueue *)updateQueue;
+- (void)updateDriverForNode:(id<RTRNode>)node withUpdateQueue:(RTRTaskQueue *)updateQueue;
 
 @end

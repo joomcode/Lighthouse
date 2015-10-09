@@ -1,29 +1,29 @@
 //
-//  RTRModalPresentationContent.m
+//  RTRModalPresentationDriver.m
 //  Router
 //
 //  Created by Nick Tymchenko on 15/09/15.
 //  Copyright (c) 2015 Pixty. All rights reserved.
 //
 
-#import "RTRModalPresentationContent.h"
-#import "RTRNodeContentUpdateContext.h"
+#import "RTRModalPresentationDriver.h"
+#import "RTRDriverUpdateContext.h"
 #import "RTRTaskQueue.h"
 #import "RTRNode.h"
 #import "RTRNodeChildrenState.h"
-#import "RTRNodeContentFeedbackChannel.h"
+#import "RTRDriverFeedbackChannel.h"
 #import "RTRTarget.h"
-#import "RTRViewControllerContentHelpers.h"
+#import "RTRViewControllerDriverHelpers.h"
 #import "UIViewController+RTRDismissalTracking.h"
 
-@interface RTRModalPresentationContent ()
+@interface RTRModalPresentationDriver ()
 
 @property (nonatomic, strong) NSArray *childNodes;
 
 @end
 
 
-@implementation RTRModalPresentationContent
+@implementation RTRModalPresentationDriver
 
 #pragma mark - Init
 
@@ -42,18 +42,18 @@
     return self;
 }
 
-#pragma mark - RTRNodeContent
+#pragma mark - RTRDriver
 
 @synthesize data = _data;
 @synthesize feedbackChannel = _feedbackChannel;
 
-- (void)updateWithContext:(id<RTRNodeContentUpdateContext>)context {
+- (void)updateWithContext:(id<RTRDriverUpdateContext>)context {
     NSAssert(context.childrenState.activeChildren.count <= 1, @""); // TODO
     NSAssert(context.childrenState.initializedChildren.lastObject == context.childrenState.activeChildren.lastObject, @""); // TODO
     
     self.childNodes = [context.childrenState.initializedChildren.array copy];
     
-    NSArray *viewControllers = [RTRViewControllerContentHelpers childViewControllersWithUpdateContext:context];
+    NSArray *viewControllers = [RTRViewControllerDriverHelpers childViewControllersWithUpdateContext:context];
     NSArray *presentedViewControllers = [self presentedViewControllers];
     
     NSInteger commonPrefixLength = [self commonPrefixLengthForArray:viewControllers andArray:presentedViewControllers];

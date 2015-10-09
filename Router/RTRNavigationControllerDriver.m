@@ -1,28 +1,28 @@
 //
-//  RTRNavigationControllerContent.m
+//  RTRNavigationControllerDriver.m
 //  Router
 //
 //  Created by Nick Tymchenko on 15/09/15.
 //  Copyright (c) 2015 Pixty. All rights reserved.
 //
 
-#import "RTRNavigationControllerContent.h"
-#import "RTRNodeContentUpdateContext.h"
+#import "RTRNavigationControllerDriver.h"
+#import "RTRDriverUpdateContext.h"
 #import "RTRNodeChildrenState.h"
-#import "RTRNodeContentFeedbackChannel.h"
-#import "RTRViewControllerContentHelpers.h"
+#import "RTRDriverFeedbackChannel.h"
+#import "RTRViewControllerDriverHelpers.h"
 #import "RTRTaskQueue.h"
 #import "RTRNode.h"
 #import "RTRTarget.h"
 
-@interface RTRNavigationControllerContent () <UINavigationControllerDelegate>
+@interface RTRNavigationControllerDriver () <UINavigationControllerDelegate>
 
 @property (nonatomic, strong) NSArray *childNodes;
 
 @end
 
 
-@implementation RTRNavigationControllerContent
+@implementation RTRNavigationControllerDriver
 
 #pragma mark - Dealloc
 
@@ -30,12 +30,12 @@
     _data.delegate = nil;
 }
 
-#pragma mark - RTRNodeContent
+#pragma mark - RTRDriver
 
 @synthesize data = _data;
 @synthesize feedbackChannel = _feedbackChannel;
 
-- (void)updateWithContext:(id<RTRNodeContentUpdateContext>)context {
+- (void)updateWithContext:(id<RTRDriverUpdateContext>)context {
     if (!_data) {
         _data = [[UINavigationController alloc] init];
         _data.delegate = self;
@@ -44,7 +44,7 @@
     NSAssert(context.childrenState.activeChildren.count <= 1, @""); // TODO
     NSAssert(context.childrenState.initializedChildren.lastObject == context.childrenState.activeChildren.lastObject, @""); // TODO
     
-    NSArray *childViewControllers = [RTRViewControllerContentHelpers childViewControllersWithUpdateContext:context];
+    NSArray *childViewControllers = [RTRViewControllerDriverHelpers childViewControllersWithUpdateContext:context];
     
     if ([childViewControllers isEqual:_data.viewControllers]) {
         return;

@@ -54,7 +54,7 @@
     }
 }
 
-- (BOOL)shouldUpdateContentForNode:(id<RTRNode>)node {
+- (BOOL)shouldUpdateDriverForNode:(id<RTRNode>)node {
     return YES;
 }
 

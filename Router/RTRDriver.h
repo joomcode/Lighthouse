@@ -1,5 +1,5 @@
 //
-//  RTRNodeContent.h
+//  RTRDriver.h
 //  Router
 //
 //  Created by Nick Tymchenko on 15/09/15.
@@ -10,19 +10,19 @@
 #import "RTRNodeState.h"
 
 @protocol RTRCommand;
-@protocol RTRNodeContentUpdateContext;
-@protocol RTRNodeContentFeedbackChannel;
+@protocol RTRDriverUpdateContext;
+@protocol RTRDriverFeedbackChannel;
 
-@protocol RTRNodeContent <NSObject>
+@protocol RTRDriver <NSObject>
 
 @property (nonatomic, strong, readonly) id data;
 
-- (void)updateWithContext:(id<RTRNodeContentUpdateContext>)context;
+- (void)updateWithContext:(id<RTRDriverUpdateContext>)context;
 
 
 @optional
 
-@property (nonatomic, strong) id<RTRNodeContentFeedbackChannel> feedbackChannel;
+@property (nonatomic, strong) id<RTRDriverFeedbackChannel> feedbackChannel;
 
 - (void)stateDidChange:(RTRNodeState)state;
 

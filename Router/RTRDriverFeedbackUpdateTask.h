@@ -1,5 +1,5 @@
 //
-//  RTRContentFeedbackUpdateTask.h
+//  RTRDriverFeedbackUpdateTask.h
 //  Router
 //
 //  Created by Nick Tymchenko on 29/09/15.
@@ -8,13 +8,13 @@
 
 #import "RTRNodeUpdateTask.h"
 
-@interface RTRContentFeedbackUpdateTask : RTRNodeUpdateTask
+@interface RTRDriverFeedbackUpdateTask : RTRNodeUpdateTask
 
 - (instancetype)initWithComponents:(RTRComponents *)components
                           animated:(BOOL)animated
                         sourceNode:(id<RTRNode>)node
                    nodeUpdateBlock:(void (^)())block;
 
-- (void)sourceNodeContentUpdateDidFinish;
+- (void)sourceDriverUpdateDidFinish;
 
 @end

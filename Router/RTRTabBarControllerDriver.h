@@ -1,15 +1,15 @@
 //
-//  RTRTabBarControllerContent.h
+//  RTRTabBarControllerDriver.h
 //  Router
 //
 //  Created by Nick Tymchenko on 16/09/15.
 //  Copyright (c) 2015 Pixty. All rights reserved.
 //
 
-#import "RTRNodeContent.h"
+#import "RTRDriver.h"
 #import <UIKit/UIKit.h>
 
-@interface RTRTabBarControllerContent : NSObject <RTRNodeContent>
+@interface RTRTabBarControllerDriver : NSObject <RTRDriver>
 
 @property (nonatomic, readonly) UITabBarController *data;
 

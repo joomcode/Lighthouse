@@ -12,7 +12,7 @@
 @protocol RTRNode;
 @protocol RTRCommand;
 @protocol RTRCommandRegistry;
-@protocol RTRNodeContentProvider;
+@protocol RTRDriverProvider;
 @protocol RTRRouterDelegate;
 
 
@@ -20,7 +20,7 @@
 
 @property (nonatomic, strong) id<RTRNode> rootNode;
 
-@property (nonatomic, strong) id<RTRNodeContentProvider> nodeContentProvider;
+@property (nonatomic, strong) id<RTRDriverProvider> driverProvider;
 
 @property (nonatomic, strong) id<RTRCommandRegistry> commandRegistry;
 

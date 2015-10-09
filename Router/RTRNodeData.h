@@ -10,7 +10,7 @@
 #import "RTRNodeState.h"
 
 @protocol RTRNode;
-@protocol RTRNodeContent;
+@protocol RTRDriver;
 
 @interface RTRNodeData : NSObject
 
@@ -20,7 +20,7 @@
 
 @property (nonatomic, assign) RTRNodeState presentationState;
 
-@property (nonatomic, strong) id<RTRNodeContent> content;
+@property (nonatomic, strong) id<RTRDriver> driver;
 
 - (instancetype)initWithNode:(id<RTRNode>)node;
 

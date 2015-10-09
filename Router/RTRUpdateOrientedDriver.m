@@ -1,17 +1,17 @@
 //
-//  RTRUpdateOrientedContent.m
+//  RTRUpdateOrientedDriver.m
 //  Router
 //
 //  Created by Nick Tymchenko on 17/09/15.
 //  Copyright (c) 2015 Pixty. All rights reserved.
 //
 
-#import "RTRUpdateOrientedContent.h"
+#import "RTRUpdateOrientedDriver.h"
 #import "RTRCommand.h"
-#import "RTRNodeContentUpdateContext.h"
+#import "RTRDriverUpdateContext.h"
 #import "RTRUpdateHandlerImpl.h"
 
-@interface RTRUpdateOrientedContent ()
+@interface RTRUpdateOrientedDriver ()
 
 @property (nonatomic, readonly) NSMapTable *dataInitBlocksByCommandClass;
 
@@ -20,23 +20,23 @@
 @end
 
 
-@implementation RTRUpdateOrientedContent
+@implementation RTRUpdateOrientedDriver
 
 #pragma mark - Setup
 
-- (void)bindCommandClass:(Class)commandClass toDataInitBlock:(RTRNodeContentDataInitBlock)block {
+- (void)bindCommandClass:(Class)commandClass toDataInitBlock:(RTRDriverDataInitBlock)block {
     [self.dataInitBlocksByCommandClass setObject:[block copy] forKey:commandClass];
 }
 
-#pragma mark - RTRNodeContent
+#pragma mark - RTRDriver
 
 @synthesize data = _data;
 
-- (void)updateWithContext:(id<RTRNodeContentUpdateContext>)context {
+- (void)updateWithContext:(id<RTRDriverUpdateContext>)context {
     id<RTRCommand> command = context.command;
     
     if (!_data) {
-        RTRNodeContentDataInitBlock block = [self.dataInitBlocksByCommandClass objectForKey:[command class]];
+        RTRDriverDataInitBlock block = [self.dataInitBlocksByCommandClass objectForKey:[command class]];
         
         if (!block) {
             block = self.defaultDataInitBlock;

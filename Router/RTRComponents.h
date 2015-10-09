@@ -10,7 +10,7 @@
 
 @class RTRGraph;
 @class RTRNodeDataStorage;
-@protocol RTRNodeContentProvider;
+@protocol RTRDriverProvider;
 @protocol RTRCommandRegistry;
 
 @interface RTRComponents : NSObject
@@ -19,7 +19,7 @@
 
 @property (nonatomic, strong) RTRNodeDataStorage *nodeDataStorage;
 
-@property (nonatomic, strong) id<RTRNodeContentProvider> nodeContentProvider;
+@property (nonatomic, strong) id<RTRDriverProvider> driverProvider;
 
 @property (nonatomic, strong) id<RTRCommandRegistry> commandRegistry;
 

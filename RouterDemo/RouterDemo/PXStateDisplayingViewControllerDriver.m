@@ -1,15 +1,15 @@
 //
-//  PXStateDisplayingViewControllerContent.m
+//  PXStateDisplayingViewControllerDriver.m
 //  RouterDemo
 //
 //  Created by Nick Tymchenko on 03/10/15.
 //  Copyright © 2015 Pixty. All rights reserved.
 //
 
-#import "PXStateDisplayingViewControllerContent.h"
+#import "PXStateDisplayingViewControllerDriver.h"
 #import "PXStateDisplayingViewController.h"
 
-@implementation PXStateDisplayingViewControllerContent
+@implementation PXStateDisplayingViewControllerDriver
 
 - (instancetype)initWithViewControllerClass:(Class)viewControllerClass {
     self = [super init];

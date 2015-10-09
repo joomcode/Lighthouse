@@ -1,15 +1,15 @@
 //
-//  RTRBasicNodeContentProvider.m
+//  RTRBasicDriverProvider.m
 //  Router
 //
 //  Created by Nick Tymchenko on 15/09/15.
 //  Copyright (c) 2015 Pixty. All rights reserved.
 //
 
-#import "RTRBasicNodeContentProvider.h"
+#import "RTRBasicDriverProvider.h"
 #import "RTRNode.h"
 
-@interface RTRBasicNodeContentProvider ()
+@interface RTRBasicDriverProvider ()
 
 @property (nonatomic, strong) NSMapTable *blocksByNodes;
 @property (nonatomic, strong) NSMapTable *blocksByNodeClasses;
@@ -17,7 +17,7 @@
 @end
 
 
-@implementation RTRBasicNodeContentProvider
+@implementation RTRBasicDriverProvider
 
 #pragma mark - Init
 
@@ -33,29 +33,29 @@
 
 #pragma mark - Setup
 
-- (void)bindNode:(id<RTRNode>)node toBlock:(RTRNodeContentProvidingBlock)block {
+- (void)bindNode:(id<RTRNode>)node toBlock:(RTRDriverProvidingBlock)block {
     [self.blocksByNodes setObject:[block copy] forKey:node];
 }
 
-- (void)bindNodes:(NSArray *)nodes toBlock:(RTRNodeContentProvidingBlock)block {
+- (void)bindNodes:(NSArray *)nodes toBlock:(RTRDriverProvidingBlock)block {
     for (id<RTRNode> node in nodes) {
         [self bindNode:node toBlock:block];
     }
 }
 
-- (void)bindNodeClass:(Class)nodeClass toBlock:(RTRNodeContentProvidingBlock)block {
+- (void)bindNodeClass:(Class)nodeClass toBlock:(RTRDriverProvidingBlock)block {
     [self.blocksByNodeClasses setObject:[block copy] forKey:nodeClass];
 }
 
-#pragma mark - RTRNodeContentProvider
+#pragma mark - RTRDriverProvider
 
-- (id<RTRNodeContent>)contentForNode:(id<RTRNode>)node {
-    RTRNodeContentProvidingBlock block = [self blockForNode:node];
+- (id<RTRDriver>)driverForNode:(id<RTRNode>)node {
+    RTRDriverProvidingBlock block = [self blockForNode:node];
     return block ? block(node) : nil;
 }
 
-- (RTRNodeContentProvidingBlock)blockForNode:(id<RTRNode>)node {
-    RTRNodeContentProvidingBlock block = [self.blocksByNodes objectForKey:node];
+- (RTRDriverProvidingBlock)blockForNode:(id<RTRNode>)node {
+    RTRDriverProvidingBlock block = [self.blocksByNodes objectForKey:node];
     
     if (!block) {
         block = [self.blocksByNodeClasses objectForKey:[node class]];

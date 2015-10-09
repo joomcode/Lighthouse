@@ -1,5 +1,5 @@
 //
-//  RTRNodeContentFeedbackChannel.h
+//  RTRDriverFeedbackChannel.h
 //  Router
 //
 //  Created by Nick Tymchenko on 15/09/15.
@@ -10,7 +10,7 @@
 
 @protocol RTRNode;
 
-@protocol RTRNodeContentFeedbackChannel <NSObject>
+@protocol RTRDriverFeedbackChannel <NSObject>
 
 - (void)startNodeUpdateWithBlock:(void (^)(id<RTRNode> node))updateBlock;
 

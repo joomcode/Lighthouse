@@ -1,26 +1,26 @@
 //
-//  RTRContentFeedbackUpdateTask.m
+//  RTRDriverFeedbackUpdateTask.m
 //  Router
 //
 //  Created by Nick Tymchenko on 29/09/15.
 //  Copyright © 2015 Pixty. All rights reserved.
 //
 
-#import "RTRContentFeedbackUpdateTask.h"
+#import "RTRDriverFeedbackUpdateTask.h"
 #import "RTRTaskQueue.h"
 
-@interface RTRContentFeedbackUpdateTask ()
+@interface RTRDriverFeedbackUpdateTask ()
 
 @property (nonatomic, strong, readonly) id<RTRNode> sourceNode;
 @property (nonatomic, copy, readonly) void (^nodeUpdateBlock)();
 
-@property (nonatomic, copy) RTRTaskCompletionBlock sourceNodeContentUpdateCompletionBlock;
-@property (nonatomic, assign) BOOL sourceNodeContentUpdateFinished;
+@property (nonatomic, copy) RTRTaskCompletionBlock sourceDriverUpdateCompletionBlock;
+@property (nonatomic, assign) BOOL sourceDriverUpdateFinished;
 
 @end
 
 
-@implementation RTRContentFeedbackUpdateTask
+@implementation RTRDriverFeedbackUpdateTask
 
 #pragma mark - Init
 
@@ -51,28 +51,28 @@
     self.nodeUpdateBlock();
 }
 
-- (void)updateContentForNode:(id<RTRNode>)node withUpdateQueue:(RTRTaskQueue *)updateQueue {
+- (void)updateDriverForNode:(id<RTRNode>)node withUpdateQueue:(RTRTaskQueue *)updateQueue {
     if (node != self.sourceNode) {
-        [super updateContentForNode:node withUpdateQueue:updateQueue];
+        [super updateDriverForNode:node withUpdateQueue:updateQueue];
         return;
     }
     
     [updateQueue runAsyncTaskWithBlock:^(RTRTaskCompletionBlock completion) {
-        self.sourceNodeContentUpdateCompletionBlock = completion;
+        self.sourceDriverUpdateCompletionBlock = completion;
         
-        if (self.sourceNodeContentUpdateFinished) {
+        if (self.sourceDriverUpdateFinished) {
             completion();
         }
     }];
 }
 
-#pragma mark - Source node content update
+#pragma mark - Source node driver update
 
-- (void)sourceNodeContentUpdateDidFinish {
-    self.sourceNodeContentUpdateFinished = YES;
+- (void)sourceDriverUpdateDidFinish {
+    self.sourceDriverUpdateFinished = YES;
     
-    if (self.sourceNodeContentUpdateCompletionBlock) {
-        self.sourceNodeContentUpdateCompletionBlock();
+    if (self.sourceDriverUpdateCompletionBlock) {
+        self.sourceDriverUpdateCompletionBlock();
     }    
 }
 

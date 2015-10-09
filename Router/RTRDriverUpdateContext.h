@@ -1,5 +1,5 @@
 //
-//  RTRNodeContentUpdateContext.h
+//  RTRDriverUpdateContext.h
 //  Router
 //
 //  Created by Nick Tymchenko on 15/09/15.
@@ -11,11 +11,11 @@
 
 @protocol RTRNode;
 @protocol RTRCommand;
-@protocol RTRNodeContent;
+@protocol RTRDriver;
 @protocol RTRNodeChildrenState;
 @class RTRTaskQueue;
 
-@protocol RTRNodeContentUpdateContext <NSObject>
+@protocol RTRDriverUpdateContext <NSObject>
 
 @property (nonatomic, readonly, getter = isAnimated) BOOL animated;
 
@@ -25,6 +25,6 @@
 
 @property (nonatomic, readonly) RTRTaskQueue *updateQueue;
 
-- (id<RTRNodeContent>)contentForNode:(id<RTRNode>)node;
+- (id<RTRDriver>)driverForNode:(id<RTRNode>)node;
 
 @end

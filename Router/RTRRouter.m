@@ -9,8 +9,8 @@
 #import "RTRRouter.h"
 #import "RTRRouterDelegate.h"
 #import "RTRNode.h"
-#import "RTRNodeContent.h"
-#import "RTRNodeContentProvider.h"
+#import "RTRDriver.h"
+#import "RTRDriverProvider.h"
 #import "RTRNodeDataStorage.h"
 #import "RTRNodeData.h"
 #import "RTRComponents.h"
@@ -20,7 +20,7 @@
 #import "RTRTaskQueue.h"
 #import "RTRCommandNodeUpdateTask.h"
 #import "RTRManualNodeUpdateTask.h"
-#import "RTRNodeContentFeedbackChannelImpl.h"
+#import "RTRDriverFeedbackChannelImpl.h"
 
 NSString * const RTRRouterNodeStateDidUpdateNotification = @"com.pixty.router.nodeStateDidUpdate";
 NSString * const RTRRouterNodeUserInfoKey = @"com.pixty.router.node";
@@ -51,12 +51,12 @@ NSString * const RTRRouterNodeUserInfoKey = @"com.pixty.router.node";
     return _components;
 }
 
-- (id<RTRNodeContentProvider>)nodeContentProvider {
-    return self.components.nodeContentProvider;
+- (id<RTRDriverProvider>)driverProvider {
+    return self.components.driverProvider;
 }
 
-- (void)setNodeContentProvider:(id<RTRNodeContentProvider>)nodeContentProvider {
-    self.components.nodeContentProvider = nodeContentProvider;
+- (void)setDriverProvider:(id<RTRDriverProvider>)driverProvider {
+    self.components.driverProvider = driverProvider;
 }
 
 - (id<RTRCommandRegistry>)commandRegistry {
@@ -102,7 +102,7 @@ NSString * const RTRRouterNodeUserInfoKey = @"com.pixty.router.node";
     [self.commandQueue runTask:task];
 }
 
-#pragma mark - Node content state query
+#pragma mark - Driver state query
 
 - (NSSet *)initializedNodes {
     return self.components.nodeDataStorage.resolvedInitializedNodes;
@@ -127,23 +127,23 @@ NSString * const RTRRouterNodeUserInfoKey = @"com.pixty.router.node";
 #pragma mark - RTRNodeDataStorageDelegate
 
 - (void)nodeDataStorage:(RTRNodeDataStorage *)storage didCreateData:(RTRNodeData *)data forNode:(id<RTRNode>)node {
-    data.content = [self createContentForNode:node];
+    data.driver = [self createDriverForNode:node];
 }
 
-- (id<RTRNodeContent>)createContentForNode:(id<RTRNode>)node {
-    id<RTRNodeContent> content = [self.components.nodeContentProvider contentForNode:node];
+- (id<RTRDriver>)createDriverForNode:(id<RTRNode>)node {
+    id<RTRDriver> driver = [self.components.driverProvider driverForNode:node];
     
-    if (!content) {
+    if (!driver) {
         return nil;
     }
     
-    if ([content respondsToSelector:@selector(setFeedbackChannel:)]) {
-        content.feedbackChannel = [[RTRNodeContentFeedbackChannelImpl alloc] initWithNode:node
-                                                                               components:self.components
-                                                                              updateQueue:self.commandQueue];
+    if ([driver respondsToSelector:@selector(setFeedbackChannel:)]) {
+        driver.feedbackChannel = [[RTRDriverFeedbackChannelImpl alloc] initWithNode:node
+                                                                         components:self.components                                  
+                                                                        updateQueue:self.commandQueue];
     }
     
-    return content;
+    return driver;
 }
 
 - (void)nodeDataStorage:(RTRNodeDataStorage *)storage willResetData:(RTRNodeData *)data forNode:(id<RTRNode>)node {
@@ -152,10 +152,10 @@ NSString * const RTRRouterNodeUserInfoKey = @"com.pixty.router.node";
 
 - (void)nodeDataStorage:(RTRNodeDataStorage *)storage didChangeResolvedStateForNode:(id<RTRNode>)node {
     if ([self.components.nodeDataStorage hasDataForNode:node]) {
-        id<RTRNodeContent> nodeContent = [self.components.nodeDataStorage dataForNode:node].content;
+        id<RTRDriver> driver = [self.components.nodeDataStorage dataForNode:node].driver;
         
-        if ([nodeContent respondsToSelector:@selector(stateDidChange:)]) {
-            [nodeContent stateDidChange:[self.components.nodeDataStorage resolvedStateForNode:node]];
+        if ([driver respondsToSelector:@selector(stateDidChange:)]) {
+            [driver stateDidChange:[self.components.nodeDataStorage resolvedStateForNode:node]];
         }
     }
     

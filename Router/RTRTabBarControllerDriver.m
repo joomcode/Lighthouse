@@ -1,20 +1,20 @@
 //
-//  RTRTabBarControllerContent.m
+//  RTRTabBarControllerDriver.m
 //  Router
 //
 //  Created by Nick Tymchenko on 16/09/15.
 //  Copyright (c) 2015 Pixty. All rights reserved.
 //
 
-#import "RTRTabBarControllerContent.h"
-#import "RTRNodeContentUpdateContext.h"
+#import "RTRTabBarControllerDriver.h"
+#import "RTRDriverUpdateContext.h"
 #import "RTRNodeChildrenState.h"
-#import "RTRNodeContentFeedbackChannel.h"
-#import "RTRViewControllerContentHelpers.h"
+#import "RTRDriverFeedbackChannel.h"
+#import "RTRViewControllerDriverHelpers.h"
 #import "RTRNode.h"
 #import "RTRTarget.h"
 
-@interface RTRTabBarControllerContent () <UITabBarControllerDelegate>
+@interface RTRTabBarControllerDriver () <UITabBarControllerDelegate>
 
 @property (nonatomic, strong) NSOrderedSet *childNodes;
 @property (nonatomic, assign) NSInteger activeChildIndex;
@@ -22,7 +22,7 @@
 @end
 
 
-@implementation RTRTabBarControllerContent
+@implementation RTRTabBarControllerDriver
 
 #pragma mark - Dealloc
 
@@ -30,12 +30,12 @@
     _data.delegate = nil;
 }
 
-#pragma mark - RTRNodeContent
+#pragma mark - RTRDriver
 
 @synthesize data = _data;
 @synthesize feedbackChannel = _feedbackChannel;
 
-- (void)updateWithContext:(id<RTRNodeContentUpdateContext>)context {
+- (void)updateWithContext:(id<RTRDriverUpdateContext>)context {
     if (!_data) {
         _data = [[UITabBarController alloc] init];
         _data.delegate = self;
@@ -48,7 +48,7 @@
     self.childNodes = context.childrenState.initializedChildren;
     self.activeChildIndex = [self.childNodes indexOfObject:activeChild];
     
-    NSArray *viewControllers = [RTRViewControllerContentHelpers childViewControllersWithUpdateContext:context];
+    NSArray *viewControllers = [RTRViewControllerDriverHelpers childViewControllersWithUpdateContext:context];
     
     [self.data setViewControllers:viewControllers animated:context.animated]; // TODO: use updateQueue
     [self.data setSelectedIndex:self.activeChildIndex];

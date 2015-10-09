@@ -11,23 +11,23 @@
 #import "RTRNodeDataStorage.h"
 #import "RTRNodeData.h"
 #import "RTRGraph.h"
-#import "RTRNodeContentProvider.h"
-#import "RTRNodeContent.h"
+#import "RTRDriverProvider.h"
+#import "RTRDriver.h"
 #import "RTRTaskQueue.h"
 #import "RTRNode.h"
 #import "RTRNodeChildrenState.h"
 #import "RTRNodeTree.h"
-#import "RTRNodeContentUpdateContextImpl.h"
-#import "RTRNodeContentFeedbackChannelImpl.h"
+#import "RTRDriverUpdateContextImpl.h"
+#import "RTRDriverFeedbackChannelImpl.h"
 
 
 @interface RTRNodeUpdateTask ()
 
-@property (nonatomic, strong, readonly) RTRTaskQueue *contentUpdateQueue;
+@property (nonatomic, strong, readonly) RTRTaskQueue *driverUpdateQueue;
 
 @property (nonatomic, strong, readonly) RTRNodeTree *affectedNodes;
 
-@property (nonatomic, strong) NSSet *nodesForAnimatedContentUpdate;
+@property (nonatomic, strong) NSSet *nodesForAnimatedDriverUpdate;
 
 @property (nonatomic, assign, getter = isCancelled) BOOL cancelled;
 
@@ -51,7 +51,7 @@
     _components = components;
     _animated = animated;
     
-    _contentUpdateQueue = [[RTRTaskQueue alloc] init];
+    _driverUpdateQueue = [[RTRTaskQueue alloc] init];
     
     _affectedNodes = [[RTRNodeTree alloc] init];
     [_affectedNodes addItem:_components.graph.rootNode afterItemOrNil:nil];
@@ -63,7 +63,7 @@
 
 - (void)startWithCompletionBlock:(RTRTaskCompletionBlock)completionBlock {
     if (self.animated) {
-        self.nodesForAnimatedContentUpdate = [[self.components.graph activeNodesTree] allItems];
+        self.nodesForAnimatedDriverUpdate = [[self.components.graph activeNodesTree] allItems];
     }
     
     [self markAffectedNodes];
@@ -72,9 +72,9 @@
     
     [self updateAffectedNodesState];
     
-    [self updateNodesContent];
+    [self updateNodesDriver];
     
-    [self.contentUpdateQueue runTaskWithBlock:^{
+    [self.driverUpdateQueue runTaskWithBlock:^{
         if (!self.cancelled) {
             [self cleanupAffectedNodes];
         }
@@ -89,7 +89,7 @@
     self.cancelled = YES;
     
     // TODO: do anything else here?
-    // e.g. is there a way to cancel ongoing node content update?
+    // e.g. is there a way to cancel ongoing node driver update?
 }
 
 #pragma mark - Subclassing
@@ -101,19 +101,19 @@
 - (void)updateNodes {
 }
 
-- (void)updateContentForNode:(id<RTRNode>)node withUpdateQueue:(RTRTaskQueue *)updateQueue {
-    id<RTRNodeContent> nodeContent = [self.components.nodeDataStorage dataForNode:node].content;
+- (void)updateDriverForNode:(id<RTRNode>)node withUpdateQueue:(RTRTaskQueue *)updateQueue {
+    id<RTRDriver> driver = [self.components.nodeDataStorage dataForNode:node].driver;
     
-    id<RTRNodeContentUpdateContext> updateContext =
-        [[RTRNodeContentUpdateContextImpl alloc] initWithAnimated:[self.nodesForAnimatedContentUpdate containsObject:node]
-                                                          command:[self command]
-                                                      updateQueue:updateQueue
-                                                    childrenState:node.childrenState
-                                                     contentBlock:^id<RTRNodeContent>(id<RTRNode> node) {
-                                                         return [self.components.nodeDataStorage dataForNode:node].content;
-                                                     }];
+    id<RTRDriverUpdateContext> updateContext =
+        [[RTRDriverUpdateContextImpl alloc] initWithAnimated:[self.nodesForAnimatedDriverUpdate containsObject:node]
+                                                     command:[self command]
+                                                 updateQueue:updateQueue
+                                               childrenState:node.childrenState
+                                                 driverBlock:^id<RTRDriver>(id<RTRNode> node) {
+                                                     return [self.components.nodeDataStorage dataForNode:node].driver;
+                                                 }];
     
-    [nodeContent updateWithContext:updateContext];
+    [driver updateWithContext:updateContext];
 }
 
 #pragma mark - Node state manipulation
@@ -158,44 +158,44 @@
     }];
 }
 
-#pragma mark - Node content manipulation
+#pragma mark - Driver manipulation
 
-- (void)updateNodesContent {
-    [self updateNodeContentRecursively:self.components.graph.rootNode];
+- (void)updateNodesDriver {
+    [self updateDriverRecursively:self.components.graph.rootNode];
 }
 
-- (void)updateNodeContentRecursively:(id<RTRNode>)node {
+- (void)updateDriverRecursively:(id<RTRNode>)node {
     for (id<RTRNode> childNode in [self.affectedNodes nextItems:node]) {
-        [self updateNodeContentRecursively:childNode];
+        [self updateDriverRecursively:childNode];
     }
         
-    [self updateNodeContent:node];
+    [self updateDriver:node];
 }
 
-- (void)updateNodeContent:(id<RTRNode>)node {
+- (void)updateDriver:(id<RTRNode>)node {
     RTRNodeData *data = [self.components.nodeDataStorage dataForNode:node];
     RTRTaskQueue *localUpdateQueue = [[RTRTaskQueue alloc] init];
     
-    NSAssert(data.content != nil, @""); // TODO
+    NSAssert(data.driver != nil, @""); // TODO
     
-    [self.contentUpdateQueue runTaskWithBlock:^{
-        [self willUpdateNodeContent:node];
+    [self.driverUpdateQueue runTaskWithBlock:^{
+        [self willUpdateDriver:node];
     }];
     
-    [self.contentUpdateQueue runAsyncTaskWithBlock:^(RTRTaskCompletionBlock completion) {
-        [self updateContentForNode:node withUpdateQueue:localUpdateQueue];
+    [self.driverUpdateQueue runAsyncTaskWithBlock:^(RTRTaskCompletionBlock completion) {
+        [self updateDriverForNode:node withUpdateQueue:localUpdateQueue];
         
         [localUpdateQueue runTaskWithBlock:^{
             completion();
         }];
     }];
     
-    [self.contentUpdateQueue runTaskWithBlock:^{
-        [self didUpdateNodeContent:node];
+    [self.driverUpdateQueue runTaskWithBlock:^{
+        [self didUpdateDriver:node];
     }];
 }
 
-- (void)willUpdateNodeContent:(id<RTRNode>)node {
+- (void)willUpdateDriver:(id<RTRNode>)node {
     for (id<RTRNode> child in [node allChildren]) {
         RTRNodeData *childData = [self.components.nodeDataStorage dataForNode:child];
         
@@ -214,7 +214,7 @@
     [self.components.nodeDataStorage updateResolvedStateForAffectedNodeTree:self.affectedNodes];
 }
 
-- (void)didUpdateNodeContent:(id<RTRNode>)node {
+- (void)didUpdateDriver:(id<RTRNode>)node {
     for (id<RTRNode> child in [node allChildren]) {
         RTRNodeData *childData = [self.components.nodeDataStorage dataForNode:child];
         childData.presentationState = childData.state;

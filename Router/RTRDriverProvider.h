@@ -1,5 +1,5 @@
 //
-//  RTRNodeContentProvider.h
+//  RTRDriverProvider.h
 //  Router
 //
 //  Created by Nick Tymchenko on 15/09/15.
@@ -9,10 +9,10 @@
 #import <Foundation/Foundation.h>
 
 @protocol RTRNode;
-@protocol RTRNodeContent;
+@protocol RTRDriver;
 
-@protocol RTRNodeContentProvider <NSObject>
+@protocol RTRDriverProvider <NSObject>
 
-- (id<RTRNodeContent>)contentForNode:(id<RTRNode>)node;
+- (id<RTRDriver>)driverForNode:(id<RTRNode>)node;
 
 @end

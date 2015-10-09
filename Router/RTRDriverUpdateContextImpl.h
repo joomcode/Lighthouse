@@ -1,19 +1,19 @@
 //
-//  RTRNodeContentUpdateContextImpl.h
+//  RTRDriverUpdateContextImpl.h
 //  Router
 //
 //  Created by Nick Tymchenko on 15/09/15.
 //  Copyright (c) 2015 Pixty. All rights reserved.
 //
 
-#import "RTRNodeContentUpdateContext.h"
+#import "RTRDriverUpdateContext.h"
 
-@interface RTRNodeContentUpdateContextImpl : NSObject <RTRNodeContentUpdateContext>
+@interface RTRDriverUpdateContextImpl : NSObject <RTRDriverUpdateContext>
 
 - (instancetype)initWithAnimated:(BOOL)animated
                          command:(id<RTRCommand>)command
                      updateQueue:(RTRTaskQueue *)updateQueue
                    childrenState:(id<RTRNodeChildrenState>)childrenState
-                    contentBlock:(id<RTRNodeContent> (^)(id<RTRNode> node))contentBlock;
+                     driverBlock:(id<RTRDriver> (^)(id<RTRNode> node))driverBlock;
 
 @end
