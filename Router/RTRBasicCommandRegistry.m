@@ -40,8 +40,8 @@
     [self bindCommandClass:commandClass toTarget:[RTRTarget withInactiveNode:node]];
 }
 
-- (void)bindCommandClass:(Class)commandClass toTarget:(RTRTarget *)target {
-    [self bindCommandClass:commandClass toBlock:^RTRTarget *(id<RTRCommand> command) {
+- (void)bindCommandClass:(Class)commandClass toTarget:(id<RTRTarget>)target {
+    [self bindCommandClass:commandClass toBlock:^id<RTRTarget>(id<RTRCommand> command) {
         return target;
     }];
 }
@@ -52,7 +52,7 @@
 
 #pragma mark - RTRCommandRegistry
 
-- (RTRTarget *)targetForCommand:(id<RTRCommand>)command {
+- (id<RTRTarget>)targetForCommand:(id<RTRCommand>)command {
     RTRCommandTargetProvidingBlock block = [self.blocksByCommandClass objectForKey:[command class]];
     return block ? block(command) : nil;
 }

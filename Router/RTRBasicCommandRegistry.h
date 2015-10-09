@@ -9,9 +9,9 @@
 #import "RTRCommandRegistry.h"
 
 @protocol RTRNode;
-@class RTRTarget;
+@protocol RTRTarget;
 
-typedef RTRTarget * (^RTRCommandTargetProvidingBlock)(id<RTRCommand> command);
+typedef id<RTRTarget> (^RTRCommandTargetProvidingBlock)(id<RTRCommand> command);
 
 @interface RTRBasicCommandRegistry : NSObject <RTRCommandRegistry>
 
@@ -19,7 +19,7 @@ typedef RTRTarget * (^RTRCommandTargetProvidingBlock)(id<RTRCommand> command);
 
 - (void)bindCommandClass:(Class)commandClass toInactiveNodeTarget:(id<RTRNode>)node;
 
-- (void)bindCommandClass:(Class)commandClass toTarget:(RTRTarget *)target;
+- (void)bindCommandClass:(Class)commandClass toTarget:(id<RTRTarget>)target;
 
 - (void)bindCommandClass:(Class)commandClass toBlock:(RTRCommandTargetProvidingBlock)block;
 

@@ -53,7 +53,7 @@
                                                             activeChildrenIndexSet:[NSIndexSet indexSetWithIndex:0]];
 }
 
-- (BOOL)updateChildrenState:(RTRTarget *)target {
+- (BOOL)updateChildrenState:(id<RTRTarget>)target {
     NSAssert(target.activeNodes.count == 1, @""); // TODO
     NSAssert(target.inactiveNodes.count == 0, @""); // TODO
     

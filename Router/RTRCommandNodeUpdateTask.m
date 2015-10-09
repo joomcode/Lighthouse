@@ -46,7 +46,7 @@
     NSMapTable *targetsByParent = [self calculateTargetsByParent];
     
     for (id<RTRNode> parent in targetsByParent) {
-        RTRTarget *target = [targetsByParent objectForKey:parent];
+        id<RTRTarget> target = [targetsByParent objectForKey:parent];
         
         if (![parent updateChildrenState:target]) {
             NSAssert(NO, @""); // TODO
@@ -63,7 +63,7 @@
 - (NSMapTable *)calculateTargetsByParent {
     NSMapTable *targetsByParent = [NSMapTable strongToStrongObjectsMapTable];
     
-    RTRTarget *commandTarget = [self.components.commandRegistry targetForCommand:self.command];
+    id<RTRTarget> commandTarget = [self.components.commandRegistry targetForCommand:self.command];
     
     for (id<RTRNode> activeNode in commandTarget.activeNodes) {
         NSOrderedSet *pathToNode = [self.components.graph pathToNode:activeNode];
@@ -75,7 +75,7 @@
             
             id<RTRNode> parent = pathToNode[idx - 1];
             
-            RTRTarget *target = [targetsByParent objectForKey:parent];
+            id<RTRTarget> target = [targetsByParent objectForKey:parent];
             
             if (target) {
                 target = [[RTRTarget alloc] initWithActiveNodes:[target.activeNodes setByAddingObject:node]
@@ -93,7 +93,7 @@
         
         id<RTRNode> parent = pathToNode[pathToNode.count - 2];
         
-        RTRTarget *target = [targetsByParent objectForKey:parent];
+        id<RTRTarget> target = [targetsByParent objectForKey:parent];
         
         if (target) {
             target = [[RTRTarget alloc] initWithActiveNodes:target.activeNodes

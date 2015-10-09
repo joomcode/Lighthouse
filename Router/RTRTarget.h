@@ -10,18 +10,18 @@
 
 @protocol RTRNode;
 
-@interface RTRTarget : NSObject
+@protocol RTRTarget <NSObject>
 
 @property (nonatomic, copy, readonly) NSSet *activeNodes;
 
 @property (nonatomic, copy, readonly) NSSet *inactiveNodes;
 
-- (instancetype)initWithActiveNodes:(NSSet *)activeNodes inactiveNodes:(NSSet *)inactiveNodes;
-
 @end
 
 
-@interface RTRTarget (Convenience)
+@interface RTRTarget : NSObject <RTRTarget>
+
+- (instancetype)initWithActiveNodes:(NSSet *)activeNodes inactiveNodes:(NSSet *)inactiveNodes;
 
 + (instancetype)withActiveNode:(id<RTRNode>)activeNode;
 

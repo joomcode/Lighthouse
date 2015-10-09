@@ -10,6 +10,9 @@
 
 @implementation RTRTarget
 
+@synthesize activeNodes = _activeNodes;
+@synthesize inactiveNodes = _inactiveNodes;
+
 - (instancetype)init {
     return [self initWithActiveNodes:nil inactiveNodes:nil];
 }
@@ -23,11 +26,6 @@
     
     return self;
 }
-
-@end
-
-
-@implementation RTRTarget (Convenience)
 
 + (instancetype)withActiveNode:(id<RTRNode>)activeNode {
     return [[[self class] alloc] initWithActiveNodes:[NSSet setWithObject:activeNode] inactiveNodes:nil];

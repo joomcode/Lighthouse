@@ -23,7 +23,7 @@
 - (void)resetChildrenState {
 }
 
-- (BOOL)updateChildrenState:(RTRTarget *)target {
+- (BOOL)updateChildrenState:(id<RTRTarget>)target {
     return NO;
 }
 

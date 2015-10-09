@@ -80,7 +80,7 @@
     self.childrenState = nil;
 }
 
-- (BOOL)updateChildrenState:(RTRTarget *)target {
+- (BOOL)updateChildrenState:(id<RTRTarget>)target {
     id<RTRNode> activeChild = [self activeChildForTarget:target];
     if (!activeChild) {
         return NO;
@@ -108,7 +108,7 @@
 
 #pragma mark - Stuff
 
-- (id<RTRNode>)activeChildForTarget:(RTRTarget *)target {
+- (id<RTRNode>)activeChildForTarget:(id<RTRTarget>)target {
     // TODO: don't copypaste this please
     
     if (target.activeNodes.count > 1) {
