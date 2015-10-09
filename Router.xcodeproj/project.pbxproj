@@ -160,8 +160,6 @@
 			isa = PBXGroup;
 			children = (
 				0186CAFD1BADF87F00B22431 /* RTRUpdateHandler.h */,
-				0186CAFE1BADF93600B22431 /* RTRUpdateHandlerImpl.h */,
-				0186CAFF1BADF93600B22431 /* RTRUpdateHandlerImpl.m */,
 				0111CC221BAA470D00C19022 /* RTRUpdateOrientedContent.h */,
 				0111CC231BAA470D00C19022 /* RTRUpdateOrientedContent.m */,
 			);
@@ -412,6 +410,8 @@
 				01A01A821BA869F200608274 /* RTRNodeContentUpdateContextImpl.m */,
 				01A01AA61BA8E9FB00608274 /* RTRNodeContentFeedbackChannelImpl.h */,
 				01A01AA71BA8E9FB00608274 /* RTRNodeContentFeedbackChannelImpl.m */,
+				0186CAFE1BADF93600B22431 /* RTRUpdateHandlerImpl.h */,
+				0186CAFF1BADF93600B22431 /* RTRUpdateHandlerImpl.m */,
 			);
 			name = Implementations;
 			sourceTree = "<group>";

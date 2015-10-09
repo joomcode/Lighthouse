@@ -11,7 +11,6 @@
 
 @protocol RTRCommand;
 @protocol RTRNodeContentUpdateContext;
-@protocol RTRNodeContentDidUpdateContext;
 @protocol RTRNodeContentFeedbackChannel;
 
 @protocol RTRNodeContent <NSObject>
