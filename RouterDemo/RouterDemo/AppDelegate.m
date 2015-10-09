@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-#import "PXStateDisplayingViewControllerDriver.h"
+#import "PXStateViewControllerDriver.h"
 #import "PXColorViewControllers.h"
 #import "PXModalViewController.h"
 #import "PXDeepModalViewController.h"
@@ -57,23 +57,23 @@
     }];
     
     [driverProvider bindNodes:@[ hierarchy.redNode, hierarchy.anotherRedNode ] toBlock:^id<RTRDriver>(id<RTRNode> node) {
-        return [[PXStateDisplayingViewControllerDriver alloc] initWithViewControllerClass:[PXRedViewController class]];
+        return [[PXStateViewControllerDriver alloc] initWithViewControllerClass:[PXRedViewController class]];
     }];
     
     [driverProvider bindNodes:@[ hierarchy.greenNode, hierarchy.anotherGreenNode ] toBlock:^id<RTRDriver>(id<RTRNode> node) {
-        return [[PXStateDisplayingViewControllerDriver alloc] initWithViewControllerClass:[PXGreenViewController class]];
+        return [[PXStateViewControllerDriver alloc] initWithViewControllerClass:[PXGreenViewController class]];
     }];
     
     [driverProvider bindNodes:@[ hierarchy.blueNode, hierarchy.anotherBlueNode ] toBlock:^id<RTRDriver>(id<RTRNode> node) {
-        return [[PXStateDisplayingViewControllerDriver alloc] initWithViewControllerClass:[PXBlueViewController class]];
+        return [[PXStateViewControllerDriver alloc] initWithViewControllerClass:[PXBlueViewController class]];
     }];
     
     [driverProvider bindNodes:@[ hierarchy.modalNode ] toBlock:^id<RTRDriver>(id<RTRNode> node) {
-        return [[PXStateDisplayingViewControllerDriver alloc] initWithViewControllerClass:[PXModalViewController class]];
+        return [[PXStateViewControllerDriver alloc] initWithViewControllerClass:[PXModalViewController class]];
     }];
     
     [driverProvider bindNode:hierarchy.deepModalNode toBlock:^id<RTRDriver>(id<RTRNode> node) {
-        return [[PXStateDisplayingViewControllerDriver alloc] initWithViewControllerClass:[PXDeepModalViewController class]];
+        return [[PXStateViewControllerDriver alloc] initWithViewControllerClass:[PXDeepModalViewController class]];
     }];
     
     [driverProvider bindNode:hierarchy.alertNode toBlock:^id<RTRDriver>(id<RTRNode> node) {

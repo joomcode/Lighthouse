@@ -1,5 +1,5 @@
 //
-//  PXStateDisplayingViewController.h
+//  PXStateViewController.h
 //  RouterDemo
 //
 //  Created by Nick Tymchenko on 03/10/15.
@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <Router.h>
 
-@interface PXStateDisplayingViewController : UIViewController
+@interface PXStateViewController : UIViewController
 
 - (instancetype)initWithUpdateHandler:(id<RTRUpdateHandler>)updateHandler;
 

@@ -1,5 +1,5 @@
 //
-//  PXStateDisplayingViewControllerDriver.h
+//  PXStateViewControllerDriver.h
 //  RouterDemo
 //
 //  Created by Nick Tymchenko on 03/10/15.
@@ -8,7 +8,7 @@
 
 #import <Router.h>
 
-@interface PXStateDisplayingViewControllerDriver : RTRUpdateOrientedDriver
+@interface PXStateViewControllerDriver : RTRUpdateOrientedDriver
 
 - (instancetype)initWithViewControllerClass:(Class)viewControllerClass;
 

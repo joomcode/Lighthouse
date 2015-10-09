@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "PXStateDisplayingViewController.h"
+#import "PXStateViewController.h"
 
-@interface PXDeepModalViewController : PXStateDisplayingViewController
+@interface PXDeepModalViewController : PXStateViewController
 
 @end

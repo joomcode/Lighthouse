@@ -1,21 +1,21 @@
 //
-//  PXStateDisplayingViewController.m
+//  PXStateViewController.m
 //  RouterDemo
 //
 //  Created by Nick Tymchenko on 03/10/15.
 //  Copyright © 2015 Pixty. All rights reserved.
 //
 
-#import "PXStateDisplayingViewController.h"
+#import "PXStateViewController.h"
 
-@interface PXStateDisplayingViewController ()
+@interface PXStateViewController ()
 
 @property (nonatomic, strong) UILabel *stateLabel;
 
 @end
 
 
-@implementation PXStateDisplayingViewController
+@implementation PXStateViewController
 
 - (instancetype)initWithUpdateHandler:(id<RTRUpdateHandler>)updateHandler {
     self = [super init];

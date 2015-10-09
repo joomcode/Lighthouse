@@ -7,18 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "PXStateDisplayingViewController.h"
+#import "PXStateViewController.h"
 
-@interface PXRedViewController : PXStateDisplayingViewController
-
-@end
-
-
-@interface PXGreenViewController : PXStateDisplayingViewController
+@interface PXRedViewController : PXStateViewController
 
 @end
 
 
-@interface PXBlueViewController : PXStateDisplayingViewController
+@interface PXGreenViewController : PXStateViewController
+
+@end
+
+
+@interface PXBlueViewController : PXStateViewController
 
 @end
