@@ -15,3 +15,12 @@ typedef NS_ENUM(NSInteger, RTRNodeState) {
     RTRNodeStateActivating = 3,
     RTRNodeStateActive = 4
 };
+
+
+static inline BOOL RTRNodeStateIsInitialized(RTRNodeState state) {
+    return state != RTRNodeStateNotInitialized;
+}
+
+static inline BOOL RTRNodeStateIsTransitioning(RTRNodeState state) {
+    return state == RTRNodeStateDeactivating || state == RTRNodeStateActivating;
+}
