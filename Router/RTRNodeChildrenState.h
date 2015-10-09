@@ -12,7 +12,7 @@
 
 @property (nonatomic, readonly) NSOrderedSet *initializedChildren;
 
-@property (nonatomic, readonly) NSOrderedSet *activeChildren;
+@property (nonatomic, readonly) NSSet *activeChildren;
 
 @end
 

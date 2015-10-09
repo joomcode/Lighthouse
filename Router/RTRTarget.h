@@ -13,6 +13,7 @@
 @interface RTRTarget : NSObject
 
 @property (nonatomic, copy, readonly) NSSet *activeNodes;
+
 @property (nonatomic, copy, readonly) NSSet *inactiveNodes;
 
 - (instancetype)initWithActiveNodes:(NSSet *)activeNodes inactiveNodes:(NSSet *)inactiveNodes;

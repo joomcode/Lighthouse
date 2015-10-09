@@ -42,7 +42,7 @@
     }
     
     NSAssert(context.childrenState.activeChildren.count <= 1, @""); // TODO
-    NSAssert(context.childrenState.initializedChildren.lastObject == context.childrenState.activeChildren.lastObject, @""); // TODO
+    NSAssert(context.childrenState.initializedChildren.lastObject == context.childrenState.activeChildren.anyObject, @""); // TODO
     
     NSArray *childViewControllers = [RTRViewControllerDriverHelpers childViewControllersWithUpdateContext:context];
     

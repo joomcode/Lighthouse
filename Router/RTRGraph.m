@@ -102,7 +102,7 @@
 }
 
 - (void)collectActiveNodesRecursively:(id<RTRNode>)node currentTree:(RTRNodeTree *)currentTree {
-    [currentTree addFork:[node.childrenState.activeChildren array] afterItemOrNil:node];
+    [currentTree addFork:[node.childrenState.activeChildren allObjects] afterItemOrNil:node];
     
     for (id<RTRNode> childNode in node.childrenState.activeChildren) {
         [self collectInitializedNodesRecursively:childNode currentTree:currentTree];

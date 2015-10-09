@@ -17,7 +17,7 @@
     if (!self) return nil;
     
     _initializedChildren = [stack copy];
-    _activeChildren = [NSOrderedSet orderedSetWithObject:stack.lastObject];
+    _activeChildren = [NSSet setWithObject:stack.lastObject];
     
     return self;
 }

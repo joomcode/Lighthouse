@@ -26,9 +26,9 @@
     _initializedChildren = [initializedChildren copy] ?: [NSOrderedSet orderedSet];
     
     if (activeChildrenIndexSet) {
-        _activeChildren = [NSOrderedSet orderedSetWithArray:[_initializedChildren objectsAtIndexes:activeChildrenIndexSet]];
+        _activeChildren = [NSSet setWithArray:[_initializedChildren objectsAtIndexes:activeChildrenIndexSet]];
     } else {
-        _activeChildren = [NSOrderedSet orderedSet];
+        _activeChildren = [NSSet set];
     }
     
     return self;

@@ -49,7 +49,7 @@
 
 - (void)updateWithContext:(id<RTRDriverUpdateContext>)context {
     NSAssert(context.childrenState.activeChildren.count <= 1, @""); // TODO
-    NSAssert(context.childrenState.initializedChildren.lastObject == context.childrenState.activeChildren.lastObject, @""); // TODO
+    NSAssert(context.childrenState.initializedChildren.lastObject == context.childrenState.activeChildren.anyObject, @""); // TODO
     
     self.childNodes = [context.childrenState.initializedChildren.array copy];
     

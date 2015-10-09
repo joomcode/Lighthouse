@@ -43,7 +43,7 @@
     
     NSAssert(context.childrenState.activeChildren.count == 1, @""); // TODO
     
-    id<RTRNode> activeChild = context.childrenState.activeChildren.firstObject;
+    id<RTRNode> activeChild = context.childrenState.activeChildren.anyObject;
     
     self.childNodes = context.childrenState.initializedChildren;
     self.activeChildIndex = [self.childNodes indexOfObject:activeChild];
