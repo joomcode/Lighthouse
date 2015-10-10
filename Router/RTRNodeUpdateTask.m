@@ -72,7 +72,7 @@
     
     [self updateAffectedNodesState];
     
-    [self updateNodesDriver];
+    [self updateDrivers];
     
     [self.driverUpdateQueue runTaskWithBlock:^{
         if (!self.cancelled) {
@@ -160,26 +160,26 @@
 
 #pragma mark - Driver manipulation
 
-- (void)updateNodesDriver {
-    [self updateDriverRecursively:self.components.graph.rootNode];
+- (void)updateDrivers {
+    [self updateDriversRecursively:self.components.graph.rootNode];
 }
 
-- (void)updateDriverRecursively:(id<RTRNode>)node {
+- (void)updateDriversRecursively:(id<RTRNode>)node {
     for (id<RTRNode> childNode in [self.affectedNodes nextItems:node]) {
-        [self updateDriverRecursively:childNode];
+        [self updateDriversRecursively:childNode];
     }
         
-    [self updateDriver:node];
+    [self updateDriverForNode:node];
 }
 
-- (void)updateDriver:(id<RTRNode>)node {
+- (void)updateDriverForNode:(id<RTRNode>)node {
     RTRNodeData *data = [self.components.nodeDataStorage dataForNode:node];
     RTRTaskQueue *localUpdateQueue = [[RTRTaskQueue alloc] init];
     
     NSAssert(data.driver != nil, @""); // TODO
     
     [self.driverUpdateQueue runTaskWithBlock:^{
-        [self willUpdateDriver:node];
+        [self willUpdateDriverForNode:node];
     }];
     
     [self.driverUpdateQueue runAsyncTaskWithBlock:^(RTRTaskCompletionBlock completion) {
@@ -191,11 +191,11 @@
     }];
     
     [self.driverUpdateQueue runTaskWithBlock:^{
-        [self didUpdateDriver:node];
+        [self didUpdateDriverForNode:node];
     }];
 }
 
-- (void)willUpdateDriver:(id<RTRNode>)node {
+- (void)willUpdateDriverForNode:(id<RTRNode>)node {
     for (id<RTRNode> child in [node allChildren]) {
         RTRNodeData *childData = [self.components.nodeDataStorage dataForNode:child];
         
@@ -214,7 +214,7 @@
     [self.components.nodeDataStorage updateResolvedStateForAffectedNodeTree:self.affectedNodes];
 }
 
-- (void)didUpdateDriver:(id<RTRNode>)node {
+- (void)didUpdateDriverForNode:(id<RTRNode>)node {
     for (id<RTRNode> child in [node allChildren]) {
         RTRNodeData *childData = [self.components.nodeDataStorage dataForNode:child];
         childData.presentationState = childData.state;
