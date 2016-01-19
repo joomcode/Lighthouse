@@ -12,7 +12,7 @@
 
 @interface RTRTabNode ()
 
-@property (nonatomic, copy, readonly) NSOrderedSet *orderedChildren;
+@property (nonatomic, copy, readonly) NSOrderedSet<id<RTRNode>> *orderedChildren;
 
 @property (nonatomic, strong) id<RTRNodeChildrenState> childrenState;
 
@@ -23,13 +23,7 @@
 
 #pragma mark - Init
 
-- (instancetype)init {
-    return [self initWithChildren:nil];
-}
-
-- (instancetype)initWithChildren:(NSOrderedSet *)children {
-    NSParameterAssert(children.count > 0);
-    
+- (instancetype)initWithChildren:(NSOrderedSet<id<RTRNode>> *)children {
     self = [super init];
     if (!self) return nil;
     
@@ -44,7 +38,7 @@
 
 @synthesize childrenState = _childrenState;
 
-- (NSSet *)allChildren {
+- (NSSet<id<RTRNode>> *)allChildren {
     return [self.orderedChildren set];
 }
 

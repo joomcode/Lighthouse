@@ -17,7 +17,7 @@
     return [self initWithActiveNodes:nil inactiveNodes:nil];
 }
 
-- (instancetype)initWithActiveNodes:(NSSet *)activeNodes inactiveNodes:(NSSet *)inactiveNodes {
+- (instancetype)initWithActiveNodes:(NSSet<id<RTRNode>> *)activeNodes inactiveNodes:(NSSet<id<RTRNode>> *)inactiveNodes {
     self = [super init];
     if (!self) return nil;
     
@@ -31,7 +31,7 @@
     return [[[self class] alloc] initWithActiveNodes:[NSSet setWithObject:activeNode] inactiveNodes:nil];
 }
 
-+ (instancetype)withActiveNodes:(NSArray *)activeNodes {
++ (instancetype)withActiveNodes:(NSArray<id<RTRNode>> *)activeNodes {
     return [[[self class] alloc] initWithActiveNodes:[NSSet setWithArray:activeNodes] inactiveNodes:nil];
 }
 
@@ -39,7 +39,7 @@
     return [[[self class] alloc] initWithActiveNodes:nil inactiveNodes:[NSSet setWithObject:inactiveNode]];
 }
 
-+ (instancetype)withInactiveNodes:(NSArray *)inactiveNodes {
++ (instancetype)withInactiveNodes:(NSArray<id<RTRNode>> *)inactiveNodes {
     return [[[self class] alloc] initWithActiveNodes:nil inactiveNodes:[NSSet setWithArray:inactiveNodes]];
 }
 

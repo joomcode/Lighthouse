@@ -12,7 +12,7 @@
 
 #pragma mark - RTRNode
 
-- (NSSet *)allChildren {
+- (NSSet<id<RTRNode>> *)allChildren {
     return nil;
 }
 

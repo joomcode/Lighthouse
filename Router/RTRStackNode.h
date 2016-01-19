@@ -10,10 +10,18 @@
 
 @class RTRNodeTree;
 
+NS_ASSUME_NONNULL_BEGIN
+
+
 @interface RTRStackNode : NSObject <RTRNode>
 
-- (instancetype)initWithSingleBranch:(NSArray *)nodes;
+- (instancetype)initWithSingleBranch:(NSArray<id<RTRNode>> *)nodes;
 
-- (instancetype)initWithTree:(RTRNodeTree *)tree;
+- (instancetype)initWithTree:(RTRNodeTree *)tree NS_DESIGNATED_INITIALIZER;
+
+- (instancetype)init NS_UNAVAILABLE;
 
 @end
+
+
+NS_ASSUME_NONNULL_END

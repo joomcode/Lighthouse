@@ -10,8 +10,16 @@
 
 @class RTRNodeTree;
 
+NS_ASSUME_NONNULL_BEGIN
+
+
 @interface RTRStackNodeChildrenState : NSObject <RTRNodeChildrenState>
 
-- (instancetype)initWithStack:(NSOrderedSet *)stack;
+- (instancetype)initWithStack:(NSOrderedSet<id<RTRNode>> *)stack NS_DESIGNATED_INITIALIZER;
+
+- (instancetype)init NS_UNAVAILABLE;
 
 @end
+
+
+NS_ASSUME_NONNULL_END

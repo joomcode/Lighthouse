@@ -13,12 +13,12 @@
 
 @interface RTRFreeStackNode ()
 
-@property (nonatomic, copy, readonly) NSArray *trees;
+@property (nonatomic, copy, readonly) NSArray<RTRNodeTree *> *trees;
 
-@property (nonatomic, strong) NSArray *treeStack;
+@property (nonatomic, strong) NSArray<RTRNodeTree *> *treeStack;
 @property (nonatomic, strong) RTRStackNodeChildrenState *childrenState;
 
-@property (nonatomic, strong) NSMapTable *nodeStackByTree;
+@property (nonatomic, strong) NSMapTable<RTRNodeTree *, NSOrderedSet<id<RTRNode>> *> *nodeStackByTree;
 
 @end
 
@@ -27,19 +27,13 @@
 
 #pragma mark - Init
 
-- (instancetype)init {
-    return [self initWithTrees:nil];
-}
-
-- (instancetype)initWithTrees:(NSArray *)trees {
-    NSParameterAssert(trees.count > 0);
-    
+- (instancetype)initWithTrees:(NSArray<RTRNodeTree *> *)trees {
     self = [super init];
     if (!self) return nil;
     
     _trees = [trees copy];
     
-    NSMutableSet *allChildren = [[NSMutableSet alloc] init];
+    NSMutableSet<id<RTRNode>> *allChildren = [[NSMutableSet alloc] init];
     for (RTRNodeTree *tree in trees) {
         [allChildren unionSet:[tree allItems]];
     }

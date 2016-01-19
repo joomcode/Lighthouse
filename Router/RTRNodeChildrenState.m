@@ -17,9 +17,8 @@
     return [self initWithInitializedChildren:nil activeChildrenIndexSet:nil];
 }
 
-- (instancetype)initWithInitializedChildren:(NSOrderedSet *)initializedChildren
-                     activeChildrenIndexSet:(NSIndexSet *)activeChildrenIndexSet
-{
+- (instancetype)initWithInitializedChildren:(NSOrderedSet<id<RTRNode>> *)initializedChildren
+                     activeChildrenIndexSet:(NSIndexSet *)activeChildrenIndexSet {
     self = [super init];
     if (!self) return nil;
     

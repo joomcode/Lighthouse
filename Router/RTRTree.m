@@ -59,6 +59,10 @@
 }
 
 - (NSOrderedSet *)pathToItem:(id)item {
+    if (![self.items containsObject:item]) {
+        return nil;
+    }
+    
     NSMutableOrderedSet *path = [[NSMutableOrderedSet alloc] initWithObject:item];
     
     id currentItem = item;

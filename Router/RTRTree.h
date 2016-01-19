@@ -8,16 +8,19 @@
 
 #import <Foundation/Foundation.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
+
 @interface RTRTree<ObjectType> : NSObject <NSCopying>
 
 - (NSSet<ObjectType> *)allItems;
 
-- (ObjectType)previousItem:(ObjectType)item;
-- (NSOrderedSet<ObjectType> *)nextItems:(ObjectType)item;
+- (nullable ObjectType)previousItem:(ObjectType)item;
+- (nullable NSOrderedSet<ObjectType> *)nextItems:(nullable ObjectType)item;
 
-- (NSOrderedSet<ObjectType> *)pathToItem:(ObjectType)item;
+- (nullable NSOrderedSet<ObjectType> *)pathToItem:(ObjectType)item;
 
-- (void)enumerateItemsWithBlock:(void (^)(ObjectType item, ObjectType previousItem, BOOL *stop))enumerationBlock;
+- (void)enumerateItemsWithBlock:(void (^)(ObjectType item, ObjectType _Nullable previousItem, BOOL *stop))enumerationBlock;
 - (void)enumeratePathsToLeavesWithBlock:(void (^)(NSOrderedSet<ObjectType> *path, BOOL *stop))enumerationBlock;
 
 @end
@@ -27,10 +30,13 @@
 
 @interface RTRTree<ObjectType> (Mutation)
 
-- (void)addItem:(ObjectType)item afterItemOrNil:(ObjectType)previousItem;
+- (void)addItem:(ObjectType)item afterItemOrNil:(nullable ObjectType)previousItem;
 
-- (void)addBranch:(NSArray<ObjectType> *)item afterItemOrNil:(ObjectType)previousItem;
+- (void)addBranch:(NSArray<ObjectType> *)item afterItemOrNil:(nullable ObjectType)previousItem;
 
-- (void)addFork:(NSArray<ObjectType> *)item afterItemOrNil:(ObjectType)previousItem;
+- (void)addFork:(NSArray<ObjectType> *)item afterItemOrNil:(nullable ObjectType)previousItem;
 
 @end
+
+
+NS_ASSUME_NONNULL_END

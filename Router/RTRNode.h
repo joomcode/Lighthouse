@@ -11,14 +11,20 @@
 @protocol RTRNodeChildrenState;
 @protocol RTRTarget;
 
+NS_ASSUME_NONNULL_BEGIN
+
+
 @protocol RTRNode <NSObject>
 
-@property (nonatomic, readonly) NSSet *allChildren;
+@property (nonatomic, readonly, nullable) NSSet<id<RTRNode>> *allChildren;
 
-@property (nonatomic, readonly) id<RTRNodeChildrenState> childrenState;
+@property (nonatomic, readonly, nullable) id<RTRNodeChildrenState> childrenState;
 
 - (void)resetChildrenState;
 
 - (BOOL)updateChildrenState:(id<RTRTarget>)target;
 
 @end
+
+
+NS_ASSUME_NONNULL_END

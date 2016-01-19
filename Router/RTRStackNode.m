@@ -24,13 +24,7 @@
 
 #pragma mark - Init
 
-- (instancetype)init {
-    return [self initWithTree:nil];
-}
-
-- (instancetype)initWithSingleBranch:(NSArray *)nodes {
-    NSParameterAssert(nodes != nil);
-    
+- (instancetype)initWithSingleBranch:(NSArray<id<RTRNode>> *)nodes {
     RTRNodeTree *tree = [[RTRNodeTree alloc] init];
     [tree addBranch:nodes afterItemOrNil:nil];
     
@@ -38,8 +32,6 @@
 }
 
 - (instancetype)initWithTree:(RTRNodeTree *)tree {
-    NSParameterAssert(tree != nil);
-    
     self = [super init];
     if (!self) return nil;
 
@@ -54,7 +46,7 @@
 
 @synthesize childrenState = _childrenState;
 
-- (NSSet *)allChildren {
+- (NSSet<id<RTRNode>> *)allChildren {
     return [self.tree allItems];
 }
 

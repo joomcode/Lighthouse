@@ -8,8 +8,18 @@
 
 #import "RTRNode.h"
 
+@class RTRNodeTree;
+
+NS_ASSUME_NONNULL_BEGIN
+
+
 @interface RTRFreeStackNode : NSObject <RTRNode>
 
-- (instancetype)initWithTrees:(NSArray *)trees;
+- (instancetype)initWithTrees:(NSArray<RTRNodeTree *> *)trees NS_DESIGNATED_INITIALIZER;
+
+- (instancetype)init NS_UNAVAILABLE;
 
 @end
+
+
+NS_ASSUME_NONNULL_END
