@@ -1,0 +1,636 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0111CC271BAAED0D00C19022 /* PXDeepModalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0111CC261BAAED0D00C19022 /* PXDeepModalViewController.m */; };
+		012497921BA99994007CD98B /* PXPresentModal.m in Sources */ = {isa = PBXBuildFile; fileRef = 012497911BA99994007CD98B /* PXPresentModal.m */; };
+		012497951BA9C686007CD98B /* PXPresentAnotherModal.m in Sources */ = {isa = PBXBuildFile; fileRef = 012497941BA9C686007CD98B /* PXPresentAnotherModal.m */; };
+		013F68BD1BA62CA300B5797B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 013F68BC1BA62CA300B5797B /* main.m */; };
+		013F68C01BA62CA300B5797B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 013F68BF1BA62CA300B5797B /* AppDelegate.m */; };
+		013F68C81BA62CA300B5797B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 013F68C71BA62CA300B5797B /* Assets.xcassets */; };
+		013F68D61BA62CA300B5797B /* LighthouseDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 013F68D51BA62CA300B5797B /* LighthouseDemoTests.m */; };
+		013F68E11BA62CA300B5797B /* LighthouseDemoUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 013F68E01BA62CA300B5797B /* LighthouseDemoUITests.m */; };
+		013F68FE1BA62D0000B5797B /* libLighthouse.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 013F68FD1BA62D0000B5797B /* libLighthouse.a */; };
+		017E5B1B1BC0281B00C6C831 /* PXStateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 017E5B1A1BC0281B00C6C831 /* PXStateViewController.m */; };
+		017E5B1E1BC031EE00C6C831 /* PXStateViewControllerDriver.m in Sources */ = {isa = PBXBuildFile; fileRef = 017E5B1D1BC031EE00C6C831 /* PXStateViewControllerDriver.m */; };
+		017E5B211BC14BBE00C6C831 /* PXNodeHierarchy.m in Sources */ = {isa = PBXBuildFile; fileRef = 017E5B201BC14BBE00C6C831 /* PXNodeHierarchy.m */; };
+		017E5B2B1BC1762800C6C831 /* PXDismissModal.m in Sources */ = {isa = PBXBuildFile; fileRef = 017E5B2A1BC1762800C6C831 /* PXDismissModal.m */; };
+		0186CB101BAE190400B22431 /* PXPresentAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = 0186CB0F1BAE190400B22431 /* PXPresentAlert.m */; };
+		01A01A611BA8324700608274 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01A01A601BA8324700608274 /* LaunchScreen.xib */; };
+		01A01A871BA8777100608274 /* PXColorViewControllers.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A01A861BA8777100608274 /* PXColorViewControllers.m */; };
+		01A01A8B1BA8782700608274 /* PXPresentRed.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A01A8A1BA8782700608274 /* PXPresentRed.m */; };
+		01A01A8E1BA8783600608274 /* PXPresentGreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A01A8D1BA8783600608274 /* PXPresentGreen.m */; };
+		01A01A911BA8783E00608274 /* PXPresentBlue.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A01A901BA8783E00608274 /* PXPresentBlue.m */; };
+		01A01A941BA8786F00608274 /* LHRouter+Shared.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A01A931BA8786F00608274 /* LHRouter+Shared.m */; };
+		01A01AB41BA9887D00608274 /* PXModalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A01AB31BA9887D00608274 /* PXModalViewController.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		013F68D21BA62CA300B5797B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 013F68B01BA62CA300B5797B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 013F68B71BA62CA300B5797B;
+			remoteInfo = LighthouseDemo;
+		};
+		013F68DD1BA62CA300B5797B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 013F68B01BA62CA300B5797B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 013F68B71BA62CA300B5797B;
+			remoteInfo = LighthouseDemo;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		0111CC251BAAED0D00C19022 /* PXDeepModalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXDeepModalViewController.h; sourceTree = "<group>"; };
+		0111CC261BAAED0D00C19022 /* PXDeepModalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXDeepModalViewController.m; sourceTree = "<group>"; };
+		012497901BA99994007CD98B /* PXPresentModal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXPresentModal.h; sourceTree = "<group>"; };
+		012497911BA99994007CD98B /* PXPresentModal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXPresentModal.m; sourceTree = "<group>"; };
+		012497931BA9C686007CD98B /* PXPresentAnotherModal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXPresentAnotherModal.h; sourceTree = "<group>"; };
+		012497941BA9C686007CD98B /* PXPresentAnotherModal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXPresentAnotherModal.m; sourceTree = "<group>"; };
+		013F68B81BA62CA300B5797B /* LighthouseDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LighthouseDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		013F68BC1BA62CA300B5797B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		013F68BE1BA62CA300B5797B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		013F68BF1BA62CA300B5797B /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		013F68C71BA62CA300B5797B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		013F68CC1BA62CA300B5797B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		013F68D11BA62CA300B5797B /* LighthouseDemo.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LighthouseDemo.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		013F68D51BA62CA300B5797B /* LighthouseDemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LighthouseDemoTests.m; sourceTree = "<group>"; };
+		013F68D71BA62CA300B5797B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		013F68DC1BA62CA300B5797B /* LighthouseDemo.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LighthouseDemo.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		013F68E01BA62CA300B5797B /* LighthouseDemoUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LighthouseDemoUITests.m; sourceTree = "<group>"; };
+		013F68E21BA62CA300B5797B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		013F68FD1BA62D0000B5797B /* libLighthouse.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libLighthouse.a; path = "../build/Debug-iphoneos/libLighthouse.a"; sourceTree = "<group>"; };
+		017E5B191BC0281B00C6C831 /* PXStateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXStateViewController.h; sourceTree = "<group>"; };
+		017E5B1A1BC0281B00C6C831 /* PXStateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXStateViewController.m; sourceTree = "<group>"; };
+		017E5B1C1BC031EE00C6C831 /* PXStateViewControllerDriver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXStateViewControllerDriver.h; sourceTree = "<group>"; };
+		017E5B1D1BC031EE00C6C831 /* PXStateViewControllerDriver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXStateViewControllerDriver.m; sourceTree = "<group>"; };
+		017E5B1F1BC14BBE00C6C831 /* PXNodeHierarchy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXNodeHierarchy.h; sourceTree = "<group>"; };
+		017E5B201BC14BBE00C6C831 /* PXNodeHierarchy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXNodeHierarchy.m; sourceTree = "<group>"; };
+		017E5B291BC1762800C6C831 /* PXDismissModal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXDismissModal.h; sourceTree = "<group>"; };
+		017E5B2A1BC1762800C6C831 /* PXDismissModal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXDismissModal.m; sourceTree = "<group>"; };
+		017E5B2C1BC1764A00C6C831 /* PXCommands.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PXCommands.h; sourceTree = "<group>"; };
+		0186CB0E1BAE190400B22431 /* PXPresentAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXPresentAlert.h; sourceTree = "<group>"; };
+		0186CB0F1BAE190400B22431 /* PXPresentAlert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXPresentAlert.m; sourceTree = "<group>"; };
+		01A01A601BA8324700608274 /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
+		01A01A851BA8777100608274 /* PXColorViewControllers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXColorViewControllers.h; sourceTree = "<group>"; };
+		01A01A861BA8777100608274 /* PXColorViewControllers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXColorViewControllers.m; sourceTree = "<group>"; };
+		01A01A891BA8782700608274 /* PXPresentRed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXPresentRed.h; sourceTree = "<group>"; };
+		01A01A8A1BA8782700608274 /* PXPresentRed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXPresentRed.m; sourceTree = "<group>"; };
+		01A01A8C1BA8783600608274 /* PXPresentGreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXPresentGreen.h; sourceTree = "<group>"; };
+		01A01A8D1BA8783600608274 /* PXPresentGreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXPresentGreen.m; sourceTree = "<group>"; };
+		01A01A8F1BA8783E00608274 /* PXPresentBlue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXPresentBlue.h; sourceTree = "<group>"; };
+		01A01A901BA8783E00608274 /* PXPresentBlue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXPresentBlue.m; sourceTree = "<group>"; };
+		01A01A921BA8786F00608274 /* LHRouter+Shared.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "LHRouter+Shared.h"; sourceTree = "<group>"; };
+		01A01A931BA8786F00608274 /* LHRouter+Shared.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "LHRouter+Shared.m"; sourceTree = "<group>"; };
+		01A01AB21BA9887D00608274 /* PXModalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXModalViewController.h; sourceTree = "<group>"; };
+		01A01AB31BA9887D00608274 /* PXModalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXModalViewController.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		013F68B51BA62CA300B5797B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				013F68FE1BA62D0000B5797B /* libLighthouse.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		013F68CE1BA62CA300B5797B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		013F68D91BA62CA300B5797B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		013F68AF1BA62CA300B5797B = {
+			isa = PBXGroup;
+			children = (
+				013F68BA1BA62CA300B5797B /* LighthouseDemo */,
+				013F68D41BA62CA300B5797B /* LighthouseDemoTests */,
+				013F68DF1BA62CA300B5797B /* LighthouseDemoUITests */,
+				013F68FF1BA62D0E00B5797B /* Frameworks */,
+				013F68B91BA62CA300B5797B /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		013F68B91BA62CA300B5797B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				013F68B81BA62CA300B5797B /* LighthouseDemo.app */,
+				013F68D11BA62CA300B5797B /* LighthouseDemo.xctest */,
+				013F68DC1BA62CA300B5797B /* LighthouseDemo.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		013F68BA1BA62CA300B5797B /* LighthouseDemo */ = {
+			isa = PBXGroup;
+			children = (
+				01A01A841BA8775600608274 /* View Controllers */,
+				01B713A11BC86C4D0011DDF3 /* Nodes */,
+				01B713A01BC86C2F0011DDF3 /* Drivers */,
+				01A01A881BA8780300608274 /* Commands */,
+				01A01A921BA8786F00608274 /* LHRouter+Shared.h */,
+				01A01A931BA8786F00608274 /* LHRouter+Shared.m */,
+				013F68BE1BA62CA300B5797B /* AppDelegate.h */,
+				013F68BF1BA62CA300B5797B /* AppDelegate.m */,
+				01A01A601BA8324700608274 /* LaunchScreen.xib */,
+				013F68C71BA62CA300B5797B /* Assets.xcassets */,
+				013F68CC1BA62CA300B5797B /* Info.plist */,
+				013F68BB1BA62CA300B5797B /* Supporting Files */,
+			);
+			path = LighthouseDemo;
+			sourceTree = "<group>";
+		};
+		013F68BB1BA62CA300B5797B /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				013F68BC1BA62CA300B5797B /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		013F68D41BA62CA300B5797B /* LighthouseDemoTests */ = {
+			isa = PBXGroup;
+			children = (
+				013F68D51BA62CA300B5797B /* LighthouseDemoTests.m */,
+				013F68D71BA62CA300B5797B /* Info.plist */,
+			);
+			path = LighthouseDemoTests;
+			sourceTree = "<group>";
+		};
+		013F68DF1BA62CA300B5797B /* LighthouseDemoUITests */ = {
+			isa = PBXGroup;
+			children = (
+				013F68E01BA62CA300B5797B /* LighthouseDemoUITests.m */,
+				013F68E21BA62CA300B5797B /* Info.plist */,
+			);
+			path = LighthouseDemoUITests;
+			sourceTree = "<group>";
+		};
+		013F68FF1BA62D0E00B5797B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				013F68FD1BA62D0000B5797B /* libLighthouse.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		01A01A841BA8775600608274 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				017E5B191BC0281B00C6C831 /* PXStateViewController.h */,
+				017E5B1A1BC0281B00C6C831 /* PXStateViewController.m */,
+				01A01A851BA8777100608274 /* PXColorViewControllers.h */,
+				01A01A861BA8777100608274 /* PXColorViewControllers.m */,
+				01A01AB21BA9887D00608274 /* PXModalViewController.h */,
+				01A01AB31BA9887D00608274 /* PXModalViewController.m */,
+				0111CC251BAAED0D00C19022 /* PXDeepModalViewController.h */,
+				0111CC261BAAED0D00C19022 /* PXDeepModalViewController.m */,
+			);
+			name = "View Controllers";
+			sourceTree = "<group>";
+		};
+		01A01A881BA8780300608274 /* Commands */ = {
+			isa = PBXGroup;
+			children = (
+				017E5B2C1BC1764A00C6C831 /* PXCommands.h */,
+				01A01A891BA8782700608274 /* PXPresentRed.h */,
+				01A01A8A1BA8782700608274 /* PXPresentRed.m */,
+				01A01A8C1BA8783600608274 /* PXPresentGreen.h */,
+				01A01A8D1BA8783600608274 /* PXPresentGreen.m */,
+				01A01A8F1BA8783E00608274 /* PXPresentBlue.h */,
+				01A01A901BA8783E00608274 /* PXPresentBlue.m */,
+				012497901BA99994007CD98B /* PXPresentModal.h */,
+				012497911BA99994007CD98B /* PXPresentModal.m */,
+				017E5B291BC1762800C6C831 /* PXDismissModal.h */,
+				017E5B2A1BC1762800C6C831 /* PXDismissModal.m */,
+				012497931BA9C686007CD98B /* PXPresentAnotherModal.h */,
+				012497941BA9C686007CD98B /* PXPresentAnotherModal.m */,
+				0186CB0E1BAE190400B22431 /* PXPresentAlert.h */,
+				0186CB0F1BAE190400B22431 /* PXPresentAlert.m */,
+			);
+			name = Commands;
+			sourceTree = "<group>";
+		};
+		01B713A01BC86C2F0011DDF3 /* Drivers */ = {
+			isa = PBXGroup;
+			children = (
+				017E5B1C1BC031EE00C6C831 /* PXStateViewControllerDriver.h */,
+				017E5B1D1BC031EE00C6C831 /* PXStateViewControllerDriver.m */,
+			);
+			name = Drivers;
+			sourceTree = "<group>";
+		};
+		01B713A11BC86C4D0011DDF3 /* Nodes */ = {
+			isa = PBXGroup;
+			children = (
+				017E5B1F1BC14BBE00C6C831 /* PXNodeHierarchy.h */,
+				017E5B201BC14BBE00C6C831 /* PXNodeHierarchy.m */,
+			);
+			name = Nodes;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		013F68B71BA62CA300B5797B /* LighthouseDemo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 013F68E51BA62CA300B5797B /* Build configuration list for PBXNativeTarget "LighthouseDemo" */;
+			buildPhases = (
+				013F68B41BA62CA300B5797B /* Sources */,
+				013F68B51BA62CA300B5797B /* Frameworks */,
+				013F68B61BA62CA300B5797B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = LighthouseDemo;
+			productName = LighthouseDemo;
+			productReference = 013F68B81BA62CA300B5797B /* LighthouseDemo.app */;
+			productType = "com.apple.product-type.application";
+		};
+		013F68D01BA62CA300B5797B /* LighthouseDemoTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 013F68E81BA62CA300B5797B /* Build configuration list for PBXNativeTarget "LighthouseDemoTests" */;
+			buildPhases = (
+				013F68CD1BA62CA300B5797B /* Sources */,
+				013F68CE1BA62CA300B5797B /* Frameworks */,
+				013F68CF1BA62CA300B5797B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				013F68D31BA62CA300B5797B /* PBXTargetDependency */,
+			);
+			name = LighthouseDemoTests;
+			productName = LighthouseDemoTests;
+			productReference = 013F68D11BA62CA300B5797B /* LighthouseDemo.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		013F68DB1BA62CA300B5797B /* LighthouseDemoUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 013F68EB1BA62CA300B5797B /* Build configuration list for PBXNativeTarget "LighthouseDemoUITests" */;
+			buildPhases = (
+				013F68D81BA62CA300B5797B /* Sources */,
+				013F68D91BA62CA300B5797B /* Frameworks */,
+				013F68DA1BA62CA300B5797B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				013F68DE1BA62CA300B5797B /* PBXTargetDependency */,
+			);
+			name = LighthouseDemoUITests;
+			productName = LighthouseDemoUITests;
+			productReference = 013F68DC1BA62CA300B5797B /* LighthouseDemo.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		013F68B01BA62CA300B5797B /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = PX;
+				LastUpgradeCheck = 0710;
+				ORGANIZATIONNAME = Pixty;
+				TargetAttributes = {
+					013F68B71BA62CA300B5797B = {
+						CreatedOnToolsVersion = 7.1;
+					};
+					013F68D01BA62CA300B5797B = {
+						CreatedOnToolsVersion = 7.1;
+						TestTargetID = 013F68B71BA62CA300B5797B;
+					};
+					013F68DB1BA62CA300B5797B = {
+						CreatedOnToolsVersion = 7.1;
+						TestTargetID = 013F68B71BA62CA300B5797B;
+					};
+				};
+			};
+			buildConfigurationList = 013F68B31BA62CA300B5797B /* Build configuration list for PBXProject "LighthouseDemo" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 013F68AF1BA62CA300B5797B;
+			productRefGroup = 013F68B91BA62CA300B5797B /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				013F68B71BA62CA300B5797B /* LighthouseDemo */,
+				013F68D01BA62CA300B5797B /* LighthouseDemoTests */,
+				013F68DB1BA62CA300B5797B /* LighthouseDemoUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		013F68B61BA62CA300B5797B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				013F68C81BA62CA300B5797B /* Assets.xcassets in Resources */,
+				01A01A611BA8324700608274 /* LaunchScreen.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		013F68CF1BA62CA300B5797B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		013F68DA1BA62CA300B5797B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		013F68B41BA62CA300B5797B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				01A01A941BA8786F00608274 /* LHRouter+Shared.m in Sources */,
+				017E5B211BC14BBE00C6C831 /* PXNodeHierarchy.m in Sources */,
+				012497921BA99994007CD98B /* PXPresentModal.m in Sources */,
+				0186CB101BAE190400B22431 /* PXPresentAlert.m in Sources */,
+				017E5B2B1BC1762800C6C831 /* PXDismissModal.m in Sources */,
+				017E5B1B1BC0281B00C6C831 /* PXStateViewController.m in Sources */,
+				01A01A911BA8783E00608274 /* PXPresentBlue.m in Sources */,
+				01A01A871BA8777100608274 /* PXColorViewControllers.m in Sources */,
+				0111CC271BAAED0D00C19022 /* PXDeepModalViewController.m in Sources */,
+				01A01AB41BA9887D00608274 /* PXModalViewController.m in Sources */,
+				013F68C01BA62CA300B5797B /* AppDelegate.m in Sources */,
+				017E5B1E1BC031EE00C6C831 /* PXStateViewControllerDriver.m in Sources */,
+				01A01A8E1BA8783600608274 /* PXPresentGreen.m in Sources */,
+				012497951BA9C686007CD98B /* PXPresentAnotherModal.m in Sources */,
+				013F68BD1BA62CA300B5797B /* main.m in Sources */,
+				01A01A8B1BA8782700608274 /* PXPresentRed.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		013F68CD1BA62CA300B5797B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				013F68D61BA62CA300B5797B /* LighthouseDemoTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		013F68D81BA62CA300B5797B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				013F68E11BA62CA300B5797B /* LighthouseDemoUITests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		013F68D31BA62CA300B5797B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 013F68B71BA62CA300B5797B /* LighthouseDemo */;
+			targetProxy = 013F68D21BA62CA300B5797B /* PBXContainerItemProxy */;
+		};
+		013F68DE1BA62CA300B5797B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 013F68B71BA62CA300B5797B /* LighthouseDemo */;
+			targetProxy = 013F68DD1BA62CA300B5797B /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		013F68E31BA62CA300B5797B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"../Lighthouse/**",
+				);
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = "-ObjC";
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		013F68E41BA62CA300B5797B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"../Lighthouse/**",
+				);
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "-ObjC";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		013F68E61BA62CA300B5797B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = LighthouseDemo/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.pixty.LighthouseDemo;
+				PRODUCT_NAME = LighthouseDemo;
+			};
+			name = Debug;
+		};
+		013F68E71BA62CA300B5797B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = LighthouseDemo/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.pixty.LighthouseDemo;
+				PRODUCT_NAME = LighthouseDemo;
+			};
+			name = Release;
+		};
+		013F68E91BA62CA300B5797B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = LighthouseDemoTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.pixty.LighthouseDemoTests;
+				PRODUCT_NAME = LighthouseDemo;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LighthouseDemo.app/LighthouseDemo";
+			};
+			name = Debug;
+		};
+		013F68EA1BA62CA300B5797B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = LighthouseDemoTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.pixty.LighthouseDemoTests;
+				PRODUCT_NAME = LighthouseDemo;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LighthouseDemo.app/LighthouseDemo";
+			};
+			name = Release;
+		};
+		013F68EC1BA62CA300B5797B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = LighthouseDemoUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.pixty.LighthouseDemoUITests;
+				PRODUCT_NAME = LighthouseDemo;
+				TEST_TARGET_NAME = LighthouseDemo;
+				USES_XCTRUNNER = YES;
+			};
+			name = Debug;
+		};
+		013F68ED1BA62CA300B5797B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = LighthouseDemoUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.pixty.LighthouseDemoUITests;
+				PRODUCT_NAME = LighthouseDemo;
+				TEST_TARGET_NAME = LighthouseDemo;
+				USES_XCTRUNNER = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		013F68B31BA62CA300B5797B /* Build configuration list for PBXProject "LighthouseDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				013F68E31BA62CA300B5797B /* Debug */,
+				013F68E41BA62CA300B5797B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		013F68E51BA62CA300B5797B /* Build configuration list for PBXNativeTarget "LighthouseDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				013F68E61BA62CA300B5797B /* Debug */,
+				013F68E71BA62CA300B5797B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		013F68E81BA62CA300B5797B /* Build configuration list for PBXNativeTarget "LighthouseDemoTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				013F68E91BA62CA300B5797B /* Debug */,
+				013F68EA1BA62CA300B5797B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		013F68EB1BA62CA300B5797B /* Build configuration list for PBXNativeTarget "LighthouseDemoUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				013F68EC1BA62CA300B5797B /* Debug */,
+				013F68ED1BA62CA300B5797B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 013F68B01BA62CA300B5797B /* Project object */;
+}
