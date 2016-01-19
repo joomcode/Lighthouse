@@ -105,10 +105,9 @@
     
     // Router
     
-    RTRRouter *router = [[RTRRouter alloc] init];
-    router.rootNode = hierarchy.rootNode;
-    router.driverProvider = driverProvider;
-    router.commandRegistry = commandRegistry;
+    RTRRouter *router = [[RTRRouter alloc] initWithRootNode:hierarchy.rootNode
+                                             driverProvider:driverProvider
+                                            commandRegistry:commandRegistry];
     router.delegate = self;
     
     self.router = router;

@@ -11,7 +11,11 @@
 @protocol RTRNode;
 @protocol RTRTarget;
 
-typedef id<RTRTarget> (^RTRCommandTargetProvidingBlock)(id<RTRCommand> command);
+NS_ASSUME_NONNULL_BEGIN
+
+
+typedef _Nullable id<RTRTarget> (^RTRCommandTargetProvidingBlock)(id<RTRCommand> command);
+
 
 @interface RTRBasicCommandRegistry : NSObject <RTRCommandRegistry>
 
@@ -24,3 +28,6 @@ typedef id<RTRTarget> (^RTRCommandTargetProvidingBlock)(id<RTRCommand> command);
 - (void)bindCommandClass:(Class)commandClass toBlock:(RTRCommandTargetProvidingBlock)block;
 
 @end
+
+
+NS_ASSUME_NONNULL_END

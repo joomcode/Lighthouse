@@ -11,7 +11,7 @@
 
 @interface RTRCompositeDriver ()
 
-@property (nonatomic, copy, readonly) NSDictionary *driversById;
+@property (nonatomic, copy, readonly) NSDictionary<id<NSCopying>, id<RTRDriver>> *driversById;
 @property (nonatomic, assign, readonly) BOOL hasFeedbackChannel;
 
 @end
@@ -21,13 +21,7 @@
 
 #pragma mark - Init
 
-- (instancetype)init {
-    return [self initWithDriversById:nil];
-}
-
-- (instancetype)initWithDriversById:(NSDictionary *)driversById {
-    NSParameterAssert(driversById != nil);
-    
+- (instancetype)initWithDriversById:(NSDictionary<id<NSCopying>, id<RTRDriver>> *)driversById {
     self = [super init];
     if (!self) return nil;
     
@@ -49,7 +43,7 @@
 @synthesize feedbackChannel = _feedbackChannel;
 
 - (id)data {
-    NSMutableDictionary *data = [[NSMutableDictionary alloc] initWithCapacity:self.driversById.count];
+    NSMutableDictionary<id<NSCopying>, id> *data = [[NSMutableDictionary alloc] initWithCapacity:self.driversById.count];
     
     [self.driversById enumerateKeysAndObjectsUsingBlock:^(id<NSCopying> driverId, id<RTRDriver> driver, BOOL *stop) {
         if (driver.data) {

@@ -15,16 +15,16 @@
 @protocol RTRDriverProvider;
 @protocol RTRRouterDelegate;
 
+NS_ASSUME_NONNULL_BEGIN
+
 
 @interface RTRRouter : NSObject
 
-@property (nonatomic, strong) id<RTRNode> rootNode;
+- (instancetype)initWithRootNode:(id<RTRNode>)rootNode
+                  driverProvider:(id<RTRDriverProvider>)driverProvider
+                 commandRegistry:(id<RTRCommandRegistry>)commandRegistry NS_DESIGNATED_INITIALIZER;
 
-@property (nonatomic, strong) id<RTRDriverProvider> driverProvider;
-
-@property (nonatomic, strong) id<RTRCommandRegistry> commandRegistry;
-
-@property (nonatomic, weak) id<RTRRouterDelegate> delegate;
+- (instancetype)init NS_UNAVAILABLE;
 
 
 - (void)executeCommand:(id<RTRCommand>)command animated:(BOOL)animated;
@@ -32,8 +32,16 @@
 - (void)executeUpdateWithBlock:(void (^)())block animated:(BOOL)animated;
 
 
-@property (nonatomic, readonly) NSSet *initializedNodes;
+@property (nonatomic, strong, readonly) id<RTRNode> rootNode;
+
+@property (nonatomic, strong, readonly) NSSet<id<RTRNode>> *initializedNodes;
 
 - (RTRNodeState)stateForNode:(id<RTRNode>)node;
 
+
+@property (nonatomic, weak, nullable) id<RTRRouterDelegate> delegate;
+
 @end
+
+
+NS_ASSUME_NONNULL_END

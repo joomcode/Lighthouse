@@ -8,8 +8,16 @@
 
 #import "RTRDriverProvider.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
+
 @interface RTRCompositeDriverProvider : NSObject <RTRDriverProvider>
 
-- (instancetype)initWithDriverProviders:(NSArray *)driverProviders;
+- (instancetype)initWithDriverProviders:(NSArray<id<RTRDriverProvider>> *)driverProviders NS_DESIGNATED_INITIALIZER;
+
+- (instancetype)init NS_UNAVAILABLE;
 
 @end
+
+
+NS_ASSUME_NONNULL_END

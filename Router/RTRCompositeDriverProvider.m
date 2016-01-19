@@ -11,7 +11,7 @@
 
 @interface RTRCompositeDriverProvider ()
 
-@property (nonatomic, copy, readonly) NSDictionary *driverProvidersById;
+@property (nonatomic, copy, readonly) NSDictionary<id<NSCopying>, id<RTRDriverProvider>> *driverProvidersById;
 
 @end
 
@@ -20,21 +20,16 @@
 
 #pragma mark - Init
 
-- (instancetype)init {
-    return [self initWithDriverProviders:nil];
-}
-
-- (instancetype)initWithDriverProviders:(NSArray *)driverProviders {
+- (instancetype)initWithDriverProviders:(NSArray<id<RTRDriverProvider>> *)driverProviders {
     NSParameterAssert(driverProviders.count > 0);
     
     self = [super init];
     if (!self) return nil;
     
-    NSMutableDictionary *driverProvidersById = [[NSMutableDictionary alloc] initWithCapacity:driverProviders.count];
-    [driverProviders enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+    NSMutableDictionary<id<NSCopying>, id<RTRDriverProvider>> *driverProvidersById = [[NSMutableDictionary alloc] initWithCapacity:driverProviders.count];
+    [driverProviders enumerateObjectsUsingBlock:^(id<RTRDriverProvider> obj, NSUInteger idx, BOOL *stop) {
         driverProvidersById[[@(idx) stringValue]] = obj;
     }];
-    
     _driverProvidersById = [driverProvidersById copy];
     
     return self;
@@ -43,7 +38,7 @@
 #pragma mark - RTRDriverProvider
 
 - (id<RTRDriver>)driverForNode:(id<RTRNode>)node {
-    NSMutableDictionary *driversById = [[NSMutableDictionary alloc] initWithCapacity:self.driverProvidersById.count];
+    NSMutableDictionary<id<NSCopying>, id<RTRDriver>> *driversById = [[NSMutableDictionary alloc] initWithCapacity:self.driverProvidersById.count];
     
     [self.driverProvidersById enumerateKeysAndObjectsUsingBlock:^(id<NSCopying> providerId, id<RTRDriverProvider> provider, BOOL *stop) {
         id<RTRDriver> driver = [provider driverForNode:node];

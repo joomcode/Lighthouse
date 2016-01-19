@@ -28,6 +28,8 @@
 #pragma mark - Init
 
 - (instancetype)initWithTrees:(NSArray<RTRNodeTree *> *)trees {
+    NSParameterAssert(trees.count > 0);
+    
     self = [super init];
     if (!self) return nil;
     

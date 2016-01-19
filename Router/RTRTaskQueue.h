@@ -9,6 +9,9 @@
 #import <Foundation/Foundation.h>
 #import "RTRTask.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
+
 typedef void (^RTRTaskQueueBlock)();
 typedef void (^RTRTaskQueueAsyncBlock)(RTRTaskCompletionBlock completion);
 
@@ -27,3 +30,6 @@ typedef void (^RTRTaskQueueAsyncBlock)(RTRTaskCompletionBlock completion);
 - (void)runAsyncTaskWithBlock:(RTRTaskQueueAsyncBlock)block;
 
 @end
+
+
+NS_ASSUME_NONNULL_END

@@ -12,7 +12,9 @@
 
 #pragma mark - Init
 
-- (instancetype)initWithStack:(NSOrderedSet *)stack {
+- (instancetype)initWithStack:(NSOrderedSet<id<RTRNode>> *)stack {
+    NSParameterAssert(stack.count > 0);
+    
     self = [super init];
     if (!self) return nil;
     

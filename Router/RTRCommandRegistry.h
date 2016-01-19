@@ -12,8 +12,14 @@
 @protocol RTRCommand;
 @protocol RTRTarget;
 
+NS_ASSUME_NONNULL_BEGIN
+
+
 @protocol RTRCommandRegistry <NSObject>
 
-- (id<RTRTarget>)targetForCommand:(id<RTRCommand>)command;
+- (nullable id<RTRTarget>)targetForCommand:(id<RTRCommand>)command;
 
 @end
+
+
+NS_ASSUME_NONNULL_END

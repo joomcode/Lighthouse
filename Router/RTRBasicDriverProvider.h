@@ -8,7 +8,11 @@
 
 #import "RTRDriverProvider.h"
 
-typedef id<RTRDriver> (^RTRDriverProvidingBlock)(id<RTRNode> node);
+NS_ASSUME_NONNULL_BEGIN
+
+
+typedef _Nonnull id<RTRDriver> (^RTRDriverProvidingBlock)(id<RTRNode> node);
+
 
 @interface RTRBasicDriverProvider : NSObject <RTRDriverProvider>
 
@@ -19,3 +23,6 @@ typedef id<RTRDriver> (^RTRDriverProvidingBlock)(id<RTRNode> node);
 - (void)bindNodeClass:(Class)nodeClass toBlock:(RTRDriverProvidingBlock)block;
 
 @end
+
+
+NS_ASSUME_NONNULL_END

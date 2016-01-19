@@ -24,6 +24,8 @@
 #pragma mark - Init
 
 - (instancetype)initWithChildren:(NSOrderedSet<id<RTRNode>> *)children {
+    NSParameterAssert(children.count > 0);
+    
     self = [super init];
     if (!self) return nil;
     

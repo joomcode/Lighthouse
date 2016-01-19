@@ -11,7 +11,7 @@
 
 @interface RTRTaskQueue ()
 
-@property (nonatomic, strong) NSMutableArray *tasks;
+@property (nonatomic, strong) NSMutableArray<id<RTRTask>> *tasks;
 
 @property (nonatomic, assign) BOOL taskInProgress;
 

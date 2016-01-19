@@ -25,6 +25,8 @@
 #pragma mark - Init
 
 - (instancetype)initWithSingleBranch:(NSArray<id<RTRNode>> *)nodes {
+    NSParameterAssert(nodes.count > 0);
+    
     RTRNodeTree *tree = [[RTRNodeTree alloc] init];
     [tree addBranch:nodes afterItemOrNil:nil];
     

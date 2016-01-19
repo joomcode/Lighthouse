@@ -8,14 +8,20 @@
 
 #import <Foundation/Foundation.h>
 
+@protocol RTRNode;
+
+NS_ASSUME_NONNULL_BEGIN
+
+
 extern NSString * const RTRRouterNodeStateDidUpdateNotification;
 extern NSString * const RTRRouterNodeUserInfoKey;
 
-
-@protocol RTRNode;
 
 @protocol RTRRouterDelegate <NSObject>
 
 - (void)router:(RTRRouter *)router nodeStateDidUpdate:(id<RTRNode>)node;
 
 @end
+
+
+NS_ASSUME_NONNULL_END

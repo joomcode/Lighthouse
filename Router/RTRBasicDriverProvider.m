@@ -11,8 +11,8 @@
 
 @interface RTRBasicDriverProvider ()
 
-@property (nonatomic, strong) NSMapTable *blocksByNodes;
-@property (nonatomic, strong) NSMapTable *blocksByNodeClasses;
+@property (nonatomic, strong) NSMapTable<id<RTRNode>, RTRDriverProvidingBlock> *blocksByNodes;
+@property (nonatomic, strong) NSMapTable<Class, RTRDriverProvidingBlock> *blocksByNodeClasses;
 
 @end
 

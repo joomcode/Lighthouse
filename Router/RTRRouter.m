@@ -37,42 +37,24 @@ NSString * const RTRRouterNodeUserInfoKey = @"com.pixty.router.node";
 
 @implementation RTRRouter
 
-#pragma mark - Components
+#pragma mark - Init
 
-@synthesize components = _components;
-
-- (RTRComponents *)components {
-    if (!_components) {
-        _components = [[RTRComponents alloc] init];
-        
-        _components.nodeDataStorage = [[RTRNodeDataStorage alloc] init];
-        _components.nodeDataStorage.delegate = self;
-    }
-    return _components;
-}
-
-- (id<RTRDriverProvider>)driverProvider {
-    return self.components.driverProvider;
-}
-
-- (void)setDriverProvider:(id<RTRDriverProvider>)driverProvider {
-    self.components.driverProvider = driverProvider;
-}
-
-- (id<RTRCommandRegistry>)commandRegistry {
-    return self.components.commandRegistry;
-}
-
-- (void)setCommandRegistry:(id<RTRCommandRegistry>)commandRegistry {
-    self.components.commandRegistry = commandRegistry;
-}
-
-- (id<RTRNode>)rootNode {
-    return self.components.graph.rootNode;
-}
-
-- (void)setRootNode:(id<RTRNode>)rootNode {
-    self.components.graph = [[RTRGraph alloc] initWithRootNode:rootNode];
+- (instancetype)initWithRootNode:(id<RTRNode>)rootNode
+                  driverProvider:(id<RTRDriverProvider>)driverProvider
+                 commandRegistry:(id<RTRCommandRegistry>)commandRegistry {
+    self = [super init];
+    if (!self) return nil;
+    
+    _components = [[RTRComponents alloc] init];
+    
+    _components.graph = [[RTRGraph alloc] initWithRootNode:rootNode];
+    _components.driverProvider = driverProvider;
+    _components.commandRegistry = commandRegistry;
+    
+    _components.nodeDataStorage = [[RTRNodeDataStorage alloc] init];
+    _components.nodeDataStorage.delegate = self;
+    
+    return self;
 }
 
 #pragma mark - Updates
@@ -102,7 +84,11 @@ NSString * const RTRRouterNodeUserInfoKey = @"com.pixty.router.node";
     [self.commandQueue runTask:task];
 }
 
-#pragma mark - Driver state query
+#pragma mark - Node query
+
+- (id<RTRNode>)rootNode {
+    return self.components.graph.rootNode;
+}
 
 - (NSSet *)initializedNodes {
     return self.components.nodeDataStorage.resolvedInitializedNodes;
