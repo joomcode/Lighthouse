@@ -107,8 +107,8 @@
     id<RTRDriverUpdateContext> updateContext =
         [[RTRDriverUpdateContextImpl alloc] initWithAnimated:[self.nodesForAnimatedDriverUpdate containsObject:node]
                                                      command:[self command]
-                                                 updateQueue:updateQueue
                                                childrenState:node.childrenState
+                                                 updateQueue:updateQueue
                                                  driverBlock:^id<RTRDriver>(id<RTRNode> node) {
                                                      return [self.components.nodeDataStorage dataForNode:node].driver;
                                                  }];

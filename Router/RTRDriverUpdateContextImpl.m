@@ -19,26 +19,18 @@
 
 #pragma mark - Init
 
-- (instancetype)init {
-    return [self initWithAnimated:NO command:nil updateQueue:nil childrenState:nil driverBlock:nil];
-}
-
 - (instancetype)initWithAnimated:(BOOL)animated
                          command:(id<RTRCommand>)command
-                     updateQueue:(RTRTaskQueue *)updateQueue
                    childrenState:(id<RTRNodeChildrenState>)childrenState
-                     driverBlock:(id<RTRDriver> (^)(id<RTRNode>))driverBlock
-{
-    NSParameterAssert(updateQueue != nil);
-    NSParameterAssert(driverBlock != nil);
-    
+                     updateQueue:(RTRTaskQueue *)updateQueue
+                     driverBlock:(id<RTRDriver> (^)(id<RTRNode>))driverBlock {
     self = [super init];
     if (!self) return nil;
     
     _animated = animated;
     _command = command;
-    _updateQueue = updateQueue;
     _childrenState = childrenState;
+    _updateQueue = updateQueue;
     _driverBlock = [driverBlock copy];
     
     return self;
@@ -48,8 +40,8 @@
 
 @synthesize animated = _animated;
 @synthesize command = _command;
-@synthesize updateQueue = _updateQueue;
 @synthesize childrenState = _childrenState;
+@synthesize updateQueue = _updateQueue;
 
 - (id<RTRDriver>)driverForNode:(id<RTRNode>)node {
     return self.driverBlock(node);

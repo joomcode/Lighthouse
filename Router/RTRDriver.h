@@ -13,17 +13,25 @@
 @protocol RTRDriverUpdateContext;
 @protocol RTRDriverFeedbackChannel;
 
+NS_ASSUME_NONNULL_BEGIN
+
+
 @protocol RTRDriver <NSObject>
 
-@property (nonatomic, strong, readonly) id data;
+@property (nonatomic, readonly, nullable) id data;
 
 - (void)updateWithContext:(id<RTRDriverUpdateContext>)context;
 
 
 @optional
 
+// TODO: make these required?.. optionals are cumbersome
+
 @property (nonatomic, strong) id<RTRDriverFeedbackChannel> feedbackChannel;
 
 - (void)stateDidChange:(RTRNodeState)state;
 
 @end
+
+
+NS_ASSUME_NONNULL_END

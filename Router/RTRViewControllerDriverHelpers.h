@@ -7,11 +7,18 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 @protocol RTRDriverUpdateContext;
 
+NS_ASSUME_NONNULL_BEGIN
+
+
 @interface RTRViewControllerDriverHelpers : NSObject
 
-+ (NSArray *)childViewControllersWithUpdateContext:(id<RTRDriverUpdateContext>)updateContext;
++ (NSArray<UIViewController *> *)childViewControllersWithUpdateContext:(id<RTRDriverUpdateContext>)updateContext;
 
 @end
+
+
+NS_ASSUME_NONNULL_END

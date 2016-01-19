@@ -18,7 +18,7 @@
 
 @interface RTRModalPresentationDriver ()
 
-@property (nonatomic, strong) NSArray *childNodes;
+@property (nonatomic, strong) NSArray<id<RTRNode>> *childNodes;
 
 @end
 
@@ -27,13 +27,7 @@
 
 #pragma mark - Init
 
-- (instancetype)init {
-    return [self initWithWindow:nil];
-}
-
 - (instancetype)initWithWindow:(UIWindow *)window {
-    NSParameterAssert(window != nil);
-    
     self = [super init];
     if (!self) return nil;
     
@@ -53,8 +47,8 @@
     
     self.childNodes = [context.childrenState.initializedChildren.array copy];
     
-    NSArray *viewControllers = [RTRViewControllerDriverHelpers childViewControllersWithUpdateContext:context];
-    NSArray *presentedViewControllers = [self presentedViewControllers];
+    NSArray<UIViewController *> *viewControllers = [RTRViewControllerDriverHelpers childViewControllersWithUpdateContext:context];
+    NSArray<UIViewController *> *presentedViewControllers = [self presentedViewControllers];
     
     NSInteger commonPrefixLength = [self commonPrefixLengthForArray:viewControllers andArray:presentedViewControllers];
 
@@ -93,7 +87,7 @@
 #pragma mark - Private
 
 - (NSArray *)presentedViewControllers {
-    NSMutableArray *viewControllers = [[NSMutableArray alloc] init];
+    NSMutableArray<UIViewController *> *viewControllers = [[NSMutableArray alloc] init];
     
     UIViewController *currentViewController = self.data.rootViewController;
     
@@ -117,7 +111,7 @@
     return ^(UIViewController *viewController, BOOL animated) {
         // TODO: support non-animated?
         
-        NSArray *oldChildNodes = self.childNodes;
+        NSArray<id<RTRNode>> *oldChildNodes = self.childNodes;
         
         [self startNodeUpdateWithChildNodes:[self.childNodes subarrayWithRange:NSMakeRange(0, index)]];
         

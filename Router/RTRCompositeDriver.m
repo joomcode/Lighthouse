@@ -65,9 +65,9 @@
         [driver updateWithContext:
             [[RTRDriverUpdateContextImpl alloc] initWithAnimated:context.animated
                                                          command:context.command
-                                                     updateQueue:context.updateQueue
                                                    childrenState:context.childrenState
-                                                     driverBlock:^id<RTRDriver>(id<RTRNode> node) {                                                         
+                                                     updateQueue:context.updateQueue
+                                                     driverBlock:^id<RTRDriver>(id<RTRNode> node) {
                                                          return ((RTRCompositeDriver *)[context driverForNode:node]).driversById[driverId];
                                                      }]];
     }];

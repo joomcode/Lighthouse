@@ -10,6 +10,9 @@
 
 @protocol RTRNode;
 
+NS_ASSUME_NONNULL_BEGIN
+
+
 @protocol RTRDriverFeedbackChannel <NSObject>
 
 - (void)startNodeUpdateWithBlock:(void (^)(id<RTRNode> node))updateBlock;
@@ -17,3 +20,6 @@
 - (void)finishNodeUpdate;
 
 @end
+
+
+NS_ASSUME_NONNULL_END

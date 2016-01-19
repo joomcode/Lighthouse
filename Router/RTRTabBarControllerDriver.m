@@ -16,7 +16,7 @@
 
 @interface RTRTabBarControllerDriver () <UITabBarControllerDelegate>
 
-@property (nonatomic, strong) NSOrderedSet *childNodes;
+@property (nonatomic, strong) NSOrderedSet<id<RTRNode>> *childNodes;
 @property (nonatomic, assign) NSInteger activeChildIndex;
 
 @end
@@ -48,7 +48,7 @@
     self.childNodes = context.childrenState.initializedChildren;
     self.activeChildIndex = [self.childNodes indexOfObject:activeChild];
     
-    NSArray *viewControllers = [RTRViewControllerDriverHelpers childViewControllersWithUpdateContext:context];
+    NSArray<UIViewController *> *viewControllers = [RTRViewControllerDriverHelpers childViewControllersWithUpdateContext:context];
     
     [self.data setViewControllers:viewControllers animated:context.animated]; // TODO: use updateQueue
     [self.data setSelectedIndex:self.activeChildIndex];

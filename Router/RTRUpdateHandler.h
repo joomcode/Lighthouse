@@ -11,8 +11,12 @@
 
 @protocol RTRCommand;
 
+NS_ASSUME_NONNULL_BEGIN
+
+
 typedef void (^RTRCommandHandlerBlock)(id<RTRCommand> command, BOOL animated);
 typedef void (^RTRStateHandlerBlock)(RTRNodeState state);
+
 
 @protocol RTRUpdateHandler <NSObject>
 
@@ -23,3 +27,6 @@ typedef void (^RTRStateHandlerBlock)(RTRNodeState state);
 - (void)handleStateUpdatesWithBlock:(RTRStateHandlerBlock)block;
 
 @end
+
+
+NS_ASSUME_NONNULL_END

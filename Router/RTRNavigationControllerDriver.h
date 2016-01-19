@@ -9,8 +9,14 @@
 #import "RTRDriver.h"
 #import <UIKit/UIKit.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
+
 @interface RTRNavigationControllerDriver : NSObject <RTRDriver>
 
-@property (nonatomic, readonly) UINavigationController *data;
+@property (nonatomic, readonly, nullable) UINavigationController *data;
 
 @end
+
+
+NS_ASSUME_NONNULL_END

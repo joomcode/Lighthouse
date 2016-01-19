@@ -17,7 +17,7 @@
 
 @interface RTRNavigationControllerDriver () <UINavigationControllerDelegate>
 
-@property (nonatomic, strong) NSArray *childNodes;
+@property (nonatomic, strong) NSArray<id<RTRNode>> *childNodes;
 
 @end
 
@@ -44,7 +44,7 @@
     NSAssert(context.childrenState.activeChildren.count <= 1, @""); // TODO
     NSAssert(context.childrenState.initializedChildren.lastObject == context.childrenState.activeChildren.anyObject, @""); // TODO
     
-    NSArray *childViewControllers = [RTRViewControllerDriverHelpers childViewControllersWithUpdateContext:context];
+    NSArray<UIViewController *> *childViewControllers = [RTRViewControllerDriverHelpers childViewControllersWithUpdateContext:context];
     
     if ([childViewControllers isEqual:_data.viewControllers]) {
         return;
@@ -76,7 +76,7 @@
         return;
     }
     
-    NSArray *oldChildNodes = self.childNodes;
+    NSArray<id<RTRNode>> *oldChildNodes = self.childNodes;
     
     [self startNodeUpdateWithChildNodes:[oldChildNodes subarrayWithRange:NSMakeRange(0, count)]];
     

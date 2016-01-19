@@ -9,8 +9,14 @@
 #import "RTRDriver.h"
 #import <UIKit/UIKit.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
+
 @interface RTRTabBarControllerDriver : NSObject <RTRDriver>
 
-@property (nonatomic, readonly) UITabBarController *data;
+@property (nonatomic, readonly, nullable) UITabBarController *data;
 
 @end
+
+
+NS_ASSUME_NONNULL_END

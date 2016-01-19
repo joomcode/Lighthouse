@@ -9,10 +9,18 @@
 #import "RTRDriver.h"
 #import <UIKit/UIKit.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
+
 @interface RTRModalPresentationDriver : NSObject <RTRDriver>
 
 @property (nonatomic, readonly) UIWindow *data;
 
-- (instancetype)initWithWindow:(UIWindow *)window;
+- (instancetype)initWithWindow:(UIWindow *)window NS_DESIGNATED_INITIALIZER;
+
+- (instancetype)init NS_UNAVAILABLE;
 
 @end
+
+
+NS_ASSUME_NONNULL_END

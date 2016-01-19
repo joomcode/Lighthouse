@@ -13,7 +13,7 @@
 
 @interface RTRUpdateOrientedDriver ()
 
-@property (nonatomic, readonly) NSMapTable *dataInitBlocksByCommandClass;
+@property (nonatomic, readonly) NSMapTable<Class, RTRDriverDataInitBlock> *dataInitBlocksByCommandClass;
 
 @property (nonatomic, readonly) RTRUpdateHandlerImpl *updateHandler;
 
@@ -61,7 +61,7 @@
 @synthesize dataInitBlocksByCommandClass = _dataInitBlocksByCommandClass;
 @synthesize updateHandler = _updateHandler;
 
-- (NSMapTable *)dataInitBlocksByCommandClass {
+- (NSMapTable<Class, RTRDriverDataInitBlock> *)dataInitBlocksByCommandClass {
     if (!_dataInitBlocksByCommandClass) {
         _dataInitBlocksByCommandClass = [NSMapTable strongToStrongObjectsMapTable];
     }

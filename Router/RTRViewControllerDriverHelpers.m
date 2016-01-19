@@ -14,10 +14,10 @@
 
 @implementation RTRViewControllerDriverHelpers
 
-+ (NSArray *)childViewControllersWithUpdateContext:(id<RTRDriverUpdateContext>)updateContext {
++ (NSArray<UIViewController *> *)childViewControllersWithUpdateContext:(id<RTRDriverUpdateContext>)updateContext {
     id<RTRNodeChildrenState> childrenState = updateContext.childrenState;
     
-    NSMutableArray *viewControllers = [NSMutableArray arrayWithCapacity:childrenState.initializedChildren.count];
+    NSMutableArray<UIViewController *> *viewControllers = [NSMutableArray arrayWithCapacity:childrenState.initializedChildren.count];
     
     for (id<RTRNode> childNode in childrenState.initializedChildren) {
         id<RTRDriver> childDriver = [updateContext driverForNode:childNode];

@@ -8,12 +8,20 @@
 
 #import "RTRDriverUpdateContext.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
+
 @interface RTRDriverUpdateContextImpl : NSObject <RTRDriverUpdateContext>
 
 - (instancetype)initWithAnimated:(BOOL)animated
-                         command:(id<RTRCommand>)command
+                         command:(nullable id<RTRCommand>)command
+                   childrenState:(nullable id<RTRNodeChildrenState>)childrenState
                      updateQueue:(RTRTaskQueue *)updateQueue
-                   childrenState:(id<RTRNodeChildrenState>)childrenState
-                     driverBlock:(id<RTRDriver> (^)(id<RTRNode> node))driverBlock;
+                     driverBlock:(id<RTRDriver> (^)(id<RTRNode> node))driverBlock NS_DESIGNATED_INITIALIZER;
+
+- (instancetype)init NS_UNAVAILABLE;
 
 @end
+
+
+NS_ASSUME_NONNULL_END

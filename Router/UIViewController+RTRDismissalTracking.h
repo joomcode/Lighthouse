@@ -8,10 +8,17 @@
 
 #import <UIKit/UIKit.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
+
 typedef void (^RTRViewControllerDismissalTrackingBlock)(UIViewController *viewController, BOOL animated);
+
 
 @interface UIViewController (RTRDismissalTracking)
 
-@property (nonatomic, copy) RTRViewControllerDismissalTrackingBlock rtr_onDismissalBlock;
+@property (nonatomic, copy, nullable) RTRViewControllerDismissalTrackingBlock rtr_onDismissalBlock;
 
 @end
+
+
+NS_ASSUME_NONNULL_END

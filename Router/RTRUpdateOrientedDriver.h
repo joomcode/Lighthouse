@@ -11,12 +11,19 @@
 @protocol RTRCommand;
 @protocol RTRUpdateHandler;
 
-typedef id (^RTRDriverDataInitBlock)(id<RTRCommand> command, id<RTRUpdateHandler> updateHandler);
+NS_ASSUME_NONNULL_BEGIN
+
+
+typedef _Nullable id (^RTRDriverDataInitBlock)(id<RTRCommand> command, id<RTRUpdateHandler> updateHandler);
+
 
 @interface RTRUpdateOrientedDriver : NSObject <RTRDriver>
 
-@property (nonatomic, copy) RTRDriverDataInitBlock defaultDataInitBlock;
+@property (nonatomic, copy, nullable) RTRDriverDataInitBlock defaultDataInitBlock;
 
 - (void)bindCommandClass:(Class)commandClass toDataInitBlock:(RTRDriverDataInitBlock)block;
 
 @end
+
+
+NS_ASSUME_NONNULL_END
