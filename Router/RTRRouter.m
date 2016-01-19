@@ -94,7 +94,7 @@ NSString * const RTRRouterNodeUserInfoKey = @"com.pixty.router.node";
     [self.commandQueue runTask:task];
 }
 
-- (void)updateNodesWithBlock:(void (^)())block animated:(BOOL)animated {
+- (void)executeUpdateWithBlock:(void (^)())block animated:(BOOL)animated {
     RTRManualNodeUpdateTask *task = [[RTRManualNodeUpdateTask alloc] initWithComponents:self.components
                                                                                animated:animated
                                                                         nodeUpdateBlock:block];

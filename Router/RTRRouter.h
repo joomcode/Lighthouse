@@ -29,7 +29,7 @@
 
 - (void)executeCommand:(id<RTRCommand>)command animated:(BOOL)animated;
 
-- (void)updateNodesWithBlock:(void (^)())block animated:(BOOL)animated;
+- (void)executeUpdateWithBlock:(void (^)())block animated:(BOOL)animated;
 
 
 @property (nonatomic, readonly) NSSet *initializedNodes;

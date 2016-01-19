@@ -15,11 +15,11 @@ typedef id<RTRTarget> (^RTRCommandTargetProvidingBlock)(id<RTRCommand> command);
 
 @interface RTRBasicCommandRegistry : NSObject <RTRCommandRegistry>
 
-- (void)bindCommandClass:(Class)commandClass toActiveNodeTarget:(id<RTRNode>)node;
-
-- (void)bindCommandClass:(Class)commandClass toInactiveNodeTarget:(id<RTRNode>)node;
-
 - (void)bindCommandClass:(Class)commandClass toTarget:(id<RTRTarget>)target;
+
+- (void)bindCommandClass:(Class)commandClass toTargetWithActiveNode:(id<RTRNode>)node;
+
+- (void)bindCommandClass:(Class)commandClass toTargetWithInactiveNode:(id<RTRNode>)node;
 
 - (void)bindCommandClass:(Class)commandClass toBlock:(RTRCommandTargetProvidingBlock)block;
 

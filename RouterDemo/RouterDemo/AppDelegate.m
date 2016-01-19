@@ -94,13 +94,13 @@
     
     RTRBasicCommandRegistry *commandRegistry = [[RTRBasicCommandRegistry alloc] init];
     
-    [commandRegistry bindCommandClass:[PXPresentRed class] toActiveNodeTarget:hierarchy.redNode];
-    [commandRegistry bindCommandClass:[PXPresentGreen class] toActiveNodeTarget:hierarchy.greenNode];
-    [commandRegistry bindCommandClass:[PXPresentBlue class] toActiveNodeTarget:hierarchy.blueNode];
-    [commandRegistry bindCommandClass:[PXPresentModal class] toActiveNodeTarget:hierarchy.deepModalNode];
+    [commandRegistry bindCommandClass:[PXPresentRed class] toTargetWithActiveNode:hierarchy.redNode];
+    [commandRegistry bindCommandClass:[PXPresentGreen class] toTargetWithActiveNode:hierarchy.greenNode];
+    [commandRegistry bindCommandClass:[PXPresentBlue class] toTargetWithActiveNode:hierarchy.blueNode];
+    [commandRegistry bindCommandClass:[PXPresentModal class] toTargetWithActiveNode:hierarchy.deepModalNode];
     [commandRegistry bindCommandClass:[PXDismissModal class] toTarget:[RTRTarget withInactiveNodes:@[ hierarchy.modalStackNode, hierarchy.deepModalStackNode ]]];
-    [commandRegistry bindCommandClass:[PXPresentAnotherModal class] toActiveNodeTarget:hierarchy.anotherBlueNode];
-    [commandRegistry bindCommandClass:[PXPresentAlert class] toActiveNodeTarget:hierarchy.alertNode];
+    [commandRegistry bindCommandClass:[PXPresentAnotherModal class] toTargetWithActiveNode:hierarchy.anotherBlueNode];
+    [commandRegistry bindCommandClass:[PXPresentAlert class] toTargetWithActiveNode:hierarchy.alertNode];
 
     
     // Router

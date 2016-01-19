@@ -32,18 +32,18 @@
 
 #pragma mark - Setup
 
-- (void)bindCommandClass:(Class)commandClass toActiveNodeTarget:(id<RTRNode>)node {
-    [self bindCommandClass:commandClass toTarget:[RTRTarget withActiveNode:node]];
-}
-
-- (void)bindCommandClass:(Class)commandClass toInactiveNodeTarget:(id<RTRNode>)node {
-    [self bindCommandClass:commandClass toTarget:[RTRTarget withInactiveNode:node]];
-}
-
 - (void)bindCommandClass:(Class)commandClass toTarget:(id<RTRTarget>)target {
     [self bindCommandClass:commandClass toBlock:^id<RTRTarget>(id<RTRCommand> command) {
         return target;
     }];
+}
+
+- (void)bindCommandClass:(Class)commandClass toTargetWithActiveNode:(id<RTRNode>)node {
+    [self bindCommandClass:commandClass toTarget:[RTRTarget withActiveNode:node]];
+}
+
+- (void)bindCommandClass:(Class)commandClass toTargetWithInactiveNode:(id<RTRNode>)node {
+    [self bindCommandClass:commandClass toTarget:[RTRTarget withInactiveNode:node]];
 }
 
 - (void)bindCommandClass:(Class)commandClass toBlock:(RTRCommandTargetProvidingBlock)block {
