@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = "Lighthouse"
-  s.version          = "0.1.0"
+  s.version          = "0.1.1"
   s.summary          = "The iOS navigation framework you've been looking for. No more coupled controllers or magic strings!"
 
   s.homepage         = "https://github.com/pixty/Lighthouse"  
