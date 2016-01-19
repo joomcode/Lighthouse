@@ -11,8 +11,18 @@
 @class RTRComponents;
 @class RTRTaskQueue;
 
+NS_ASSUME_NONNULL_BEGIN
+
+
 @interface RTRDriverFeedbackChannelImpl : NSObject <RTRDriverFeedbackChannel>
 
-- (instancetype)initWithNode:(id<RTRNode>)node components:(RTRComponents *)components updateQueue:(RTRTaskQueue *)updateQueue;
+- (instancetype)initWithNode:(id<RTRNode>)node
+                  components:(RTRComponents *)components
+                 updateQueue:(RTRTaskQueue *)updateQueue NS_DESIGNATED_INITIALIZER;
+
+- (instancetype)init NS_UNAVAILABLE;
 
 @end
+
+
+NS_ASSUME_NONNULL_END

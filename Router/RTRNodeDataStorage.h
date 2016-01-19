@@ -14,9 +14,12 @@
 @class RTRNodeData;
 @class RTRNodeTree;
 
+NS_ASSUME_NONNULL_BEGIN
+
+
 @interface RTRNodeDataStorage : NSObject
 
-@property (nonatomic, weak) id<RTRNodeDataStorageDelegate> delegate;
+@property (nonatomic, weak, nullable) id<RTRNodeDataStorageDelegate> delegate;
 
 @end
 
@@ -34,7 +37,7 @@
 
 @interface RTRNodeDataStorage (State)
 
-@property (nonatomic, strong, readonly) NSSet *resolvedInitializedNodes;
+@property (nonatomic, strong, readonly) NSSet<id<RTRNode>> *resolvedInitializedNodes;
 
 - (RTRNodeState)resolvedStateForNode:(id<RTRNode>)node;
 
@@ -51,3 +54,6 @@
 - (void)nodeDataStorage:(RTRNodeDataStorage *)storage didChangeResolvedStateForNode:(id<RTRNode>)node;
 
 @end
+
+
+NS_ASSUME_NONNULL_END

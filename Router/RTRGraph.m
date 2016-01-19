@@ -15,13 +15,7 @@
 
 #pragma mark - Init
 
-- (instancetype)init {
-    return [self initWithRootNode:nil];
-}
-
 - (instancetype)initWithRootNode:(id<RTRNode>)rootNode {
-    NSParameterAssert(rootNode != nil);
-    
     self = [super init];
     if (!self) return nil;
     
@@ -32,13 +26,13 @@
 
 #pragma mark - Public
 
-- (NSOrderedSet *)pathToNode:(id<RTRNode>)node {
-    NSMutableOrderedSet *currentPath = [[NSMutableOrderedSet alloc] initWithObject:self.rootNode];
+- (NSOrderedSet<id<RTRNode>> *)pathToNode:(id<RTRNode>)node {
+    NSMutableOrderedSet<id<RTRNode>> *currentPath = [[NSMutableOrderedSet alloc] initWithObject:self.rootNode];
     
     return [self searchForNodeRecursively:node currentPath:currentPath] ? currentPath : nil;
 }
 
-- (RTRNodeTree *)pathsToNodes:(NSSet *)nodes {
+- (RTRNodeTree *)pathsToNodes:(NSSet<id<RTRNode>> *)nodes {
     RTRNodeTree *pathTree = [[RTRNodeTree alloc] init];
     
     for (id<RTRNode> node in nodes) {
@@ -73,7 +67,7 @@
 
 #pragma mark - Private
 
-- (BOOL)searchForNodeRecursively:(id<RTRNode>)node currentPath:(NSMutableOrderedSet *)currentPath {
+- (BOOL)searchForNodeRecursively:(id<RTRNode>)node currentPath:(NSMutableOrderedSet<id<RTRNode>> *)currentPath {
     id<RTRNode> currentNode = currentPath.lastObject;
     
     if ([currentNode isEqual:node]) {

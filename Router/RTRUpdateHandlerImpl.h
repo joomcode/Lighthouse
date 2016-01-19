@@ -8,6 +8,9 @@
 
 #import "RTRUpdateHandler.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
+
 @interface RTRUpdateHandlerImpl : NSObject <RTRUpdateHandler>
 
 - (void)handleCommand:(id<RTRCommand>)command animated:(BOOL)animated;
@@ -15,3 +18,6 @@
 - (void)handleStateUpdate:(RTRNodeState)state;
 
 @end
+
+
+NS_ASSUME_NONNULL_END

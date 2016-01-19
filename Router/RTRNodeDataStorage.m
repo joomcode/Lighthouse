@@ -13,10 +13,10 @@
 
 @interface RTRNodeDataStorage ()
 
-@property (nonatomic, strong, readonly) NSMapTable *dataByNode;
+@property (nonatomic, strong, readonly) NSMapTable<id<RTRNode>, RTRNodeData *> *dataByNode;
 
-@property (nonatomic, strong) NSMutableSet *resolvedInitializedNodes;
-@property (nonatomic, strong) NSMapTable *resolvedStateByNode;
+@property (nonatomic, strong) NSMutableSet<id<RTRNode>> *resolvedInitializedNodes;
+@property (nonatomic, strong) NSMapTable<id<RTRNode>, NSNumber *> *resolvedStateByNode;
 
 @end
 

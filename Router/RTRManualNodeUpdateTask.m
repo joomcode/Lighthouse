@@ -19,13 +19,7 @@
 
 #pragma mark - Init
 
-- (instancetype)initWithComponents:(RTRComponents *)components animated:(BOOL)animated {
-    return [self initWithComponents:components animated:animated nodeUpdateBlock:nil];
-}
-
 - (instancetype)initWithComponents:(RTRComponents *)components animated:(BOOL)animated nodeUpdateBlock:(void (^)())block {
-    NSParameterAssert(block != nil);
-    
     self = [super initWithComponents:components animated:animated];
     if (!self) return nil;
     

@@ -12,13 +12,7 @@
 
 @implementation RTRNodeData
 
-- (instancetype)init {
-    return [self initWithNode:nil];
-}
-
 - (instancetype)initWithNode:(id<RTRNode>)node {
-    NSParameterAssert(node != nil);
-    
     self = [super init];
     if (!self) return nil;
     

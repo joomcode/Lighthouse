@@ -45,13 +45,10 @@ NSString * const RTRRouterNodeUserInfoKey = @"com.pixty.router.node";
     self = [super init];
     if (!self) return nil;
     
-    _components = [[RTRComponents alloc] init];
-    
-    _components.graph = [[RTRGraph alloc] initWithRootNode:rootNode];
-    _components.driverProvider = driverProvider;
-    _components.commandRegistry = commandRegistry;
-    
-    _components.nodeDataStorage = [[RTRNodeDataStorage alloc] init];
+    _components = [[RTRComponents alloc] initWithGraph:[[RTRGraph alloc] initWithRootNode:rootNode]
+                                       nodeDataStorage:[[RTRNodeDataStorage alloc] init]
+                                        driverProvider:driverProvider
+                                       commandRegistry:commandRegistry];
     _components.nodeDataStorage.delegate = self;
     
     return self;

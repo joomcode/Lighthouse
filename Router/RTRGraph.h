@@ -11,16 +11,21 @@
 @protocol RTRNode;
 @class RTRNodeTree;
 
+NS_ASSUME_NONNULL_BEGIN
+
+
 @interface RTRGraph : NSObject
 
 @property (nonatomic, strong, readonly) id<RTRNode> rootNode;
 
 - (instancetype)initWithRootNode:(id<RTRNode>)rootNode;
 
+- (instancetype)init NS_UNAVAILABLE;
 
-- (NSOrderedSet *)pathToNode:(id<RTRNode>)node;
 
-- (RTRNodeTree *)pathsToNodes:(NSSet *)nodes;
+- (nullable NSOrderedSet<id<RTRNode>> *)pathToNode:(id<RTRNode>)node;
+
+- (nullable RTRNodeTree *)pathsToNodes:(NSSet<id<RTRNode>> *)nodes;
 
 
 - (RTRNodeTree *)initializedNodesTree;
@@ -28,3 +33,6 @@
 - (RTRNodeTree *)activeNodesTree;
 
 @end
+
+
+NS_ASSUME_NONNULL_END

@@ -11,8 +11,8 @@
 
 @interface RTRUpdateHandlerImpl ()
 
-@property (nonatomic, strong, readonly) NSMapTable *handlerBlocksByCommandClasses;
-@property (nonatomic, strong, readonly) NSMapTable *handlerBlocksByCommands;
+@property (nonatomic, strong, readonly) NSMapTable<Class, RTRCommandHandlerBlock> *handlerBlocksByCommandClasses;
+@property (nonatomic, strong, readonly) NSMapTable<id<RTRCommand>, RTRCommandHandlerBlock> *handlerBlocksByCommands;
 
 @property (nonatomic, copy) RTRStateHandlerBlock stateHandlerBlock;
 
@@ -28,7 +28,7 @@
 }
 
 - (void)handleCommand:(id<RTRCommand>)command withBlock:(RTRCommandHandlerBlock)block {
-    [self.handlerBlocksByCommandClasses setObject:[block copy] forKey:command];
+    [self.handlerBlocksByCommands setObject:[block copy] forKey:command];
 }
 
 - (void)handleStateUpdatesWithBlock:(RTRStateHandlerBlock)block {
@@ -60,14 +60,14 @@
 @synthesize handlerBlocksByCommandClasses = _handlerBlocksByCommandClasses;
 @synthesize handlerBlocksByCommands = _handlerBlocksByCommands;
 
-- (NSMapTable *)handlerBlocksByCommandClasses {
+- (NSMapTable<Class, RTRCommandHandlerBlock> *)handlerBlocksByCommandClasses {
     if (!_handlerBlocksByCommandClasses) {
         _handlerBlocksByCommands = [NSMapTable strongToStrongObjectsMapTable];
     }
     return _handlerBlocksByCommandClasses;
 }
 
-- (NSMapTable *)handlerBlocksByCommands {
+- (NSMapTable<id<RTRCommand>, RTRCommandHandlerBlock> *)handlerBlocksByCommands {
     if (!_handlerBlocksByCommands) {
         _handlerBlocksByCommands = [NSMapTable weakToStrongObjectsMapTable];
     }

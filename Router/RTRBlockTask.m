@@ -19,10 +19,6 @@
 
 #pragma mark - Init
 
-- (instancetype)init {
-    return [self initWithAsyncBlock:nil];
-}
-
 - (instancetype)initWithBlock:(RTRTaskQueueBlock)block {
     return [self initWithAsyncBlock:^(RTRTaskCompletionBlock completion) {
         block();
@@ -31,8 +27,6 @@
 }
 
 - (instancetype)initWithAsyncBlock:(RTRTaskQueueAsyncBlock)block {
-    NSParameterAssert(block != nil);
-    
     self = [super init];
     if (!self) return nil;
     

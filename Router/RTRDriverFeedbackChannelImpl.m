@@ -26,15 +26,7 @@
 
 #pragma mark - Init
 
-- (instancetype)init {
-    return [self initWithNode:nil components:nil updateQueue:nil];
-}
-
 - (instancetype)initWithNode:(id<RTRNode>)node components:(RTRComponents *)components updateQueue:(RTRTaskQueue *)updateQueue {
-    NSParameterAssert(node != nil);
-    NSParameterAssert(components != nil);
-    NSParameterAssert(updateQueue != nil);
-    
     self = [super init];
     if (!self) return nil;
     

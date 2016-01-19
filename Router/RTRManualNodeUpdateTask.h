@@ -8,8 +8,18 @@
 
 #import "RTRNodeUpdateTask.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
+
 @interface RTRManualNodeUpdateTask : RTRNodeUpdateTask
 
-- (instancetype)initWithComponents:(RTRComponents *)components animated:(BOOL)animated nodeUpdateBlock:(void (^)())block;
+- (instancetype)initWithComponents:(RTRComponents *)components
+                          animated:(BOOL)animated
+                   nodeUpdateBlock:(void (^)())block NS_DESIGNATED_INITIALIZER;
+
+- (instancetype)initWithComponents:(RTRComponents *)components animated:(BOOL)animated NS_UNAVAILABLE;
 
 @end
+
+
+NS_ASSUME_NONNULL_END

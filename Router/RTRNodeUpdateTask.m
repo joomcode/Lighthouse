@@ -27,7 +27,7 @@
 
 @property (nonatomic, strong, readonly) RTRNodeTree *affectedNodes;
 
-@property (nonatomic, strong) NSSet *nodesForAnimatedDriverUpdate;
+@property (nonatomic, strong) NSSet<id<RTRNode>> *nodesForAnimatedDriverUpdate;
 
 @property (nonatomic, assign, getter = isCancelled) BOOL cancelled;
 
@@ -38,13 +38,7 @@
 
 #pragma mark - Init
 
-- (instancetype)init {
-    return [self initWithComponents:nil animated:NO];
-}
-
 - (instancetype)initWithComponents:(RTRComponents *)components animated:(BOOL)animated {
-    NSParameterAssert(components != nil);
-    
     self = [super init];
     if (!self) return nil;
     
