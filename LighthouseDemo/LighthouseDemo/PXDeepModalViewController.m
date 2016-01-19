@@ -10,8 +10,8 @@
 
 @implementation PXDeepModalViewController
 
-- (instancetype)initWithUpdateHandler:(id<LHUpdateHandler>)updateHandler {
-    self = [super initWithUpdateHandler:updateHandler];
+- (instancetype)init {
+    self = [super init];
     self.title = @"Deep Modal";
     return self;
 }

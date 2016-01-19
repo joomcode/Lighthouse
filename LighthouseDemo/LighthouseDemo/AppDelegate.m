@@ -77,16 +77,14 @@
     }];
     
     [driverProvider bindNode:hierarchy.alertNode toBlock:^id<LHDriver>(id<LHNode> node) {
-        LHUpdateOrientedDriver *driver = [[LHUpdateOrientedDriver alloc] init];
-        driver.defaultDataInitBlock = ^(id<LHCommand> command, id<LHUpdateHandler> updateHandler) {
+        return [[LHUpdateHandlerDriver alloc] initWithDefaultDataInitBlock:^(id<LHCommand> command, id<LHUpdateBus> updateBus) {
             UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Hello there!" message:nil preferredStyle:UIAlertControllerStyleAlert];
             
             [alertController addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
             [alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil]];            
             
             return alertController;
-        };
-        return driver;
+        }];
     }];
 
 

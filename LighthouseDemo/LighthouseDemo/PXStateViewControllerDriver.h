@@ -8,7 +8,7 @@
 
 #import <Lighthouse.h>
 
-@interface PXStateViewControllerDriver : LHUpdateOrientedDriver
+@interface PXStateViewControllerDriver : LHUpdateHandlerDriver
 
 - (instancetype)initWithViewControllerClass:(Class)viewControllerClass;
 

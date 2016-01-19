@@ -15,8 +15,8 @@
     self = [super init];
     if (!self) return nil;
     
-    self.defaultDataInitBlock = ^(id<LHCommand> command, id<LHUpdateHandler> updateHandler) {
-        return [[viewControllerClass alloc] initWithUpdateHandler:updateHandler];
+    self.defaultDataInitBlock = ^(id<LHCommand> command, id<LHUpdateBus> updateBus) {
+        return [[viewControllerClass alloc] init];
     };
     
     return self;

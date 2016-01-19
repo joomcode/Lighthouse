@@ -7,59 +7,108 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0111CC241BAA470D00C19022 /* LHUpdateOrientedDriver.m in Sources */ = {isa = PBXBuildFile; fileRef = 0111CC231BAA470D00C19022 /* LHUpdateOrientedDriver.m */; };
-		0111CC2B1BAB026B00C19022 /* LHBasicCommandRegistry.m in Sources */ = {isa = PBXBuildFile; fileRef = 0111CC2A1BAB026B00C19022 /* LHBasicCommandRegistry.m */; };
-		012497981BA9D92E007CD98B /* LHTabBarControllerDriver.m in Sources */ = {isa = PBXBuildFile; fileRef = 012497971BA9D92E007CD98B /* LHTabBarControllerDriver.m */; };
-		0124979E1BA9E7B1007CD98B /* LHViewControllerDriverHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 0124979D1BA9E7B1007CD98B /* LHViewControllerDriverHelpers.m */; };
-		012A87A61BB3791200C9679D /* LHNodeDataStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 012A87A51BB3791200C9679D /* LHNodeDataStorage.m */; };
-		013176A31BC1F7650007668B /* LHTarget.m in Sources */ = {isa = PBXBuildFile; fileRef = 013176A21BC1F7650007668B /* LHTarget.m */; };
-		0160A96D1BA742C90035A331 /* LHStackNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 0160A96C1BA742C90035A331 /* LHStackNode.m */; };
-		0160A9701BA7434B0035A331 /* LHNodeTree.m in Sources */ = {isa = PBXBuildFile; fileRef = 0160A96F1BA7434B0035A331 /* LHNodeTree.m */; };
-		0160A9761BA7479C0035A331 /* LHTabNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 0160A9751BA7479C0035A331 /* LHTabNode.m */; };
-		0160A97F1BA782BA0035A331 /* LHNodeChildrenState.m in Sources */ = {isa = PBXBuildFile; fileRef = 0160A97E1BA782BA0035A331 /* LHNodeChildrenState.m */; };
-		0160A9851BA78EAC0035A331 /* LHNavigationControllerDriver.m in Sources */ = {isa = PBXBuildFile; fileRef = 0160A9841BA78EAC0035A331 /* LHNavigationControllerDriver.m */; };
-		017E5B251BC14DE300C6C831 /* LHFreeStackNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 017E5B241BC14DE300C6C831 /* LHFreeStackNode.m */; };
-		017E5B281BC1688400C6C831 /* UIViewController+LHDismissalTracking.m in Sources */ = {isa = PBXBuildFile; fileRef = 017E5B271BC1688400C6C831 /* UIViewController+LHDismissalTracking.m */; };
-		0186CAF21BACC29E00B22431 /* LHDescriptionHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 0186CAF11BACC29E00B22431 /* LHDescriptionHelpers.m */; };
-		0186CB001BADF93600B22431 /* LHUpdateHandlerImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 0186CAFF1BADF93600B22431 /* LHUpdateHandlerImpl.m */; };
-		0186CB071BAE038600B22431 /* LHTree.m in Sources */ = {isa = PBXBuildFile; fileRef = 0186CB061BAE038600B22431 /* LHTree.m */; };
-		0186CB0A1BAE0A1700B22431 /* LHNodeForest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0186CB091BAE0A1700B22431 /* LHNodeForest.m */; };
-		0186CB0D1BAE0C3200B22431 /* LHStackNodeChildrenState.m in Sources */ = {isa = PBXBuildFile; fileRef = 0186CB0C1BAE0C3200B22431 /* LHStackNodeChildrenState.m */; };
-		01A01A641BA8373B00608274 /* LHViewControllerDriver.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A01A631BA8373B00608274 /* LHViewControllerDriver.m */; };
-		01A01A671BA837B100608274 /* LHRouter.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A01A661BA837B100608274 /* LHRouter.m */; };
-		01A01A721BA83B0B00608274 /* LHGraph.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A01A711BA83B0B00608274 /* LHGraph.m */; };
-		01A01A801BA84D2500608274 /* LHNodeData.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A01A7F1BA84D2500608274 /* LHNodeData.m */; };
-		01A01A831BA869F200608274 /* LHDriverUpdateContextImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A01A821BA869F200608274 /* LHDriverUpdateContextImpl.m */; };
-		01A01A991BA8834500608274 /* LHLeafNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A01A981BA8834500608274 /* LHLeafNode.m */; };
-		01A01AA11BA88B4000608274 /* LHModalPresentationDriver.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A01AA01BA88B4000608274 /* LHModalPresentationDriver.m */; };
-		01A01AA41BA8901100608274 /* LHBasicDriverProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A01AA31BA8901100608274 /* LHBasicDriverProvider.m */; };
-		01A01AA81BA8E9FB00608274 /* LHDriverFeedbackChannelImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A01AA71BA8E9FB00608274 /* LHDriverFeedbackChannelImpl.m */; };
-		01A01AAC1BA9743900608274 /* LHCompositeDriver.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A01AAB1BA9743900608274 /* LHCompositeDriver.m */; };
-		01A01AB11BA97B7100608274 /* LHCompositeDriverProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A01AB01BA97B7100608274 /* LHCompositeDriverProvider.m */; };
-		01C6F8CD1BB6D6F500A13C1E /* LHTaskQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 01C6F8CC1BB6D6F500A13C1E /* LHTaskQueue.m */; };
-		01C6F8D01BB6D8DD00A13C1E /* LHBlockTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 01C6F8CF1BB6D8DD00A13C1E /* LHBlockTask.m */; };
-		01C6F8D31BB6DE8000A13C1E /* LHNodeUpdateTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 01C6F8D21BB6DE8000A13C1E /* LHNodeUpdateTask.m */; };
-		01C6F8D71BB81FB700A13C1E /* LHCommandNodeUpdateTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 01C6F8D61BB81FB700A13C1E /* LHCommandNodeUpdateTask.m */; };
-		01C6F9041BBA063800A13C1E /* LHDriverFeedbackUpdateTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 01C6F9031BBA063800A13C1E /* LHDriverFeedbackUpdateTask.m */; };
-		01C6F90E1BBB1C7E00A13C1E /* LHComponents.m in Sources */ = {isa = PBXBuildFile; fileRef = 01C6F90D1BBB1C7E00A13C1E /* LHComponents.m */; };
-		01E8BB971BC01318000405D2 /* LHManualNodeUpdateTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 01E8BB961BC01318000405D2 /* LHManualNodeUpdateTask.m */; };
+		012A953D1C4EFD5E000A4ECB /* Lighthouse.h in Headers */ = {isa = PBXBuildFile; fileRef = 012A953C1C4EFD5E000A4ECB /* Lighthouse.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		012A95441C4EFD5E000A4ECB /* Lighthouse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 012A953A1C4EFD5E000A4ECB /* Lighthouse.framework */; };
+		012A95491C4EFD5E000A4ECB /* LighthouseTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 012A95481C4EFD5E000A4ECB /* LighthouseTests.m */; };
+		012A95511C4EFD9A000A4ECB /* LHRouter.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A01A661BA837B100608274 /* LHRouter.m */; };
+		012A95521C4EFD9A000A4ECB /* LHTree.m in Sources */ = {isa = PBXBuildFile; fileRef = 0186CB061BAE038600B22431 /* LHTree.m */; };
+		012A95531C4EFD9A000A4ECB /* LHNodeTree.m in Sources */ = {isa = PBXBuildFile; fileRef = 0160A96F1BA7434B0035A331 /* LHNodeTree.m */; };
+		012A95541C4EFD9A000A4ECB /* LHNodeForest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0186CB091BAE0A1700B22431 /* LHNodeForest.m */; };
+		012A95551C4EFD9A000A4ECB /* LHLeafNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A01A981BA8834500608274 /* LHLeafNode.m */; };
+		012A95561C4EFD9A000A4ECB /* LHStackNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 0160A96C1BA742C90035A331 /* LHStackNode.m */; };
+		012A95571C4EFD9A000A4ECB /* LHStackNodeChildrenState.m in Sources */ = {isa = PBXBuildFile; fileRef = 0186CB0C1BAE0C3200B22431 /* LHStackNodeChildrenState.m */; };
+		012A95581C4EFD9A000A4ECB /* LHFreeStackNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 017E5B241BC14DE300C6C831 /* LHFreeStackNode.m */; };
+		012A95591C4EFD9A000A4ECB /* LHTabNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 0160A9751BA7479C0035A331 /* LHTabNode.m */; };
+		012A955A1C4EFD9A000A4ECB /* LHNodeChildrenState.m in Sources */ = {isa = PBXBuildFile; fileRef = 0160A97E1BA782BA0035A331 /* LHNodeChildrenState.m */; };
+		012A955B1C4EFD9A000A4ECB /* LHTarget.m in Sources */ = {isa = PBXBuildFile; fileRef = 013176A21BC1F7650007668B /* LHTarget.m */; };
+		012A955C1C4EFD9A000A4ECB /* LHViewControllerDriverHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 0124979D1BA9E7B1007CD98B /* LHViewControllerDriverHelpers.m */; };
+		012A955D1C4EFD9A000A4ECB /* UIViewController+LHDismissalTracking.m in Sources */ = {isa = PBXBuildFile; fileRef = 017E5B271BC1688400C6C831 /* UIViewController+LHDismissalTracking.m */; };
+		012A955E1C4EFD9A000A4ECB /* LHViewControllerDriver.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A01A631BA8373B00608274 /* LHViewControllerDriver.m */; };
+		012A955F1C4EFD9A000A4ECB /* LHNavigationControllerDriver.m in Sources */ = {isa = PBXBuildFile; fileRef = 0160A9841BA78EAC0035A331 /* LHNavigationControllerDriver.m */; };
+		012A95601C4EFD9A000A4ECB /* LHTabBarControllerDriver.m in Sources */ = {isa = PBXBuildFile; fileRef = 012497971BA9D92E007CD98B /* LHTabBarControllerDriver.m */; };
+		012A95611C4EFD9A000A4ECB /* LHModalPresentationDriver.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A01AA01BA88B4000608274 /* LHModalPresentationDriver.m */; };
+		012A95621C4EFD9A000A4ECB /* LHUpdateHandlerDriver.m in Sources */ = {isa = PBXBuildFile; fileRef = 0111CC231BAA470D00C19022 /* LHUpdateHandlerDriver.m */; };
+		012A95631C4EFD9A000A4ECB /* LHBasicDriverProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A01AA31BA8901100608274 /* LHBasicDriverProvider.m */; };
+		012A95641C4EFD9A000A4ECB /* LHCompositeDriverProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A01AB01BA97B7100608274 /* LHCompositeDriverProvider.m */; };
+		012A95651C4EFD9A000A4ECB /* LHCompositeDriver.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A01AAB1BA9743900608274 /* LHCompositeDriver.m */; };
+		012A95661C4EFD9A000A4ECB /* LHBasicCommandRegistry.m in Sources */ = {isa = PBXBuildFile; fileRef = 0111CC2A1BAB026B00C19022 /* LHBasicCommandRegistry.m */; };
+		012A95671C4EFD9A000A4ECB /* LHTaskQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 01C6F8CC1BB6D6F500A13C1E /* LHTaskQueue.m */; };
+		012A95681C4EFD9A000A4ECB /* LHDescriptionHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 0186CAF11BACC29E00B22431 /* LHDescriptionHelpers.m */; };
+		012A95691C4EFD9A000A4ECB /* LHGraph.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A01A711BA83B0B00608274 /* LHGraph.m */; };
+		012A956A1C4EFD9A000A4ECB /* LHNodeData.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A01A7F1BA84D2500608274 /* LHNodeData.m */; };
+		012A956B1C4EFD9A000A4ECB /* LHNodeDataStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 012A87A51BB3791200C9679D /* LHNodeDataStorage.m */; };
+		012A956C1C4EFD9A000A4ECB /* LHComponents.m in Sources */ = {isa = PBXBuildFile; fileRef = 01C6F90D1BBB1C7E00A13C1E /* LHComponents.m */; };
+		012A956D1C4EFD9A000A4ECB /* LHBlockTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 01C6F8CF1BB6D8DD00A13C1E /* LHBlockTask.m */; };
+		012A956E1C4EFD9A000A4ECB /* LHNodeUpdateTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 01C6F8D21BB6DE8000A13C1E /* LHNodeUpdateTask.m */; };
+		012A956F1C4EFD9A000A4ECB /* LHCommandNodeUpdateTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 01C6F8D61BB81FB700A13C1E /* LHCommandNodeUpdateTask.m */; };
+		012A95701C4EFD9A000A4ECB /* LHManualNodeUpdateTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 01E8BB961BC01318000405D2 /* LHManualNodeUpdateTask.m */; };
+		012A95711C4EFD9A000A4ECB /* LHDriverFeedbackUpdateTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 01C6F9031BBA063800A13C1E /* LHDriverFeedbackUpdateTask.m */; };
+		012A95721C4EFD9A000A4ECB /* LHDriverUpdateContextImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A01A821BA869F200608274 /* LHDriverUpdateContextImpl.m */; };
+		012A95731C4EFD9A000A4ECB /* LHDriverFeedbackChannelImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A01AA71BA8E9FB00608274 /* LHDriverFeedbackChannelImpl.m */; };
+		012A95741C4EFD9A000A4ECB /* LHUpdateBusImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 012A95331C4EF2E9000A4ECB /* LHUpdateBusImpl.m */; };
+		01DBF2CE1C4EFE700034783C /* LHRouter.h in Headers */ = {isa = PBXBuildFile; fileRef = 01A01A651BA837B100608274 /* LHRouter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		01DBF2CF1C4EFE700034783C /* LHRouterDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 012497A01BAA1FDE007CD98B /* LHRouterDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		01DBF2D01C4EFE700034783C /* LHTree.h in Headers */ = {isa = PBXBuildFile; fileRef = 0186CB051BAE038600B22431 /* LHTree.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		01DBF2D11C4EFE700034783C /* LHNodeTree.h in Headers */ = {isa = PBXBuildFile; fileRef = 0160A96E1BA7434B0035A331 /* LHNodeTree.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		01DBF2D21C4EFE700034783C /* LHNodeForest.h in Headers */ = {isa = PBXBuildFile; fileRef = 0186CB081BAE0A1700B22431 /* LHNodeForest.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		01DBF2D31C4EFE700034783C /* LHLeafNode.h in Headers */ = {isa = PBXBuildFile; fileRef = 01A01A971BA8834500608274 /* LHLeafNode.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		01DBF2D41C4EFE700034783C /* LHStackNode.h in Headers */ = {isa = PBXBuildFile; fileRef = 0160A96B1BA742C90035A331 /* LHStackNode.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		01DBF2D51C4EFE700034783C /* LHStackNodeChildrenState.h in Headers */ = {isa = PBXBuildFile; fileRef = 0186CB0B1BAE0C3200B22431 /* LHStackNodeChildrenState.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		01DBF2D61C4EFE700034783C /* LHFreeStackNode.h in Headers */ = {isa = PBXBuildFile; fileRef = 017E5B231BC14DE300C6C831 /* LHFreeStackNode.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		01DBF2D71C4EFE700034783C /* LHTabNode.h in Headers */ = {isa = PBXBuildFile; fileRef = 0160A9741BA7479C0035A331 /* LHTabNode.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		01DBF2D81C4EFE700034783C /* LHNode.h in Headers */ = {isa = PBXBuildFile; fileRef = 0160A97B1BA782540035A331 /* LHNode.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		01DBF2D91C4EFE700034783C /* LHNodeState.h in Headers */ = {isa = PBXBuildFile; fileRef = 0160A97C1BA782940035A331 /* LHNodeState.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		01DBF2DA1C4EFE700034783C /* LHNodeChildrenState.h in Headers */ = {isa = PBXBuildFile; fileRef = 0160A97D1BA782BA0035A331 /* LHNodeChildrenState.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		01DBF2DB1C4EFE700034783C /* LHTarget.h in Headers */ = {isa = PBXBuildFile; fileRef = 013176A11BC1F7650007668B /* LHTarget.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		01DBF2DC1C4EFE700034783C /* LHViewControllerDriverHelpers.h in Headers */ = {isa = PBXBuildFile; fileRef = 0124979C1BA9E7B1007CD98B /* LHViewControllerDriverHelpers.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		01DBF2DD1C4EFE700034783C /* UIViewController+LHDismissalTracking.h in Headers */ = {isa = PBXBuildFile; fileRef = 017E5B261BC1688400C6C831 /* UIViewController+LHDismissalTracking.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		01DBF2DE1C4EFE700034783C /* LHViewControllerDriver.h in Headers */ = {isa = PBXBuildFile; fileRef = 01A01A621BA8373B00608274 /* LHViewControllerDriver.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		01DBF2DF1C4EFE700034783C /* LHNavigationControllerDriver.h in Headers */ = {isa = PBXBuildFile; fileRef = 0160A9831BA78EAC0035A331 /* LHNavigationControllerDriver.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		01DBF2E01C4EFE700034783C /* LHTabBarControllerDriver.h in Headers */ = {isa = PBXBuildFile; fileRef = 012497961BA9D92E007CD98B /* LHTabBarControllerDriver.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		01DBF2E11C4EFE700034783C /* LHModalPresentationDriver.h in Headers */ = {isa = PBXBuildFile; fileRef = 01A01A9F1BA88B4000608274 /* LHModalPresentationDriver.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		01DBF2E21C4EFE700034783C /* LHUpdateHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 0186CAFD1BADF87F00B22431 /* LHUpdateHandler.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		01DBF2E31C4EFE700034783C /* LHUpdateBus.h in Headers */ = {isa = PBXBuildFile; fileRef = 012A952F1C4EEFAC000A4ECB /* LHUpdateBus.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		01DBF2E41C4EFE700034783C /* LHUpdateHandlerDriver.h in Headers */ = {isa = PBXBuildFile; fileRef = 0111CC221BAA470D00C19022 /* LHUpdateHandlerDriver.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		01DBF2E51C4EFE700034783C /* LHDriver.h in Headers */ = {isa = PBXBuildFile; fileRef = 0160A9781BA780AD0035A331 /* LHDriver.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		01DBF2E61C4EFE700034783C /* LHDriverUpdateContext.h in Headers */ = {isa = PBXBuildFile; fileRef = 0160A9811BA78CAE0035A331 /* LHDriverUpdateContext.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		01DBF2E71C4EFE700034783C /* LHDriverFeedbackChannel.h in Headers */ = {isa = PBXBuildFile; fileRef = 0160A9881BA8299A0035A331 /* LHDriverFeedbackChannel.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		01DBF2E81C4EFE700034783C /* LHBasicDriverProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = 01A01AA21BA8901100608274 /* LHBasicDriverProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		01DBF2E91C4EFE700034783C /* LHCompositeDriverProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = 01A01AAF1BA97B7100608274 /* LHCompositeDriverProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		01DBF2EA1C4EFE700034783C /* LHCompositeDriver.h in Headers */ = {isa = PBXBuildFile; fileRef = 01A01AAA1BA9743900608274 /* LHCompositeDriver.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		01DBF2EB1C4EFE700034783C /* LHDriverProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = 01A01A791BA8420000608274 /* LHDriverProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		01DBF2EC1C4EFE700034783C /* LHCommand.h in Headers */ = {isa = PBXBuildFile; fileRef = 0160A9871BA822170035A331 /* LHCommand.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		01DBF2ED1C4EFE700034783C /* LHBasicCommandRegistry.h in Headers */ = {isa = PBXBuildFile; fileRef = 0111CC291BAB026B00C19022 /* LHBasicCommandRegistry.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		01DBF2EE1C4EFE700034783C /* LHCommandRegistry.h in Headers */ = {isa = PBXBuildFile; fileRef = 01A01A751BA83EA500608274 /* LHCommandRegistry.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		01DBF2EF1C4EFE700034783C /* LHTask.h in Headers */ = {isa = PBXBuildFile; fileRef = 01C6F8CB1BB6D61D00A13C1E /* LHTask.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		01DBF2F01C4EFE710034783C /* LHTaskQueue.h in Headers */ = {isa = PBXBuildFile; fileRef = 0111CC391BAB963900C19022 /* LHTaskQueue.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		01DBF2F11C4EFE710034783C /* LHDescriptionHelpers.h in Headers */ = {isa = PBXBuildFile; fileRef = 0186CAF01BACC29E00B22431 /* LHDescriptionHelpers.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		01DBF2F21C4EFEB00034783C /* LHGraph.h in Headers */ = {isa = PBXBuildFile; fileRef = 01A01A701BA83B0B00608274 /* LHGraph.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		01DBF2F31C4EFEB00034783C /* LHNodeData.h in Headers */ = {isa = PBXBuildFile; fileRef = 01A01A7E1BA84D2500608274 /* LHNodeData.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		01DBF2F41C4EFEB00034783C /* LHNodeDataStorage.h in Headers */ = {isa = PBXBuildFile; fileRef = 012A87A41BB3791200C9679D /* LHNodeDataStorage.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		01DBF2F51C4EFEB00034783C /* LHComponents.h in Headers */ = {isa = PBXBuildFile; fileRef = 01C6F90C1BBB1C7E00A13C1E /* LHComponents.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		01DBF2F61C4EFEB00034783C /* LHBlockTask.h in Headers */ = {isa = PBXBuildFile; fileRef = 01C6F8CE1BB6D8DD00A13C1E /* LHBlockTask.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		01DBF2F71C4EFEB00034783C /* LHNodeUpdateTask.h in Headers */ = {isa = PBXBuildFile; fileRef = 01C6F8D11BB6DE8000A13C1E /* LHNodeUpdateTask.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		01DBF2F81C4EFEB00034783C /* LHCommandNodeUpdateTask.h in Headers */ = {isa = PBXBuildFile; fileRef = 01C6F8D51BB81FB700A13C1E /* LHCommandNodeUpdateTask.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		01DBF2F91C4EFEB00034783C /* LHManualNodeUpdateTask.h in Headers */ = {isa = PBXBuildFile; fileRef = 01E8BB951BC01318000405D2 /* LHManualNodeUpdateTask.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		01DBF2FA1C4EFEB00034783C /* LHDriverFeedbackUpdateTask.h in Headers */ = {isa = PBXBuildFile; fileRef = 01C6F9021BBA063800A13C1E /* LHDriverFeedbackUpdateTask.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		01DBF2FB1C4EFEB00034783C /* LHDriverUpdateContextImpl.h in Headers */ = {isa = PBXBuildFile; fileRef = 01A01A811BA869F200608274 /* LHDriverUpdateContextImpl.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		01DBF2FC1C4EFEB00034783C /* LHDriverFeedbackChannelImpl.h in Headers */ = {isa = PBXBuildFile; fileRef = 01A01AA61BA8E9FB00608274 /* LHDriverFeedbackChannelImpl.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		01DBF2FD1C4EFEB00034783C /* LHUpdateBusImpl.h in Headers */ = {isa = PBXBuildFile; fileRef = 012A95321C4EF2E9000A4ECB /* LHUpdateBusImpl.h */; settings = {ATTRIBUTES = (Private, ); }; };
 /* End PBXBuildFile section */
 
-/* Begin PBXCopyFilesBuildPhase section */
-		013F68A11BA62BE900B5797B /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "include/$(PRODUCT_NAME)";
-			dstSubfolderSpec = 16;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
+/* Begin PBXContainerItemProxy section */
+		012A95451C4EFD5E000A4ECB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 013F689B1BA62BE900B5797B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 012A95391C4EFD5E000A4ECB;
+			remoteInfo = Lighthouse;
 		};
-/* End PBXCopyFilesBuildPhase section */
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0111CC221BAA470D00C19022 /* LHUpdateOrientedDriver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHUpdateOrientedDriver.h; sourceTree = "<group>"; };
-		0111CC231BAA470D00C19022 /* LHUpdateOrientedDriver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHUpdateOrientedDriver.m; sourceTree = "<group>"; };
+		0111CC221BAA470D00C19022 /* LHUpdateHandlerDriver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHUpdateHandlerDriver.h; sourceTree = "<group>"; };
+		0111CC231BAA470D00C19022 /* LHUpdateHandlerDriver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHUpdateHandlerDriver.m; sourceTree = "<group>"; };
 		0111CC291BAB026B00C19022 /* LHBasicCommandRegistry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHBasicCommandRegistry.h; sourceTree = "<group>"; };
 		0111CC2A1BAB026B00C19022 /* LHBasicCommandRegistry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHBasicCommandRegistry.m; sourceTree = "<group>"; };
 		0111CC391BAB963900C19022 /* LHTaskQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHTaskQueue.h; sourceTree = "<group>"; };
@@ -70,9 +119,17 @@
 		012497A01BAA1FDE007CD98B /* LHRouterDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHRouterDelegate.h; sourceTree = "<group>"; };
 		012A87A41BB3791200C9679D /* LHNodeDataStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHNodeDataStorage.h; sourceTree = "<group>"; };
 		012A87A51BB3791200C9679D /* LHNodeDataStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHNodeDataStorage.m; sourceTree = "<group>"; };
+		012A952F1C4EEFAC000A4ECB /* LHUpdateBus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHUpdateBus.h; sourceTree = "<group>"; };
+		012A95321C4EF2E9000A4ECB /* LHUpdateBusImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHUpdateBusImpl.h; sourceTree = "<group>"; };
+		012A95331C4EF2E9000A4ECB /* LHUpdateBusImpl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHUpdateBusImpl.m; sourceTree = "<group>"; };
+		012A953A1C4EFD5E000A4ECB /* Lighthouse.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Lighthouse.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		012A953C1C4EFD5E000A4ECB /* Lighthouse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Lighthouse.h; sourceTree = "<group>"; };
+		012A953E1C4EFD5E000A4ECB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		012A95431C4EFD5E000A4ECB /* LighthouseTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LighthouseTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		012A95481C4EFD5E000A4ECB /* LighthouseTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LighthouseTests.m; sourceTree = "<group>"; };
+		012A954A1C4EFD5E000A4ECB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		013176A11BC1F7650007668B /* LHTarget.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHTarget.h; sourceTree = "<group>"; };
 		013176A21BC1F7650007668B /* LHTarget.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHTarget.m; sourceTree = "<group>"; };
-		013F68A31BA62BE900B5797B /* libLighthouse.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libLighthouse.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		0160A96B1BA742C90035A331 /* LHStackNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHStackNode.h; sourceTree = "<group>"; };
 		0160A96C1BA742C90035A331 /* LHStackNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHStackNode.m; sourceTree = "<group>"; };
 		0160A96E1BA7434B0035A331 /* LHNodeTree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHNodeTree.h; sourceTree = "<group>"; };
@@ -96,8 +153,6 @@
 		0186CAF01BACC29E00B22431 /* LHDescriptionHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHDescriptionHelpers.h; sourceTree = "<group>"; };
 		0186CAF11BACC29E00B22431 /* LHDescriptionHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHDescriptionHelpers.m; sourceTree = "<group>"; };
 		0186CAFD1BADF87F00B22431 /* LHUpdateHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHUpdateHandler.h; sourceTree = "<group>"; };
-		0186CAFE1BADF93600B22431 /* LHUpdateHandlerImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHUpdateHandlerImpl.h; sourceTree = "<group>"; };
-		0186CAFF1BADF93600B22431 /* LHUpdateHandlerImpl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHUpdateHandlerImpl.m; sourceTree = "<group>"; };
 		0186CB051BAE038600B22431 /* LHTree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHTree.h; sourceTree = "<group>"; };
 		0186CB061BAE038600B22431 /* LHTree.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHTree.m; sourceTree = "<group>"; };
 		0186CB081BAE0A1700B22431 /* LHNodeForest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHNodeForest.h; sourceTree = "<group>"; };
@@ -146,24 +201,33 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		013F68A01BA62BE900B5797B /* Frameworks */ = {
+		012A95361C4EFD5E000A4ECB /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		012A95401C4EFD5E000A4ECB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				012A95441C4EFD5E000A4ECB /* Lighthouse.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0111CC211BAA46E500C19022 /* Update Oriented */ = {
+		0111CC211BAA46E500C19022 /* Update Handler */ = {
 			isa = PBXGroup;
 			children = (
 				0186CAFD1BADF87F00B22431 /* LHUpdateHandler.h */,
-				0111CC221BAA470D00C19022 /* LHUpdateOrientedDriver.h */,
-				0111CC231BAA470D00C19022 /* LHUpdateOrientedDriver.m */,
+				012A952F1C4EEFAC000A4ECB /* LHUpdateBus.h */,
+				0111CC221BAA470D00C19022 /* LHUpdateHandlerDriver.h */,
+				0111CC231BAA470D00C19022 /* LHUpdateHandlerDriver.m */,
 			);
-			name = "Update Oriented";
+			name = "Update Handler";
 			sourceTree = "<group>";
 		};
 		0111CC281BAB025B00C19022 /* Basic */ = {
@@ -221,10 +285,30 @@
 			name = Helpers;
 			sourceTree = "<group>";
 		};
+		012A953B1C4EFD5E000A4ECB /* Lighthouse */ = {
+			isa = PBXGroup;
+			children = (
+				012A953C1C4EFD5E000A4ECB /* Lighthouse.h */,
+				012A953E1C4EFD5E000A4ECB /* Info.plist */,
+			);
+			path = Lighthouse;
+			sourceTree = "<group>";
+		};
+		012A95471C4EFD5E000A4ECB /* LighthouseTests */ = {
+			isa = PBXGroup;
+			children = (
+				012A95481C4EFD5E000A4ECB /* LighthouseTests.m */,
+				012A954A1C4EFD5E000A4ECB /* Info.plist */,
+			);
+			path = LighthouseTests;
+			sourceTree = "<group>";
+		};
 		013F689A1BA62BE900B5797B = {
 			isa = PBXGroup;
 			children = (
 				013F68A51BA62BE900B5797B /* Lighthouse */,
+				012A953B1C4EFD5E000A4ECB /* Lighthouse */,
+				012A95471C4EFD5E000A4ECB /* LighthouseTests */,
 				013F68A41BA62BE900B5797B /* Products */,
 			);
 			sourceTree = "<group>";
@@ -232,7 +316,8 @@
 		013F68A41BA62BE900B5797B /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				013F68A31BA62BE900B5797B /* libLighthouse.a */,
+				012A953A1C4EFD5E000A4ECB /* Lighthouse.framework */,
+				012A95431C4EFD5E000A4ECB /* LighthouseTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -295,7 +380,7 @@
 			isa = PBXGroup;
 			children = (
 				0160A9821BA78DE00035A331 /* View Controllers */,
-				0111CC211BAA46E500C19022 /* Update Oriented */,
+				0111CC211BAA46E500C19022 /* Update Handler */,
 				0160A9781BA780AD0035A331 /* LHDriver.h */,
 				0160A9811BA78CAE0035A331 /* LHDriverUpdateContext.h */,
 				0160A9881BA8299A0035A331 /* LHDriverFeedbackChannel.h */,
@@ -418,8 +503,8 @@
 				01A01A821BA869F200608274 /* LHDriverUpdateContextImpl.m */,
 				01A01AA61BA8E9FB00608274 /* LHDriverFeedbackChannelImpl.h */,
 				01A01AA71BA8E9FB00608274 /* LHDriverFeedbackChannelImpl.m */,
-				0186CAFE1BADF93600B22431 /* LHUpdateHandlerImpl.h */,
-				0186CAFF1BADF93600B22431 /* LHUpdateHandlerImpl.m */,
+				012A95321C4EF2E9000A4ECB /* LHUpdateBusImpl.h */,
+				012A95331C4EF2E9000A4ECB /* LHUpdateBusImpl.m */,
 			);
 			name = Implementations;
 			sourceTree = "<group>";
@@ -441,23 +526,101 @@
 		};
 /* End PBXGroup section */
 
+/* Begin PBXHeadersBuildPhase section */
+		012A95371C4EFD5E000A4ECB /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				012A953D1C4EFD5E000A4ECB /* Lighthouse.h in Headers */,
+				01DBF2CE1C4EFE700034783C /* LHRouter.h in Headers */,
+				01DBF2CF1C4EFE700034783C /* LHRouterDelegate.h in Headers */,
+				01DBF2D01C4EFE700034783C /* LHTree.h in Headers */,
+				01DBF2D11C4EFE700034783C /* LHNodeTree.h in Headers */,
+				01DBF2D21C4EFE700034783C /* LHNodeForest.h in Headers */,
+				01DBF2D31C4EFE700034783C /* LHLeafNode.h in Headers */,
+				01DBF2D41C4EFE700034783C /* LHStackNode.h in Headers */,
+				01DBF2D61C4EFE700034783C /* LHFreeStackNode.h in Headers */,
+				01DBF2D71C4EFE700034783C /* LHTabNode.h in Headers */,
+				01DBF2D81C4EFE700034783C /* LHNode.h in Headers */,
+				01DBF2D91C4EFE700034783C /* LHNodeState.h in Headers */,
+				01DBF2DA1C4EFE700034783C /* LHNodeChildrenState.h in Headers */,
+				01DBF2DB1C4EFE700034783C /* LHTarget.h in Headers */,
+				01DBF2DE1C4EFE700034783C /* LHViewControllerDriver.h in Headers */,
+				01DBF2DF1C4EFE700034783C /* LHNavigationControllerDriver.h in Headers */,
+				01DBF2E01C4EFE700034783C /* LHTabBarControllerDriver.h in Headers */,
+				01DBF2E11C4EFE700034783C /* LHModalPresentationDriver.h in Headers */,
+				01DBF2E21C4EFE700034783C /* LHUpdateHandler.h in Headers */,
+				01DBF2E31C4EFE700034783C /* LHUpdateBus.h in Headers */,
+				01DBF2E41C4EFE700034783C /* LHUpdateHandlerDriver.h in Headers */,
+				01DBF2E51C4EFE700034783C /* LHDriver.h in Headers */,
+				01DBF2E61C4EFE700034783C /* LHDriverUpdateContext.h in Headers */,
+				01DBF2E71C4EFE700034783C /* LHDriverFeedbackChannel.h in Headers */,
+				01DBF2E81C4EFE700034783C /* LHBasicDriverProvider.h in Headers */,
+				01DBF2E91C4EFE700034783C /* LHCompositeDriverProvider.h in Headers */,
+				01DBF2EB1C4EFE700034783C /* LHDriverProvider.h in Headers */,
+				01DBF2EC1C4EFE700034783C /* LHCommand.h in Headers */,
+				01DBF2ED1C4EFE700034783C /* LHBasicCommandRegistry.h in Headers */,
+				01DBF2EE1C4EFE700034783C /* LHCommandRegistry.h in Headers */,
+				01DBF2EF1C4EFE700034783C /* LHTask.h in Headers */,
+				01DBF2F01C4EFE710034783C /* LHTaskQueue.h in Headers */,
+				01DBF2F11C4EFE710034783C /* LHDescriptionHelpers.h in Headers */,
+				01DBF2F21C4EFEB00034783C /* LHGraph.h in Headers */,
+				01DBF2F31C4EFEB00034783C /* LHNodeData.h in Headers */,
+				01DBF2F41C4EFEB00034783C /* LHNodeDataStorage.h in Headers */,
+				01DBF2F51C4EFEB00034783C /* LHComponents.h in Headers */,
+				01DBF2F61C4EFEB00034783C /* LHBlockTask.h in Headers */,
+				01DBF2F71C4EFEB00034783C /* LHNodeUpdateTask.h in Headers */,
+				01DBF2F81C4EFEB00034783C /* LHCommandNodeUpdateTask.h in Headers */,
+				01DBF2F91C4EFEB00034783C /* LHManualNodeUpdateTask.h in Headers */,
+				01DBF2FA1C4EFEB00034783C /* LHDriverFeedbackUpdateTask.h in Headers */,
+				01DBF2FB1C4EFEB00034783C /* LHDriverUpdateContextImpl.h in Headers */,
+				01DBF2FC1C4EFEB00034783C /* LHDriverFeedbackChannelImpl.h in Headers */,
+				01DBF2FD1C4EFEB00034783C /* LHUpdateBusImpl.h in Headers */,
+				01DBF2EA1C4EFE700034783C /* LHCompositeDriver.h in Headers */,
+				01DBF2D51C4EFE700034783C /* LHStackNodeChildrenState.h in Headers */,
+				01DBF2DC1C4EFE700034783C /* LHViewControllerDriverHelpers.h in Headers */,
+				01DBF2DD1C4EFE700034783C /* UIViewController+LHDismissalTracking.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
 /* Begin PBXNativeTarget section */
-		013F68A21BA62BE900B5797B /* Lighthouse */ = {
+		012A95391C4EFD5E000A4ECB /* Lighthouse */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 013F68AC1BA62BE900B5797B /* Build configuration list for PBXNativeTarget "Lighthouse" */;
+			buildConfigurationList = 012A954B1C4EFD5E000A4ECB /* Build configuration list for PBXNativeTarget "Lighthouse" */;
 			buildPhases = (
-				013F689F1BA62BE900B5797B /* Sources */,
-				013F68A01BA62BE900B5797B /* Frameworks */,
-				013F68A11BA62BE900B5797B /* CopyFiles */,
+				012A95351C4EFD5E000A4ECB /* Sources */,
+				012A95361C4EFD5E000A4ECB /* Frameworks */,
+				012A95371C4EFD5E000A4ECB /* Headers */,
+				012A95381C4EFD5E000A4ECB /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = Lighthouse;
-			productName = Router;
-			productReference = 013F68A31BA62BE900B5797B /* libLighthouse.a */;
-			productType = "com.apple.product-type.library.static";
+			productName = Lighthouse;
+			productReference = 012A953A1C4EFD5E000A4ECB /* Lighthouse.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		012A95421C4EFD5E000A4ECB /* LighthouseTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 012A954E1C4EFD5E000A4ECB /* Build configuration list for PBXNativeTarget "LighthouseTests" */;
+			buildPhases = (
+				012A953F1C4EFD5E000A4ECB /* Sources */,
+				012A95401C4EFD5E000A4ECB /* Frameworks */,
+				012A95411C4EFD5E000A4ECB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				012A95461C4EFD5E000A4ECB /* PBXTargetDependency */,
+			);
+			name = LighthouseTests;
+			productName = LighthouseTests;
+			productReference = 012A95431C4EFD5E000A4ECB /* LighthouseTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -469,8 +632,11 @@
 				LastUpgradeCheck = 0710;
 				ORGANIZATIONNAME = Pixty;
 				TargetAttributes = {
-					013F68A21BA62BE900B5797B = {
-						CreatedOnToolsVersion = 7.1;
+					012A95391C4EFD5E000A4ECB = {
+						CreatedOnToolsVersion = 7.2;
+					};
+					012A95421C4EFD5E000A4ECB = {
+						CreatedOnToolsVersion = 7.2;
 					};
 				};
 			};
@@ -486,58 +652,154 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				013F68A21BA62BE900B5797B /* Lighthouse */,
+				012A95391C4EFD5E000A4ECB /* Lighthouse */,
+				012A95421C4EFD5E000A4ECB /* LighthouseTests */,
 			);
 		};
 /* End PBXProject section */
 
+/* Begin PBXResourcesBuildPhase section */
+		012A95381C4EFD5E000A4ECB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		012A95411C4EFD5E000A4ECB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
-		013F689F1BA62BE900B5797B /* Sources */ = {
+		012A95351C4EFD5E000A4ECB /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0186CB071BAE038600B22431 /* LHTree.m in Sources */,
-				0186CB001BADF93600B22431 /* LHUpdateHandlerImpl.m in Sources */,
-				017E5B251BC14DE300C6C831 /* LHFreeStackNode.m in Sources */,
-				0160A9701BA7434B0035A331 /* LHNodeTree.m in Sources */,
-				01A01AB11BA97B7100608274 /* LHCompositeDriverProvider.m in Sources */,
-				01C6F8D01BB6D8DD00A13C1E /* LHBlockTask.m in Sources */,
-				0186CB0A1BAE0A1700B22431 /* LHNodeForest.m in Sources */,
-				01C6F9041BBA063800A13C1E /* LHDriverFeedbackUpdateTask.m in Sources */,
-				01C6F8D71BB81FB700A13C1E /* LHCommandNodeUpdateTask.m in Sources */,
-				0160A9761BA7479C0035A331 /* LHTabNode.m in Sources */,
-				0124979E1BA9E7B1007CD98B /* LHViewControllerDriverHelpers.m in Sources */,
-				0160A96D1BA742C90035A331 /* LHStackNode.m in Sources */,
-				0186CAF21BACC29E00B22431 /* LHDescriptionHelpers.m in Sources */,
-				0111CC2B1BAB026B00C19022 /* LHBasicCommandRegistry.m in Sources */,
-				0186CB0D1BAE0C3200B22431 /* LHStackNodeChildrenState.m in Sources */,
-				01A01A721BA83B0B00608274 /* LHGraph.m in Sources */,
-				0160A9851BA78EAC0035A331 /* LHNavigationControllerDriver.m in Sources */,
-				01A01A641BA8373B00608274 /* LHViewControllerDriver.m in Sources */,
-				012497981BA9D92E007CD98B /* LHTabBarControllerDriver.m in Sources */,
-				0111CC241BAA470D00C19022 /* LHUpdateOrientedDriver.m in Sources */,
-				0160A97F1BA782BA0035A331 /* LHNodeChildrenState.m in Sources */,
-				01C6F90E1BBB1C7E00A13C1E /* LHComponents.m in Sources */,
-				01C6F8CD1BB6D6F500A13C1E /* LHTaskQueue.m in Sources */,
-				01A01AA11BA88B4000608274 /* LHModalPresentationDriver.m in Sources */,
-				01E8BB971BC01318000405D2 /* LHManualNodeUpdateTask.m in Sources */,
-				013176A31BC1F7650007668B /* LHTarget.m in Sources */,
-				01A01AAC1BA9743900608274 /* LHCompositeDriver.m in Sources */,
-				01A01A831BA869F200608274 /* LHDriverUpdateContextImpl.m in Sources */,
-				012A87A61BB3791200C9679D /* LHNodeDataStorage.m in Sources */,
-				01A01A801BA84D2500608274 /* LHNodeData.m in Sources */,
-				01A01A991BA8834500608274 /* LHLeafNode.m in Sources */,
-				01C6F8D31BB6DE8000A13C1E /* LHNodeUpdateTask.m in Sources */,
-				01A01AA81BA8E9FB00608274 /* LHDriverFeedbackChannelImpl.m in Sources */,
-				01A01A671BA837B100608274 /* LHRouter.m in Sources */,
-				017E5B281BC1688400C6C831 /* UIViewController+LHDismissalTracking.m in Sources */,
-				01A01AA41BA8901100608274 /* LHBasicDriverProvider.m in Sources */,
+				012A95511C4EFD9A000A4ECB /* LHRouter.m in Sources */,
+				012A95521C4EFD9A000A4ECB /* LHTree.m in Sources */,
+				012A95531C4EFD9A000A4ECB /* LHNodeTree.m in Sources */,
+				012A95541C4EFD9A000A4ECB /* LHNodeForest.m in Sources */,
+				012A95551C4EFD9A000A4ECB /* LHLeafNode.m in Sources */,
+				012A95561C4EFD9A000A4ECB /* LHStackNode.m in Sources */,
+				012A95571C4EFD9A000A4ECB /* LHStackNodeChildrenState.m in Sources */,
+				012A95581C4EFD9A000A4ECB /* LHFreeStackNode.m in Sources */,
+				012A95591C4EFD9A000A4ECB /* LHTabNode.m in Sources */,
+				012A955A1C4EFD9A000A4ECB /* LHNodeChildrenState.m in Sources */,
+				012A955B1C4EFD9A000A4ECB /* LHTarget.m in Sources */,
+				012A955C1C4EFD9A000A4ECB /* LHViewControllerDriverHelpers.m in Sources */,
+				012A955D1C4EFD9A000A4ECB /* UIViewController+LHDismissalTracking.m in Sources */,
+				012A955E1C4EFD9A000A4ECB /* LHViewControllerDriver.m in Sources */,
+				012A955F1C4EFD9A000A4ECB /* LHNavigationControllerDriver.m in Sources */,
+				012A95601C4EFD9A000A4ECB /* LHTabBarControllerDriver.m in Sources */,
+				012A95611C4EFD9A000A4ECB /* LHModalPresentationDriver.m in Sources */,
+				012A95621C4EFD9A000A4ECB /* LHUpdateHandlerDriver.m in Sources */,
+				012A95631C4EFD9A000A4ECB /* LHBasicDriverProvider.m in Sources */,
+				012A95641C4EFD9A000A4ECB /* LHCompositeDriverProvider.m in Sources */,
+				012A95651C4EFD9A000A4ECB /* LHCompositeDriver.m in Sources */,
+				012A95661C4EFD9A000A4ECB /* LHBasicCommandRegistry.m in Sources */,
+				012A95671C4EFD9A000A4ECB /* LHTaskQueue.m in Sources */,
+				012A95681C4EFD9A000A4ECB /* LHDescriptionHelpers.m in Sources */,
+				012A95691C4EFD9A000A4ECB /* LHGraph.m in Sources */,
+				012A956A1C4EFD9A000A4ECB /* LHNodeData.m in Sources */,
+				012A956B1C4EFD9A000A4ECB /* LHNodeDataStorage.m in Sources */,
+				012A956C1C4EFD9A000A4ECB /* LHComponents.m in Sources */,
+				012A956D1C4EFD9A000A4ECB /* LHBlockTask.m in Sources */,
+				012A956E1C4EFD9A000A4ECB /* LHNodeUpdateTask.m in Sources */,
+				012A956F1C4EFD9A000A4ECB /* LHCommandNodeUpdateTask.m in Sources */,
+				012A95701C4EFD9A000A4ECB /* LHManualNodeUpdateTask.m in Sources */,
+				012A95711C4EFD9A000A4ECB /* LHDriverFeedbackUpdateTask.m in Sources */,
+				012A95721C4EFD9A000A4ECB /* LHDriverUpdateContextImpl.m in Sources */,
+				012A95731C4EFD9A000A4ECB /* LHDriverFeedbackChannelImpl.m in Sources */,
+				012A95741C4EFD9A000A4ECB /* LHUpdateBusImpl.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		012A953F1C4EFD5E000A4ECB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				012A95491C4EFD5E000A4ECB /* LighthouseTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		012A95461C4EFD5E000A4ECB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 012A95391C4EFD5E000A4ECB /* Lighthouse */;
+			targetProxy = 012A95451C4EFD5E000A4ECB /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		012A954C1C4EFD5E000A4ECB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = Lighthouse/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.pixty.Lighthouse;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		012A954D1C4EFD5E000A4ECB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = Lighthouse/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.pixty.Lighthouse;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		012A954F1C4EFD5E000A4ECB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = LighthouseTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.pixty.LighthouseTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		012A95501C4EFD5E000A4ECB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = LighthouseTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.pixty.LighthouseTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		013F68AA1BA62BE900B5797B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -618,41 +880,32 @@
 			};
 			name = Release;
 		};
-		013F68AD1BA62BE900B5797B /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = Lighthouse;
-				SKIP_INSTALL = YES;
-			};
-			name = Debug;
-		};
-		013F68AE1BA62BE900B5797B /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = Lighthouse;
-				SKIP_INSTALL = YES;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		012A954B1C4EFD5E000A4ECB /* Build configuration list for PBXNativeTarget "Lighthouse" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				012A954C1C4EFD5E000A4ECB /* Debug */,
+				012A954D1C4EFD5E000A4ECB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		012A954E1C4EFD5E000A4ECB /* Build configuration list for PBXNativeTarget "LighthouseTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				012A954F1C4EFD5E000A4ECB /* Debug */,
+				012A95501C4EFD5E000A4ECB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		013F689E1BA62BE900B5797B /* Build configuration list for PBXProject "Lighthouse" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				013F68AA1BA62BE900B5797B /* Debug */,
 				013F68AB1BA62BE900B5797B /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		013F68AC1BA62BE900B5797B /* Build configuration list for PBXNativeTarget "Lighthouse" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				013F68AD1BA62BE900B5797B /* Debug */,
-				013F68AE1BA62BE900B5797B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

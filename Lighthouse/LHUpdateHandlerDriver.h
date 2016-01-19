@@ -1,5 +1,5 @@
 //
-//  LHUpdateOrientedDriver.h
+//  LHUpdateHandlerDriver.h
 //  Lighthouse
 //
 //  Created by Nick Tymchenko on 17/09/15.
@@ -9,17 +9,19 @@
 #import "LHDriver.h"
 
 @protocol LHCommand;
-@protocol LHUpdateHandler;
+@protocol LHUpdateBus;
 
 NS_ASSUME_NONNULL_BEGIN
 
 
-typedef _Nullable id (^LHDriverDataInitBlock)(id<LHCommand> command, id<LHUpdateHandler> updateHandler);
+typedef _Nullable id (^LHDriverDataInitBlock)(id<LHCommand> command, id<LHUpdateBus> updateBus);
 
 
-@interface LHUpdateOrientedDriver : NSObject <LHDriver>
+@interface LHUpdateHandlerDriver : NSObject <LHDriver>
 
 @property (nonatomic, copy, nullable) LHDriverDataInitBlock defaultDataInitBlock;
+
+- (instancetype)initWithDefaultDataInitBlock:(nullable LHDriverDataInitBlock)block NS_DESIGNATED_INITIALIZER;
 
 - (void)bindCommandClass:(Class)commandClass toDataInitBlock:(LHDriverDataInitBlock)block;
 

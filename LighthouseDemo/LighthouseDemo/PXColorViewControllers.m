@@ -10,8 +10,8 @@
 
 @implementation PXRedViewController
 
-- (instancetype)initWithUpdateHandler:(id<LHUpdateHandler>)updateHandler {
-    self = [super initWithUpdateHandler:updateHandler];
+- (instancetype)init {
+    self = [super init];
     self.title = @"Red";
     return self;
 }
@@ -26,8 +26,8 @@
 
 @implementation PXGreenViewController
 
-- (instancetype)initWithUpdateHandler:(id<LHUpdateHandler>)updateHandler {
-    self = [super initWithUpdateHandler:updateHandler];
+- (instancetype)init {
+    self = [super init];
     self.title = @"Green";
     return self;
 }
@@ -42,8 +42,8 @@
 
 @implementation PXBlueViewController
 
-- (instancetype)initWithUpdateHandler:(id<LHUpdateHandler>)updateHandler {
-    self = [super initWithUpdateHandler:updateHandler];
+- (instancetype)init {
+    self = [super init];
     self.title = @"Blue";
     return self;
 }

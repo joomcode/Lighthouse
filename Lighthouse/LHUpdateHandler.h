@@ -9,22 +9,14 @@
 #import <Foundation/Foundation.h>
 #import "LHNodeState.h"
 
-@protocol LHCommand;
+@protocol LHUpdateBus;
 
 NS_ASSUME_NONNULL_BEGIN
 
 
-typedef void (^LHCommandHandlerBlock)(id<LHCommand> command, BOOL animated);
-typedef void (^LHStateHandlerBlock)(LHNodeState state);
-
-
 @protocol LHUpdateHandler <NSObject>
 
-- (void)handleCommandClass:(Class)commandClass withBlock:(LHCommandHandlerBlock)block;
-
-- (void)handleCommand:(id<LHCommand>)command withBlock:(LHCommandHandlerBlock)block;
-
-- (void)handleStateUpdatesWithBlock:(LHStateHandlerBlock)block;
+- (void)awakeForLighthouseUpdateHandlingWithUpdateBus:(id<LHUpdateBus>)updateBus;
 
 @end
 

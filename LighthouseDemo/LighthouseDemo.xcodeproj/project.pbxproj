@@ -15,7 +15,6 @@
 		013F68C81BA62CA300B5797B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 013F68C71BA62CA300B5797B /* Assets.xcassets */; };
 		013F68D61BA62CA300B5797B /* LighthouseDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 013F68D51BA62CA300B5797B /* LighthouseDemoTests.m */; };
 		013F68E11BA62CA300B5797B /* LighthouseDemoUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 013F68E01BA62CA300B5797B /* LighthouseDemoUITests.m */; };
-		013F68FE1BA62D0000B5797B /* libLighthouse.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 013F68FD1BA62D0000B5797B /* libLighthouse.a */; };
 		017E5B1B1BC0281B00C6C831 /* PXStateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 017E5B1A1BC0281B00C6C831 /* PXStateViewController.m */; };
 		017E5B1E1BC031EE00C6C831 /* PXStateViewControllerDriver.m in Sources */ = {isa = PBXBuildFile; fileRef = 017E5B1D1BC031EE00C6C831 /* PXStateViewControllerDriver.m */; };
 		017E5B211BC14BBE00C6C831 /* PXNodeHierarchy.m in Sources */ = {isa = PBXBuildFile; fileRef = 017E5B201BC14BBE00C6C831 /* PXNodeHierarchy.m */; };
@@ -28,6 +27,7 @@
 		01A01A911BA8783E00608274 /* PXPresentBlue.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A01A901BA8783E00608274 /* PXPresentBlue.m */; };
 		01A01A941BA8786F00608274 /* LHRouter+Shared.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A01A931BA8786F00608274 /* LHRouter+Shared.m */; };
 		01A01AB41BA9887D00608274 /* PXModalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A01AB31BA9887D00608274 /* PXModalViewController.m */; };
+		01DBF2CD1C4EFE000034783C /* Lighthouse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01DBF2CC1C4EFE000034783C /* Lighthouse.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -91,6 +91,7 @@
 		01A01A931BA8786F00608274 /* LHRouter+Shared.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "LHRouter+Shared.m"; sourceTree = "<group>"; };
 		01A01AB21BA9887D00608274 /* PXModalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXModalViewController.h; sourceTree = "<group>"; };
 		01A01AB31BA9887D00608274 /* PXModalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXModalViewController.m; sourceTree = "<group>"; };
+		01DBF2CC1C4EFE000034783C /* Lighthouse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Lighthouse.framework; path = "../build/Debug-iphoneos/Lighthouse.framework"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,7 +99,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				013F68FE1BA62D0000B5797B /* libLighthouse.a in Frameworks */,
+				01DBF2CD1C4EFE000034783C /* Lighthouse.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -188,6 +189,7 @@
 		013F68FF1BA62D0E00B5797B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				01DBF2CC1C4EFE000034783C /* Lighthouse.framework */,
 				013F68FD1BA62D0000B5797B /* libLighthouse.a */,
 			);
 			name = Frameworks;

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0710"
+   LastUpgradeVersion = "0720"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,8 +14,8 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "013F68A21BA62BE900B5797B"
-               BuildableName = "libLighthouse.a"
+               BlueprintIdentifier = "012A95391C4EFD5E000A4ECB"
+               BuildableName = "Lighthouse.framework"
                BlueprintName = "Lighthouse"
                ReferencedContainer = "container:Lighthouse.xcodeproj">
             </BuildableReference>
@@ -28,7 +28,26 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "012A95421C4EFD5E000A4ECB"
+               BuildableName = "LighthouseTests.xctest"
+               BlueprintName = "LighthouseTests"
+               ReferencedContainer = "container:Lighthouse.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "012A95391C4EFD5E000A4ECB"
+            BuildableName = "Lighthouse.framework"
+            BlueprintName = "Lighthouse"
+            ReferencedContainer = "container:Lighthouse.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
@@ -45,8 +64,8 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "013F68A21BA62BE900B5797B"
-            BuildableName = "libLighthouse.a"
+            BlueprintIdentifier = "012A95391C4EFD5E000A4ECB"
+            BuildableName = "Lighthouse.framework"
             BlueprintName = "Lighthouse"
             ReferencedContainer = "container:Lighthouse.xcodeproj">
          </BuildableReference>
@@ -63,8 +82,8 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "013F68A21BA62BE900B5797B"
-            BuildableName = "libLighthouse.a"
+            BlueprintIdentifier = "012A95391C4EFD5E000A4ECB"
+            BuildableName = "Lighthouse.framework"
             BlueprintName = "Lighthouse"
             ReferencedContainer = "container:Lighthouse.xcodeproj">
          </BuildableReference>

@@ -9,8 +9,6 @@
 #import <UIKit/UIKit.h>
 #import <Lighthouse.h>
 
-@interface PXStateViewController : UIViewController
-
-- (instancetype)initWithUpdateHandler:(id<LHUpdateHandler>)updateHandler;
+@interface PXStateViewController : UIViewController <LHUpdateHandler>
 
 @end

@@ -17,15 +17,10 @@
 
 @implementation PXStateViewController
 
-- (instancetype)initWithUpdateHandler:(id<LHUpdateHandler>)updateHandler {
-    self = [super init];
-    if (!self) return nil;
-    
-    [updateHandler handleStateUpdatesWithBlock:^(LHNodeState state) {
+- (void)awakeForLighthouseUpdateHandlingWithUpdateBus:(id<LHUpdateBus>)updateBus {
+    [updateBus addStateUpdateHandler:^(LHNodeState state) {
         self.stateLabel.text = LHStringFromNodeState(state);
     }];
-    
-    return self;
 }
 
 - (UILabel *)stateLabel {
