@@ -13,9 +13,9 @@
 
 @interface RTRUpdateOrientedDriver ()
 
-@property (nonatomic, readonly) NSMapTable<Class, RTRDriverDataInitBlock> *dataInitBlocksByCommandClass;
+@property (nonatomic, strong, readonly) NSMapTable<Class, RTRDriverDataInitBlock> *dataInitBlocksByCommandClass;
 
-@property (nonatomic, readonly) RTRUpdateHandlerImpl *updateHandler;
+@property (nonatomic, strong, readonly) RTRUpdateHandlerImpl *updateHandler;
 
 @end
 

@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface RTRTabBarControllerDriver : NSObject <RTRDriver>
 
-@property (nonatomic, readonly, nullable) UITabBarController *data;
+@property (nonatomic, strong, readonly, nullable) UITabBarController *data;
 
 @end
 

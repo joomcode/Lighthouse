@@ -14,7 +14,7 @@
 
 @interface RTRNodeData : NSObject
 
-@property (nonatomic, readonly) id<RTRNode> node;
+@property (nonatomic, strong, readonly) id<RTRNode> node;
 
 @property (nonatomic, assign) RTRNodeState state;
 

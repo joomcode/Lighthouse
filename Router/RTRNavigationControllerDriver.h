@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface RTRNavigationControllerDriver : NSObject <RTRDriver>
 
-@property (nonatomic, readonly, nullable) UINavigationController *data;
+@property (nonatomic, strong, readonly, nullable) UINavigationController *data;
 
 @end
 

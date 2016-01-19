@@ -20,13 +20,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol RTRDriverUpdateContext <NSObject>
 
-@property (nonatomic, readonly, getter = isAnimated) BOOL animated;
+@property (nonatomic, assign, readonly, getter = isAnimated) BOOL animated;
 
-@property (nonatomic, readonly, nullable) id<RTRCommand> command;
+@property (nonatomic, strong, readonly, nullable) id<RTRCommand> command;
 
-@property (nonatomic, readonly, nullable) id<RTRNodeChildrenState> childrenState;
+@property (nonatomic, strong, readonly, nullable) id<RTRNodeChildrenState> childrenState;
 
-@property (nonatomic, readonly) RTRTaskQueue *updateQueue;
+@property (nonatomic, strong, readonly) RTRTaskQueue *updateQueue;
 
 - (id<RTRDriver>)driverForNode:(id<RTRNode>)node;
 

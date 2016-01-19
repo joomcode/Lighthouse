@@ -15,8 +15,8 @@
 
 @interface RTRNodeUpdateTask : NSObject <RTRTask>
 
-@property (nonatomic, readonly) RTRComponents *components;
-@property (nonatomic, readonly, getter = isAnimated) BOOL animated;
+@property (nonatomic, strong, readonly) RTRComponents *components;
+@property (nonatomic, assign, readonly, getter = isAnimated) BOOL animated;
 
 - (instancetype)initWithComponents:(RTRComponents *)components animated:(BOOL)animated;
 

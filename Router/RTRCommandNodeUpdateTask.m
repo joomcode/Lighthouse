@@ -16,7 +16,7 @@
 
 @interface RTRCommandNodeUpdateTask ()
 
-@property (nonatomic, readonly) id<RTRCommand> command;
+@property (nonatomic, strong, readonly) id<RTRCommand> command;
 
 @end
 

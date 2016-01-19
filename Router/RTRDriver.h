@@ -18,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol RTRDriver <NSObject>
 
-@property (nonatomic, readonly, nullable) id data;
+@property (nonatomic, strong, readonly, nullable) id data;
 
 - (void)updateWithContext:(id<RTRDriverUpdateContext>)context;
 

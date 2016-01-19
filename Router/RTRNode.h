@@ -16,9 +16,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol RTRNode <NSObject>
 
-@property (nonatomic, readonly, nullable) NSSet<id<RTRNode>> *allChildren;
+@property (nonatomic, strong, readonly, nullable) NSSet<id<RTRNode>> *allChildren;
 
-@property (nonatomic, readonly, nullable) id<RTRNodeChildrenState> childrenState;
+@property (nonatomic, strong, readonly, nullable) id<RTRNodeChildrenState> childrenState;
 
 - (void)resetChildrenState;
 

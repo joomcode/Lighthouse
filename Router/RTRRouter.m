@@ -28,7 +28,7 @@ NSString * const RTRRouterNodeUserInfoKey = @"com.pixty.router.node";
 
 @interface RTRRouter () <RTRNodeDataStorageDelegate>
 
-@property (nonatomic, readonly) RTRComponents *components;
+@property (nonatomic, strong, readonly) RTRComponents *components;
 
 @property (nonatomic, strong, readonly) RTRTaskQueue *commandQueue;
 

@@ -34,7 +34,7 @@
 
 @interface RTRNodeDataStorage (State)
 
-@property (nonatomic, readonly) NSSet *resolvedInitializedNodes;
+@property (nonatomic, strong, readonly) NSSet *resolvedInitializedNodes;
 
 - (RTRNodeState)resolvedStateForNode:(id<RTRNode>)node;
 

@@ -11,8 +11,8 @@
 
 @interface RTRUpdateHandlerImpl ()
 
-@property (nonatomic, readonly) NSMapTable *handlerBlocksByCommandClasses;
-@property (nonatomic, readonly) NSMapTable *handlerBlocksByCommands;
+@property (nonatomic, strong, readonly) NSMapTable *handlerBlocksByCommandClasses;
+@property (nonatomic, strong, readonly) NSMapTable *handlerBlocksByCommands;
 
 @property (nonatomic, copy) RTRStateHandlerBlock stateHandlerBlock;
 

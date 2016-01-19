@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface RTRViewControllerDriver : NSObject <RTRDriver>
 
-@property (nonatomic, readonly, nullable) UIViewController *data;
+@property (nonatomic, strong, readonly, nullable) UIViewController *data;
 
 - (instancetype)initWithViewControllerClass:(Class)viewControllerClass NS_DESIGNATED_INITIALIZER;
 

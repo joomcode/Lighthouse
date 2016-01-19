@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface RTRModalPresentationDriver : NSObject <RTRDriver>
 
-@property (nonatomic, readonly) UIWindow *data;
+@property (nonatomic, strong, readonly) UIWindow *data;
 
 - (instancetype)initWithWindow:(UIWindow *)window NS_DESIGNATED_INITIALIZER;
 

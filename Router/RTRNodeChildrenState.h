@@ -15,9 +15,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol RTRNodeChildrenState <NSObject>
 
-@property (nonatomic, readonly) NSOrderedSet<id<RTRNode>> *initializedChildren;
+@property (nonatomic, strong, readonly) NSOrderedSet<id<RTRNode>> *initializedChildren;
 
-@property (nonatomic, readonly) NSSet<id<RTRNode>> *activeChildren;
+@property (nonatomic, strong, readonly) NSSet<id<RTRNode>> *activeChildren;
 
 @end
 
