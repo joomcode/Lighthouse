@@ -18,8 +18,8 @@
 @implementation PXStateViewController
 
 - (void)awakeForLighthouseUpdateHandlingWithUpdateBus:(id<LHUpdateBus>)updateBus {
-    [updateBus addStateUpdateHandler:^(LHNodeState state) {
-        self.stateLabel.text = LHStringFromNodeState(state);
+    [updateBus addStateUpdateHandler:^(LHNodePresentationState state) {
+        self.stateLabel.text = LHStringFromNodePresentationState(state);
     }];
 }
 

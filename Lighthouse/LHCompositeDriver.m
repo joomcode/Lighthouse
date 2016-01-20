@@ -67,7 +67,7 @@
     }];
 }
 
-- (void)stateDidChange:(LHNodeState)state {
+- (void)stateDidChange:(LHNodePresentationState)state {
     [self.driversById enumerateKeysAndObjectsUsingBlock:^(id<NSCopying> driverId, id<LHDriver> driver, BOOL *stop) {
         if ([driver respondsToSelector:@selector(stateDidChange:)]) {
             [driver stateDidChange:state];

@@ -65,31 +65,32 @@
 
 #pragma mark - State
 
-- (LHNodeState)resolvedStateForNode:(id<LHNode>)node {
+- (LHNodePresentationState)resolvedStateForNode:(id<LHNode>)node {
     return [[self.resolvedStateByNode objectForKey:node] integerValue];
 }
 
 - (void)updateResolvedStateForAffectedNodeTree:(LHNodeTree *)nodeTree {
     [self updateResolvedNodeStateRecursivelyForNodeTree:nodeTree
                                              parentNode:nil
-                                    parentResolvedState:LHNodeStateActive];
+                                    parentResolvedState:LHNodePresentationStateActive];
 }
 
 - (void)updateResolvedNodeStateRecursivelyForNodeTree:(LHNodeTree *)nodeTree
                                            parentNode:(id<LHNode>)parentNode
-                                  parentResolvedState:(LHNodeState)parentResolvedState
+                                  parentResolvedState:(LHNodePresentationState)parentResolvedState
 {
     for (id<LHNode> node in [nodeTree nextItems:parentNode]) {
-        LHNodeState oldResolvedState = [self resolvedStateForNode:node];
+        LHNodePresentationState oldResolvedState = [self resolvedStateForNode:node];
         
-        LHNodeState newPresentationState = [self hasDataForNode:node] ? [self dataForNode:node].presentationState : LHNodeStateNotInitialized;
+        LHNodePresentationState newPresentationState =
+            [self hasDataForNode:node] ? [self dataForNode:node].presentationState : LHNodePresentationStateNotInitialized;
         
-        LHNodeState newResolvedState = MIN(newPresentationState, parentResolvedState);
+        LHNodePresentationState newResolvedState = MIN(newPresentationState, parentResolvedState);
         
         if (oldResolvedState != newResolvedState) {
             [self willChangeValueForKey:@"resolvedInitializedNodes"];
             
-            if (newResolvedState == LHNodeStateNotInitialized) {
+            if (newResolvedState == LHNodePresentationStateNotInitialized) {
                 [self.resolvedInitializedNodes removeObject:node];
                 [self.resolvedStateByNode removeObjectForKey:node];
             } else {

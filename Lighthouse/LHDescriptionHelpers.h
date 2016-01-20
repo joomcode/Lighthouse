@@ -8,5 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #import "LHNodeState.h"
+#import "LHNodePresentationState.h"
 
-NSString *LHStringFromNodeState(LHNodeState nodeState);
+NSString *LHStringFromNodeState(LHNodeState state);
+
+NSString *LHStringFromNodePresentationState(LHNodePresentationState state);

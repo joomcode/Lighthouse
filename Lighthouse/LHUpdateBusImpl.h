@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)handleCommand:(id<LHCommand>)command animated:(BOOL)animated;
 
-- (void)handleStateUpdate:(LHNodeState)state;
+- (void)handleStateUpdate:(LHNodePresentationState)state;
 
 @end
 

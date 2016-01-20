@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "LHNodeState.h"
+#import "LHNodePresentationState.h"
 
 @protocol LHNode;
 @protocol LHDriver;
@@ -21,7 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, assign) LHNodeState state;
 
-@property (nonatomic, assign) LHNodeState presentationState;
+@property (nonatomic, assign) LHNodePresentationState presentationState;
 
 @property (nonatomic, strong, nullable) id<LHDriver> driver;
 

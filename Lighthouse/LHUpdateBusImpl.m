@@ -77,7 +77,7 @@
     }
 }
 
-- (void)handleStateUpdate:(LHNodeState)state {
+- (void)handleStateUpdate:(LHNodePresentationState)state {
     for (LHStateHandlerBlock block in self.stateHandlerBlocks) {
         block(state);
     }

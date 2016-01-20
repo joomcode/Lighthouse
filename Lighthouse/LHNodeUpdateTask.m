@@ -125,12 +125,13 @@
         if (!previousNode) {
             LHNodeData *data = [self.components.nodeDataStorage dataForNode:node];
             data.state = LHNodeStateActive;
-            data.presentationState = LHNodeStateActive;
+            data.presentationState = LHNodePresentationStateActive;
         }
         
         for (id<LHNode> childNode in [self.affectedNodes nextItems:node]) {
             LHNodeState childState;
             
+            // TODO: move this code somewhere
             if ([node.childrenState.activeChildren containsObject:childNode]) {
                 childState = LHNodeStateActive;
             } else if ([node.childrenState.initializedChildren containsObject:childNode]) {
@@ -192,17 +193,7 @@
 - (void)willUpdateDriverForNode:(id<LHNode>)node {
     for (id<LHNode> child in [node allChildren]) {
         LHNodeData *childData = [self.components.nodeDataStorage dataForNode:child];
-        
-        LHNodeState oldState = childData.presentationState;
-        LHNodeState newState = childData.state;
-        
-        if (oldState == LHNodeStateNotInitialized && newState == LHNodeStateInactive) {
-            childData.presentationState = LHNodeStateInactive;
-        } else if ((oldState == LHNodeStateInactive || oldState == LHNodeStateNotInitialized) && newState == LHNodeStateActive) {
-            childData.presentationState = LHNodeStateActivating;
-        } else if (oldState == LHNodeStateActive && (newState == LHNodeStateInactive || newState == LHNodeStateNotInitialized)) {
-            childData.presentationState = LHNodeStateDeactivating;
-        }
+        childData.presentationState = LHNodePresentationStateForTransition(childData.presentationState, childData.state);
     }
     
     [self.components.nodeDataStorage updateResolvedStateForAffectedNodeTree:self.affectedNodes];
@@ -211,7 +202,7 @@
 - (void)didUpdateDriverForNode:(id<LHNode>)node {
     for (id<LHNode> child in [node allChildren]) {
         LHNodeData *childData = [self.components.nodeDataStorage dataForNode:child];
-        childData.presentationState = childData.state;
+        childData.presentationState = LHNodePresentationStateWithState(childData.state);
     }
     
     [self.components.nodeDataStorage updateResolvedStateForAffectedNodeTree:self.affectedNodes];

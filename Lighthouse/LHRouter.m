@@ -91,7 +91,7 @@ NSString * const LHRouterNodeUserInfoKey = @"com.pixty.lighthouse.router.node";
     return self.components.nodeDataStorage.resolvedInitializedNodes;
 }
 
-- (LHNodeState)stateForNode:(id<LHNode>)node {
+- (LHNodePresentationState)presentationStateForNode:(id<LHNode>)node {
     return [self.components.nodeDataStorage resolvedStateForNode:node];
 }
 

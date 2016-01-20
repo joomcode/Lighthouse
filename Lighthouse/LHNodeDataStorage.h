@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "LHNodeState.h"
+#import "LHNodePresentationState.h"
 
 @protocol LHNode;
 @protocol LHNodeDataStorageDelegate;
@@ -39,7 +39,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong, readonly) NSSet<id<LHNode>> *resolvedInitializedNodes;
 
-- (LHNodeState)resolvedStateForNode:(id<LHNode>)node;
+- (LHNodePresentationState)resolvedStateForNode:(id<LHNode>)node;
 
 - (void)updateResolvedStateForAffectedNodeTree:(LHNodeTree *)nodeTree;
 
