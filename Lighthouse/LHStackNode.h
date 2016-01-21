@@ -19,6 +19,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)initWithTree:(LHNodeTree *)tree NS_DESIGNATED_INITIALIZER;
 
+- (instancetype)initWithTreeBlock:(void (^)(LHNodeTree *tree))treeBlock;
+
 - (instancetype)init NS_UNAVAILABLE;
 
 @end

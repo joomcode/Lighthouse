@@ -44,6 +44,13 @@
     return self;
 }
 
+- (instancetype)initWithTreeBlock:(void (^)(LHNodeTree *tree))treeBlock {
+    LHNodeTree *tree = [[LHNodeTree alloc] init];
+    treeBlock(tree);
+    
+    return [self initWithTree:tree];
+}
+
 #pragma mark - LHNode
 
 @synthesize childrenState = _childrenState;
