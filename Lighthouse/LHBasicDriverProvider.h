@@ -8,17 +8,19 @@
 
 #import "LHDriverProvider.h"
 
+@protocol LHNode;
+
 NS_ASSUME_NONNULL_BEGIN
 
 
-typedef _Nonnull id<LHDriver> (^LHDriverProvidingBlock)(id<LHNode> node);
+typedef _Nonnull id<LHDriver> (^LHDriverProvidingBlock)(id<LHDriverProviderContext> context);
 
 
 @interface LHBasicDriverProvider : NSObject <LHDriverProvider>
 
 - (void)bindNode:(id<LHNode>)node toBlock:(LHDriverProvidingBlock)block;
 
-- (void)bindNodes:(NSArray *)nodes toBlock:(LHDriverProvidingBlock)block;
+- (void)bindNodes:(NSArray<id<LHNode>> *)nodes toBlock:(LHDriverProvidingBlock)block;
 
 - (void)bindNodeClass:(Class)nodeClass toBlock:(LHDriverProvidingBlock)block;
 

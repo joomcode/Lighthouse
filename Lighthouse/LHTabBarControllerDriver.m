@@ -33,7 +33,6 @@
 #pragma mark - LHDriver
 
 @synthesize data = _data;
-@synthesize feedbackChannel = _feedbackChannel;
 
 - (void)updateWithContext:(id<LHDriverUpdateContext>)context {
     if (!_data) {

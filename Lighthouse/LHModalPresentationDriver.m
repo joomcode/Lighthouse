@@ -27,8 +27,9 @@
 
 #pragma mark - Init
 
-- (instancetype)initWithWindow:(UIWindow *)window {
-    self = [super init];
+- (instancetype)initWithWindow:(UIWindow *)window
+               feedbackChannel:(id<LHDriverFeedbackChannel>)feedbackChannel {
+    self = [super initWithFeedbackChannel:feedbackChannel];
     if (!self) return nil;
     
     _data = window;
@@ -39,7 +40,6 @@
 #pragma mark - LHDriver
 
 @synthesize data = _data;
-@synthesize feedbackChannel = _feedbackChannel;
 
 - (void)updateWithContext:(id<LHDriverUpdateContext>)context {
     NSAssert(context.childrenState.activeChildren.count <= 1, @""); // TODO

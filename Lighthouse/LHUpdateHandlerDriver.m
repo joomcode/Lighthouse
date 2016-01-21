@@ -75,8 +75,8 @@
     }
 }
 
-- (void)stateDidChange:(LHNodePresentationState)state {
-    [self.updateBus handleStateUpdate:state];
+- (void)presentationStateDidChange:(LHNodePresentationState)presentationState {
+    [self.updateBus handlePresentationStateUpdate:presentationState];
 }
 
 @end

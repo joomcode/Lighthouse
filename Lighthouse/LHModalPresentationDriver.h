@@ -6,19 +6,20 @@
 //  Copyright (c) 2015 Pixty. All rights reserved.
 //
 
-#import "LHDriver.h"
+#import "LHContainerDriver.h"
 #import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
 
-@interface LHModalPresentationDriver : NSObject <LHDriver>
+@interface LHModalPresentationDriver : LHContainerDriver
 
 @property (nonatomic, strong, readonly) UIWindow *data;
 
-- (instancetype)initWithWindow:(UIWindow *)window NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithWindow:(UIWindow *)window
+               feedbackChannel:(id<LHDriverFeedbackChannel>)feedbackChannel NS_DESIGNATED_INITIALIZER;
 
-- (instancetype)init NS_UNAVAILABLE;
+- (instancetype)initWithFeedbackChannel:(id<LHDriverFeedbackChannel>)feedbackChannel NS_UNAVAILABLE;
 
 @end
 

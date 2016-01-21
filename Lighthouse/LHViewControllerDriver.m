@@ -36,4 +36,7 @@
     }
 }
 
+- (void)presentationStateDidChange:(LHNodePresentationState)presentationState {
+}
+
 @end

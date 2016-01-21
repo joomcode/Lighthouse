@@ -8,15 +8,16 @@
 
 #import <Foundation/Foundation.h>
 
-@protocol LHNode;
 @protocol LHDriver;
+@protocol LHNode;
+@protocol LHDriverProviderContext;
 
 NS_ASSUME_NONNULL_BEGIN
 
 
 @protocol LHDriverProvider <NSObject>
 
-- (nullable id<LHDriver>)driverForNode:(id<LHNode>)node;
+- (nullable id<LHDriver>)driverForNode:(id<LHNode>)node withContext:(id<LHDriverProviderContext>)context;
 
 @end
 

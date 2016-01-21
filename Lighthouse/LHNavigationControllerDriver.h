@@ -6,13 +6,13 @@
 //  Copyright (c) 2015 Pixty. All rights reserved.
 //
 
-#import "LHDriver.h"
+#import "LHContainerDriver.h"
 #import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
 
-@interface LHNavigationControllerDriver : NSObject <LHDriver>
+@interface LHNavigationControllerDriver : LHContainerDriver
 
 @property (nonatomic, strong, readonly, nullable) UINavigationController *data;
 

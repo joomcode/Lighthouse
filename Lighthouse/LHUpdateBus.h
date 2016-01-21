@@ -17,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 typedef void (^LHCommandHandlerBlock)(id<LHCommand> command, BOOL animated);
 typedef BOOL (^LHSingleShotCommandHandlerBlock)(id<LHCommand> command, BOOL animated);
 
-typedef void (^LHStateHandlerBlock)(LHNodePresentationState state);
+typedef void (^LHPresentationStateHandlerBlock)(LHNodePresentationState presentationState);
 
 
 @protocol LHUpdateBus <NSObject>
@@ -29,7 +29,7 @@ typedef void (^LHStateHandlerBlock)(LHNodePresentationState state);
 - (void)addCommandClass:(Class)commandClass handler:(LHCommandHandlerBlock)handlerBlock;
 
 
-- (void)addStateUpdateHandler:(LHStateHandlerBlock)handlerBlock;
+- (void)addPresentationStateUpdateHandler:(LHPresentationStateHandlerBlock)handlerBlock;
 
 @end
 

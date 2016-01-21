@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "LHNodeState.h"
+#import "LHNodePresentationState.h"
 
 @protocol LHCommand;
 @protocol LHDriverUpdateContext;
@@ -22,14 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)updateWithContext:(id<LHDriverUpdateContext>)context;
 
-
-@optional
-
-// TODO: make these required?.. optionals are cumbersome
-
-@property (nonatomic, strong) id<LHDriverFeedbackChannel> feedbackChannel;
-
-- (void)stateDidChange:(LHNodeState)state;
+- (void)presentationStateDidChange:(LHNodePresentationState)presentationState;
 
 @end
 

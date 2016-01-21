@@ -44,6 +44,8 @@ FOUNDATION_EXPORT const unsigned char LighthouseVersionString[];
 #import <Lighthouse/LHDriverUpdateContext.h>
 #import <Lighthouse/LHDriverFeedbackChannel.h>
 
+#import <Lighthouse/LHContainerDriver.h>
+
 #import <Lighthouse/LHViewControllerDriver.h>
 #import <Lighthouse/LHNavigationControllerDriver.h>
 #import <Lighthouse/LHTabBarControllerDriver.h>
@@ -57,6 +59,7 @@ FOUNDATION_EXPORT const unsigned char LighthouseVersionString[];
 // Driver Provider
 
 #import <Lighthouse/LHDriverProvider.h>
+#import <Lighthouse/LHDriverProviderContext.h>
 
 #import <Lighthouse/LHBasicDriverProvider.h>
 #import <Lighthouse/LHCompositeDriverProvider.h>

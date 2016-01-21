@@ -8,6 +8,7 @@
 
 #import "LHBasicDriverProvider.h"
 #import "LHNode.h"
+#import "LHDriverProviderContext.h"
 
 @interface LHBasicDriverProvider ()
 
@@ -37,7 +38,7 @@
     [self.blocksByNodes setObject:[block copy] forKey:node];
 }
 
-- (void)bindNodes:(NSArray *)nodes toBlock:(LHDriverProvidingBlock)block {
+- (void)bindNodes:(NSArray<id<LHNode>> *)nodes toBlock:(LHDriverProvidingBlock)block {
     for (id<LHNode> node in nodes) {
         [self bindNode:node toBlock:block];
     }
@@ -49,9 +50,9 @@
 
 #pragma mark - LHDriverProvider
 
-- (id<LHDriver>)driverForNode:(id<LHNode>)node {
+- (id<LHDriver>)driverForNode:(id<LHNode>)node withContext:(id<LHDriverProviderContext>)context {
     LHDriverProvidingBlock block = [self blockForNode:node];
-    return block ? block(node) : nil;
+    return block ? block(context) : nil;
 }
 
 - (LHDriverProvidingBlock)blockForNode:(id<LHNode>)node {

@@ -12,7 +12,6 @@
 @interface LHCompositeDriver ()
 
 @property (nonatomic, copy, readonly) NSDictionary<id<NSCopying>, id<LHDriver>> *driversById;
-@property (nonatomic, assign, readonly) BOOL hasFeedbackChannel;
 
 @end
 
@@ -27,20 +26,12 @@
     
     _driversById = [driversById copy];
     
-    for (id<LHDriver> driver in driversById.allValues) {
-        if ([driver respondsToSelector:@selector(setFeedbackChannel:)]) {
-            _hasFeedbackChannel = YES;
-            break;
-        }
-    }
-    
     return self;
 }
 
 #pragma mark - LHDriver
 
 @dynamic data;
-@synthesize feedbackChannel = _feedbackChannel;
 
 - (id)data {
     NSMutableDictionary<id<NSCopying>, id> *data = [[NSMutableDictionary alloc] initWithCapacity:self.driversById.count];
@@ -67,34 +58,10 @@
     }];
 }
 
-- (void)stateDidChange:(LHNodePresentationState)state {
+- (void)presentationStateDidChange:(LHNodePresentationState)presentationState {
     [self.driversById enumerateKeysAndObjectsUsingBlock:^(id<NSCopying> driverId, id<LHDriver> driver, BOOL *stop) {
-        if ([driver respondsToSelector:@selector(stateDidChange:)]) {
-            [driver stateDidChange:state];
-        }
+        [driver presentationStateDidChange:presentationState];
     }];
-}
-
-- (void)setFeedbackChannel:(id<LHDriverFeedbackChannel>)feedbackChannel {
-    _feedbackChannel = feedbackChannel;
-    
-    for (id<LHDriver> driver in self.driversById.allValues) {
-        if ([driver respondsToSelector:@selector(setFeedbackChannel:)]) {
-            driver.feedbackChannel = feedbackChannel;
-        }
-    }
-}
-
-#pragma mark - NSObject trickery
-
-- (BOOL)respondsToSelector:(SEL)aSelector {
-    if (!self.hasFeedbackChannel &&
-        (aSelector == @selector(feedbackChannel) || aSelector == @selector(setFeedbackChannel:)))
-    {
-        return NO;
-    }
-    
-    return [super respondsToSelector:aSelector];
 }
 
 @end

@@ -47,6 +47,11 @@
 		012A95731C4EFD9A000A4ECB /* LHDriverFeedbackChannelImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A01AA71BA8E9FB00608274 /* LHDriverFeedbackChannelImpl.m */; };
 		012A95741C4EFD9A000A4ECB /* LHUpdateBusImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 012A95331C4EF2E9000A4ECB /* LHUpdateBusImpl.m */; };
 		01D57A111C50467F008E4EB5 /* LHNodePresentationState.h in Headers */ = {isa = PBXBuildFile; fileRef = 01D57A101C502F3F008E4EB5 /* LHNodePresentationState.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		01D57A141C50544C008E4EB5 /* LHContainerDriver.h in Headers */ = {isa = PBXBuildFile; fileRef = 01D57A121C50544C008E4EB5 /* LHContainerDriver.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		01D57A151C50544C008E4EB5 /* LHContainerDriver.m in Sources */ = {isa = PBXBuildFile; fileRef = 01D57A131C50544C008E4EB5 /* LHContainerDriver.m */; };
+		01D57A191C505DF1008E4EB5 /* LHDriverProviderContext.h in Headers */ = {isa = PBXBuildFile; fileRef = 01D57A181C505DF1008E4EB5 /* LHDriverProviderContext.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		01D57A1C1C5062F1008E4EB5 /* LHDriverProviderContextImpl.h in Headers */ = {isa = PBXBuildFile; fileRef = 01D57A1A1C5062F1008E4EB5 /* LHDriverProviderContextImpl.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		01D57A1D1C5062F1008E4EB5 /* LHDriverProviderContextImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 01D57A1B1C5062F1008E4EB5 /* LHDriverProviderContextImpl.m */; };
 		01DBF2CE1C4EFE700034783C /* LHRouter.h in Headers */ = {isa = PBXBuildFile; fileRef = 01A01A651BA837B100608274 /* LHRouter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		01DBF2CF1C4EFE700034783C /* LHRouterDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 012497A01BAA1FDE007CD98B /* LHRouterDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		01DBF2D01C4EFE700034783C /* LHTree.h in Headers */ = {isa = PBXBuildFile; fileRef = 0186CB051BAE038600B22431 /* LHTree.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -198,6 +203,11 @@
 		01C6F90C1BBB1C7E00A13C1E /* LHComponents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHComponents.h; sourceTree = "<group>"; };
 		01C6F90D1BBB1C7E00A13C1E /* LHComponents.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHComponents.m; sourceTree = "<group>"; };
 		01D57A101C502F3F008E4EB5 /* LHNodePresentationState.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LHNodePresentationState.h; sourceTree = "<group>"; };
+		01D57A121C50544C008E4EB5 /* LHContainerDriver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHContainerDriver.h; sourceTree = "<group>"; };
+		01D57A131C50544C008E4EB5 /* LHContainerDriver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHContainerDriver.m; sourceTree = "<group>"; };
+		01D57A181C505DF1008E4EB5 /* LHDriverProviderContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHDriverProviderContext.h; sourceTree = "<group>"; };
+		01D57A1A1C5062F1008E4EB5 /* LHDriverProviderContextImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHDriverProviderContextImpl.h; sourceTree = "<group>"; };
+		01D57A1B1C5062F1008E4EB5 /* LHDriverProviderContextImpl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHDriverProviderContextImpl.m; sourceTree = "<group>"; };
 		01E8BB951BC01318000405D2 /* LHManualNodeUpdateTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHManualNodeUpdateTask.h; sourceTree = "<group>"; };
 		01E8BB961BC01318000405D2 /* LHManualNodeUpdateTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHManualNodeUpdateTask.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -382,6 +392,7 @@
 		0160A9771BA76CE70035A331 /* Drivers */ = {
 			isa = PBXGroup;
 			children = (
+				01D57A1E1C50642A008E4EB5 /* Abstract */,
 				0160A9821BA78DE00035A331 /* View Controllers */,
 				0111CC211BAA46E500C19022 /* Update Handler */,
 				0160A9781BA780AD0035A331 /* LHDriver.h */,
@@ -430,6 +441,7 @@
 				01A01AAD1BA97B3B00608274 /* Basic */,
 				01A01AAE1BA97B4500608274 /* Composite */,
 				01A01A791BA8420000608274 /* LHDriverProvider.h */,
+				01D57A181C505DF1008E4EB5 /* LHDriverProviderContext.h */,
 			);
 			name = "Driver Provider";
 			sourceTree = "<group>";
@@ -506,6 +518,8 @@
 				01A01A821BA869F200608274 /* LHDriverUpdateContextImpl.m */,
 				01A01AA61BA8E9FB00608274 /* LHDriverFeedbackChannelImpl.h */,
 				01A01AA71BA8E9FB00608274 /* LHDriverFeedbackChannelImpl.m */,
+				01D57A1A1C5062F1008E4EB5 /* LHDriverProviderContextImpl.h */,
+				01D57A1B1C5062F1008E4EB5 /* LHDriverProviderContextImpl.m */,
 				012A95321C4EF2E9000A4ECB /* LHUpdateBusImpl.h */,
 				012A95331C4EF2E9000A4ECB /* LHUpdateBusImpl.m */,
 			);
@@ -527,6 +541,15 @@
 			name = "Node Management";
 			sourceTree = "<group>";
 		};
+		01D57A1E1C50642A008E4EB5 /* Abstract */ = {
+			isa = PBXGroup;
+			children = (
+				01D57A121C50544C008E4EB5 /* LHContainerDriver.h */,
+				01D57A131C50544C008E4EB5 /* LHContainerDriver.m */,
+			);
+			name = Abstract;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -538,6 +561,7 @@
 				01DBF2CE1C4EFE700034783C /* LHRouter.h in Headers */,
 				01DBF2CF1C4EFE700034783C /* LHRouterDelegate.h in Headers */,
 				01DBF2D01C4EFE700034783C /* LHTree.h in Headers */,
+				01D57A141C50544C008E4EB5 /* LHContainerDriver.h in Headers */,
 				01DBF2D11C4EFE700034783C /* LHNodeTree.h in Headers */,
 				01DBF2D21C4EFE700034783C /* LHNodeForest.h in Headers */,
 				01DBF2D31C4EFE700034783C /* LHLeafNode.h in Headers */,
@@ -557,6 +581,7 @@
 				01DBF2E41C4EFE700034783C /* LHUpdateHandlerDriver.h in Headers */,
 				01DBF2E51C4EFE700034783C /* LHDriver.h in Headers */,
 				01DBF2E61C4EFE700034783C /* LHDriverUpdateContext.h in Headers */,
+				01D57A191C505DF1008E4EB5 /* LHDriverProviderContext.h in Headers */,
 				01DBF2E71C4EFE700034783C /* LHDriverFeedbackChannel.h in Headers */,
 				01DBF2E81C4EFE700034783C /* LHBasicDriverProvider.h in Headers */,
 				01DBF2E91C4EFE700034783C /* LHCompositeDriverProvider.h in Headers */,
@@ -571,6 +596,7 @@
 				01DBF2F31C4EFEB00034783C /* LHNodeData.h in Headers */,
 				01DBF2F41C4EFEB00034783C /* LHNodeDataStorage.h in Headers */,
 				01DBF2F51C4EFEB00034783C /* LHComponents.h in Headers */,
+				01D57A1C1C5062F1008E4EB5 /* LHDriverProviderContextImpl.h in Headers */,
 				01DBF2F61C4EFEB00034783C /* LHBlockTask.h in Headers */,
 				01DBF2F71C4EFEB00034783C /* LHNodeUpdateTask.h in Headers */,
 				01DBF2F81C4EFEB00034783C /* LHCommandNodeUpdateTask.h in Headers */,
@@ -698,6 +724,7 @@
 				012A955C1C4EFD9A000A4ECB /* LHViewControllerDriverHelpers.m in Sources */,
 				012A955D1C4EFD9A000A4ECB /* UIViewController+LHDismissalTracking.m in Sources */,
 				012A955E1C4EFD9A000A4ECB /* LHViewControllerDriver.m in Sources */,
+				01D57A151C50544C008E4EB5 /* LHContainerDriver.m in Sources */,
 				012A955F1C4EFD9A000A4ECB /* LHNavigationControllerDriver.m in Sources */,
 				012A95601C4EFD9A000A4ECB /* LHTabBarControllerDriver.m in Sources */,
 				012A95611C4EFD9A000A4ECB /* LHModalPresentationDriver.m in Sources */,
@@ -719,6 +746,7 @@
 				012A95711C4EFD9A000A4ECB /* LHDriverFeedbackUpdateTask.m in Sources */,
 				012A95721C4EFD9A000A4ECB /* LHDriverUpdateContextImpl.m in Sources */,
 				012A95731C4EFD9A000A4ECB /* LHDriverFeedbackChannelImpl.m in Sources */,
+				01D57A1D1C5062F1008E4EB5 /* LHDriverProviderContextImpl.m in Sources */,
 				012A95741C4EFD9A000A4ECB /* LHUpdateBusImpl.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -37,11 +37,11 @@
 
 #pragma mark - LHDriverProvider
 
-- (id<LHDriver>)driverForNode:(id<LHNode>)node {
+- (id<LHDriver>)driverForNode:(id<LHNode>)node withContext:(id<LHDriverProviderContext>)context {
     NSMutableDictionary<id<NSCopying>, id<LHDriver>> *driversById = [[NSMutableDictionary alloc] initWithCapacity:self.driverProvidersById.count];
     
     [self.driverProvidersById enumerateKeysAndObjectsUsingBlock:^(id<NSCopying> providerId, id<LHDriverProvider> provider, BOOL *stop) {
-        id<LHDriver> driver = [provider driverForNode:node];
+        id<LHDriver> driver = [provider driverForNode:node withContext:context];
         if (driver) {
             driversById[providerId] = driver;
         }

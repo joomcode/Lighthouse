@@ -21,6 +21,7 @@
 #import "LHCommandNodeUpdateTask.h"
 #import "LHManualNodeUpdateTask.h"
 #import "LHDriverFeedbackChannelImpl.h"
+#import "LHDriverProviderContextImpl.h"
 
 NSString * const LHRouterNodeStateDidUpdateNotification = @"com.pixty.lighthouse.router.nodeStateDidUpdate";
 NSString * const LHRouterNodeUserInfoKey = @"com.pixty.lighthouse.router.node";
@@ -114,16 +115,16 @@ NSString * const LHRouterNodeUserInfoKey = @"com.pixty.lighthouse.router.node";
 }
 
 - (id<LHDriver>)createDriverForNode:(id<LHNode>)node {
-    id<LHDriver> driver = [self.components.driverProvider driverForNode:node];
+    id<LHDriverFeedbackChannel> feedbackChannel = [[LHDriverFeedbackChannelImpl alloc] initWithNode:node
+                                                                                         components:self.components
+                                                                                        updateQueue:self.commandQueue];
+    
+    id<LHDriverProviderContext> context = [[LHDriverProviderContextImpl alloc] initWithFeedbackChannel:feedbackChannel];
+    
+    id<LHDriver> driver = [self.components.driverProvider driverForNode:node withContext:context];
     
     if (!driver) {
         return nil;
-    }
-    
-    if ([driver respondsToSelector:@selector(setFeedbackChannel:)]) {
-        driver.feedbackChannel = [[LHDriverFeedbackChannelImpl alloc] initWithNode:node
-                                                                         components:self.components                                  
-                                                                        updateQueue:self.commandQueue];
     }
     
     return driver;
@@ -136,10 +137,7 @@ NSString * const LHRouterNodeUserInfoKey = @"com.pixty.lighthouse.router.node";
 - (void)nodeDataStorage:(LHNodeDataStorage *)storage didChangeResolvedStateForNode:(id<LHNode>)node {
     if ([self.components.nodeDataStorage hasDataForNode:node]) {
         id<LHDriver> driver = [self.components.nodeDataStorage dataForNode:node].driver;
-        
-        if ([driver respondsToSelector:@selector(stateDidChange:)]) {
-            [driver stateDidChange:[self.components.nodeDataStorage resolvedStateForNode:node]];
-        }
+        [driver presentationStateDidChange:[self.components.nodeDataStorage resolvedStateForNode:node]];
     }
     
     [self.delegate router:self nodeStateDidUpdate:node];
