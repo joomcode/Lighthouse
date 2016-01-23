@@ -77,19 +77,23 @@
     self.childrenState = nil;
 }
 
-- (BOOL)updateChildrenState:(id<LHTarget>)target {
+- (LHNodeUpdateResult)updateChildrenState:(id<LHTarget>)target {
     BOOL error = NO;
     id<LHNode> activeChild = [LHNodeHelpers activeChildForApplyingTarget:target
                                                            toActiveStack:self.childrenState.initializedChildren
                                                                    error:&error];
     
+    if (error) {
+        return LHNodeUpdateResultInvalid;
+    }
+    
     if (!activeChild) {
-        return NO;
+        return LHNodeUpdateResultDeactivation;
     }
     
     LHNodeTree *tree = [self treeForChild:activeChild];
     if (!tree) {
-        return NO;
+        return LHNodeUpdateResultInvalid;
     }
     
     [self.nodeStackByTree setObject:[tree pathToItem:activeChild] forKey:tree];
@@ -104,7 +108,7 @@
     
     self.childrenState = nil;
     
-    return YES;
+    return LHNodeUpdateResultNormal;
 }
 
 #pragma mark - Stuff

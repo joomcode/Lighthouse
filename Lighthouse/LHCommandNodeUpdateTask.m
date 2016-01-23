@@ -37,14 +37,34 @@
 #pragma mark - LHNodeUpdateTask
 
 - (void)updateNodes {
-    NSMapTable *targetsByParent = [self calculateTargetsByParent];
+    id<LHTarget> target = [self.components.commandRegistry targetForCommand:self.command];
     
-    for (id<LHNode> parent in targetsByParent) {
-        id<LHTarget> target = [targetsByParent objectForKey:parent];
+    while (target) {
+        NSMapTable *targetsByParent = [self splitTargetIntoTargetsByParent:target];
         
-        if (![parent updateChildrenState:target]) {
-            NSAssert(NO, @""); // TODO
+        NSMutableArray<id<LHNode>> *parentsToDeactivate = [NSMutableArray array];
+        
+        for (id<LHNode> parent in targetsByParent) {
+            id<LHTarget> target = [targetsByParent objectForKey:parent];
+            
+            LHNodeUpdateResult result = [parent updateChildrenState:target];
+            
+            switch (result) {
+                case LHNodeUpdateResultNormal:
+                    // we're good
+                    break;
+                    
+                case LHNodeUpdateResultDeactivation:
+                    [parentsToDeactivate addObject:parent];
+                    break;
+                    
+                case LHNodeUpdateResultInvalid:
+                    NSAssert(NO, @""); // TODO
+                    break;
+            }
         }
+        
+        target = parentsToDeactivate.count > 0 ? [LHTarget withInactiveNodes:parentsToDeactivate] : nil;
     }
 }
 
@@ -54,13 +74,11 @@
 
 #pragma mark - Stuff
 
-- (NSMapTable *)calculateTargetsByParent {
-    NSMapTable *targetsByParent = [NSMapTable strongToStrongObjectsMapTable];
+- (NSMapTable<id<LHNode>, id<LHTarget>> *)splitTargetIntoTargetsByParent:(id<LHTarget>)jointTarget {
+    NSMapTable<id<LHNode>, id<LHTarget>> *targetsByParent = [NSMapTable strongToStrongObjectsMapTable];
     
-    id<LHTarget> commandTarget = [self.components.commandRegistry targetForCommand:self.command];
-    
-    for (id<LHNode> activeNode in commandTarget.activeNodes) {
-        NSOrderedSet *pathToNode = [self.components.graph pathToNode:activeNode];
+    for (id<LHNode> activeNode in jointTarget.activeNodes) {
+        NSOrderedSet<id<LHNode>> *pathToNode = [self.components.graph pathToNode:activeNode];
         
         [pathToNode enumerateObjectsUsingBlock:^(id<LHNode> node, NSUInteger idx, BOOL *stop) {
             if (idx == 0) {
@@ -82,8 +100,8 @@
         }];
     }
     
-    for (id<LHNode> inactiveNode in commandTarget.inactiveNodes) {
-        NSOrderedSet *pathToNode = [self.components.graph pathToNode:inactiveNode];
+    for (id<LHNode> inactiveNode in jointTarget.inactiveNodes) {
+        NSOrderedSet<id<LHNode>> *pathToNode = [self.components.graph pathToNode:inactiveNode];
         
         id<LHNode> parent = pathToNode[pathToNode.count - 2];
         

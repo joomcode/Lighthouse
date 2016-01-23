@@ -96,7 +96,7 @@
     [commandRegistry bindCommandClass:[PXPresentGreen class] toTargetWithActiveNode:hierarchy.greenNode];
     [commandRegistry bindCommandClass:[PXPresentBlue class] toTargetWithActiveNode:hierarchy.blueNode];
     [commandRegistry bindCommandClass:[PXPresentModal class] toTargetWithActiveNode:hierarchy.deepModalNode];
-    [commandRegistry bindCommandClass:[PXDismissModal class] toTarget:[LHTarget withInactiveNodes:@[ hierarchy.modalStackNode, hierarchy.deepModalStackNode ]]];
+    [commandRegistry bindCommandClass:[PXDismissModal class] toTarget:[LHTarget withInactiveNodes:@[ hierarchy.modalNode, hierarchy.deepModalNode ]]];
     [commandRegistry bindCommandClass:[PXPresentAnotherModal class] toTargetWithActiveNode:hierarchy.anotherBlueNode];
     [commandRegistry bindCommandClass:[PXPresentAlert class] toTargetWithActiveNode:hierarchy.alertNode];
 

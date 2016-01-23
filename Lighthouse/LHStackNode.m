@@ -65,19 +65,23 @@
     self.childrenState = [[LHStackNodeChildrenState alloc] initWithStack:[NSOrderedSet orderedSetWithObject:firstChild]];
 }
 
-- (BOOL)updateChildrenState:(id<LHTarget>)target {
+- (LHNodeUpdateResult)updateChildrenState:(id<LHTarget>)target {
     BOOL error = NO;
     id<LHNode> activeChild = [LHNodeHelpers activeChildForApplyingTarget:target
                                                            toActiveStack:self.childrenState.initializedChildren
                                                                    error:&error];
     
+    if (error) {
+        return LHNodeUpdateResultInvalid;
+    }
+    
     if (!activeChild) {
-        return NO;
+        return LHNodeUpdateResultDeactivation;
     }
     
     self.childrenState = [[LHStackNodeChildrenState alloc] initWithStack:[self.tree pathToItem:activeChild]];
     
-    return YES;
+    return LHNodeUpdateResultNormal;
 }
 
 @end

@@ -14,6 +14,13 @@
 NS_ASSUME_NONNULL_BEGIN
 
 
+typedef NS_ENUM(NSInteger, LHNodeUpdateResult) {
+    LHNodeUpdateResultNormal = 0,
+    LHNodeUpdateResultDeactivation = 1,
+    LHNodeUpdateResultInvalid = 2
+};
+
+
 @protocol LHNode <NSObject>
 
 @property (nonatomic, strong, readonly, nullable) NSSet<id<LHNode>> *allChildren;
@@ -22,7 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)resetChildrenState;
 
-- (BOOL)updateChildrenState:(id<LHTarget>)target;
+- (LHNodeUpdateResult)updateChildrenState:(id<LHTarget>)target;
 
 @end
 

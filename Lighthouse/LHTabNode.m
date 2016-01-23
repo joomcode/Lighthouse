@@ -49,19 +49,26 @@
                                                             activeChildrenIndexSet:[NSIndexSet indexSetWithIndex:0]];
 }
 
-- (BOOL)updateChildrenState:(id<LHTarget>)target {
-    NSAssert(target.activeNodes.count == 1, @""); // TODO
-    NSAssert(target.inactiveNodes.count == 0, @""); // TODO
-    
-    NSInteger childIndex = [self.orderedChildren indexOfObject:target.activeNodes.anyObject];
-    if (childIndex == NSNotFound) {
-        return NO;
+- (LHNodeUpdateResult)updateChildrenState:(id<LHTarget>)target {
+    if (target.activeNodes.count > 1) {
+        return LHNodeUpdateResultInvalid;
     }
     
-    self.childrenState = [[LHNodeChildrenState alloc] initWithInitializedChildren:self.orderedChildren
-                                                            activeChildrenIndexSet:[NSIndexSet indexSetWithIndex:childIndex]];
+    if (target.activeNodes.count == 1) {
+        NSInteger childIndex = [self.orderedChildren indexOfObject:target.activeNodes.anyObject];
+        if (childIndex == NSNotFound) {
+            return LHNodeUpdateResultInvalid;
+        }
+        
+        self.childrenState = [[LHNodeChildrenState alloc] initWithInitializedChildren:self.orderedChildren
+                                                               activeChildrenIndexSet:[NSIndexSet indexSetWithIndex:childIndex]];
+    }
     
-    return YES;
+    if ([self.childrenState.activeChildren intersectsSet:target.inactiveNodes]) {
+        return LHNodeUpdateResultDeactivation;
+    }
+    
+    return LHNodeUpdateResultNormal;
 }
 
 @end

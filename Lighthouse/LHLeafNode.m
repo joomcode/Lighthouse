@@ -7,6 +7,7 @@
 //
 
 #import "LHLeafNode.h"
+#import "LHTarget.h"
 
 @implementation LHLeafNode
 
@@ -23,8 +24,12 @@
 - (void)resetChildrenState {
 }
 
-- (BOOL)updateChildrenState:(id<LHTarget>)target {
-    return NO;
+- (LHNodeUpdateResult)updateChildrenState:(id<LHTarget>)target {
+    if (target.activeNodes.count > 0 || target.inactiveNodes.count > 0) {
+        return LHNodeUpdateResultInvalid;
+    }
+    
+    return LHNodeUpdateResultNormal;
 }
 
 @end
