@@ -10,6 +10,7 @@
 #import "LHNodeTree.h"
 #import "LHStackNodeChildrenState.h"
 #import "LHTarget.h"
+#import "LHNodeHelpers.h"
 
 @interface LHFreeStackNode ()
 
@@ -77,7 +78,11 @@
 }
 
 - (BOOL)updateChildrenState:(id<LHTarget>)target {
-    id<LHNode> activeChild = [self activeChildForTarget:target];
+    BOOL error = NO;
+    id<LHNode> activeChild = [LHNodeHelpers activeChildForApplyingTarget:target
+                                                           toActiveStack:self.childrenState.initializedChildren
+                                                                   error:&error];
+    
     if (!activeChild) {
         return NO;
     }
@@ -103,35 +108,6 @@
 }
 
 #pragma mark - Stuff
-
-- (id<LHNode>)activeChildForTarget:(id<LHTarget>)target {
-    // TODO: don't copypaste this please
-    
-    if (target.activeNodes.count > 1) {
-        NSAssert(NO, nil); // TODO
-        return nil;
-    }
-    
-    id<LHNode> childForTargetActiveNodes = target.activeNodes.anyObject;
-    
-    id<LHNode> childForTargetInactiveNodes;
-
-    for (id<LHNode> node in [self.childrenState.initializedChildren reverseObjectEnumerator]) {
-        if (![target.inactiveNodes containsObject:node]) {
-            if (node != self.childrenState.initializedChildren.lastObject) {
-                childForTargetInactiveNodes = node;
-            }
-            break;
-        }
-    }
-    
-    if (childForTargetActiveNodes && childForTargetInactiveNodes && childForTargetActiveNodes != childForTargetInactiveNodes) {
-        NSAssert(NO, nil); // TODO
-        return nil;
-    }
-    
-    return childForTargetActiveNodes ?: childForTargetInactiveNodes;
-}
 
 - (LHNodeTree *)treeForChild:(id<LHNode>)child {
     for (LHNodeTree *tree in self.trees) {
