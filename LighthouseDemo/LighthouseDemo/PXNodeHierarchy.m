@@ -36,7 +36,7 @@
         LHNodeTree *alertTree = [[LHNodeTree alloc] init];
         [alertTree addItem:self.alertNode afterItemOrNil:nil];
         
-        _rootNode = [[LHFreeStackNode alloc] initWithTrees:@[ mainTree, alertTree ]];
+        _rootNode = [[LHStackNode alloc] initWithTrees:@[ mainTree, alertTree ]];
     }
     return _rootNode;
 }

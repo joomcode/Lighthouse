@@ -17,9 +17,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)initWithSingleBranch:(NSArray<id<LHNode>> *)nodes;
 
-- (instancetype)initWithTree:(LHNodeTree *)tree NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithTree:(LHNodeTree *)tree;
 
 - (instancetype)initWithTreeBlock:(void (^)(LHNodeTree *tree))treeBlock;
+
+- (instancetype)initWithTrees:(NSArray<LHNodeTree *> *)trees NS_DESIGNATED_INITIALIZER;
 
 - (instancetype)init NS_UNAVAILABLE;
 
