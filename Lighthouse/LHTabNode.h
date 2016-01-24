@@ -12,7 +12,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 
-@interface LHTabNode : NSObject <LHNode>\
+@interface LHTabNode : NSObject <LHNode>
 
 @property (nonatomic, copy, readonly) NSOrderedSet<id<LHNode>> *orderedChildren;
 
