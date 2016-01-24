@@ -14,7 +14,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 
-typedef _Nullable id (^LHDriverDataInitBlock)(id<LHCommand> command, id<LHUpdateBus> updateBus);
+typedef _Nullable id (^LHDriverDataInitBlock)(__kindof id<LHCommand> command, id<LHUpdateBus> updateBus);
 
 
 @interface LHUpdateHandlerDriver : NSObject <LHDriver>

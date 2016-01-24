@@ -14,7 +14,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 
-typedef _Nullable id<LHTarget> (^LHCommandTargetProvidingBlock)(id<LHCommand> command);
+typedef _Nullable id<LHTarget> (^LHCommandTargetProvidingBlock)(__kindof id<LHCommand> command);
 
 
 @interface LHBasicCommandRegistry : NSObject <LHCommandRegistry>

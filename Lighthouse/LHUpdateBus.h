@@ -14,8 +14,8 @@
 NS_ASSUME_NONNULL_BEGIN
 
 
-typedef void (^LHCommandHandlerBlock)(id<LHCommand> command, BOOL animated);
-typedef BOOL (^LHSingleShotCommandHandlerBlock)(id<LHCommand> command, BOOL animated);
+typedef void (^LHCommandHandlerBlock)(__kindof id<LHCommand> command, BOOL animated);
+typedef BOOL (^LHSingleShotCommandHandlerBlock)(__kindof id<LHCommand> command, BOOL animated);
 
 typedef void (^LHPresentationStateHandlerBlock)(LHNodePresentationState presentationState);
 
