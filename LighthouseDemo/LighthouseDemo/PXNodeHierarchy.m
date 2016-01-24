@@ -24,19 +24,14 @@
 @synthesize anotherRedNode = _anotherRedNode;
 @synthesize anotherGreenNode = _anotherGreenNode;
 @synthesize anotherBlueNode = _anotherBlueNode;
-@synthesize alertNode = _alertNode;
 
 - (id<LHNode>)rootNode {
     if (!_rootNode) {
-        LHNodeTree *mainTree = [[LHNodeTree alloc] init];
-        [mainTree addItem:self.mainStackNode afterItemOrNil:nil];
-        [mainTree addBranch:@[ self.modalStackNode, self.deepModalStackNode ] afterItemOrNil:self.mainStackNode];
-        [mainTree addItem:self.anotherModalStackNode afterItemOrNil:self.mainStackNode];
-        
-        LHNodeTree *alertTree = [[LHNodeTree alloc] init];
-        [alertTree addItem:self.alertNode afterItemOrNil:nil];
-        
-        _rootNode = [[LHStackNode alloc] initWithTrees:@[ mainTree, alertTree ]];
+        _rootNode = [[LHStackNode alloc] initWithTreeBlock:^(LHNodeTree *tree) {
+            [tree addItem:self.mainStackNode afterItemOrNil:nil];
+            [tree addBranch:@[ self.modalStackNode, self.deepModalStackNode ] afterItemOrNil:self.mainStackNode];
+            [tree addItem:self.anotherModalStackNode afterItemOrNil:self.mainStackNode];
+        }];
     }
     return _rootNode;
 }
@@ -132,13 +127,6 @@
         _anotherBlueNode = [[LHLeafNode alloc] init];
     }
     return _anotherBlueNode;
-}
-
-- (id<LHNode>)alertNode {
-    if (!_alertNode) {
-        _alertNode = [[LHLeafNode alloc] init];
-    }
-    return _alertNode;
 }
 
 @end

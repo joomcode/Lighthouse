@@ -12,4 +12,3 @@
 #import "PXPresentModal.h"
 #import "PXDismissModal.h"
 #import "PXPresentAnotherModal.h"
-#import "PXPresentAlert.h"

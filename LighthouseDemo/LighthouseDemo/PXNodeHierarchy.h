@@ -30,6 +30,4 @@
 @property (nonatomic, strong, readonly)         id<LHNode> anotherGreenNode;
 @property (nonatomic, strong, readonly)         id<LHNode> anotherBlueNode;
 
-@property (nonatomic, strong, readonly) id<LHNode> alertNode;
-
 @end

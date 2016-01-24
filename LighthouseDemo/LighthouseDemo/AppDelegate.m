@@ -76,18 +76,7 @@
         return [[PXStateViewControllerDriver alloc] initWithViewControllerClass:[PXDeepModalViewController class]];
     }];
     
-    [driverProvider bindNode:hierarchy.alertNode toBlock:^id<LHDriver>(LHTabNode *node, id<LHDriverProviderContext> context) {
-        return [[LHUpdateHandlerDriver alloc] initWithDefaultDataInitBlock:^(id<LHCommand> command, id<LHUpdateBus> updateBus) {
-            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Hello there!" message:nil preferredStyle:UIAlertControllerStyleAlert];
-            
-            [alertController addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
-            [alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil]];            
-            
-            return alertController;
-        }];
-    }];
-
-
+    
     // Command Registry
     
     LHBasicCommandRegistry *commandRegistry = [[LHBasicCommandRegistry alloc] init];
@@ -98,7 +87,6 @@
     [commandRegistry bindCommandClass:[PXPresentModal class] toTargetWithActiveNode:hierarchy.deepModalNode];
     [commandRegistry bindCommandClass:[PXDismissModal class] toTarget:[LHTarget withInactiveNodes:@[ hierarchy.modalNode, hierarchy.deepModalNode ]]];
     [commandRegistry bindCommandClass:[PXPresentAnotherModal class] toTargetWithActiveNode:hierarchy.anotherBlueNode];
-    [commandRegistry bindCommandClass:[PXPresentAlert class] toTargetWithActiveNode:hierarchy.alertNode];
 
     
     // Router
@@ -118,7 +106,6 @@
     [self performSelector:@selector(doSomethingLater) withObject:nil afterDelay:3.0];
     [self performSelector:@selector(doSomethingEvenLater) withObject:nil afterDelay:6.0];
     [self performSelector:@selector(doSomethingEvenMoreLater) withObject:nil afterDelay:9.0];
-    [self performSelector:@selector(doSomethingAfterAllThat) withObject:nil afterDelay:12.0];
 }
 
 - (void)doSomething {
@@ -140,10 +127,6 @@
 
 - (void)doSomethingEvenMoreLater {
     [self.router executeCommand:[[PXDismissModal alloc] init] animated:YES];
-}
-
-- (void)doSomethingAfterAllThat {
-    [self.router executeCommand:[[PXPresentAlert alloc] init] animated:YES];
 }
 
 

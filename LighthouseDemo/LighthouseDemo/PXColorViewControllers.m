@@ -7,6 +7,7 @@
 //
 
 #import "PXColorViewControllers.h"
+#import <Lighthouse.h>
 
 @implementation PXRedViewController
 
@@ -40,6 +41,10 @@
 @end
 
 
+@interface PXBlueViewController ()
+
+@end
+
 @implementation PXBlueViewController
 
 - (instancetype)init {
@@ -51,6 +56,27 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor blueColor];
+}
+
+#pragma mark - LHUpdateHandler
+
+- (void)awakeForLighthouseUpdateHandlingWithUpdateBus:(id<LHUpdateBus>)updateBus {
+    [super awakeForLighthouseUpdateHandlingWithUpdateBus:updateBus];
+    
+    [updateBus addPresentationStateUpdateHandler:^(LHNodePresentationState presentationState) {
+        if (presentationState == LHNodePresentationStateActive) {
+            [self presentAlert];
+        }
+    }];
+}
+
+- (void)presentAlert {
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Hello there!" message:nil preferredStyle:UIAlertControllerStyleAlert];
+    
+    [alertController addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
+    [alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil]];
+    
+    [self presentViewController:alertController animated:YES completion:nil];
 }
 
 @end
