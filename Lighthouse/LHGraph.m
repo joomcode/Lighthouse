@@ -88,7 +88,7 @@
 }
 
 - (void)collectInitializedNodesRecursively:(id<LHNode>)node currentTree:(LHNodeTree *)currentTree {
-    [currentTree addFork:[node.childrenState.initializedChildren array] afterItemOrNil:node];
+    [currentTree addFork:node.childrenState.initializedChildren.allObjects afterItemOrNil:node];
     
     for (id<LHNode> childNode in node.childrenState.initializedChildren) {
         [self collectInitializedNodesRecursively:childNode currentTree:currentTree];

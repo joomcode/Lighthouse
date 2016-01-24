@@ -52,7 +52,7 @@
 
 - (id<LHDriver>)driverForNode:(id<LHNode>)node withContext:(id<LHDriverProviderContext>)context {
     LHDriverProvidingBlock block = [self blockForNode:node];
-    return block ? block(context) : nil;
+    return block ? block(node, context) : nil;
 }
 
 - (LHDriverProvidingBlock)blockForNode:(id<LHNode>)node {

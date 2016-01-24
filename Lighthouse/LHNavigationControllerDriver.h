@@ -6,15 +6,22 @@
 //  Copyright (c) 2015 Pixty. All rights reserved.
 //
 
-#import "LHContainerDriver.h"
+#import "LHDriver.h"
 #import <UIKit/UIKit.h>
+
+@class LHStackNode;
+@protocol LHDriverChannel;
 
 NS_ASSUME_NONNULL_BEGIN
 
 
-@interface LHNavigationControllerDriver : LHContainerDriver
+@interface LHNavigationControllerDriver : NSObject <LHDriver>
 
-@property (nonatomic, strong, readonly, nullable) UINavigationController *data;
+@property (nonatomic, strong, readonly) UINavigationController *data;
+
+- (instancetype)initWithNode:(LHStackNode *)node channel:(id<LHDriverChannel>)channel;
+
+- (instancetype)init NS_UNAVAILABLE;
 
 @end
 

@@ -7,22 +7,33 @@
 //
 
 #import "LHTabBarControllerDriver.h"
+#import "LHTabNode.h"
+#import "LHDriverChannel.h"
 #import "LHDriverUpdateContext.h"
-#import "LHNodeChildrenState.h"
-#import "LHDriverFeedbackChannel.h"
-#import "LHViewControllerDriverHelpers.h"
-#import "LHNode.h"
 #import "LHTarget.h"
+#import "LHViewControllerDriverHelpers.h"
 
 @interface LHTabBarControllerDriver () <UITabBarControllerDelegate>
 
-@property (nonatomic, strong) NSOrderedSet<id<LHNode>> *childNodes;
-@property (nonatomic, assign) NSInteger activeChildIndex;
+@property (nonatomic, strong, readonly) LHTabNode *node;
+@property (nonatomic, strong, readonly) id<LHDriverChannel> channel;
 
 @end
 
 
 @implementation LHTabBarControllerDriver
+
+#pragma mark - Init
+
+- (instancetype)initWithNode:(LHTabNode *)node channel:(id<LHDriverChannel>)channel {
+    self = [super init];
+    if (!self) return nil;
+    
+    _node = node;
+    _channel = channel;
+    
+    return self;
+}
 
 #pragma mark - Dealloc
 
@@ -34,32 +45,37 @@
 
 @synthesize data = _data;
 
-- (void)updateWithContext:(id<LHDriverUpdateContext>)context {
+- (UITabBarController *)data {
     if (!_data) {
         _data = [[UITabBarController alloc] init];
         _data.delegate = self;
     }
+    return _data;
+}
+
+- (void)updateWithContext:(id<LHDriverUpdateContext>)context {
+    NSArray<UIViewController *> *childViewControllers =
+        [LHViewControllerDriverHelpers viewControllersForNodes:self.node.orderedChildren withUpdateContext:context];
     
-    NSAssert(context.childrenState.activeChildren.count == 1, @""); // TODO
+    if (![childViewControllers isEqualToArray:self.data.viewControllers]) {
+        [self.data setViewControllers:childViewControllers animated:context.animated]; // TODO: use updateQueue
+    }
     
-    id<LHNode> activeChild = context.childrenState.activeChildren.anyObject;
-    
-    self.childNodes = context.childrenState.initializedChildren;
-    self.activeChildIndex = [self.childNodes indexOfObject:activeChild];
-    
-    NSArray<UIViewController *> *viewControllers = [LHViewControllerDriverHelpers childViewControllersWithUpdateContext:context];
-    
-    [self.data setViewControllers:viewControllers animated:context.animated]; // TODO: use updateQueue
-    [self.data setSelectedIndex:self.activeChildIndex];
+    if (self.data.selectedIndex != self.node.childrenState.activeChildIndex) {
+        [self.data setSelectedIndex:self.node.childrenState.activeChildIndex];
+    }
+}
+
+- (void)presentationStateDidChange:(LHNodePresentationState)presentationState {
 }
 
 #pragma mark - UITabBarBarControllerDelegate
 
 - (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
-    self.activeChildIndex = [tabBarController.viewControllers indexOfObject:viewController];
-
-    [self.feedbackChannel startNodeUpdateWithBlock:^(id<LHNode> node) {
-        id<LHNode> activeChild = self.childNodes[self.activeChildIndex];
+    [self.channel startNodeUpdateWithBlock:^(id<LHNode> node) {
+        NSUInteger activeChildIndex = [tabBarController.viewControllers indexOfObject:viewController];
+        id<LHNode> activeChild = self.node.orderedChildren[activeChildIndex];
+        
         [node updateChildrenState:[LHTarget withActiveNode:activeChild]];
     }];
     
@@ -67,7 +83,7 @@
 }
 
 - (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController {
-    [self.feedbackChannel finishNodeUpdate];
+    [self.channel finishNodeUpdate];
 }
 
 @end

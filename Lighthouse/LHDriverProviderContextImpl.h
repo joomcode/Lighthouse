@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface LHDriverProviderContextImpl : NSObject <LHDriverProviderContext>
 
-- (instancetype)initWithFeedbackChannel:(id<LHDriverFeedbackChannel>)feedbackChannel NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithChannel:(id<LHDriverChannel>)channel NS_DESIGNATED_INITIALIZER;
 
 - (instancetype)init NS_UNAVAILABLE;
 

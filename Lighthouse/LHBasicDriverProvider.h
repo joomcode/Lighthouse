@@ -13,7 +13,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 
-typedef _Nonnull id<LHDriver> (^LHDriverProvidingBlock)(id<LHDriverProviderContext> context);
+typedef _Nonnull id<LHDriver> (^LHDriverProvidingBlock)(__kindof id<LHNode> node, id<LHDriverProviderContext> context);
 
 
 @interface LHBasicDriverProvider : NSObject <LHDriverProvider>

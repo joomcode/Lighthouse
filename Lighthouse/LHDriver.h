@@ -11,7 +11,7 @@
 
 @protocol LHCommand;
 @protocol LHDriverUpdateContext;
-@protocol LHDriverFeedbackChannel;
+@protocol LHDriverChannel;
 
 NS_ASSUME_NONNULL_BEGIN
 

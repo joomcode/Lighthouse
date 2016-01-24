@@ -14,15 +14,15 @@
 
 @implementation LHViewControllerDriverHelpers
 
-+ (NSArray<UIViewController *> *)childViewControllersWithUpdateContext:(id<LHDriverUpdateContext>)updateContext {
-    id<LHNodeChildrenState> childrenState = updateContext.childrenState;
++ (NSArray<UIViewController *> *)viewControllersForNodes:(id<NSFastEnumeration>)nodes
+                                       withUpdateContext:(id<LHDriverUpdateContext>)updateContext {
+
+    NSMutableArray<UIViewController *> *viewControllers = [NSMutableArray array];
     
-    NSMutableArray<UIViewController *> *viewControllers = [NSMutableArray arrayWithCapacity:childrenState.initializedChildren.count];
-    
-    for (id<LHNode> childNode in childrenState.initializedChildren) {
-        id<LHDriver> childDriver = [updateContext driverForNode:childNode];
-        NSAssert([childDriver.data isKindOfClass:[UIViewController class]], nil); // TODO
-        [viewControllers addObject:childDriver.data];
+    for (id<LHNode> node in nodes) {
+        id<LHDriver> driver = [updateContext driverForNode:node];
+        NSAssert([driver.data isKindOfClass:[UIViewController class]], nil); // TODO
+        [viewControllers addObject:driver.data];
     }
     
     return viewControllers;

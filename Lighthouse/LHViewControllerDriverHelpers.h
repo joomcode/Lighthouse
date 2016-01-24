@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+@protocol LHNode;
 @protocol LHDriverUpdateContext;
 
 NS_ASSUME_NONNULL_BEGIN
@@ -16,7 +17,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface LHViewControllerDriverHelpers : NSObject
 
-+ (NSArray<UIViewController *> *)childViewControllersWithUpdateContext:(id<LHDriverUpdateContext>)updateContext;
++ (NSArray<UIViewController *> *)viewControllersForNodes:(id<NSFastEnumeration>)nodes
+                                       withUpdateContext:(id<LHDriverUpdateContext>)updateContext;
 
 @end
 

@@ -20,7 +20,7 @@
 #import "LHTaskQueue.h"
 #import "LHCommandNodeUpdateTask.h"
 #import "LHManualNodeUpdateTask.h"
-#import "LHDriverFeedbackChannelImpl.h"
+#import "LHDriverChannelImpl.h"
 #import "LHDriverProviderContextImpl.h"
 
 NSString * const LHRouterNodeStateDidUpdateNotification = @"com.pixty.lighthouse.router.nodeStateDidUpdate";
@@ -115,11 +115,11 @@ NSString * const LHRouterNodeUserInfoKey = @"com.pixty.lighthouse.router.node";
 }
 
 - (id<LHDriver>)createDriverForNode:(id<LHNode>)node {
-    id<LHDriverFeedbackChannel> feedbackChannel = [[LHDriverFeedbackChannelImpl alloc] initWithNode:node
+    id<LHDriverChannel> channel = [[LHDriverChannelImpl alloc] initWithNode:node
                                                                                          components:self.components
                                                                                         updateQueue:self.commandQueue];
     
-    id<LHDriverProviderContext> context = [[LHDriverProviderContextImpl alloc] initWithFeedbackChannel:feedbackChannel];
+    id<LHDriverProviderContext> context = [[LHDriverProviderContextImpl alloc] initWithChannel:channel];
     
     id<LHDriver> driver = [self.components.driverProvider driverForNode:node withContext:context];
     

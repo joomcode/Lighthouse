@@ -7,6 +7,7 @@
 //
 
 #import "LHNode.h"
+#import "LHStackNodeChildrenState.h"
 
 @class LHNodeTree;
 
@@ -14,6 +15,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 @interface LHStackNode : NSObject <LHNode>
+
+@property (nonatomic, strong, readonly) LHStackNodeChildrenState *childrenState;
 
 - (instancetype)initWithSingleBranch:(NSArray<id<LHNode>> *)nodes;
 

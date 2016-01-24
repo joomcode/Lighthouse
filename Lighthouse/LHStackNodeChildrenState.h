@@ -8,12 +8,12 @@
 
 #import "LHNodeChildrenState.h"
 
-@class LHNodeTree;
-
 NS_ASSUME_NONNULL_BEGIN
 
 
 @interface LHStackNodeChildrenState : NSObject <LHNodeChildrenState>
+
+@property (nonatomic, copy, readonly) NSOrderedSet<id<LHNode>> *stack;
 
 - (instancetype)initWithStack:(NSOrderedSet<id<LHNode>> *)stack NS_DESIGNATED_INITIALIZER;
 

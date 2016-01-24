@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol LHNodeChildrenState <NSObject>
 
-@property (nonatomic, strong, readonly) NSOrderedSet<id<LHNode>> *initializedChildren;
+@property (nonatomic, strong, readonly) NSSet<id<LHNode>> *initializedChildren;
 
 @property (nonatomic, strong, readonly) NSSet<id<LHNode>> *activeChildren;
 
@@ -24,8 +24,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface LHNodeChildrenState : NSObject <LHNodeChildrenState>
 
-- (instancetype)initWithInitializedChildren:(nullable NSOrderedSet<id<LHNode>> *)initializedChildren
-                     activeChildrenIndexSet:(nullable NSIndexSet *)activeChildrenIndexSet NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithInitializedChildren:(nullable NSSet<id<LHNode>> *)initializedChildren
+                             activeChildren:(nullable NSSet<id<LHNode>> *)activeChildren NS_DESIGNATED_INITIALIZER;
 
 @end
 

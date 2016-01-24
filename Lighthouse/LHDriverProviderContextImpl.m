@@ -12,17 +12,17 @@
 
 #pragma mark - Init
 
-- (instancetype)initWithFeedbackChannel:(id<LHDriverFeedbackChannel>)feedbackChannel {
+- (instancetype)initWithChannel:(id<LHDriverChannel>)channel {
     self = [super init];
     if (!self) return nil;
     
-    _feedbackChannel = feedbackChannel;
+    _channel = channel;
     
     return self;
 }
 
 #pragma mark - LHDriverProviderContext
 
-@synthesize feedbackChannel = _feedbackChannel;
+@synthesize channel = _channel;
 
 @end

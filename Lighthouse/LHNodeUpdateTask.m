@@ -18,7 +18,7 @@
 #import "LHNodeChildrenState.h"
 #import "LHNodeTree.h"
 #import "LHDriverUpdateContextImpl.h"
-#import "LHDriverFeedbackChannelImpl.h"
+#import "LHDriverChannelImpl.h"
 
 
 @interface LHNodeUpdateTask ()

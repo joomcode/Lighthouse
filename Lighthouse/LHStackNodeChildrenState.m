@@ -18,7 +18,9 @@
     self = [super init];
     if (!self) return nil;
     
-    _initializedChildren = [stack copy];
+    _stack = [stack copy];
+    
+    _initializedChildren = _stack.set;
     _activeChildren = [NSSet setWithObject:stack.lastObject];
     
     return self;

@@ -1,5 +1,5 @@
 //
-//  LHDriverFeedbackChannel.h
+//  LHDriverChannel.h
 //  Lighthouse
 //
 //  Created by Nick Tymchenko on 15/09/15.
@@ -13,7 +13,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 
-@protocol LHDriverFeedbackChannel <NSObject>
+@protocol LHDriverChannel <NSObject>
 
 - (void)startNodeUpdateWithBlock:(void (^)(id<LHNode> node))updateBlock;
 

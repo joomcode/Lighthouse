@@ -8,14 +8,14 @@
 
 #import <Foundation/Foundation.h>
 
-@protocol LHDriverFeedbackChannel;
+@protocol LHDriverChannel;
 
 NS_ASSUME_NONNULL_BEGIN
 
 
 @protocol LHDriverProviderContext <NSObject>
 
-@property (nonatomic, strong, readonly) id<LHDriverFeedbackChannel> feedbackChannel;
+@property (nonatomic, strong, readonly) id<LHDriverChannel> channel;
 
 @end
 

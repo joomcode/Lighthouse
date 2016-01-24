@@ -14,22 +14,19 @@
 @synthesize activeChildren = _activeChildren;
 
 - (instancetype)init {
-    return [self initWithInitializedChildren:nil activeChildrenIndexSet:nil];
+    return [self initWithInitializedChildren:nil activeChildren:nil];
 }
 
-- (instancetype)initWithInitializedChildren:(NSOrderedSet<id<LHNode>> *)initializedChildren
-                     activeChildrenIndexSet:(NSIndexSet *)activeChildrenIndexSet {
+- (instancetype)initWithInitializedChildren:(nullable NSSet<id<LHNode>> *)initializedChildren
+                             activeChildren:(nullable NSSet<id<LHNode>> *)activeChildren {
     self = [super init];
     if (!self) return nil;
     
-    _initializedChildren = [initializedChildren copy] ?: [NSOrderedSet orderedSet];
+    _initializedChildren = [initializedChildren copy] ?: [NSSet set];
+    _activeChildren = [activeChildren copy] ?: [NSSet set];
     
-    if (activeChildrenIndexSet) {
-        _activeChildren = [NSSet setWithArray:[_initializedChildren objectsAtIndexes:activeChildrenIndexSet]];
-    } else {
-        _activeChildren = [NSSet set];
-    }
-    
+    NSAssert([_activeChildren isSubsetOfSet:_initializedChildren], @""); // TODO
+        
     return self;
 }
 

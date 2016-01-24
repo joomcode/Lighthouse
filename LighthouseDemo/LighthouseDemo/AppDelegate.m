@@ -44,39 +44,39 @@
     
     LHBasicDriverProvider *driverProvider = [[LHBasicDriverProvider alloc] init];
     
-    [driverProvider bindNode:hierarchy.rootNode toBlock:^id<LHDriver>(id<LHDriverProviderContext> context) {
-        return [[LHModalPresentationDriver alloc] initWithWindow:self.window feedbackChannel:context.feedbackChannel];
+    [driverProvider bindNode:hierarchy.rootNode toBlock:^id<LHDriver>(LHStackNode *node, id<LHDriverProviderContext> context) {
+        return [[LHModalPresentationDriver alloc] initWithWindow:self.window node:node channel:context.channel];
     }];
     
-    [driverProvider bindNodeClass:[LHStackNode class] toBlock:^id<LHDriver>(id<LHDriverProviderContext> context) {
-        return [[LHNavigationControllerDriver alloc] initWithFeedbackChannel:context.feedbackChannel];
+    [driverProvider bindNodeClass:[LHStackNode class] toBlock:^id<LHDriver>(LHStackNode *node, id<LHDriverProviderContext> context) {
+        return [[LHNavigationControllerDriver alloc] initWithNode:node channel:context.channel];
     }];
     
-    [driverProvider bindNodeClass:[LHTabNode class] toBlock:^id<LHDriver>(id<LHDriverProviderContext> context) {
-        return [[LHTabBarControllerDriver alloc] initWithFeedbackChannel:context.feedbackChannel];
+    [driverProvider bindNodeClass:[LHTabNode class] toBlock:^id<LHDriver>(LHTabNode *node, id<LHDriverProviderContext> context) {
+        return [[LHTabBarControllerDriver alloc] initWithNode:node channel:context.channel];
     }];
     
-    [driverProvider bindNodes:@[ hierarchy.redNode, hierarchy.anotherRedNode ] toBlock:^id<LHDriver>(id<LHDriverProviderContext> context) {
+    [driverProvider bindNodes:@[ hierarchy.redNode, hierarchy.anotherRedNode ] toBlock:^id<LHDriver>(LHTabNode *node, id<LHDriverProviderContext> context) {
         return [[PXStateViewControllerDriver alloc] initWithViewControllerClass:[PXRedViewController class]];
     }];
     
-    [driverProvider bindNodes:@[ hierarchy.greenNode, hierarchy.anotherGreenNode ] toBlock:^id<LHDriver>(id<LHDriverProviderContext> context) {
+    [driverProvider bindNodes:@[ hierarchy.greenNode, hierarchy.anotherGreenNode ] toBlock:^id<LHDriver>(LHTabNode *node, id<LHDriverProviderContext> context) {
         return [[PXStateViewControllerDriver alloc] initWithViewControllerClass:[PXGreenViewController class]];
     }];
     
-    [driverProvider bindNodes:@[ hierarchy.blueNode, hierarchy.anotherBlueNode ] toBlock:^id<LHDriver>(id<LHDriverProviderContext> context) {
+    [driverProvider bindNodes:@[ hierarchy.blueNode, hierarchy.anotherBlueNode ] toBlock:^id<LHDriver>(LHTabNode *node, id<LHDriverProviderContext> context) {
         return [[PXStateViewControllerDriver alloc] initWithViewControllerClass:[PXBlueViewController class]];
     }];
     
-    [driverProvider bindNodes:@[ hierarchy.modalNode ] toBlock:^id<LHDriver>(id<LHDriverProviderContext> context) {
+    [driverProvider bindNodes:@[ hierarchy.modalNode ] toBlock:^id<LHDriver>(LHTabNode *node, id<LHDriverProviderContext> context) {
         return [[PXStateViewControllerDriver alloc] initWithViewControllerClass:[PXModalViewController class]];
     }];
     
-    [driverProvider bindNode:hierarchy.deepModalNode toBlock:^id<LHDriver>(id<LHDriverProviderContext> context) {
+    [driverProvider bindNode:hierarchy.deepModalNode toBlock:^id<LHDriver>(LHTabNode *node, id<LHDriverProviderContext> context) {
         return [[PXStateViewControllerDriver alloc] initWithViewControllerClass:[PXDeepModalViewController class]];
     }];
     
-    [driverProvider bindNode:hierarchy.alertNode toBlock:^id<LHDriver>(id<LHDriverProviderContext> context) {
+    [driverProvider bindNode:hierarchy.alertNode toBlock:^id<LHDriver>(LHTabNode *node, id<LHDriverProviderContext> context) {
         return [[LHUpdateHandlerDriver alloc] initWithDefaultDataInitBlock:^(id<LHCommand> command, id<LHUpdateBus> updateBus) {
             UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Hello there!" message:nil preferredStyle:UIAlertControllerStyleAlert];
             

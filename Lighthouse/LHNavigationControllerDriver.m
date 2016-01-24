@@ -7,22 +7,34 @@
 //
 
 #import "LHNavigationControllerDriver.h"
+#import "LHStackNode.h"
+#import "LHDriverChannel.h"
 #import "LHDriverUpdateContext.h"
-#import "LHNodeChildrenState.h"
-#import "LHDriverFeedbackChannel.h"
-#import "LHViewControllerDriverHelpers.h"
 #import "LHTaskQueue.h"
-#import "LHNode.h"
 #import "LHTarget.h"
+#import "LHViewControllerDriverHelpers.h"
 
 @interface LHNavigationControllerDriver () <UINavigationControllerDelegate>
 
-@property (nonatomic, strong) NSArray<id<LHNode>> *childNodes;
+@property (nonatomic, strong, readonly) LHStackNode *node;
+@property (nonatomic, strong, readonly) id<LHDriverChannel> channel;
 
 @end
 
 
 @implementation LHNavigationControllerDriver
+
+#pragma mark - Init
+
+- (instancetype)initWithNode:(LHStackNode *)node channel:(id<LHDriverChannel>)channel {
+    self = [super init];
+    if (!self) return nil;
+    
+    _node = node;
+    _channel = channel;
+    
+    return self;
+}
 
 #pragma mark - Dealloc
 
@@ -34,22 +46,21 @@
 
 @synthesize data = _data;
 
-- (void)updateWithContext:(id<LHDriverUpdateContext>)context {
+- (UINavigationController *)data {
     if (!_data) {
         _data = [[UINavigationController alloc] init];
         _data.delegate = self;
     }
+    return _data;
+}
+
+- (void)updateWithContext:(id<LHDriverUpdateContext>)context {
+    NSArray<UIViewController *> *childViewControllers =
+        [LHViewControllerDriverHelpers viewControllersForNodes:self.node.childrenState.stack withUpdateContext:context];
     
-    NSAssert(context.childrenState.activeChildren.count <= 1, @""); // TODO
-    NSAssert(context.childrenState.initializedChildren.lastObject == context.childrenState.activeChildren.anyObject, @""); // TODO
-    
-    NSArray<UIViewController *> *childViewControllers = [LHViewControllerDriverHelpers childViewControllersWithUpdateContext:context];
-    
-    if ([childViewControllers isEqual:_data.viewControllers]) {
+    if ([childViewControllers isEqual:self.data.viewControllers]) {
         return;
     }
-    
-    self.childNodes = [context.childrenState.initializedChildren.array copy];
     
     [context.updateQueue runAsyncTaskWithBlock:^(LHTaskCompletionBlock completion) {
         [self.data setViewControllers:childViewControllers animated:context.animated];
@@ -65,36 +76,35 @@
     }];
 }
 
+- (void)presentationStateDidChange:(LHNodePresentationState)presentationState {
+}
+
 #pragma mark - UINavigationControllerDelegate
 
 - (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
     // Handle pop prompted by the default Back button or gesture
     
     NSUInteger count = [navigationController.viewControllers count];
-    if (count >= [self.childNodes count]) {
+    if (count >= [self.node.childrenState.stack count]) {
         return;
     }
     
-    NSArray<id<LHNode>> *oldChildNodes = self.childNodes;
+    id<LHNode> oldActiveNode = self.node.childrenState.stack.lastObject;
     
-    [self startNodeUpdateWithChildNodes:[oldChildNodes subarrayWithRange:NSMakeRange(0, count)]];
+    [self.channel startNodeUpdateWithBlock:^(id<LHNode> node) {
+        [node updateChildrenState:[LHTarget withInactiveNode:oldActiveNode]];
+    }];
     
     [navigationController.transitionCoordinator notifyWhenInteractionEndsUsingBlock:^(id<UIViewControllerTransitionCoordinatorContext> context) {
         if ([context isCancelled]) {
-            [self startNodeUpdateWithChildNodes:oldChildNodes];
+            [self.channel startNodeUpdateWithBlock:^(id<LHNode> node) {
+                [node updateChildrenState:[LHTarget withActiveNode:oldActiveNode]];
+            }];
         }
     }];
     
     [navigationController.transitionCoordinator animateAlongsideTransition:nil completion:^(id<UIViewControllerTransitionCoordinatorContext> context) {
-        [self.feedbackChannel finishNodeUpdate];
-    }];
-}
-
-- (void)startNodeUpdateWithChildNodes:(NSArray *)childNodes {
-    self.childNodes = childNodes;
-    
-    [self.feedbackChannel startNodeUpdateWithBlock:^(id<LHNode> node) {
-        [node updateChildrenState:[LHTarget withActiveNode:self.childNodes.lastObject]];
+        [self.channel finishNodeUpdate];
     }];
 }
 

@@ -91,7 +91,7 @@
 - (LHNodeUpdateResult)updateChildrenState:(id<LHTarget>)target {
     BOOL error = NO;
     id<LHNode> activeChild = [self activeChildForApplyingTarget:target
-                                          toActiveChildrenStack:self.childrenState.initializedChildren
+                                          toActiveChildrenStack:self.childrenState.stack
                                                           error:&error];
     
     if (error) {

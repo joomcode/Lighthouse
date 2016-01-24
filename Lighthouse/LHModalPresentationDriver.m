@@ -7,18 +7,18 @@
 //
 
 #import "LHModalPresentationDriver.h"
+#import "LHStackNode.h"
+#import "LHDriverChannel.h"
 #import "LHDriverUpdateContext.h"
 #import "LHTaskQueue.h"
-#import "LHNode.h"
-#import "LHNodeChildrenState.h"
-#import "LHDriverFeedbackChannel.h"
 #import "LHTarget.h"
 #import "LHViewControllerDriverHelpers.h"
 #import "UIViewController+LHDismissalTracking.h"
 
 @interface LHModalPresentationDriver ()
 
-@property (nonatomic, strong) NSArray<id<LHNode>> *childNodes;
+@property (nonatomic, strong, readonly) LHStackNode *node;
+@property (nonatomic, strong, readonly) id<LHDriverChannel> channel;
 
 @end
 
@@ -28,11 +28,14 @@
 #pragma mark - Init
 
 - (instancetype)initWithWindow:(UIWindow *)window
-               feedbackChannel:(id<LHDriverFeedbackChannel>)feedbackChannel {
-    self = [super initWithFeedbackChannel:feedbackChannel];
+                          node:(LHStackNode *)node
+                       channel:(id<LHDriverChannel>)channel {
+    self = [super init];
     if (!self) return nil;
     
     _data = window;
+    _node = node;
+    _channel = channel;
     
     return self;
 }
@@ -42,12 +45,9 @@
 @synthesize data = _data;
 
 - (void)updateWithContext:(id<LHDriverUpdateContext>)context {
-    NSAssert(context.childrenState.activeChildren.count <= 1, @""); // TODO
-    NSAssert(context.childrenState.initializedChildren.lastObject == context.childrenState.activeChildren.anyObject, @""); // TODO
+    NSArray<UIViewController *> *viewControllers =
+        [LHViewControllerDriverHelpers viewControllersForNodes:self.node.childrenState.stack withUpdateContext:context];
     
-    self.childNodes = [context.childrenState.initializedChildren.array copy];
-    
-    NSArray<UIViewController *> *viewControllers = [LHViewControllerDriverHelpers childViewControllersWithUpdateContext:context];
     NSArray<UIViewController *> *presentedViewControllers = [self presentedViewControllers];
     
     NSInteger commonPrefixLength = [self commonPrefixLengthForArray:viewControllers andArray:presentedViewControllers];
@@ -84,6 +84,9 @@
     }
 }
 
+- (void)presentationStateDidChange:(LHNodePresentationState)presentationState {
+}
+
 #pragma mark - Private
 
 - (NSArray *)presentedViewControllers {
@@ -111,13 +114,18 @@
     return ^(UIViewController *viewController, BOOL animated) {
         // TODO: support non-animated?
         
-        NSArray<id<LHNode>> *oldChildNodes = self.childNodes;
+        id<LHNode> oldActiveNode = self.node.childrenState.stack.lastObject;
+        id<LHNode> newActiveNode = self.node.childrenState.stack[index - 1];
         
-        [self startNodeUpdateWithChildNodes:[self.childNodes subarrayWithRange:NSMakeRange(0, index)]];
+        [self.channel startNodeUpdateWithBlock:^(id<LHNode> node) {
+            [self.node updateChildrenState:[LHTarget withActiveNode:newActiveNode]];
+        }];
         
         [viewController.transitionCoordinator notifyWhenInteractionEndsUsingBlock:^(id<UIViewControllerTransitionCoordinatorContext> context) {
             if ([context isCancelled]) {
-                [self startNodeUpdateWithChildNodes:oldChildNodes];
+                [self.channel startNodeUpdateWithBlock:^(id<LHNode> node) {
+                    [self.node updateChildrenState:[LHTarget withActiveNode:oldActiveNode]];
+                }];
             }
         }];
         
@@ -126,17 +134,9 @@
                 viewController.lh_onDismissalBlock = nil;
             }
             
-            [self.feedbackChannel finishNodeUpdate];
+            [self.channel finishNodeUpdate];
         }];
     };
-}
-
-- (void)startNodeUpdateWithChildNodes:(NSArray *)childNodes {
-    self.childNodes = childNodes;
-    
-    [self.feedbackChannel startNodeUpdateWithBlock:^(id<LHNode> node) {
-        [node updateChildrenState:[LHTarget withActiveNode:childNodes.lastObject]];
-    }];
 }
 
 @end

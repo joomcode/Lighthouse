@@ -1,17 +1,17 @@
 //
-//  LHDriverFeedbackChannelImpl.m
+//  LHDriverChannelImpl.m
 //  Lighthouse
 //
 //  Created by Nick Tymchenko on 16/09/15.
 //  Copyright (c) 2015 Pixty. All rights reserved.
 //
 
-#import "LHDriverFeedbackChannelImpl.h"
+#import "LHDriverChannelImpl.h"
 #import "LHComponents.h"
 #import "LHTaskQueue.h"
 #import "LHDriverFeedbackUpdateTask.h"
 
-@interface LHDriverFeedbackChannelImpl ()
+@interface LHDriverChannelImpl ()
 
 @property (nonatomic, strong, readonly) id<LHNode> node;
 @property (nonatomic, strong, readonly) LHComponents *components;
@@ -22,7 +22,7 @@
 @end
 
 
-@implementation LHDriverFeedbackChannelImpl
+@implementation LHDriverChannelImpl
 
 #pragma mark - Init
 

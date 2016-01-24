@@ -7,14 +7,11 @@
 //
 
 #import "LHTabNode.h"
-#import "LHNodeChildrenState.h"
 #import "LHTarget.h"
 
 @interface LHTabNode ()
 
-@property (nonatomic, copy, readonly) NSOrderedSet<id<LHNode>> *orderedChildren;
-
-@property (nonatomic, strong) id<LHNodeChildrenState> childrenState;
+@property (nonatomic, strong) LHTabNodeChildrenState *childrenState;
 
 @end
 
@@ -41,12 +38,11 @@
 @synthesize childrenState = _childrenState;
 
 - (NSSet<id<LHNode>> *)allChildren {
-    return [self.orderedChildren set];
+    return self.orderedChildren.set;
 }
 
 - (void)resetChildrenState {
-    self.childrenState = [[LHNodeChildrenState alloc] initWithInitializedChildren:self.orderedChildren
-                                                            activeChildrenIndexSet:[NSIndexSet indexSetWithIndex:0]];
+    self.childrenState = [[LHTabNodeChildrenState alloc] initWithParent:self activeChildIndex:0];
 }
 
 - (LHNodeUpdateResult)updateChildrenState:(id<LHTarget>)target {
@@ -60,11 +56,10 @@
             return LHNodeUpdateResultInvalid;
         }
         
-        self.childrenState = [[LHNodeChildrenState alloc] initWithInitializedChildren:self.orderedChildren
-                                                               activeChildrenIndexSet:[NSIndexSet indexSetWithIndex:childIndex]];
+        self.childrenState = [[LHTabNodeChildrenState alloc] initWithParent:self activeChildIndex:childIndex];
     }
     
-    if ([self.childrenState.activeChildren intersectsSet:target.inactiveNodes]) {
+    if ([target.inactiveNodes containsObject:self.childrenState.activeChild]) {
         return LHNodeUpdateResultDeactivation;
     }
     
