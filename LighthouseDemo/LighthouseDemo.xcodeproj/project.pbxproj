@@ -13,8 +13,6 @@
 		013F68BD1BA62CA300B5797B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 013F68BC1BA62CA300B5797B /* main.m */; };
 		013F68C01BA62CA300B5797B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 013F68BF1BA62CA300B5797B /* AppDelegate.m */; };
 		013F68C81BA62CA300B5797B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 013F68C71BA62CA300B5797B /* Assets.xcassets */; };
-		013F68D61BA62CA300B5797B /* LighthouseDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 013F68D51BA62CA300B5797B /* LighthouseDemoTests.m */; };
-		013F68E11BA62CA300B5797B /* LighthouseDemoUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 013F68E01BA62CA300B5797B /* LighthouseDemoUITests.m */; };
 		017E5B1B1BC0281B00C6C831 /* PXStateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 017E5B1A1BC0281B00C6C831 /* PXStateViewController.m */; };
 		017E5B1E1BC031EE00C6C831 /* PXStateViewControllerDriver.m in Sources */ = {isa = PBXBuildFile; fileRef = 017E5B1D1BC031EE00C6C831 /* PXStateViewControllerDriver.m */; };
 		017E5B211BC14BBE00C6C831 /* PXNodeHierarchy.m in Sources */ = {isa = PBXBuildFile; fileRef = 017E5B201BC14BBE00C6C831 /* PXNodeHierarchy.m */; };
@@ -30,23 +28,6 @@
 		01DBF2CD1C4EFE000034783C /* Lighthouse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01DBF2CC1C4EFE000034783C /* Lighthouse.framework */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		013F68D21BA62CA300B5797B /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 013F68B01BA62CA300B5797B /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 013F68B71BA62CA300B5797B;
-			remoteInfo = LighthouseDemo;
-		};
-		013F68DD1BA62CA300B5797B /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 013F68B01BA62CA300B5797B /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 013F68B71BA62CA300B5797B;
-			remoteInfo = LighthouseDemo;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
 		0111CC251BAAED0D00C19022 /* PXDeepModalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXDeepModalViewController.h; sourceTree = "<group>"; };
 		0111CC261BAAED0D00C19022 /* PXDeepModalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXDeepModalViewController.m; sourceTree = "<group>"; };
@@ -60,12 +41,6 @@
 		013F68BF1BA62CA300B5797B /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		013F68C71BA62CA300B5797B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		013F68CC1BA62CA300B5797B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		013F68D11BA62CA300B5797B /* LighthouseDemo.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LighthouseDemo.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		013F68D51BA62CA300B5797B /* LighthouseDemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LighthouseDemoTests.m; sourceTree = "<group>"; };
-		013F68D71BA62CA300B5797B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		013F68DC1BA62CA300B5797B /* LighthouseDemo.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LighthouseDemo.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		013F68E01BA62CA300B5797B /* LighthouseDemoUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LighthouseDemoUITests.m; sourceTree = "<group>"; };
-		013F68E21BA62CA300B5797B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		013F68FD1BA62D0000B5797B /* libLighthouse.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libLighthouse.a; path = "../build/Debug-iphoneos/libLighthouse.a"; sourceTree = "<group>"; };
 		017E5B191BC0281B00C6C831 /* PXStateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXStateViewController.h; sourceTree = "<group>"; };
 		017E5B1A1BC0281B00C6C831 /* PXStateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXStateViewController.m; sourceTree = "<group>"; };
@@ -103,20 +78,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		013F68CE1BA62CA300B5797B /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		013F68D91BA62CA300B5797B /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -124,8 +85,6 @@
 			isa = PBXGroup;
 			children = (
 				013F68BA1BA62CA300B5797B /* LighthouseDemo */,
-				013F68D41BA62CA300B5797B /* LighthouseDemoTests */,
-				013F68DF1BA62CA300B5797B /* LighthouseDemoUITests */,
 				013F68FF1BA62D0E00B5797B /* Frameworks */,
 				013F68B91BA62CA300B5797B /* Products */,
 			);
@@ -135,8 +94,6 @@
 			isa = PBXGroup;
 			children = (
 				013F68B81BA62CA300B5797B /* LighthouseDemo.app */,
-				013F68D11BA62CA300B5797B /* LighthouseDemo.xctest */,
-				013F68DC1BA62CA300B5797B /* LighthouseDemo.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -166,24 +123,6 @@
 				013F68BC1BA62CA300B5797B /* main.m */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		013F68D41BA62CA300B5797B /* LighthouseDemoTests */ = {
-			isa = PBXGroup;
-			children = (
-				013F68D51BA62CA300B5797B /* LighthouseDemoTests.m */,
-				013F68D71BA62CA300B5797B /* Info.plist */,
-			);
-			path = LighthouseDemoTests;
-			sourceTree = "<group>";
-		};
-		013F68DF1BA62CA300B5797B /* LighthouseDemoUITests */ = {
-			isa = PBXGroup;
-			children = (
-				013F68E01BA62CA300B5797B /* LighthouseDemoUITests.m */,
-				013F68E21BA62CA300B5797B /* Info.plist */,
-			);
-			path = LighthouseDemoUITests;
 			sourceTree = "<group>";
 		};
 		013F68FF1BA62D0E00B5797B /* Frameworks */ = {
@@ -270,42 +209,6 @@
 			productReference = 013F68B81BA62CA300B5797B /* LighthouseDemo.app */;
 			productType = "com.apple.product-type.application";
 		};
-		013F68D01BA62CA300B5797B /* LighthouseDemoTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 013F68E81BA62CA300B5797B /* Build configuration list for PBXNativeTarget "LighthouseDemoTests" */;
-			buildPhases = (
-				013F68CD1BA62CA300B5797B /* Sources */,
-				013F68CE1BA62CA300B5797B /* Frameworks */,
-				013F68CF1BA62CA300B5797B /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				013F68D31BA62CA300B5797B /* PBXTargetDependency */,
-			);
-			name = LighthouseDemoTests;
-			productName = LighthouseDemoTests;
-			productReference = 013F68D11BA62CA300B5797B /* LighthouseDemo.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		013F68DB1BA62CA300B5797B /* LighthouseDemoUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 013F68EB1BA62CA300B5797B /* Build configuration list for PBXNativeTarget "LighthouseDemoUITests" */;
-			buildPhases = (
-				013F68D81BA62CA300B5797B /* Sources */,
-				013F68D91BA62CA300B5797B /* Frameworks */,
-				013F68DA1BA62CA300B5797B /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				013F68DE1BA62CA300B5797B /* PBXTargetDependency */,
-			);
-			name = LighthouseDemoUITests;
-			productName = LighthouseDemoUITests;
-			productReference = 013F68DC1BA62CA300B5797B /* LighthouseDemo.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -318,14 +221,6 @@
 				TargetAttributes = {
 					013F68B71BA62CA300B5797B = {
 						CreatedOnToolsVersion = 7.1;
-					};
-					013F68D01BA62CA300B5797B = {
-						CreatedOnToolsVersion = 7.1;
-						TestTargetID = 013F68B71BA62CA300B5797B;
-					};
-					013F68DB1BA62CA300B5797B = {
-						CreatedOnToolsVersion = 7.1;
-						TestTargetID = 013F68B71BA62CA300B5797B;
 					};
 				};
 			};
@@ -343,8 +238,6 @@
 			projectRoot = "";
 			targets = (
 				013F68B71BA62CA300B5797B /* LighthouseDemo */,
-				013F68D01BA62CA300B5797B /* LighthouseDemoTests */,
-				013F68DB1BA62CA300B5797B /* LighthouseDemoUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -356,20 +249,6 @@
 			files = (
 				013F68C81BA62CA300B5797B /* Assets.xcassets in Resources */,
 				01A01A611BA8324700608274 /* LaunchScreen.xib in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		013F68CF1BA62CA300B5797B /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		013F68DA1BA62CA300B5797B /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -399,36 +278,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		013F68CD1BA62CA300B5797B /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				013F68D61BA62CA300B5797B /* LighthouseDemoTests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		013F68D81BA62CA300B5797B /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				013F68E11BA62CA300B5797B /* LighthouseDemoUITests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		013F68D31BA62CA300B5797B /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 013F68B71BA62CA300B5797B /* LighthouseDemo */;
-			targetProxy = 013F68D21BA62CA300B5797B /* PBXContainerItemProxy */;
-		};
-		013F68DE1BA62CA300B5797B /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 013F68B71BA62CA300B5797B /* LighthouseDemo */;
-			targetProxy = 013F68DD1BA62CA300B5797B /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		013F68E31BA62CA300B5797B /* Debug */ = {
@@ -545,54 +395,6 @@
 			};
 			name = Release;
 		};
-		013F68E91BA62CA300B5797B /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				INFOPLIST_FILE = LighthouseDemoTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.pixty.LighthouseDemoTests;
-				PRODUCT_NAME = LighthouseDemo;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LighthouseDemo.app/LighthouseDemo";
-			};
-			name = Debug;
-		};
-		013F68EA1BA62CA300B5797B /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				INFOPLIST_FILE = LighthouseDemoTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.pixty.LighthouseDemoTests;
-				PRODUCT_NAME = LighthouseDemo;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LighthouseDemo.app/LighthouseDemo";
-			};
-			name = Release;
-		};
-		013F68EC1BA62CA300B5797B /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				INFOPLIST_FILE = LighthouseDemoUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.pixty.LighthouseDemoUITests;
-				PRODUCT_NAME = LighthouseDemo;
-				TEST_TARGET_NAME = LighthouseDemo;
-				USES_XCTRUNNER = YES;
-			};
-			name = Debug;
-		};
-		013F68ED1BA62CA300B5797B /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				INFOPLIST_FILE = LighthouseDemoUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.pixty.LighthouseDemoUITests;
-				PRODUCT_NAME = LighthouseDemo;
-				TEST_TARGET_NAME = LighthouseDemo;
-				USES_XCTRUNNER = YES;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -610,24 +412,6 @@
 			buildConfigurations = (
 				013F68E61BA62CA300B5797B /* Debug */,
 				013F68E71BA62CA300B5797B /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		013F68E81BA62CA300B5797B /* Build configuration list for PBXNativeTarget "LighthouseDemoTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				013F68E91BA62CA300B5797B /* Debug */,
-				013F68EA1BA62CA300B5797B /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		013F68EB1BA62CA300B5797B /* Build configuration list for PBXNativeTarget "LighthouseDemoUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				013F68EC1BA62CA300B5797B /* Debug */,
-				013F68ED1BA62CA300B5797B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
