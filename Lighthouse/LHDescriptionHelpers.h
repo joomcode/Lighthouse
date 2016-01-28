@@ -10,6 +10,19 @@
 #import "LHNodeState.h"
 #import "LHNodePresentationState.h"
 
-NSString *LHStringFromNodeState(LHNodeState state);
+NS_ASSUME_NONNULL_BEGIN
 
-NSString *LHStringFromNodePresentationState(LHNodePresentationState state);
+
+@interface LHDescriptionHelpers : NSObject
+
++ (NSString *)stringFromNodeState:(LHNodeState)state;
+
++ (NSString *)stringFromNodePresentationState:(LHNodePresentationState)state;
+
+@end
+
+
+NS_ASSUME_NONNULL_END
+
+
+

@@ -8,7 +8,9 @@
 
 #import "LHDescriptionHelpers.h"
 
-NSString *LHStringFromNodeState(LHNodeState state) {
+@implementation LHDescriptionHelpers
+
++ (NSString *)stringFromNodeState:(LHNodeState)state {
     switch (state) {
         case LHNodeStateNotInitialized:
             return @"not initialized";
@@ -19,7 +21,7 @@ NSString *LHStringFromNodeState(LHNodeState state) {
     }
 }
 
-NSString *LHStringFromNodePresentationState(LHNodePresentationState state) {
++ (NSString *)stringFromNodePresentationState:(LHNodePresentationState)state {
     switch (state) {
         case LHNodePresentationStateNotInitialized:
             return @"not initialized";
@@ -33,3 +35,5 @@ NSString *LHStringFromNodePresentationState(LHNodePresentationState state) {
             return @"active";
     }
 }
+
+@end

@@ -19,7 +19,7 @@
 
 - (void)awakeForLighthouseUpdateHandlingWithUpdateBus:(id<LHUpdateBus>)updateBus {
     [updateBus addPresentationStateUpdateHandler:^(LHNodePresentationState presentationState) {
-        self.stateLabel.text = LHStringFromNodePresentationState(presentationState);
+        self.stateLabel.text = [LHDescriptionHelpers stringFromNodePresentationState:presentationState];
     }];
 }
 
