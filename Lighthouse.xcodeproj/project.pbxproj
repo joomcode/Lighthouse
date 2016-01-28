@@ -45,6 +45,8 @@
 		012A95721C4EFD9A000A4ECB /* LHDriverUpdateContextImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A01A821BA869F200608274 /* LHDriverUpdateContextImpl.m */; };
 		012A95731C4EFD9A000A4ECB /* LHDriverChannelImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A01AA71BA8E9FB00608274 /* LHDriverChannelImpl.m */; };
 		012A95741C4EFD9A000A4ECB /* LHUpdateBusImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 012A95331C4EF2E9000A4ECB /* LHUpdateBusImpl.m */; };
+		01A28D941C5A7750006F0A95 /* LHNodeHelpers.h in Headers */ = {isa = PBXBuildFile; fileRef = 01A28D921C5A7750006F0A95 /* LHNodeHelpers.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		01A28D951C5A7750006F0A95 /* LHNodeHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A28D931C5A7750006F0A95 /* LHNodeHelpers.m */; };
 		01D57A111C50467F008E4EB5 /* LHNodePresentationState.h in Headers */ = {isa = PBXBuildFile; fileRef = 01D57A101C502F3F008E4EB5 /* LHNodePresentationState.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		01D57A191C505DF1008E4EB5 /* LHDriverProviderContext.h in Headers */ = {isa = PBXBuildFile; fileRef = 01D57A181C505DF1008E4EB5 /* LHDriverProviderContext.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		01D57A1C1C5062F1008E4EB5 /* LHDriverProviderContextImpl.h in Headers */ = {isa = PBXBuildFile; fileRef = 01D57A1A1C5062F1008E4EB5 /* LHDriverProviderContextImpl.h */; settings = {ATTRIBUTES = (Private, ); }; };
@@ -186,6 +188,8 @@
 		01A01AAB1BA9743900608274 /* LHCompositeDriver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHCompositeDriver.m; sourceTree = "<group>"; };
 		01A01AAF1BA97B7100608274 /* LHCompositeDriverProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHCompositeDriverProvider.h; sourceTree = "<group>"; };
 		01A01AB01BA97B7100608274 /* LHCompositeDriverProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHCompositeDriverProvider.m; sourceTree = "<group>"; };
+		01A28D921C5A7750006F0A95 /* LHNodeHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHNodeHelpers.h; sourceTree = "<group>"; };
+		01A28D931C5A7750006F0A95 /* LHNodeHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHNodeHelpers.m; sourceTree = "<group>"; };
 		01C6F8CB1BB6D61D00A13C1E /* LHTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHTask.h; sourceTree = "<group>"; };
 		01C6F8CC1BB6D6F500A13C1E /* LHTaskQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHTaskQueue.m; sourceTree = "<group>"; };
 		01C6F8CE1BB6D8DD00A13C1E /* LHBlockTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHBlockTask.h; sourceTree = "<group>"; };
@@ -253,6 +257,8 @@
 				01C6F8CB1BB6D61D00A13C1E /* LHTask.h */,
 				0111CC391BAB963900C19022 /* LHTaskQueue.h */,
 				01C6F8CC1BB6D6F500A13C1E /* LHTaskQueue.m */,
+				01A28D921C5A7750006F0A95 /* LHNodeHelpers.h */,
+				01A28D931C5A7750006F0A95 /* LHNodeHelpers.m */,
 				0186CAF01BACC29E00B22431 /* LHDescriptionHelpers.h */,
 				0186CAF11BACC29E00B22431 /* LHDescriptionHelpers.m */,
 			);
@@ -580,6 +586,7 @@
 				01DBF2F91C4EFEB00034783C /* LHManualNodeUpdateTask.h in Headers */,
 				01DBF2FA1C4EFEB00034783C /* LHDriverFeedbackUpdateTask.h in Headers */,
 				01DBF2FB1C4EFEB00034783C /* LHDriverUpdateContextImpl.h in Headers */,
+				01A28D941C5A7750006F0A95 /* LHNodeHelpers.h in Headers */,
 				01D57A111C50467F008E4EB5 /* LHNodePresentationState.h in Headers */,
 				01DBF2FC1C4EFEB00034783C /* LHDriverChannelImpl.h in Headers */,
 				01DBF2FD1C4EFEB00034783C /* LHUpdateBusImpl.h in Headers */,
@@ -688,6 +695,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				012A95511C4EFD9A000A4ECB /* LHRouter.m in Sources */,
+				01A28D951C5A7750006F0A95 /* LHNodeHelpers.m in Sources */,
 				012A95521C4EFD9A000A4ECB /* LHTree.m in Sources */,
 				012A95531C4EFD9A000A4ECB /* LHNodeTree.m in Sources */,
 				012A95541C4EFD9A000A4ECB /* LHNodeForest.m in Sources */,
