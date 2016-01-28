@@ -55,46 +55,6 @@
     [self.tabBarItemBoundNodes addObject:childNode];
 }
 
-#pragma mark - Helpers
-
-- (UITabBarItem *)tabBarItemForNode:(id<LHNode>)node {
-    NSSet<id<LHNode>> *nodeDescendants = [LHNodeHelpers allDescendantsOfNode:node];
-    
-    NSMutableSet *candidateNodes = [self.tabBarItemBoundNodes mutableCopy];
-    [candidateNodes intersectSet:nodeDescendants];
-
-    if (candidateNodes.count > 1) {
-        // TODO: assert?
-        return nil;
-    }
-    
-    return candidateNodes.count == 1 ? [self.tabBarItems objectForKey:candidateNodes.anyObject] : nil;
-}
-
-- (NSArray<UIViewController *> *)childViewControllersForUpdateContext:(id<LHDriverUpdateContext>)context {
-    NSSet<UIViewController *> *oldChildViewControllers = [NSSet setWithArray:self.data.viewControllers ?: @[]];
-    
-    NSArray<UIViewController *> *childViewControllers =
-        [LHViewControllerDriverHelpers viewControllersForNodes:self.node.orderedChildren withUpdateContext:context];
-    
-    [childViewControllers enumerateObjectsUsingBlock:^(UIViewController *viewController, NSUInteger idx, BOOL *stop) {
-        if ([oldChildViewControllers containsObject:viewController]) {
-            return;
-        }
-
-        // This viewController is new, let's see if we have a tabBarItem for it.
-        
-        id<LHNode> childNode = self.node.orderedChildren[idx];
-        UITabBarItem *tabBarItem = [self tabBarItemForNode:childNode];
-        
-        if (tabBarItem) {
-            viewController.tabBarItem = tabBarItem;
-        }
-    }];
-    
-    return childViewControllers;
-}
-
 #pragma mark - LHDriver
 
 @synthesize data = _data;
@@ -117,6 +77,8 @@
     if (self.data.selectedIndex != self.node.childrenState.activeChildIndex) {
         [self.data setSelectedIndex:self.node.childrenState.activeChildIndex];
     }
+    
+    [self updateForSelectedViewController:self.data.viewControllers[self.data.selectedIndex]];
 }
 
 - (void)presentationStateDidChange:(LHNodePresentationState)presentationState {
@@ -132,11 +94,57 @@
         [node updateChildrenState:[LHTarget withActiveNode:activeChild]];
     }];
     
+    [self updateForSelectedViewController:viewController];
+    
     return YES;
 }
 
 - (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController {
     [self.channel finishNodeUpdate];
+}
+
+#pragma mark - Helpers
+
+- (NSArray<UIViewController *> *)childViewControllersForUpdateContext:(id<LHDriverUpdateContext>)context {
+    NSSet<UIViewController *> *oldChildViewControllers = [NSSet setWithArray:self.data.viewControllers ?: @[]];
+    
+    NSArray<UIViewController *> *childViewControllers =
+    [LHViewControllerDriverHelpers viewControllersForNodes:self.node.orderedChildren withUpdateContext:context];
+    
+    [childViewControllers enumerateObjectsUsingBlock:^(UIViewController *viewController, NSUInteger idx, BOOL *stop) {
+        if ([oldChildViewControllers containsObject:viewController]) {
+            return;
+        }
+        
+        // This viewController is new, let's see if we have a tabBarItem for it.
+        
+        id<LHNode> childNode = self.node.orderedChildren[idx];
+        UITabBarItem *tabBarItem = [self tabBarItemForNode:childNode];
+        
+        if (tabBarItem) {
+            viewController.tabBarItem = tabBarItem;
+        }
+    }];
+    
+    return childViewControllers;
+}
+
+- (UITabBarItem *)tabBarItemForNode:(id<LHNode>)node {
+    NSSet<id<LHNode>> *nodeDescendants = [LHNodeHelpers allDescendantsOfNode:node];
+    
+    NSMutableSet *candidateNodes = [self.tabBarItemBoundNodes mutableCopy];
+    [candidateNodes intersectSet:nodeDescendants];
+    
+    if (candidateNodes.count > 1) {
+        // TODO: assert?
+        return nil;
+    }
+    
+    return candidateNodes.count == 1 ? [self.tabBarItems objectForKey:candidateNodes.anyObject] : nil;
+}
+
+- (void)updateForSelectedViewController:(UIViewController *)childViewController {
+    self.data.title = childViewController.title;
 }
 
 @end
