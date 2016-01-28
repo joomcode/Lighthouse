@@ -52,8 +52,14 @@
         return [[LHNavigationControllerDriver alloc] initWithNode:node channel:context.channel];
     }];
     
-    [driverProvider bindNodeClass:[LHTabNode class] toBlock:^id<LHDriver>(LHTabNode *node, id<LHDriverProviderContext> context) {
-        return [[LHTabBarControllerDriver alloc] initWithNode:node channel:context.channel];
+    [driverProvider bindNode:hierarchy.anotherTabNode toBlock:^id<LHDriver>(LHTabNode *node, id<LHDriverProviderContext> context) {
+        LHTabBarControllerDriver *driver = [[LHTabBarControllerDriver alloc] initWithNode:node channel:context.channel];
+        
+        [driver bindChildNode:hierarchy.anotherRedNode toTabBarItem:[[UITabBarItem alloc] initWithTitle:@"Foo" image:nil selectedImage:nil]];
+        [driver bindChildNode:hierarchy.anotherGreenNode toTabBarItem:[[UITabBarItem alloc] initWithTitle:@"Bar" image:nil selectedImage:nil]];
+        [driver bindChildNode:hierarchy.anotherBlueNode toTabBarItem:[[UITabBarItem alloc] initWithTitle:@"Derp" image:nil selectedImage:nil]];
+        
+        return driver;
     }];
     
     [driverProvider bindNodes:@[ hierarchy.redNode, hierarchy.anotherRedNode ] toBlock:^id<LHDriver>(LHTabNode *node, id<LHDriverProviderContext> context) {

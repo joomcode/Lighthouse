@@ -11,6 +11,7 @@
 
 @class LHTabNode;
 @protocol LHDriverChannel;
+@protocol LHNode;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -22,6 +23,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithNode:(LHTabNode *)node channel:(id<LHDriverChannel>)channel;
 
 - (instancetype)init NS_UNAVAILABLE;
+
+- (void)bindChildNode:(id<LHNode>)childNode toTabBarItem:(UITabBarItem *)tabBarItem;
 
 @end
 
