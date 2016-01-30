@@ -13,6 +13,7 @@
 #import "LHTarget.h"
 #import "LHViewControllerDriverHelpers.h"
 #import "LHNodeHelpers.h"
+#import "UIViewController+LHNavigationItemForwarding.h"
 
 @interface LHTabBarControllerDriver () <UITabBarControllerDelegate>
 
@@ -144,7 +145,7 @@
 }
 
 - (void)updateForSelectedViewController:(UIViewController *)childViewController {
-    self.data.title = childViewController.title;
+    self.data.lh_childViewControllerForNavigationItem = childViewController;
 }
 
 @end
