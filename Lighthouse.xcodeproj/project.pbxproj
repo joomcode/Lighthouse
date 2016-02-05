@@ -25,7 +25,7 @@
 		012A955E1C4EFD9A000A4ECB /* LHViewControllerDriver.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A01A631BA8373B00608274 /* LHViewControllerDriver.m */; };
 		012A955F1C4EFD9A000A4ECB /* LHNavigationControllerDriver.m in Sources */ = {isa = PBXBuildFile; fileRef = 0160A9841BA78EAC0035A331 /* LHNavigationControllerDriver.m */; };
 		012A95601C4EFD9A000A4ECB /* LHTabBarControllerDriver.m in Sources */ = {isa = PBXBuildFile; fileRef = 012497971BA9D92E007CD98B /* LHTabBarControllerDriver.m */; };
-		012A95611C4EFD9A000A4ECB /* LHModalPresentationDriver.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A01AA01BA88B4000608274 /* LHModalPresentationDriver.m */; };
+		012A95611C4EFD9A000A4ECB /* LHWindowDriver.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A01AA01BA88B4000608274 /* LHWindowDriver.m */; };
 		012A95621C4EFD9A000A4ECB /* LHUpdateHandlerDriver.m in Sources */ = {isa = PBXBuildFile; fileRef = 0111CC231BAA470D00C19022 /* LHUpdateHandlerDriver.m */; };
 		012A95631C4EFD9A000A4ECB /* LHBasicDriverProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A01AA31BA8901100608274 /* LHBasicDriverProvider.m */; };
 		012A95641C4EFD9A000A4ECB /* LHCompositeDriverProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A01AB01BA97B7100608274 /* LHCompositeDriverProvider.m */; };
@@ -73,7 +73,7 @@
 		01DBF2DE1C4EFE700034783C /* LHViewControllerDriver.h in Headers */ = {isa = PBXBuildFile; fileRef = 01A01A621BA8373B00608274 /* LHViewControllerDriver.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		01DBF2DF1C4EFE700034783C /* LHNavigationControllerDriver.h in Headers */ = {isa = PBXBuildFile; fileRef = 0160A9831BA78EAC0035A331 /* LHNavigationControllerDriver.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		01DBF2E01C4EFE700034783C /* LHTabBarControllerDriver.h in Headers */ = {isa = PBXBuildFile; fileRef = 012497961BA9D92E007CD98B /* LHTabBarControllerDriver.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		01DBF2E11C4EFE700034783C /* LHModalPresentationDriver.h in Headers */ = {isa = PBXBuildFile; fileRef = 01A01A9F1BA88B4000608274 /* LHModalPresentationDriver.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		01DBF2E11C4EFE700034783C /* LHWindowDriver.h in Headers */ = {isa = PBXBuildFile; fileRef = 01A01A9F1BA88B4000608274 /* LHWindowDriver.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		01DBF2E21C4EFE700034783C /* LHUpdateHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 0186CAFD1BADF87F00B22431 /* LHUpdateHandler.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		01DBF2E31C4EFE700034783C /* LHUpdateBus.h in Headers */ = {isa = PBXBuildFile; fileRef = 012A952F1C4EEFAC000A4ECB /* LHUpdateBus.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		01DBF2E41C4EFE700034783C /* LHUpdateHandlerDriver.h in Headers */ = {isa = PBXBuildFile; fileRef = 0111CC221BAA470D00C19022 /* LHUpdateHandlerDriver.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -180,8 +180,8 @@
 		01A01A951BA8790900608274 /* Lighthouse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Lighthouse.h; sourceTree = "<group>"; };
 		01A01A971BA8834500608274 /* LHLeafNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHLeafNode.h; sourceTree = "<group>"; };
 		01A01A981BA8834500608274 /* LHLeafNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHLeafNode.m; sourceTree = "<group>"; };
-		01A01A9F1BA88B4000608274 /* LHModalPresentationDriver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHModalPresentationDriver.h; sourceTree = "<group>"; };
-		01A01AA01BA88B4000608274 /* LHModalPresentationDriver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHModalPresentationDriver.m; sourceTree = "<group>"; };
+		01A01A9F1BA88B4000608274 /* LHWindowDriver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHWindowDriver.h; sourceTree = "<group>"; };
+		01A01AA01BA88B4000608274 /* LHWindowDriver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHWindowDriver.m; sourceTree = "<group>"; };
 		01A01AA21BA8901100608274 /* LHBasicDriverProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHBasicDriverProvider.h; sourceTree = "<group>"; };
 		01A01AA31BA8901100608274 /* LHBasicDriverProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHBasicDriverProvider.m; sourceTree = "<group>"; };
 		01A01AA61BA8E9FB00608274 /* LHDriverChannelImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHDriverChannelImpl.h; sourceTree = "<group>"; };
@@ -420,8 +420,8 @@
 				0160A9841BA78EAC0035A331 /* LHNavigationControllerDriver.m */,
 				012497961BA9D92E007CD98B /* LHTabBarControllerDriver.h */,
 				012497971BA9D92E007CD98B /* LHTabBarControllerDriver.m */,
-				01A01A9F1BA88B4000608274 /* LHModalPresentationDriver.h */,
-				01A01AA01BA88B4000608274 /* LHModalPresentationDriver.m */,
+				01A01A9F1BA88B4000608274 /* LHWindowDriver.h */,
+				01A01AA01BA88B4000608274 /* LHWindowDriver.m */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -564,7 +564,7 @@
 				01DBF2DF1C4EFE700034783C /* LHNavigationControllerDriver.h in Headers */,
 				01A28DBD1C5CEFBD006F0A95 /* UIViewController+LHNavigationItemForwarding.h in Headers */,
 				01DBF2E01C4EFE700034783C /* LHTabBarControllerDriver.h in Headers */,
-				01DBF2E11C4EFE700034783C /* LHModalPresentationDriver.h in Headers */,
+				01DBF2E11C4EFE700034783C /* LHWindowDriver.h in Headers */,
 				01DBF2E21C4EFE700034783C /* LHUpdateHandler.h in Headers */,
 				01DBF2E31C4EFE700034783C /* LHUpdateBus.h in Headers */,
 				01DBF2E41C4EFE700034783C /* LHUpdateHandlerDriver.h in Headers */,
@@ -718,7 +718,7 @@
 				012A955F1C4EFD9A000A4ECB /* LHNavigationControllerDriver.m in Sources */,
 				01A28DBE1C5CEFBD006F0A95 /* UIViewController+LHNavigationItemForwarding.m in Sources */,
 				012A95601C4EFD9A000A4ECB /* LHTabBarControllerDriver.m in Sources */,
-				012A95611C4EFD9A000A4ECB /* LHModalPresentationDriver.m in Sources */,
+				012A95611C4EFD9A000A4ECB /* LHWindowDriver.m in Sources */,
 				012A95621C4EFD9A000A4ECB /* LHUpdateHandlerDriver.m in Sources */,
 				012A95631C4EFD9A000A4ECB /* LHBasicDriverProvider.m in Sources */,
 				012A95641C4EFD9A000A4ECB /* LHCompositeDriverProvider.m in Sources */,

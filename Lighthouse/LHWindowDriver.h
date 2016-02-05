@@ -1,5 +1,5 @@
 //
-//  LHModalPresentationDriver.h
+//  LHWindowDriver.h
 //  Lighthouse
 //
 //  Created by Nick Tymchenko on 15/09/15.
@@ -15,7 +15,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 
-@interface LHModalPresentationDriver : NSObject <LHDriver>
+@interface LHWindowDriver : NSObject <LHDriver>
 
 @property (nonatomic, strong, readonly) UIWindow *data;
 

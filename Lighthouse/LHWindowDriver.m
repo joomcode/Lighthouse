@@ -1,12 +1,12 @@
 //
-//  LHModalPresentationDriver.m
+//  LHWindowDriver.m
 //  Lighthouse
 //
 //  Created by Nick Tymchenko on 15/09/15.
 //  Copyright (c) 2015 Pixty. All rights reserved.
 //
 
-#import "LHModalPresentationDriver.h"
+#import "LHWindowDriver.h"
 #import "LHStackNode.h"
 #import "LHDriverChannel.h"
 #import "LHDriverUpdateContext.h"
@@ -15,7 +15,7 @@
 #import "LHViewControllerDriverHelpers.h"
 #import "UIViewController+LHDismissalTracking.h"
 
-@interface LHModalPresentationDriver ()
+@interface LHWindowDriver ()
 
 @property (nonatomic, strong, readonly) LHStackNode *node;
 @property (nonatomic, strong, readonly) id<LHDriverChannel> channel;
@@ -23,7 +23,7 @@
 @end
 
 
-@implementation LHModalPresentationDriver
+@implementation LHWindowDriver
 
 #pragma mark - Init
 

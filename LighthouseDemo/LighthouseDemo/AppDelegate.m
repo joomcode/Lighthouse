@@ -45,7 +45,7 @@
     LHBasicDriverProvider *driverProvider = [[LHBasicDriverProvider alloc] init];
     
     [driverProvider bindNode:hierarchy.rootNode toBlock:^id<LHDriver>(LHStackNode *node, id<LHDriverProviderContext> context) {
-        return [[LHModalPresentationDriver alloc] initWithWindow:self.window node:node channel:context.channel];
+        return [[LHWindowDriver alloc] initWithWindow:self.window node:node channel:context.channel];
     }];
     
     [driverProvider bindNodeClass:[LHStackNode class] toBlock:^id<LHDriver>(LHStackNode *node, id<LHDriverProviderContext> context) {
