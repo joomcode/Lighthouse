@@ -16,6 +16,16 @@ typedef NS_ENUM(NSInteger, LHNodeState) {
 };
 
 
-static inline BOOL LHNodeStateIsInitialized(LHNodeState state) {
-    return state != LHNodeStateNotInitialized;
+typedef NS_OPTIONS(NSInteger, LHNodeStateMask) {
+    LHNodeStateMaskNotInitialized = (1 << LHNodeStateNotInitialized),
+    LHNodeStateMaskInactive = (1 << LHNodeStateInactive),
+    LHNodeStateMaskActive = (1 << LHNodeStateActive),
+    
+    LHNodeStateMaskAll = (LHNodeStateMaskNotInitialized | LHNodeStateMaskInactive | LHNodeStateMaskActive),
+    LHNodeStateMaskInitialized = (LHNodeStateMaskInactive | LHNodeStateMaskActive)
+};
+
+
+static inline LHNodeStateMask LHNodeStateMaskWithState(LHNodeState state) {
+    return 1 << state;
 }

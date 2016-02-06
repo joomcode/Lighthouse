@@ -11,23 +11,34 @@
 
 
 typedef NS_ENUM(NSInteger, LHNodePresentationState) {
-    LHNodePresentationStateNotInitialized = 0,
-    LHNodePresentationStateInactive = 1,
+    LHNodePresentationStateNotInitialized = LHNodeStateNotInitialized,
+    LHNodePresentationStateInactive = LHNodeStateInactive,
     LHNodePresentationStateDeactivating = 2,
     LHNodePresentationStateActivating = 3,
-    LHNodePresentationStateActive = 4
+    LHNodePresentationStateActive = LHNodeStateActive
+};
+
+
+typedef NS_OPTIONS(NSInteger, LHNodePresentationStateMask) {
+    LHNodePresentationStateMaskNotInitialized = (1 << LHNodePresentationStateNotInitialized),
+    LHNodePresentationStateMaskInactive = (1 << LHNodePresentationStateInactive),
+    LHNodePresentationStateMaskDeactivating = (1 << LHNodePresentationStateDeactivating),
+    LHNodePresentationStateMaskActivating = (1 << LHNodePresentationStateActivating),
+    LHNodePresentationStateMaskActive = (1 << LHNodePresentationStateActive),
+    
+    LHNodePresentationStateMaskAll = (LHNodePresentationStateMaskNotInitialized | LHNodePresentationStateMaskInactive | LHNodePresentationStateMaskDeactivating | LHNodePresentationStateMaskActivating | LHNodePresentationStateMaskActive),
+    LHNodePresentationStateMaskInitialized = (LHNodePresentationStateMaskInactive | LHNodePresentationStateMaskDeactivating | LHNodePresentationStateMaskActivating | LHNodePresentationStateMaskActive),
+    LHNodePresentationStateMaskTransitioning = (LHNodePresentationStateMaskDeactivating | LHNodePresentationStateMaskActivating),
+    LHNodePresentationStateMaskNotTransitioning = (LHNodePresentationStateMaskNotInitialized | LHNodePresentationStateMaskInactive | LHNodePresentationStateMaskActive)
 };
 
 
 static inline LHNodePresentationState LHNodePresentationStateWithState(LHNodeState state) {
-    switch (state) {
-        case LHNodeStateNotInitialized:
-            return LHNodePresentationStateNotInitialized;
-        case LHNodeStateInactive:
-            return LHNodePresentationStateInactive;
-        case LHNodeStateActive:
-            return LHNodePresentationStateActive;
-    }
+    return (LHNodePresentationState)state;
+}
+
+static inline LHNodePresentationStateMask LHNodePresentationStateMaskWithState(LHNodePresentationState state) {
+    return 1 << state;
 }
 
 static inline LHNodePresentationState LHNodePresentationStateForTransition(LHNodePresentationState oldPresentationState,
@@ -62,12 +73,4 @@ static inline LHNodePresentationState LHNodePresentationStateForTransition(LHNod
                     return LHNodePresentationStateActivating;
             }
     }
-}
-
-static inline BOOL LHNodePresentationStateIsInitialized(LHNodePresentationState state) {
-    return state != LHNodePresentationStateNotInitialized;
-}
-
-static inline BOOL LHNodePresentationStateIsTransitioning(LHNodePresentationState state) {
-    return state == LHNodePresentationStateDeactivating || state == LHNodePresentationStateActivating;
 }
