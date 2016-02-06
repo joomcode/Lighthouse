@@ -7,9 +7,18 @@
 //
 
 #import "LHTree.h"
+#import "LHNodeState.h"
 
 @protocol LHNode;
 
+NS_ASSUME_NONNULL_BEGIN
+
+
 @interface LHNodeTree : LHTree<id<LHNode>>
 
++ (instancetype)treeWithDescendantsOfNode:(id<LHNode>)node withStates:(LHNodeStateMask)stateMask;
+
 @end
+
+
+NS_ASSUME_NONNULL_END
