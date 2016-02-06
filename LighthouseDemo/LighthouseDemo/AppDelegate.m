@@ -55,9 +55,9 @@
     [driverProvider bindNode:hierarchy.anotherTabNode toBlock:^id<LHDriver>(LHTabNode *node, id<LHDriverProviderContext> context) {
         LHTabBarControllerDriver *driver = [[LHTabBarControllerDriver alloc] initWithNode:node channel:context.channel];
         
-        [driver bindChildNode:hierarchy.anotherRedNode toTabBarItem:[[UITabBarItem alloc] initWithTitle:@"Foo" image:nil selectedImage:nil]];
-        [driver bindChildNode:hierarchy.anotherGreenNode toTabBarItem:[[UITabBarItem alloc] initWithTitle:@"Bar" image:nil selectedImage:nil]];
-        [driver bindChildNode:hierarchy.anotherBlueNode toTabBarItem:[[UITabBarItem alloc] initWithTitle:@"Derp" image:nil selectedImage:nil]];
+        [driver bindDescendantNode:hierarchy.anotherRedNode toTabBarItem:[[UITabBarItem alloc] initWithTitle:@"Foo" image:nil selectedImage:nil]];
+        [driver bindDescendantNode:hierarchy.anotherGreenNode toTabBarItem:[[UITabBarItem alloc] initWithTitle:@"Bar" image:nil selectedImage:nil]];
+        [driver bindDescendantNode:hierarchy.anotherBlueNode toTabBarItem:[[UITabBarItem alloc] initWithTitle:@"Derp" image:nil selectedImage:nil]];
         
         return driver;
     }];

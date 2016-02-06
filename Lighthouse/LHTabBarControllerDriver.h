@@ -24,7 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)init NS_UNAVAILABLE;
 
-- (void)bindChildNode:(id<LHNode>)childNode toTabBarItem:(UITabBarItem *)tabBarItem;
+- (void)bindDescendantNode:(id<LHNode>)descendantNode toTabBarItem:(UITabBarItem *)tabBarItem;
 
 @end
 

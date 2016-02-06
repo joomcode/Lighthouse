@@ -51,9 +51,9 @@
 
 #pragma mark - Public
 
-- (void)bindChildNode:(id<LHNode>)childNode toTabBarItem:(UITabBarItem *)tabBarItem {
-    [self.tabBarItems setObject:tabBarItem forKey:childNode];
-    [self.tabBarItemBoundNodes addObject:childNode];
+- (void)bindDescendantNode:(id<LHNode>)descendantNode toTabBarItem:(UITabBarItem *)tabBarItem {
+    [self.tabBarItems setObject:tabBarItem forKey:descendantNode];
+    [self.tabBarItemBoundNodes addObject:descendantNode];
 }
 
 #pragma mark - LHDriver
