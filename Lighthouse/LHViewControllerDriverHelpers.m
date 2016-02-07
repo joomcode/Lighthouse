@@ -10,7 +10,7 @@
 #import "LHDriverUpdateContext.h"
 #import "LHNodeChildrenState.h"
 #import "LHDriver.h"
-#import <UIKit/UIKit.h>
+#import <objc/runtime.h>
 
 @implementation LHViewControllerDriverHelpers
 
@@ -22,10 +22,29 @@
     for (id<LHNode> node in nodes) {
         id<LHDriver> driver = [updateContext driverForNode:node];
         NSAssert([driver.data isKindOfClass:[UIViewController class]], nil); // TODO
-        [viewControllers addObject:driver.data];
+        
+        UIViewController *viewController = driver.data;
+        viewController.lh_node = node;
+        [viewControllers addObject:viewController];
     }
     
     return viewControllers;
 }
 
 @end
+
+
+@implementation UIViewController (LHNode)
+
+static const char kNodeKey;
+
+- (id<LHNode>)lh_node {
+    return objc_getAssociatedObject(self, &kNodeKey);
+}
+
+- (void)setLh_node:(id<LHNode>)node {
+    objc_setAssociatedObject(self, &kNodeKey, node, OBJC_ASSOCIATION_ASSIGN);
+}
+
+@end
+

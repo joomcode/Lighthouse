@@ -45,18 +45,20 @@
 		012A95721C4EFD9A000A4ECB /* LHDriverUpdateContextImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A01A821BA869F200608274 /* LHDriverUpdateContextImpl.m */; };
 		012A95731C4EFD9A000A4ECB /* LHDriverChannelImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A01AA71BA8E9FB00608274 /* LHDriverChannelImpl.m */; };
 		012A95741C4EFD9A000A4ECB /* LHUpdateBusImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 012A95331C4EF2E9000A4ECB /* LHUpdateBusImpl.m */; };
-		015A4F7E1C663D3A00F950B3 /* LHContainerTransitionContext.h in Headers */ = {isa = PBXBuildFile; fileRef = 015A4F7C1C663D3A00F950B3 /* LHContainerTransitionContext.h */; };
+		015A4F7E1C663D3A00F950B3 /* LHContainerTransitionContext.h in Headers */ = {isa = PBXBuildFile; fileRef = 015A4F7C1C663D3A00F950B3 /* LHContainerTransitionContext.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		015A4F7F1C663D3A00F950B3 /* LHContainerTransitionContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 015A4F7D1C663D3A00F950B3 /* LHContainerTransitionContext.m */; };
-		015A4F811C663F0500F950B3 /* LHContainerTransitionStyle.h in Headers */ = {isa = PBXBuildFile; fileRef = 015A4F801C663F0500F950B3 /* LHContainerTransitionStyle.h */; };
-		015A4F841C6645B400F950B3 /* LHModalTransitionContext.h in Headers */ = {isa = PBXBuildFile; fileRef = 015A4F821C6645B400F950B3 /* LHModalTransitionContext.h */; };
+		015A4F811C663F0500F950B3 /* LHContainerTransitionStyle.h in Headers */ = {isa = PBXBuildFile; fileRef = 015A4F801C663F0500F950B3 /* LHContainerTransitionStyle.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		015A4F841C6645B400F950B3 /* LHModalTransitionContext.h in Headers */ = {isa = PBXBuildFile; fileRef = 015A4F821C6645B400F950B3 /* LHModalTransitionContext.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		015A4F851C6645B400F950B3 /* LHModalTransitionContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 015A4F831C6645B400F950B3 /* LHModalTransitionContext.m */; };
-		015A4F871C664BF200F950B3 /* LHModalTransitionStyle.h in Headers */ = {isa = PBXBuildFile; fileRef = 015A4F861C664BF200F950B3 /* LHModalTransitionStyle.h */; };
-		015A4F8E1C66950E00F950B3 /* LHTransitionStyleRegistry.h in Headers */ = {isa = PBXBuildFile; fileRef = 015A4F8C1C66950E00F950B3 /* LHTransitionStyleRegistry.h */; };
+		015A4F871C664BF200F950B3 /* LHModalTransitionStyle.h in Headers */ = {isa = PBXBuildFile; fileRef = 015A4F861C664BF200F950B3 /* LHModalTransitionStyle.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		015A4F8E1C66950E00F950B3 /* LHTransitionStyleRegistry.h in Headers */ = {isa = PBXBuildFile; fileRef = 015A4F8C1C66950E00F950B3 /* LHTransitionStyleRegistry.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		015A4F8F1C66950E00F950B3 /* LHTransitionStyleRegistry.m in Sources */ = {isa = PBXBuildFile; fileRef = 015A4F8D1C66950E00F950B3 /* LHTransitionStyleRegistry.m */; };
-		015A4F921C67014F00F950B3 /* LHContainerTransitionStyleRegistry.h in Headers */ = {isa = PBXBuildFile; fileRef = 015A4F901C67014F00F950B3 /* LHContainerTransitionStyleRegistry.h */; };
+		015A4F921C67014F00F950B3 /* LHContainerTransitionStyleRegistry.h in Headers */ = {isa = PBXBuildFile; fileRef = 015A4F901C67014F00F950B3 /* LHContainerTransitionStyleRegistry.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		015A4F931C67014F00F950B3 /* LHContainerTransitionStyleRegistry.m in Sources */ = {isa = PBXBuildFile; fileRef = 015A4F911C67014F00F950B3 /* LHContainerTransitionStyleRegistry.m */; };
-		015A4F961C67018E00F950B3 /* LHModalTransitionStyleRegistry.h in Headers */ = {isa = PBXBuildFile; fileRef = 015A4F941C67018E00F950B3 /* LHModalTransitionStyleRegistry.h */; };
+		015A4F961C67018E00F950B3 /* LHModalTransitionStyleRegistry.h in Headers */ = {isa = PBXBuildFile; fileRef = 015A4F941C67018E00F950B3 /* LHModalTransitionStyleRegistry.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		015A4F971C67018E00F950B3 /* LHModalTransitionStyleRegistry.m in Sources */ = {isa = PBXBuildFile; fileRef = 015A4F951C67018E00F950B3 /* LHModalTransitionStyleRegistry.m */; };
+		015A4F9B1C67A49400F950B3 /* LHModalTransitioningDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 015A4F991C67A49400F950B3 /* LHModalTransitioningDelegate.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		015A4F9C1C67A49400F950B3 /* LHModalTransitioningDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 015A4F9A1C67A49400F950B3 /* LHModalTransitioningDelegate.m */; };
 		01A28DBD1C5CEFBD006F0A95 /* UIViewController+LHNavigationItemForwarding.h in Headers */ = {isa = PBXBuildFile; fileRef = 01A28DBB1C5CEFBD006F0A95 /* UIViewController+LHNavigationItemForwarding.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		01A28DBE1C5CEFBD006F0A95 /* UIViewController+LHNavigationItemForwarding.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A28DBC1C5CEFBD006F0A95 /* UIViewController+LHNavigationItemForwarding.m */; };
 		01D57A111C50467F008E4EB5 /* LHNodePresentationState.h in Headers */ = {isa = PBXBuildFile; fileRef = 01D57A101C502F3F008E4EB5 /* LHNodePresentationState.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -160,6 +162,8 @@
 		015A4F911C67014F00F950B3 /* LHContainerTransitionStyleRegistry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHContainerTransitionStyleRegistry.m; sourceTree = "<group>"; };
 		015A4F941C67018E00F950B3 /* LHModalTransitionStyleRegistry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHModalTransitionStyleRegistry.h; sourceTree = "<group>"; };
 		015A4F951C67018E00F950B3 /* LHModalTransitionStyleRegistry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHModalTransitionStyleRegistry.m; sourceTree = "<group>"; };
+		015A4F991C67A49400F950B3 /* LHModalTransitioningDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHModalTransitioningDelegate.h; sourceTree = "<group>"; };
+		015A4F9A1C67A49400F950B3 /* LHModalTransitioningDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHModalTransitioningDelegate.m; sourceTree = "<group>"; };
 		0160A96B1BA742C90035A331 /* LHStackNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHStackNode.h; sourceTree = "<group>"; };
 		0160A96C1BA742C90035A331 /* LHStackNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHStackNode.m; sourceTree = "<group>"; };
 		0160A96E1BA7434B0035A331 /* LHNodeTree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHNodeTree.h; sourceTree = "<group>"; };
@@ -385,6 +389,8 @@
 				015A4F861C664BF200F950B3 /* LHModalTransitionStyle.h */,
 				015A4F821C6645B400F950B3 /* LHModalTransitionContext.h */,
 				015A4F831C6645B400F950B3 /* LHModalTransitionContext.m */,
+				015A4F991C67A49400F950B3 /* LHModalTransitioningDelegate.h */,
+				015A4F9A1C67A49400F950B3 /* LHModalTransitioningDelegate.m */,
 			);
 			name = "Transition Styles";
 			sourceTree = "<group>";
@@ -642,6 +648,7 @@
 				01DBF2F71C4EFEB00034783C /* LHNodeUpdateTask.h in Headers */,
 				01DBF2F81C4EFEB00034783C /* LHCommandNodeUpdateTask.h in Headers */,
 				01D57AB31C547557008E4EB5 /* LHTabNodeChildrenState.h in Headers */,
+				015A4F9B1C67A49400F950B3 /* LHModalTransitioningDelegate.h in Headers */,
 				01DBF2F91C4EFEB00034783C /* LHManualNodeUpdateTask.h in Headers */,
 				01DBF2FA1C4EFEB00034783C /* LHDriverFeedbackUpdateTask.h in Headers */,
 				015A4F841C6645B400F950B3 /* LHModalTransitionContext.h in Headers */,
@@ -787,6 +794,7 @@
 				01D57AB41C547557008E4EB5 /* LHTabNodeChildrenState.m in Sources */,
 				012A956D1C4EFD9A000A4ECB /* LHBlockTask.m in Sources */,
 				012A956E1C4EFD9A000A4ECB /* LHNodeUpdateTask.m in Sources */,
+				015A4F9C1C67A49400F950B3 /* LHModalTransitioningDelegate.m in Sources */,
 				012A956F1C4EFD9A000A4ECB /* LHCommandNodeUpdateTask.m in Sources */,
 				012A95701C4EFD9A000A4ECB /* LHManualNodeUpdateTask.m in Sources */,
 				012A95711C4EFD9A000A4ECB /* LHDriverFeedbackUpdateTask.m in Sources */,

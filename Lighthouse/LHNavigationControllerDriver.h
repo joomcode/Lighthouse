@@ -10,7 +10,9 @@
 #import <UIKit/UIKit.h>
 
 @class LHStackNode;
+@protocol LHNode;
 @protocol LHDriverChannel;
+@class LHContainerTransitionStyleRegistry;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -18,6 +20,8 @@ NS_ASSUME_NONNULL_BEGIN
 @interface LHNavigationControllerDriver : NSObject <LHDriver>
 
 @property (nonatomic, strong, readonly) UINavigationController *data;
+
+@property (nonatomic, strong, null_resettable) LHContainerTransitionStyleRegistry *transitionStyleRegistry;
 
 - (instancetype)initWithNode:(LHStackNode *)node channel:(id<LHDriverChannel>)channel;
 

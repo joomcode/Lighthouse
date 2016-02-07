@@ -20,7 +20,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong, readonly) UIViewController *presentingViewController;
 
-@property (nonatomic, strong, readonly) UIViewController *presentedViewController;
+@property (nonatomic, strong, readonly) UIViewController *viewControllerBeingPresented;
+
+- (instancetype)initWithSourceViewController:(UIViewController *)sourceViewController
+                   destinationViewController:(UIViewController *)destinationViewController
+                    presentingViewController:(UIViewController *)presentingViewController
+                viewControllerBeingPresented:(UIViewController *)viewControllerBeingPresented NS_DESIGNATED_INITIALIZER;
+
+- (instancetype)init NS_UNAVAILABLE;
+
 
 @end
 

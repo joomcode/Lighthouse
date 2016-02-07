@@ -8,7 +8,6 @@
 
 #import "LHTransitionStyleRegistry.h"
 #import "LHNode.h"
-#import "LHNodeTree.h"
 
 @interface LHTransitionStyleRegistryKey : NSObject
 
@@ -77,18 +76,15 @@
     self.defaultStyle = transitionStyle;
 }
 
-- (id)transitionStyleForSourceNode:(id<LHNode>)sourceNode destinationNode:(id<LHNode>)destinationNode {
-    NSSet<id<LHNode>> *sourceDescendants = [LHNodeTree treeWithDescendantsOfNode:sourceNode].allItems;
-    NSSet<id<LHNode>> *destinationDescendants = [LHNodeTree treeWithDescendantsOfNode:destinationNode].allItems;
-    
+- (id)transitionStyleForSourceNodes:(NSSet<id<LHNode>> *)sourceNodes destinationNodes:(NSSet<id<LHNode>> *)destinationNodes {
     __block id result = nil;
     
     [self.keys enumerateObjectsUsingBlock:^(LHTransitionStyleRegistryKey *key, NSUInteger idx, BOOL *stop) {
-        if (key.source && ![sourceDescendants containsObject:key.source]) {
+        if (key.source && ![sourceNodes containsObject:key.source]) {
             return;
         }
         
-        if (key.destination && ![destinationDescendants containsObject:key.destination]) {
+        if (key.destination && ![destinationNodes containsObject:key.destination]) {
             return;
         }
         
@@ -97,6 +93,16 @@
     }];
     
     return result ?: self.defaultStyle;
+}
+
+- (id<LHNode>)sourceNodeForTransitionStyle:(id)transitionStyle {
+    NSUInteger index = [self.styles indexOfObject:transitionStyle];
+    return index != NSNotFound ? self.keys[index].source : nil;
+}
+
+- (id<LHNode>)destinationNodeForTransitionStyle:(id)transitionStyle {
+    NSUInteger index = [self.styles indexOfObject:transitionStyle];
+    return index != NSNotFound ? self.keys[index].destination : nil;
 }
 
 @end

@@ -15,6 +15,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol LHModalTransitionStyle <NSObject>
 
+// TODO: make optional?
+
 - (nullable id<UIViewControllerAnimatedTransitioning>)animationControllerForContext:(LHModalTransitionContext *)context;
 
 - (nullable id<UIViewControllerInteractiveTransitioning>)interactionControllerForContext:(LHModalTransitionContext *)context;

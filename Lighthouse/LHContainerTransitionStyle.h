@@ -16,6 +16,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol LHContainerTransitionStyle <NSObject>
 
+// TODO: make optional?
+
 - (nullable id<UIViewControllerAnimatedTransitioning>)animationControllerForContext:(LHContainerTransitionContext *)context;
 
 - (nullable id<UIViewControllerInteractiveTransitioning>)interactionControllerForContext:(LHContainerTransitionContext *)context;

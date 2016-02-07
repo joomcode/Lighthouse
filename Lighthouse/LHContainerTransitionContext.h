@@ -18,6 +18,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong, readonly) UIViewController *destinationViewController;
 
+- (instancetype)initWithSourceViewController:(UIViewController *)sourceViewController
+                   destinationViewController:(UIViewController *)destinationViewController NS_DESIGNATED_INITIALIZER;
+
+- (instancetype)init NS_UNAVAILABLE;
+
 @end
 
 

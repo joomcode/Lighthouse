@@ -23,4 +23,11 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 
+@interface UIViewController (LHNode)
+
+@property (nonatomic, weak, nullable) id<LHNode> lh_node;
+
+@end
+
+
 NS_ASSUME_NONNULL_END

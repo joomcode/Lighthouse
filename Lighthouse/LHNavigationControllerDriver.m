@@ -13,6 +13,9 @@
 #import "LHTaskQueue.h"
 #import "LHTarget.h"
 #import "LHViewControllerDriverHelpers.h"
+#import "LHContainerTransitionStyle.h"
+#import "LHContainerTransitionContext.h"
+#import "LHContainerTransitionStyleRegistry.h"
 
 @interface LHNavigationControllerDriver () <UINavigationControllerDelegate>
 
@@ -40,6 +43,15 @@
 
 - (void)dealloc {
     _data.delegate = nil;
+}
+
+#pragma mark - Public
+
+- (LHContainerTransitionStyleRegistry *)transitionStyleRegistry {
+    if (!_transitionStyleRegistry) {
+        _transitionStyleRegistry = [[LHContainerTransitionStyleRegistry alloc] init];
+    }
+    return _transitionStyleRegistry;
 }
 
 #pragma mark - LHDriver

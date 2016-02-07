@@ -13,6 +13,7 @@
 		013F68BD1BA62CA300B5797B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 013F68BC1BA62CA300B5797B /* main.m */; };
 		013F68C01BA62CA300B5797B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 013F68BF1BA62CA300B5797B /* AppDelegate.m */; };
 		013F68C81BA62CA300B5797B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 013F68C71BA62CA300B5797B /* Assets.xcassets */; };
+		015A4FA01C67AD1300F950B3 /* PXFlipModalTransitionStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 015A4F9F1C67AD1300F950B3 /* PXFlipModalTransitionStyle.m */; };
 		017E5B1B1BC0281B00C6C831 /* PXStateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 017E5B1A1BC0281B00C6C831 /* PXStateViewController.m */; };
 		017E5B1E1BC031EE00C6C831 /* PXStateViewControllerDriver.m in Sources */ = {isa = PBXBuildFile; fileRef = 017E5B1D1BC031EE00C6C831 /* PXStateViewControllerDriver.m */; };
 		017E5B211BC14BBE00C6C831 /* PXNodeHierarchy.m in Sources */ = {isa = PBXBuildFile; fileRef = 017E5B201BC14BBE00C6C831 /* PXNodeHierarchy.m */; };
@@ -55,6 +56,8 @@
 		013F68BF1BA62CA300B5797B /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		013F68C71BA62CA300B5797B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		013F68CC1BA62CA300B5797B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		015A4F9E1C67AD1300F950B3 /* PXFlipModalTransitionStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXFlipModalTransitionStyle.h; sourceTree = "<group>"; };
+		015A4F9F1C67AD1300F950B3 /* PXFlipModalTransitionStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXFlipModalTransitionStyle.m; sourceTree = "<group>"; };
 		017E5B191BC0281B00C6C831 /* PXStateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXStateViewController.h; sourceTree = "<group>"; };
 		017E5B1A1BC0281B00C6C831 /* PXStateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXStateViewController.m; sourceTree = "<group>"; };
 		017E5B1C1BC031EE00C6C831 /* PXStateViewControllerDriver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXStateViewControllerDriver.h; sourceTree = "<group>"; };
@@ -115,6 +118,7 @@
 				01A01A841BA8775600608274 /* View Controllers */,
 				01B713A11BC86C4D0011DDF3 /* Nodes */,
 				01B713A01BC86C2F0011DDF3 /* Drivers */,
+				015A4F9D1C67A71100F950B3 /* Transition Styles */,
 				01A01A881BA8780300608274 /* Commands */,
 				01A01A921BA8786F00608274 /* LHRouter+Shared.h */,
 				01A01A931BA8786F00608274 /* LHRouter+Shared.m */,
@@ -142,6 +146,15 @@
 				01A28D811C597FF4006F0A95 /* Lighthouse.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		015A4F9D1C67A71100F950B3 /* Transition Styles */ = {
+			isa = PBXGroup;
+			children = (
+				015A4F9E1C67AD1300F950B3 /* PXFlipModalTransitionStyle.h */,
+				015A4F9F1C67AD1300F950B3 /* PXFlipModalTransitionStyle.m */,
+			);
+			name = "Transition Styles";
 			sourceTree = "<group>";
 		};
 		01A01A841BA8775600608274 /* View Controllers */ = {
@@ -271,6 +284,7 @@
 				01A01A941BA8786F00608274 /* LHRouter+Shared.m in Sources */,
 				017E5B211BC14BBE00C6C831 /* PXNodeHierarchy.m in Sources */,
 				012497921BA99994007CD98B /* PXPresentModal.m in Sources */,
+				015A4FA01C67AD1300F950B3 /* PXFlipModalTransitionStyle.m in Sources */,
 				017E5B2B1BC1762800C6C831 /* PXDismissModal.m in Sources */,
 				017E5B1B1BC0281B00C6C831 /* PXStateViewController.m in Sources */,
 				01A01A911BA8783E00608274 /* PXPresentBlue.m in Sources */,

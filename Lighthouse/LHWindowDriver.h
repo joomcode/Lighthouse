@@ -11,6 +11,7 @@
 
 @class LHStackNode;
 @protocol LHDriverChannel;
+@class LHModalTransitionStyleRegistry;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -18,6 +19,8 @@ NS_ASSUME_NONNULL_BEGIN
 @interface LHWindowDriver : NSObject <LHDriver>
 
 @property (nonatomic, strong, readonly) UIWindow *data;
+
+@property (nonatomic, strong, null_resettable) LHModalTransitionStyleRegistry *transitionStyleRegistry;
 
 - (instancetype)initWithWindow:(UIWindow *)window
                           node:(LHStackNode *)node

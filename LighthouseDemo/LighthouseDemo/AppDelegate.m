@@ -13,7 +13,8 @@
 #import "PXDeepModalViewController.h"
 #import "PXNodeHierarchy.h"
 #import "PXCommands.h"
-#import <Lighthouse.h>
+#import "PXFlipModalTransitionStyle.h"
+#import <Lighthouse/Lighthouse.h>
 
 @interface AppDelegate () <LHRouterDelegate>
 
@@ -27,6 +28,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor whiteColor];
+    [self.window makeKeyAndVisible];
 
     [self setupRouter];
     
@@ -45,7 +47,13 @@
     LHBasicDriverProvider *driverProvider = [[LHBasicDriverProvider alloc] init];
     
     [driverProvider bindNode:hierarchy.rootNode toBlock:^id<LHDriver>(LHStackNode *node, id<LHDriverProviderContext> context) {
-        return [[LHWindowDriver alloc] initWithWindow:self.window node:node channel:context.channel];
+        LHWindowDriver *driver = [[LHWindowDriver alloc] initWithWindow:self.window node:node channel:context.channel];
+        
+        [driver.transitionStyleRegistry registerTransitionStyle:[[PXFlipModalTransitionStyle alloc] init]
+                                                  forSourceNode:nil
+                                                destinationNode:hierarchy.modalNode];
+        
+        return driver;
     }];
     
     [driverProvider bindNodeClass:[LHStackNode class] toBlock:^id<LHDriver>(LHStackNode *node, id<LHDriverProviderContext> context) {

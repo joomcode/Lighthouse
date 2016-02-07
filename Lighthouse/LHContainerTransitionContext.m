@@ -10,4 +10,15 @@
 
 @implementation LHContainerTransitionContext
 
+- (instancetype)initWithSourceViewController:(UIViewController *)sourceViewController
+                   destinationViewController:(UIViewController *)destinationViewController {
+    self = [super init];
+    if (!self) return nil;
+    
+    _sourceViewController = sourceViewController;
+    _destinationViewController = destinationViewController;
+    
+    return self;
+}
+
 @end

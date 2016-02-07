@@ -13,12 +13,19 @@
 #import "LHTaskQueue.h"
 #import "LHTarget.h"
 #import "LHViewControllerDriverHelpers.h"
+#import "LHNodeTree.h"
+#import "LHModalTransitionStyle.h"
+#import "LHModalTransitionContext.h"
+#import "LHModalTransitionStyleRegistry.h"
+#import "LHModalTransitioningDelegate.h"
 #import "UIViewController+LHDismissalTracking.h"
 
 @interface LHWindowDriver ()
 
 @property (nonatomic, strong, readonly) LHStackNode *node;
 @property (nonatomic, strong, readonly) id<LHDriverChannel> channel;
+
+@property (nonatomic, strong, readonly) NSMapTable<UIViewController *, LHModalTransitioningDelegate *> *transitioningDelegates;
 
 @end
 
@@ -37,7 +44,18 @@
     _node = node;
     _channel = channel;
     
+    _transitioningDelegates = [NSMapTable strongToStrongObjectsMapTable];
+    
     return self;
+}
+
+#pragma mark - Public
+
+- (LHModalTransitionStyleRegistry *)transitionStyleRegistry {
+    if (!_transitionStyleRegistry) {
+        _transitionStyleRegistry = [[LHModalTransitionStyleRegistry alloc] init];
+    }
+    return _transitionStyleRegistry;
 }
 
 #pragma mark - LHDriver
@@ -68,17 +86,17 @@
         if (i == 0) {
             [context.updateQueue runTaskWithBlock:^{
                 self.data.rootViewController = viewController;
-                
-                if (self.data.hidden) {
-                    [self.data makeKeyAndVisible];
-                }
             }];
         } else {
             UIViewController *presentingViewController = viewControllers[i - 1];
             
             [context.updateQueue runAsyncTaskWithBlock:^(LHTaskCompletionBlock completion) {
                 viewController.lh_onDismissalBlock = [self onDismissalBlockForViewControllerAtIndex:i];
-                [presentingViewController presentViewController:viewController animated:context.animated completion:completion];
+                
+                [self presentViewController:viewController
+                         fromViewController:presentingViewController
+                                    context:context
+                                 completion:completion];
             }];
         }
     }
@@ -108,6 +126,48 @@
         ++i;
     }
     return i;
+}
+
+- (void)presentViewController:(UIViewController *)viewControllerToPresent
+           fromViewController:(UIViewController *)presentingViewController
+                      context:(id<LHDriverUpdateContext>)context
+                   completion:(LHTaskCompletionBlock)completion {
+    
+    id<LHNode> presentingNode = presentingViewController.lh_node;
+    id<LHNode> nodeToPresent = viewControllerToPresent.lh_node;
+    
+    NSAssert(presentingNode != nil && nodeToPresent != nil, @""); // TODO
+    
+    id<LHModalTransitionStyle> transitionStyle =
+        [self.transitionStyleRegistry transitionStyleForSourceNodes:[LHNodeTree treeWithDescendantsOfNode:presentingNode].allItems
+                                                   destinationNodes:[LHNodeTree treeWithDescendantsOfNode:nodeToPresent].allItems];
+    
+    if (transitionStyle) {
+        id<LHNode> sourceNode = [self.transitionStyleRegistry sourceNodeForTransitionStyle:transitionStyle];
+        
+        id<LHNode> destinationNode = [self.transitionStyleRegistry destinationNodeForTransitionStyle:transitionStyle];
+        
+        UIViewController *sourceViewController = sourceNode ? [context driverForNode:sourceNode].data : presentingViewController;
+        
+        UIViewController *destinationViewContoller = destinationNode ? [context driverForNode:destinationNode].data : viewControllerToPresent;
+        
+        LHModalTransitionContext *transitionContext =
+            [[LHModalTransitionContext alloc] initWithSourceViewController:sourceViewController
+                                                 destinationViewController:destinationViewContoller
+                                                  presentingViewController:presentingViewController
+                                              viewControllerBeingPresented:viewControllerToPresent];
+        
+        LHModalTransitioningDelegate *transitioningDelegate = [[LHModalTransitioningDelegate alloc] initWithStyle:transitionStyle
+                                                                                                          context:transitionContext];
+        
+        [self.transitioningDelegates setObject:transitioningDelegate forKey:viewControllerToPresent];
+        // TODO: cleanup this later (on dismissal?)
+        
+        viewControllerToPresent.transitioningDelegate = transitioningDelegate;
+        [transitionStyle setupControllersForContext:transitionContext];
+    }
+    
+    [presentingViewController presentViewController:viewControllerToPresent animated:context.animated completion:completion];
 }
 
 - (LHViewControllerDismissalTrackingBlock)onDismissalBlockForViewControllerAtIndex:(NSInteger)index {
