@@ -67,7 +67,7 @@
 - (NSSet *)collectAllChildrenFromTrees:(NSArray<LHNodeTree *> *)trees {
     NSMutableSet<id<LHNode>> *allChildren = [[NSMutableSet alloc] init];
     for (LHNodeTree *tree in trees) {
-        [allChildren unionSet:[tree allItems]];
+        [allChildren unionSet:tree.allItems];
     }
     return allChildren;
 }
@@ -152,7 +152,7 @@
 
 - (LHNodeTree *)treeForChild:(id<LHNode>)child {
     for (LHNodeTree *tree in self.trees) {
-        if ([[tree allItems] containsObject:child]) {
+        if ([tree.allItems containsObject:child]) {
             return tree;
         }
     }

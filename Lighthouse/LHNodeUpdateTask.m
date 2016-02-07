@@ -57,7 +57,7 @@
 
 - (void)startWithCompletionBlock:(LHTaskCompletionBlock)completionBlock {
     if (self.animated) {
-        self.nodesForAnimatedDriverUpdate = [[self.components.graph activeNodesTree] allItems];
+        self.nodesForAnimatedDriverUpdate = [self.components.graph activeNodesTree].allItems;
     }
     
     [self markAffectedNodes];
