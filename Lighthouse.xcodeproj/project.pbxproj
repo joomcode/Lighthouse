@@ -59,6 +59,8 @@
 		015A4F971C67018E00F950B3 /* LHModalTransitionStyleRegistry.m in Sources */ = {isa = PBXBuildFile; fileRef = 015A4F951C67018E00F950B3 /* LHModalTransitionStyleRegistry.m */; };
 		015A4F9B1C67A49400F950B3 /* LHModalTransitioningDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 015A4F991C67A49400F950B3 /* LHModalTransitioningDelegate.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		015A4F9C1C67A49400F950B3 /* LHModalTransitioningDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 015A4F9A1C67A49400F950B3 /* LHModalTransitioningDelegate.m */; };
+		015A4FA61C67D77F00F950B3 /* LHContainerTransitioning.h in Headers */ = {isa = PBXBuildFile; fileRef = 015A4FA41C67D77F00F950B3 /* LHContainerTransitioning.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		015A4FA71C67D77F00F950B3 /* LHContainerTransitioning.m in Sources */ = {isa = PBXBuildFile; fileRef = 015A4FA51C67D77F00F950B3 /* LHContainerTransitioning.m */; };
 		01A28DBD1C5CEFBD006F0A95 /* UIViewController+LHNavigationItemForwarding.h in Headers */ = {isa = PBXBuildFile; fileRef = 01A28DBB1C5CEFBD006F0A95 /* UIViewController+LHNavigationItemForwarding.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		01A28DBE1C5CEFBD006F0A95 /* UIViewController+LHNavigationItemForwarding.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A28DBC1C5CEFBD006F0A95 /* UIViewController+LHNavigationItemForwarding.m */; };
 		01D57A111C50467F008E4EB5 /* LHNodePresentationState.h in Headers */ = {isa = PBXBuildFile; fileRef = 01D57A101C502F3F008E4EB5 /* LHNodePresentationState.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -164,6 +166,8 @@
 		015A4F951C67018E00F950B3 /* LHModalTransitionStyleRegistry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHModalTransitionStyleRegistry.m; sourceTree = "<group>"; };
 		015A4F991C67A49400F950B3 /* LHModalTransitioningDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHModalTransitioningDelegate.h; sourceTree = "<group>"; };
 		015A4F9A1C67A49400F950B3 /* LHModalTransitioningDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHModalTransitioningDelegate.m; sourceTree = "<group>"; };
+		015A4FA41C67D77F00F950B3 /* LHContainerTransitioning.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHContainerTransitioning.h; sourceTree = "<group>"; };
+		015A4FA51C67D77F00F950B3 /* LHContainerTransitioning.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHContainerTransitioning.m; sourceTree = "<group>"; };
 		0160A96B1BA742C90035A331 /* LHStackNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHStackNode.h; sourceTree = "<group>"; };
 		0160A96C1BA742C90035A331 /* LHStackNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHStackNode.m; sourceTree = "<group>"; };
 		0160A96E1BA7434B0035A331 /* LHNodeTree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHNodeTree.h; sourceTree = "<group>"; };
@@ -386,6 +390,8 @@
 				015A4F801C663F0500F950B3 /* LHContainerTransitionStyle.h */,
 				015A4F7C1C663D3A00F950B3 /* LHContainerTransitionContext.h */,
 				015A4F7D1C663D3A00F950B3 /* LHContainerTransitionContext.m */,
+				015A4FA41C67D77F00F950B3 /* LHContainerTransitioning.h */,
+				015A4FA51C67D77F00F950B3 /* LHContainerTransitioning.m */,
 				015A4F861C664BF200F950B3 /* LHModalTransitionStyle.h */,
 				015A4F821C6645B400F950B3 /* LHModalTransitionContext.h */,
 				015A4F831C6645B400F950B3 /* LHModalTransitionContext.m */,
@@ -659,6 +665,7 @@
 				01DBF2EA1C4EFE700034783C /* LHCompositeDriver.h in Headers */,
 				01DBF2D51C4EFE700034783C /* LHStackNodeChildrenState.h in Headers */,
 				01DBF2DC1C4EFE700034783C /* LHViewControllerDriverHelpers.h in Headers */,
+				015A4FA61C67D77F00F950B3 /* LHContainerTransitioning.h in Headers */,
 				01DBF2DD1C4EFE700034783C /* UIViewController+LHDismissalTracking.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -788,6 +795,7 @@
 				015A4F931C67014F00F950B3 /* LHContainerTransitionStyleRegistry.m in Sources */,
 				012A95681C4EFD9A000A4ECB /* LHDescriptionHelpers.m in Sources */,
 				012A95691C4EFD9A000A4ECB /* LHGraph.m in Sources */,
+				015A4FA71C67D77F00F950B3 /* LHContainerTransitioning.m in Sources */,
 				012A956A1C4EFD9A000A4ECB /* LHNodeData.m in Sources */,
 				012A956B1C4EFD9A000A4ECB /* LHNodeDataStorage.m in Sources */,
 				012A956C1C4EFD9A000A4ECB /* LHComponents.m in Sources */,

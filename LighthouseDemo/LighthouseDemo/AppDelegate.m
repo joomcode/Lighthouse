@@ -14,6 +14,7 @@
 #import "PXNodeHierarchy.h"
 #import "PXCommands.h"
 #import "PXFlipModalTransitionStyle.h"
+#import "PXFadeContainerTransitionStyle.h"
 #import <Lighthouse/Lighthouse.h>
 
 @interface AppDelegate () <LHRouterDelegate>
@@ -57,7 +58,13 @@
     }];
     
     [driverProvider bindNodeClass:[LHStackNode class] toBlock:^id<LHDriver>(LHStackNode *node, id<LHDriverProviderContext> context) {
-        return [[LHNavigationControllerDriver alloc] initWithNode:node channel:context.channel];
+        LHNavigationControllerDriver *driver = [[LHNavigationControllerDriver alloc] initWithNode:node channel:context.channel];
+        
+        [driver.transitionStyleRegistry registerTransitionStyle:[[PXFadeContainerTransitionStyle alloc] init]
+                                                  forSourceNode:nil
+                                                destinationNode:hierarchy.redNode];
+        
+        return driver;
     }];
     
     [driverProvider bindNode:hierarchy.anotherTabNode toBlock:^id<LHDriver>(LHTabNode *node, id<LHDriverProviderContext> context) {

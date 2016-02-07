@@ -12,15 +12,19 @@
 #import "LHDriverUpdateContext.h"
 #import "LHTaskQueue.h"
 #import "LHTarget.h"
+#import "LHNodeTree.h"
 #import "LHViewControllerDriverHelpers.h"
 #import "LHContainerTransitionStyle.h"
 #import "LHContainerTransitionContext.h"
 #import "LHContainerTransitionStyleRegistry.h"
+#import "LHContainerTransitioning.h"
 
 @interface LHNavigationControllerDriver () <UINavigationControllerDelegate>
 
 @property (nonatomic, strong, readonly) LHStackNode *node;
 @property (nonatomic, strong, readonly) id<LHDriverChannel> channel;
+
+@property (nonatomic, strong) LHContainerTransitioning *currentTransitioning;
 
 @end
 
@@ -75,10 +79,14 @@
     }
     
     [context.updateQueue runAsyncTaskWithBlock:^(LHTaskCompletionBlock completion) {
+        UIViewController *topChildViewController = childViewControllers.lastObject;
+        
+        [self updateCurrentTransitioningForSourceViewController:self.data.topViewController
+                                      destinationViewController:topChildViewController];
+        
         [self.data setViewControllers:childViewControllers animated:context.animated];
         
         if (context.animated) {
-            UIViewController *topChildViewController = childViewControllers.lastObject;
             [topChildViewController.transitionCoordinator animateAlongsideTransition:nil completion:^(id<UIViewControllerTransitionCoordinatorContext> context) {
                 completion();
             }];
@@ -118,6 +126,83 @@
     [navigationController.transitionCoordinator animateAlongsideTransition:nil completion:^(id<UIViewControllerTransitionCoordinatorContext> context) {
         [self.channel finishNodeUpdate];
     }];
+}
+
+- (void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
+    [self updateCurrentTransitioningForPop];
+}
+
+- (id<UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController animationControllerForOperation:(UINavigationControllerOperation)operation fromViewController:(UIViewController *)fromVC toViewController:(UIViewController *)toVC {
+    return [self.currentTransitioning animationController];
+}
+
+- (id<UIViewControllerInteractiveTransitioning>)navigationController:(UINavigationController *)navigationController interactionControllerForAnimationController:(id<UIViewControllerAnimatedTransitioning>)animationController {
+    return [self.currentTransitioning interactionController];
+}
+
+#pragma mark - NSObject
+
+- (BOOL)respondsToSelector:(SEL)aSelector {
+    // We have to pretend we don't implement delegate methods for transitions if we want to use the default ones.
+    
+    if (aSelector == @selector(navigationController:animationControllerForOperation:fromViewController:toViewController:) ||
+        aSelector == @selector(navigationController:interactionControllerForAnimationController:)) {
+        return self.currentTransitioning != nil;
+    } else {
+        return [super respondsToSelector:aSelector];
+    }
+}
+
+#pragma mark - Private
+
+- (void)setCurrentTransitioning:(LHContainerTransitioning *)currentTransitioning {
+    if (_currentTransitioning == currentTransitioning) {
+        return;
+    }
+    
+    _currentTransitioning = currentTransitioning;
+    
+    // Force requery of delegate selectors' availability
+    self.data.delegate = nil;
+    self.data.delegate = self;
+}
+
+- (void)updateCurrentTransitioningForPop {
+    if (self.data.viewControllers.count < 2) {
+        return;
+    }
+    
+    UIViewController *sourceViewController = self.data.viewControllers.lastObject;
+    UIViewController *destinationViewController = self.data.viewControllers[self.data.viewControllers.count - 2];
+    
+    [self updateCurrentTransitioningForSourceViewController:sourceViewController destinationViewController:destinationViewController];
+}
+
+- (void)updateCurrentTransitioningForSourceViewController:(UIViewController *)sourceViewController
+                                destinationViewController:(UIViewController *)destinationViewController {
+    id<LHNode> sourceNode = sourceViewController.lh_node;
+    id<LHNode> destinationNode = destinationViewController.lh_node;
+    
+    if (!sourceNode || !destinationNode) {
+        self.currentTransitioning = nil;
+        return;
+    }
+    
+    NSSet<id<LHNode>> *sourceNodes = [LHNodeTree treeWithDescendantsOfNode:sourceNode].allItems;
+    NSSet<id<LHNode>> *destinationNodes = [LHNodeTree treeWithDescendantsOfNode:destinationNode].allItems;
+    
+    id<LHContainerTransitionStyle> style = [self.transitionStyleRegistry transitionStyleForSourceNodes:sourceNodes
+                                                                                      destinationNodes:destinationNodes];
+    
+    if (!style) {
+        self.currentTransitioning = nil;
+        return;
+    }
+    
+    LHContainerTransitionContext *context = [[LHContainerTransitionContext alloc] initWithSourceViewController:sourceViewController
+                                                                                     destinationViewController:destinationViewController];
+    
+    self.currentTransitioning = [[LHContainerTransitioning alloc] initWithStyle:style context:context];
 }
 
 @end
