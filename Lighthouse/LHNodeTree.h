@@ -16,6 +16,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface LHNodeTree : LHTree<id<LHNode>>
 
++ (instancetype)treeWithDescendantsOfNode:(id<LHNode>)node;
+
 + (instancetype)treeWithDescendantsOfNode:(id<LHNode>)node withStates:(LHNodeStateMask)stateMask;
 
 @end

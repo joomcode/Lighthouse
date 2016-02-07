@@ -28,7 +28,7 @@
     
     _rootNode = rootNode;
     
-    _tree = [LHNodeTree treeWithDescendantsOfNode:_rootNode withStates:LHNodeStateMaskAll];
+    _tree = [LHNodeTree treeWithDescendantsOfNode:_rootNode];
     
     return self;
 }

@@ -14,6 +14,10 @@
 
 #pragma mark - Public
 
++ (instancetype)treeWithDescendantsOfNode:(id<LHNode>)node {
+    return [self treeWithDescendantsOfNode:node withStates:LHNodeStateMaskAll];
+}
+
 + (instancetype)treeWithDescendantsOfNode:(id<LHNode>)node withStates:(LHNodeStateMask)stateMask {
     LHNodeTree *tree = [[LHNodeTree alloc] init];
     [tree addItem:node afterItemOrNil:nil];

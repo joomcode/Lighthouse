@@ -11,8 +11,8 @@
 #import "LHDriverChannel.h"
 #import "LHDriverUpdateContext.h"
 #import "LHTarget.h"
+#import "LHNodeTree.h"
 #import "LHViewControllerDriverHelpers.h"
-#import "LHNodeHelpers.h"
 #import "UIViewController+LHNavigationItemForwarding.h"
 
 @interface LHTabBarControllerDriver () <UITabBarControllerDelegate>
@@ -131,7 +131,7 @@
 }
 
 - (UITabBarItem *)tabBarItemForNode:(id<LHNode>)node {
-    NSSet<id<LHNode>> *nodeDescendants = [LHNodeHelpers allDescendantsOfNode:node];
+    NSSet<id<LHNode>> *nodeDescendants = [LHNodeTree treeWithDescendantsOfNode:node].allItems;
     
     NSMutableSet *candidateNodes = [self.tabBarItemBoundNodes mutableCopy];
     [candidateNodes intersectSet:nodeDescendants];
