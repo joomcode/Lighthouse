@@ -1,5 +1,5 @@
 //
-//  LHContainerTransitioning.h
+//  LHContainerTransitionData.h
 //  Lighthouse
 //
 //  Created by Nick Tymchenko on 07/02/16.
@@ -15,7 +15,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 
-@interface LHContainerTransitioning : NSObject
+@interface LHContainerTransitionData : NSObject
 
 - (instancetype)initWithStyle:(id<LHContainerTransitionStyle>)style context:(LHTransitionContext *)context NS_DESIGNATED_INITIALIZER;
 

@@ -16,7 +16,7 @@
 #import "LHNodeTree.h"
 #import "LHViewControllerDriverHelpers.h"
 #import "LHContainerTransitionStyleRegistry.h"
-#import "LHContainerTransitioning.h"
+#import "LHContainerTransitionData.h"
 #import "UIViewController+LHNavigationItemForwarding.h"
 
 @interface LHTabBarControllerDriver () <UITabBarControllerDelegate>
@@ -27,7 +27,7 @@
 @property (nonatomic, strong, readonly) NSMapTable<id<LHNode>, UITabBarItem *> *tabBarItems;
 @property (nonatomic, strong, readonly) NSMutableSet<id<LHNode>> *tabBarItemBoundNodes;
 
-@property (nonatomic, strong) LHContainerTransitioning *currentTransitioning;
+@property (nonatomic, strong) LHContainerTransitionData *currentTransitionData;
 
 @end
 
@@ -96,7 +96,7 @@
         
         [self updateForSelectedViewController:self.data.viewControllers[self.data.selectedIndex]];
         
-        if (oldSelectedViewController != self.data.selectedViewController && context.animated && self.currentTransitioning) {
+        if (oldSelectedViewController != self.data.selectedViewController && context.animated && self.currentTransitionData) {
             [self.data.transitionCoordinator animateAlongsideTransition:nil completion:^(id<UIViewControllerTransitionCoordinatorContext> context) {
                 completion();
             }];
@@ -131,17 +131,17 @@
 
 - (id<UIViewControllerAnimatedTransitioning>)tabBarController:(UITabBarController *)tabBarController animationControllerForTransitionFromViewController:(UIViewController *)fromVC toViewController:(UIViewController *)toVC {
     
-    self.currentTransitioning =
-        [LHViewControllerDriverHelpers containerTransitioningForSourceViewController:fromVC
-                                                           destinationViewController:toVC
-                                                                            registry:self.transitionStyleRegistry
-                                                                      driverProvider:self.tools.driverProvider];
+    self.currentTransitionData =
+        [LHViewControllerDriverHelpers containerTransitionDataForSourceViewController:fromVC
+                                                            destinationViewController:toVC
+                                                                             registry:self.transitionStyleRegistry
+                                                                       driverProvider:self.tools.driverProvider];
     
-    return [self.currentTransitioning animationController];
+    return [self.currentTransitionData animationController];
 }
 
 - (id<UIViewControllerInteractiveTransitioning>)tabBarController:(UITabBarController *)tabBarController interactionControllerForAnimationController:(id<UIViewControllerAnimatedTransitioning>)animationController {
-    return [self.currentTransitioning interactionController];
+    return [self.currentTransitionData interactionController];
 }
 
 #pragma mark - Helpers

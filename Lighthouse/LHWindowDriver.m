@@ -15,7 +15,7 @@
 #import "LHTarget.h"
 #import "LHViewControllerDriverHelpers.h"
 #import "LHModalTransitionStyleRegistry.h"
-#import "LHModalTransitioningDelegate.h"
+#import "LHModalTransitionData.h"
 #import "UIViewController+LHDismissalTracking.h"
 
 @interface LHWindowDriver ()
@@ -23,7 +23,7 @@
 @property (nonatomic, strong, readonly) LHStackNode *node;
 @property (nonatomic, strong, readonly) LHDriverTools *tools;
 
-@property (nonatomic, strong, readonly) NSMapTable<UIViewController *, LHModalTransitioningDelegate *> *transitioningDelegates;
+@property (nonatomic, strong, readonly) NSMapTable<UIViewController *, LHModalTransitionData *> *transitionDataByController;
 
 @end
 
@@ -42,7 +42,7 @@
     _node = node;
     _tools = tools;
     
-    _transitioningDelegates = [NSMapTable strongToStrongObjectsMapTable];
+    _transitionDataByController = [NSMapTable strongToStrongObjectsMapTable];
     
     return self;
 }
@@ -131,19 +131,19 @@
                      animated:(BOOL)animated
                    completion:(LHTaskCompletionBlock)completion {
     
-    LHModalTransitioningDelegate *transitioningDelegate =
-        [LHViewControllerDriverHelpers modalTransitioningDelegateForSourceViewController:presentingViewController
-                                                               destinationViewController:viewControllerToPresent
-                                                                                registry:self.transitionStyleRegistry
-                                                                          driverProvider:self.tools.driverProvider];
+    LHModalTransitionData *transitionData =
+        [LHViewControllerDriverHelpers modalTransitionDataForSourceViewController:presentingViewController
+                                                        destinationViewController:viewControllerToPresent
+                                                                         registry:self.transitionStyleRegistry
+                                                                   driverProvider:self.tools.driverProvider];
     
-    if (transitioningDelegate) {
+    if (transitionData) {
         // TODO: cleanup this later (on dismissal?)
-        [self.transitioningDelegates setObject:transitioningDelegate forKey:viewControllerToPresent];
+        [self.transitionDataByController setObject:transitionData forKey:viewControllerToPresent];
         
-        viewControllerToPresent.transitioningDelegate = transitioningDelegate;
+        viewControllerToPresent.transitioningDelegate = transitionData;
         
-        [transitioningDelegate prepareTransition];
+        [transitionData prepareTransition];
     }
     
     [presentingViewController presentViewController:viewControllerToPresent animated:animated completion:completion];

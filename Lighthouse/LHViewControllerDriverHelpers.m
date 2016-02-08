@@ -11,8 +11,8 @@
 #import "LHNodeChildrenState.h"
 #import "LHDriver.h"
 #import "LHNodeTree.h"
-#import "LHModalTransitioningDelegate.h"
-#import "LHContainerTransitioning.h"
+#import "LHModalTransitionData.h"
+#import "LHContainerTransitionData.h"
 #import "LHTransitionStyleRegistry.h"
 #import "LHTransitionContext.h"
 #import <objc/runtime.h>
@@ -37,10 +37,10 @@
     return viewControllers;
 }
 
-+ (LHModalTransitioningDelegate *)modalTransitioningDelegateForSourceViewController:(UIViewController *)sourceViewController
-                                                          destinationViewController:(UIViewController *)destinationViewController
-                                                                           registry:(LHTransitionStyleRegistry *)registry
-                                                                     driverProvider:(id<LHDriverProvider>)driverProvider {
++ (LHModalTransitionData *)modalTransitionDataForSourceViewController:(UIViewController *)sourceViewController
+                                            destinationViewController:(UIViewController *)destinationViewController
+                                                             registry:(LHTransitionStyleRegistry *)registry
+                                                       driverProvider:(id<LHDriverProvider>)driverProvider {
     
     LHTransitionStyleEntry *entry = [self transitionStyleEntryForSourceViewController:sourceViewController
                                                             destinationViewController:destinationViewController
@@ -55,13 +55,13 @@
                                                                             entry:entry
                                                                    driverProvider:driverProvider];
     
-    return [[LHModalTransitioningDelegate alloc] initWithStyle:entry.transitionStyle context:context];
+    return [[LHModalTransitionData alloc] initWithStyle:entry.transitionStyle context:context];
 }
 
-+ (LHContainerTransitioning *)containerTransitioningForSourceViewController:(UIViewController *)sourceViewController
-                                                  destinationViewController:(UIViewController *)destinationViewController
-                                                                   registry:(LHTransitionStyleRegistry *)registry
-                                                             driverProvider:(id<LHDriverProvider>)driverProvider {
++ (LHContainerTransitionData *)containerTransitionDataForSourceViewController:(UIViewController *)sourceViewController
+                                                    destinationViewController:(UIViewController *)destinationViewController
+                                                                     registry:(LHTransitionStyleRegistry *)registry
+                                                               driverProvider:(id<LHDriverProvider>)driverProvider {
     
     LHTransitionStyleEntry *entry = [self transitionStyleEntryForSourceViewController:sourceViewController
                                                             destinationViewController:destinationViewController
@@ -76,7 +76,7 @@
                                                                             entry:entry
                                                                    driverProvider:driverProvider];
     
-    return [[LHContainerTransitioning alloc] initWithStyle:entry.transitionStyle context:context];
+    return [[LHContainerTransitionData alloc] initWithStyle:entry.transitionStyle context:context];
 }
 
 #pragma mark - Private

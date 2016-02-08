@@ -11,8 +11,8 @@
 
 @protocol LHNode;
 @protocol LHDriverProvider;
-@class LHModalTransitioningDelegate;
-@class LHContainerTransitioning;
+@class LHModalTransitionData;
+@class LHContainerTransitionData;
 @class LHTransitionStyleRegistry;
 @class LHTransitionStyleEntry;
 @class LHTransitionContext;
@@ -25,15 +25,15 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSArray<UIViewController *> *)viewControllersForNodes:(id<NSFastEnumeration>)nodes
                                           driverProvider:(id<LHDriverProvider>)driverProvider;
 
-+ (nullable LHModalTransitioningDelegate *)modalTransitioningDelegateForSourceViewController:(UIViewController *)sourceViewController
-                                                                   destinationViewController:(UIViewController *)destinationViewController
-                                                                                    registry:(LHTransitionStyleRegistry *)registry
-                                                                              driverProvider:(id<LHDriverProvider>)driverProvider;
++ (nullable LHModalTransitionData *)modalTransitionDataForSourceViewController:(UIViewController *)sourceViewController
+                                                     destinationViewController:(UIViewController *)destinationViewController
+                                                                      registry:(LHTransitionStyleRegistry *)registry
+                                                                driverProvider:(id<LHDriverProvider>)driverProvider;
 
-+ (nullable LHContainerTransitioning *)containerTransitioningForSourceViewController:(UIViewController *)sourceViewController
-                                                           destinationViewController:(UIViewController *)destinationViewController
-                                                                            registry:(LHTransitionStyleRegistry *)registry
-                                                                      driverProvider:(id<LHDriverProvider>)driverProvider;
++ (nullable LHContainerTransitionData *)containerTransitionDataForSourceViewController:(UIViewController *)sourceViewController
+                                                             destinationViewController:(UIViewController *)destinationViewController
+                                                                              registry:(LHTransitionStyleRegistry *)registry
+                                                                        driverProvider:(id<LHDriverProvider>)driverProvider;
 
 @end
 

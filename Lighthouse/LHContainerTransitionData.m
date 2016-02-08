@@ -1,16 +1,16 @@
 //
-//  LHContainerTransitioning.m
+//  LHContainerTransitionData.m
 //  Lighthouse
 //
 //  Created by Nick Tymchenko on 07/02/16.
 //  Copyright © 2016 Pixty. All rights reserved.
 //
 
-#import "LHContainerTransitioning.h"
+#import "LHContainerTransitionData.h"
 #import "LHContainerTransitionStyle.h"
 #import "LHTransitionContext.h"
 
-@interface LHContainerTransitioning ()
+@interface LHContainerTransitionData ()
 
 @property (nonatomic, strong, readonly) id<LHContainerTransitionStyle> style;
 @property (nonatomic, strong, readonly) LHTransitionContext *context;
@@ -18,7 +18,7 @@
 @end
 
 
-@implementation LHContainerTransitioning
+@implementation LHContainerTransitionData
 
 #pragma mark - Init
 

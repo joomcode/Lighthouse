@@ -1,5 +1,5 @@
 //
-//  LHModalTransitioningDelegate.h
+//  LHModalTransitionData.h
 //  Lighthouse
 //
 //  Created by Nick Tymchenko on 07/02/16.
@@ -15,7 +15,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 
-@interface LHModalTransitioningDelegate : NSObject <UIViewControllerTransitioningDelegate>
+@interface LHModalTransitionData : NSObject <UIViewControllerTransitioningDelegate>
 
 - (instancetype)initWithStyle:(id<LHModalTransitionStyle>)style context:(LHTransitionContext *)context NS_DESIGNATED_INITIALIZER;
 

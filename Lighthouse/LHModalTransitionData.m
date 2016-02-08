@@ -1,16 +1,16 @@
 //
-//  LHModalTransitioningDelegate.m
+//  LHModalTransitionData.m
 //  Lighthouse
 //
 //  Created by Nick Tymchenko on 07/02/16.
 //  Copyright © 2016 Pixty. All rights reserved.
 //
 
-#import "LHModalTransitioningDelegate.h"
+#import "LHModalTransitionData.h"
 #import "LHModalTransitionStyle.h"
 #import "LHTransitionContext.h"
 
-@interface LHModalTransitioningDelegate ()
+@interface LHModalTransitionData ()
 
 @property (nonatomic, strong, readonly) id<LHModalTransitionStyle> style;
 @property (nonatomic, strong, readonly) LHTransitionContext *context;
@@ -18,7 +18,7 @@
 @end
 
 
-@implementation LHModalTransitioningDelegate
+@implementation LHModalTransitionData
 
 #pragma mark - Init
 
