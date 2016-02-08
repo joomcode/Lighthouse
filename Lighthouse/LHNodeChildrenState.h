@@ -22,12 +22,4 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 
-@interface LHNodeChildrenState : NSObject <LHNodeChildrenState>
-
-- (instancetype)initWithInitializedChildren:(nullable NSSet<id<LHNode>> *)initializedChildren
-                             activeChildren:(nullable NSSet<id<LHNode>> *)activeChildren NS_DESIGNATED_INITIALIZER;
-
-@end
-
-
 NS_ASSUME_NONNULL_END

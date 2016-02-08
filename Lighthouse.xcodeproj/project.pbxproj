@@ -18,7 +18,6 @@
 		012A95561C4EFD9A000A4ECB /* LHStackNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 0160A96C1BA742C90035A331 /* LHStackNode.m */; };
 		012A95571C4EFD9A000A4ECB /* LHStackNodeChildrenState.m in Sources */ = {isa = PBXBuildFile; fileRef = 0186CB0C1BAE0C3200B22431 /* LHStackNodeChildrenState.m */; };
 		012A95591C4EFD9A000A4ECB /* LHTabNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 0160A9751BA7479C0035A331 /* LHTabNode.m */; };
-		012A955A1C4EFD9A000A4ECB /* LHNodeChildrenState.m in Sources */ = {isa = PBXBuildFile; fileRef = 0160A97E1BA782BA0035A331 /* LHNodeChildrenState.m */; };
 		012A955B1C4EFD9A000A4ECB /* LHTarget.m in Sources */ = {isa = PBXBuildFile; fileRef = 013176A21BC1F7650007668B /* LHTarget.m */; };
 		012A955C1C4EFD9A000A4ECB /* LHViewControllerDriverHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 0124979D1BA9E7B1007CD98B /* LHViewControllerDriverHelpers.m */; };
 		012A955D1C4EFD9A000A4ECB /* UIViewController+LHDismissalTracking.m in Sources */ = {isa = PBXBuildFile; fileRef = 017E5B271BC1688400C6C831 /* UIViewController+LHDismissalTracking.m */; };
@@ -180,7 +179,6 @@
 		0160A97B1BA782540035A331 /* LHNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHNode.h; sourceTree = "<group>"; };
 		0160A97C1BA782940035A331 /* LHNodeState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHNodeState.h; sourceTree = "<group>"; };
 		0160A97D1BA782BA0035A331 /* LHNodeChildrenState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHNodeChildrenState.h; sourceTree = "<group>"; };
-		0160A97E1BA782BA0035A331 /* LHNodeChildrenState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHNodeChildrenState.m; sourceTree = "<group>"; };
 		0160A9811BA78CAE0035A331 /* LHDriverUpdateContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHDriverUpdateContext.h; sourceTree = "<group>"; };
 		0160A9831BA78EAC0035A331 /* LHNavigationControllerDriver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHNavigationControllerDriver.h; sourceTree = "<group>"; };
 		0160A9841BA78EAC0035A331 /* LHNavigationControllerDriver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHNavigationControllerDriver.m; sourceTree = "<group>"; };
@@ -421,7 +419,6 @@
 				0160A97C1BA782940035A331 /* LHNodeState.h */,
 				01D57A101C502F3F008E4EB5 /* LHNodePresentationState.h */,
 				0160A97D1BA782BA0035A331 /* LHNodeChildrenState.h */,
-				0160A97E1BA782BA0035A331 /* LHNodeChildrenState.m */,
 				013176A11BC1F7650007668B /* LHTarget.h */,
 				013176A21BC1F7650007668B /* LHTarget.m */,
 			);
@@ -456,12 +453,12 @@
 				0160A9821BA78DE00035A331 /* View Controllers */,
 				0111CC211BAA46E500C19022 /* Update Handler */,
 				0160A9781BA780AD0035A331 /* LHDriver.h */,
+				0160A9811BA78CAE0035A331 /* LHDriverUpdateContext.h */,
+				015A4FB41C68216900F950B3 /* LHDriverUpdateContext.m */,
 				01D57A181C505DF1008E4EB5 /* LHDriverTools.h */,
 				015A4FAC1C6819C700F950B3 /* LHDriverTools.m */,
 				015A4FAE1C681D9900F950B3 /* LHDriverProvider.h */,
 				0160A9881BA8299A0035A331 /* LHDriverChannel.h */,
-				0160A9811BA78CAE0035A331 /* LHDriverUpdateContext.h */,
-				015A4FB41C68216900F950B3 /* LHDriverUpdateContext.m */,
 			);
 			name = Drivers;
 			sourceTree = "<group>";
@@ -771,7 +768,6 @@
 				012A95561C4EFD9A000A4ECB /* LHStackNode.m in Sources */,
 				012A95571C4EFD9A000A4ECB /* LHStackNodeChildrenState.m in Sources */,
 				012A95591C4EFD9A000A4ECB /* LHTabNode.m in Sources */,
-				012A955A1C4EFD9A000A4ECB /* LHNodeChildrenState.m in Sources */,
 				012A955B1C4EFD9A000A4ECB /* LHTarget.m in Sources */,
 				015A4F971C67018E00F950B3 /* LHModalTransitionStyleRegistry.m in Sources */,
 				012A955C1C4EFD9A000A4ECB /* LHViewControllerDriverHelpers.m in Sources */,
