@@ -8,6 +8,7 @@
 
 #import "LHTabBarControllerDriver.h"
 #import "LHTabNode.h"
+#import "LHDriverTools.h"
 #import "LHDriverChannel.h"
 #import "LHDriverUpdateContext.h"
 #import "LHTarget.h"
@@ -18,7 +19,7 @@
 @interface LHTabBarControllerDriver () <UITabBarControllerDelegate>
 
 @property (nonatomic, strong, readonly) LHTabNode *node;
-@property (nonatomic, strong, readonly) id<LHDriverChannel> channel;
+@property (nonatomic, strong, readonly) LHDriverTools *tools;
 
 @property (nonatomic, strong, readonly) NSMapTable<id<LHNode>, UITabBarItem *> *tabBarItems;
 @property (nonatomic, strong, readonly) NSMutableSet<id<LHNode>> *tabBarItemBoundNodes;
@@ -30,12 +31,12 @@
 
 #pragma mark - Init
 
-- (instancetype)initWithNode:(LHTabNode *)node channel:(id<LHDriverChannel>)channel {
+- (instancetype)initWithNode:(LHTabNode *)node tools:(LHDriverTools *)tools {
     self = [super init];
     if (!self) return nil;
     
     _node = node;
-    _channel = channel;
+    _tools = tools;
     
     _tabBarItems = [NSMapTable strongToStrongObjectsMapTable];
     _tabBarItemBoundNodes = [NSMutableSet set];
@@ -68,7 +69,7 @@
     return _data;
 }
 
-- (void)updateWithContext:(id<LHDriverUpdateContext>)context {
+- (void)updateWithContext:(LHDriverUpdateContext *)context {
     NSArray<UIViewController *> *childViewControllers = [self childViewControllersForUpdateContext:context];
     
     if (![childViewControllers isEqualToArray:self.data.viewControllers]) {
@@ -88,7 +89,7 @@
 #pragma mark - UITabBarBarControllerDelegate
 
 - (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
-    [self.channel startNodeUpdateWithBlock:^(id<LHNode> node) {
+    [self.tools.channel startNodeUpdateWithBlock:^(id<LHNode> node) {
         NSUInteger activeChildIndex = [tabBarController.viewControllers indexOfObject:viewController];
         id<LHNode> activeChild = self.node.orderedChildren[activeChildIndex];
         
@@ -101,31 +102,31 @@
 }
 
 - (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController {
-    [self.channel finishNodeUpdate];
+    [self.tools.channel finishNodeUpdate];
 }
 
 #pragma mark - Helpers
 
-- (NSArray<UIViewController *> *)childViewControllersForUpdateContext:(id<LHDriverUpdateContext>)context {
+- (NSArray<UIViewController *> *)childViewControllersForUpdateContext:(LHDriverUpdateContext *)context {
     NSSet<UIViewController *> *oldChildViewControllers = [NSSet setWithArray:self.data.viewControllers ?: @[]];
     
     NSArray<UIViewController *> *childViewControllers =
-        [LHViewControllerDriverHelpers viewControllersForNodes:self.node.orderedChildren withUpdateContext:context];
+        [LHViewControllerDriverHelpers viewControllersForNodes:self.node.orderedChildren driverProvider:self.tools.driverProvider];
     
-    [childViewControllers enumerateObjectsUsingBlock:^(UIViewController *viewController, NSUInteger idx, BOOL *stop) {
+    for (UIViewController *viewController in childViewControllers) {
         if ([oldChildViewControllers containsObject:viewController]) {
-            return;
+            continue;
         }
         
         // This viewController is new, let's see if we have a tabBarItem for it.
         
-        id<LHNode> childNode = self.node.orderedChildren[idx];
-        UITabBarItem *tabBarItem = [self tabBarItemForNode:childNode];
+        id<LHNode> childNode = viewController.lh_node;
         
+        UITabBarItem *tabBarItem = [self tabBarItemForNode:childNode];
         if (tabBarItem) {
             viewController.tabBarItem = tabBarItem;
         }
-    }];
+    }
     
     return childViewControllers;
 }

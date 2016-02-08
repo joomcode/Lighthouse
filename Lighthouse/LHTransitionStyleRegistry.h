@@ -24,14 +24,20 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 
+@interface LHTransitionStyleEntry<StyleType> : NSObject
+
+@property (nonatomic, strong, readonly) StyleType transitionStyle;
+
+@property (nonatomic, strong, readonly, nullable) id<LHNode> sourceNode;
+@property (nonatomic, strong, readonly, nullable) id<LHNode> destinationNode;
+
+@end
+
+
 @interface LHTransitionStyleRegistry<StyleType> (Query)
 
-- (nullable StyleType)transitionStyleForSourceNodes:(NSSet<id<LHNode>> *)sourceNodes
-                                   destinationNodes:(NSSet<id<LHNode>> *)destinationNodes;
-
-- (nullable id<LHNode>)sourceNodeForTransitionStyle:(StyleType)transitionStyle;
-
-- (nullable id<LHNode>)destinationNodeForTransitionStyle:(StyleType)transitionStyle;
+- (nullable LHTransitionStyleEntry<StyleType> *)entryForSourceNodes:(NSSet<id<LHNode>> *)sourceNodes
+                                                   destinationNodes:(NSSet<id<LHNode>> *)destinationNodes;
 
 @end
 

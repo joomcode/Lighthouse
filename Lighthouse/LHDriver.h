@@ -9,9 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "LHNodePresentationState.h"
 
-@protocol LHCommand;
-@protocol LHDriverUpdateContext;
-@protocol LHDriverChannel;
+@class LHDriverUpdateContext;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -20,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong, readonly, nullable) id data;
 
-- (void)updateWithContext:(id<LHDriverUpdateContext>)context;
+- (void)updateWithContext:(LHDriverUpdateContext *)context;
 
 - (void)presentationStateDidChange:(LHNodePresentationState)presentationState;
 

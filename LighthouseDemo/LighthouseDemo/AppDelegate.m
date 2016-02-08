@@ -45,10 +45,10 @@
     
     // Drivers
     
-    LHBasicDriverProvider *driverProvider = [[LHBasicDriverProvider alloc] init];
+    LHBlockDriverFactory *driverFactory = [[LHBlockDriverFactory alloc] init];
     
-    [driverProvider bindNode:hierarchy.rootNode toBlock:^id<LHDriver>(LHStackNode *node, LHDriverTools *tools) {
-        LHWindowDriver *driver = [[LHWindowDriver alloc] initWithWindow:self.window node:node channel:context.channel];
+    [driverFactory bindNode:hierarchy.rootNode toBlock:^id<LHDriver>(LHStackNode *node, LHDriverTools *tools) {
+        LHWindowDriver *driver = [[LHWindowDriver alloc] initWithWindow:self.window node:node tools:tools];
         
         [driver.transitionStyleRegistry registerTransitionStyle:[[PXFlipModalTransitionStyle alloc] init]
                                                   forSourceNode:nil
@@ -57,8 +57,8 @@
         return driver;
     }];
     
-    [driverProvider bindNodeClass:[LHStackNode class] toBlock:^id<LHDriver>(LHStackNode *node, LHDriverTools *tools) {
-        LHNavigationControllerDriver *driver = [[LHNavigationControllerDriver alloc] initWithNode:node channel:context.channel];
+    [driverFactory bindNodeClass:[LHStackNode class] toBlock:^id<LHDriver>(LHStackNode *node, LHDriverTools *tools) {
+        LHNavigationControllerDriver *driver = [[LHNavigationControllerDriver alloc] initWithNode:node tools:tools];
         
         [driver.transitionStyleRegistry registerTransitionStyle:[[PXFadeContainerTransitionStyle alloc] init]
                                                   forSourceNode:nil
@@ -67,8 +67,8 @@
         return driver;
     }];
     
-    [driverProvider bindNode:hierarchy.anotherTabNode toBlock:^id<LHDriver>(LHTabNode *node, LHDriverTools *tools) {
-        LHTabBarControllerDriver *driver = [[LHTabBarControllerDriver alloc] initWithNode:node channel:context.channel];
+    [driverFactory bindNode:hierarchy.anotherTabNode toBlock:^id<LHDriver>(LHTabNode *node, LHDriverTools *tools) {
+        LHTabBarControllerDriver *driver = [[LHTabBarControllerDriver alloc] initWithNode:node tools:tools];
         
         [driver bindDescendantNode:hierarchy.anotherRedNode toTabBarItem:[[UITabBarItem alloc] initWithTitle:@"Foo" image:nil selectedImage:nil]];
         [driver bindDescendantNode:hierarchy.anotherGreenNode toTabBarItem:[[UITabBarItem alloc] initWithTitle:@"Bar" image:nil selectedImage:nil]];
@@ -77,23 +77,23 @@
         return driver;
     }];
     
-    [driverProvider bindNodes:@[ hierarchy.redNode, hierarchy.anotherRedNode ] toBlock:^id<LHDriver>(LHTabNode *node, LHDriverTools *tools) {
+    [driverFactory bindNodes:@[ hierarchy.redNode, hierarchy.anotherRedNode ] toBlock:^id<LHDriver>(LHTabNode *node, LHDriverTools *tools) {
         return [[PXStateViewControllerDriver alloc] initWithViewControllerClass:[PXRedViewController class]];
     }];
     
-    [driverProvider bindNodes:@[ hierarchy.greenNode, hierarchy.anotherGreenNode ] toBlock:^id<LHDriver>(LHTabNode *node, LHDriverTools *tools) {
+    [driverFactory bindNodes:@[ hierarchy.greenNode, hierarchy.anotherGreenNode ] toBlock:^id<LHDriver>(LHTabNode *node, LHDriverTools *tools) {
         return [[PXStateViewControllerDriver alloc] initWithViewControllerClass:[PXGreenViewController class]];
     }];
     
-    [driverProvider bindNodes:@[ hierarchy.blueNode, hierarchy.anotherBlueNode ] toBlock:^id<LHDriver>(LHTabNode *node, LHDriverTools *tools) {
+    [driverFactory bindNodes:@[ hierarchy.blueNode, hierarchy.anotherBlueNode ] toBlock:^id<LHDriver>(LHTabNode *node, LHDriverTools *tools) {
         return [[PXStateViewControllerDriver alloc] initWithViewControllerClass:[PXBlueViewController class]];
     }];
     
-    [driverProvider bindNodes:@[ hierarchy.modalNode ] toBlock:^id<LHDriver>(LHTabNode *node, LHDriverTools *tools) {
+    [driverFactory bindNodes:@[ hierarchy.modalNode ] toBlock:^id<LHDriver>(LHTabNode *node, LHDriverTools *tools) {
         return [[PXStateViewControllerDriver alloc] initWithViewControllerClass:[PXModalViewController class]];
     }];
     
-    [driverProvider bindNode:hierarchy.deepModalNode toBlock:^id<LHDriver>(LHTabNode *node, LHDriverTools *tools) {
+    [driverFactory bindNode:hierarchy.deepModalNode toBlock:^id<LHDriver>(LHTabNode *node, LHDriverTools *tools) {
         return [[PXStateViewControllerDriver alloc] initWithViewControllerClass:[PXDeepModalViewController class]];
     }];
     
@@ -113,8 +113,8 @@
     // Router
     
     LHRouter *router = [[LHRouter alloc] initWithRootNode:hierarchy.rootNode
-                                             driverProvider:driverProvider
-                                            commandRegistry:commandRegistry];
+                                            driverFactory:driverFactory
+                                          commandRegistry:commandRegistry];
     router.delegate = self;
     
     self.router = router;

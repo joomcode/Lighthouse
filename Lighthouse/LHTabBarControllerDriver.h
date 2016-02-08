@@ -10,7 +10,7 @@
 #import <UIKit/UIKit.h>
 
 @class LHTabNode;
-@protocol LHDriverChannel;
+@class LHDriverTools;
 @protocol LHNode;
 
 NS_ASSUME_NONNULL_BEGIN
@@ -20,7 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong, readonly) UITabBarController *data;
 
-- (instancetype)initWithNode:(LHTabNode *)node channel:(id<LHDriverChannel>)channel;
+- (instancetype)initWithNode:(LHTabNode *)node tools:(LHDriverTools *)tools;
 
 - (instancetype)init NS_UNAVAILABLE;
 

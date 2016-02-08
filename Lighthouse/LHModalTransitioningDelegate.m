@@ -33,6 +33,12 @@
     return self;
 }
 
+#pragma mark - Public
+
+- (void)prepareTransition {
+    [self.style setupControllersForContext:self.context];
+}
+
 #pragma mark - UIViewControllerTransitioningDelegate
 
 - (id<UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source {

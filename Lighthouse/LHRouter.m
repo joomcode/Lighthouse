@@ -120,8 +120,8 @@ NSString * const LHRouterNodeUserInfoKey = @"com.pixty.lighthouse.router.node";
                                                                  components:self.components
                                                                 updateQueue:self.commandQueue];
     
-    LHDriverTools *driverTools = [[LHDriverTools alloc] initWithProvider:self.components.driverProvider
-                                                                 channel:channel];
+    LHDriverTools *driverTools = [[LHDriverTools alloc] initWithDriverProvider:self.components.driverProvider
+                                                                       channel:channel];
     
     id<LHDriver> driver = [self.components.driverFactory driverForNode:node withTools:driverTools];
     

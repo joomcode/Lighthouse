@@ -7,7 +7,6 @@
 //
 
 #import "LHCompositeDriver.h"
-#import "LHDriverUpdateContextImpl.h"
 
 @interface LHCompositeDriver ()
 
@@ -45,16 +44,9 @@
     return data;
 }
 
-- (void)updateWithContext:(id<LHDriverUpdateContext>)context {
+- (void)updateWithContext:(LHDriverUpdateContext *)context {
     [self.driversById enumerateKeysAndObjectsUsingBlock:^(id<NSCopying> driverId, id<LHDriver> driver, BOOL *stop) {
-        [driver updateWithContext:
-            [[LHDriverUpdateContextImpl alloc] initWithAnimated:context.animated
-                                                         command:context.command
-                                                   childrenState:context.childrenState
-                                                     updateQueue:context.updateQueue
-                                                     driverBlock:^id<LHDriver>(id<LHNode> node) {
-                                                         return ((LHCompositeDriver *)[context driverForNode:node]).driversById[driverId];
-                                                     }]];
+        [driver updateWithContext:context];
     }];
 }
 

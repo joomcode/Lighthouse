@@ -10,12 +10,11 @@
 
 @implementation LHDriverTools
 
-- (instancetype)initWithProvider:(id<LHDriverProvider>)provider
-                         channel:(id<LHDriverChannel>)channel {
+- (instancetype)initWithDriverProvider:(id<LHDriverProvider>)driverProvider channel:(id<LHDriverChannel>)channel {
     self = [super init];
     if (!self) return nil;
     
-    _provider = provider;
+    _driverProvider = driverProvider;
     _channel = channel;
     
     return self;

@@ -51,7 +51,7 @@
 
 @synthesize data = _data;
 
-- (void)updateWithContext:(id<LHDriverUpdateContext>)context {
+- (void)updateWithContext:(LHDriverUpdateContext *)context {
     id<LHCommand> command = context.command;
     
     if (!_data) {

@@ -10,14 +10,13 @@
 
 @protocol LHNode;
 @protocol LHCommand;
-@protocol LHDriver;
 @protocol LHNodeChildrenState;
 @class LHTaskQueue;
 
 NS_ASSUME_NONNULL_BEGIN
 
 
-@protocol LHDriverUpdateContext <NSObject>
+@interface LHDriverUpdateContext : NSObject
 
 @property (nonatomic, assign, readonly, getter = isAnimated) BOOL animated;
 
@@ -27,7 +26,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong, readonly) LHTaskQueue *updateQueue;
 
-- (id<LHDriver>)driverForNode:(id<LHNode>)node;
+- (instancetype)initWithAnimated:(BOOL)animated
+                         command:(nullable id<LHCommand>)command
+                   childrenState:(nullable id<LHNodeChildrenState>)childrenState
+                     updateQueue:(LHTaskQueue *)updateQueue NS_DESIGNATED_INITIALIZER;
+
+- (instancetype)init NS_UNAVAILABLE;
 
 @end
 

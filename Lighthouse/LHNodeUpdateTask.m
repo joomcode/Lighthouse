@@ -16,7 +16,7 @@
 #import "LHNode.h"
 #import "LHNodeChildrenState.h"
 #import "LHNodeTree.h"
-#import "LHDriverUpdateContextImpl.h"
+#import "LHDriverUpdateContext.h"
 #import "LHDriverChannelImpl.h"
 
 
@@ -97,16 +97,12 @@
 - (void)updateDriverForNode:(id<LHNode>)node withUpdateQueue:(LHTaskQueue *)updateQueue {
     id<LHDriver> driver = [self.components.nodeDataStorage dataForNode:node].driver;
     
-    id<LHDriverUpdateContext> updateContext =
-        [[LHDriverUpdateContextImpl alloc] initWithAnimated:[self.nodesForAnimatedDriverUpdate containsObject:node]
-                                                     command:[self command]
-                                               childrenState:node.childrenState
-                                                 updateQueue:updateQueue
-                                                 driverBlock:^id<LHDriver>(id<LHNode> node) {
-                                                     return [self.components.nodeDataStorage dataForNode:node].driver;
-                                                 }];
+    LHDriverUpdateContext *context = [[LHDriverUpdateContext alloc] initWithAnimated:[self.nodesForAnimatedDriverUpdate containsObject:node]
+                                                                             command:[self command]
+                                                                       childrenState:node.childrenState
+                                                                         updateQueue:updateQueue];
     
-    [driver updateWithContext:updateContext];
+    [driver updateWithContext:context];
 }
 
 #pragma mark - Node state manipulation

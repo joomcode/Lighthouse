@@ -9,24 +9,17 @@
 #import "LHTransitionStyleRegistry.h"
 #import "LHNode.h"
 
-@interface LHTransitionStyleRegistryKey : NSObject
+@implementation LHTransitionStyleEntry
 
-@property (nonatomic, strong, readonly, nullable) id<LHNode> source;
-@property (nonatomic, strong, readonly, nullable) id<LHNode> destination;
-
-- (instancetype)initWithSource:(id<LHNode>)source destination:(id<LHNode>)destination;
-
-@end
-
-
-@implementation LHTransitionStyleRegistryKey
-
-- (instancetype)initWithSource:(id<LHNode>)source destination:(id<LHNode>)destination {
+- (instancetype)initWithTransitionStyle:(id)transitionStyle
+                             sourceNode:(id<LHNode>)sourceNode
+                        destinationNode:(id<LHNode>)destinationNode {
     self = [super init];
     if (!self) return nil;
     
-    _source = source;
-    _destination = destination;
+    _transitionStyle = transitionStyle;
+    _sourceNode = sourceNode;
+    _destinationNode = destinationNode;
     
     return self;
 }
@@ -36,10 +29,8 @@
 
 @interface LHTransitionStyleRegistry ()
 
-@property (nonatomic, strong, readonly) NSMutableArray<LHTransitionStyleRegistryKey *> *keys;
-@property (nonatomic, strong, readonly) NSMutableArray<id> *styles;
-
-@property (nonatomic, strong) id defaultStyle;
+@property (nonatomic, strong, readonly) NSMutableArray<LHTransitionStyleEntry *> *entries;
+@property (nonatomic, strong) LHTransitionStyleEntry *defaultEntry;
 
 @end
 
@@ -51,9 +42,8 @@
 - (instancetype)init {
     self = [super init];
     if (!self) return nil;
-    
-    _keys = [NSMutableArray array];
-    _styles = [NSMutableArray array];
+
+    _entries = [NSMutableArray array];
     
     return self;
 }
@@ -66,14 +56,15 @@
         return;
     }
     
-    LHTransitionStyleRegistryKey *key = [[LHTransitionStyleRegistryKey alloc] initWithSource:sourceNode destination:destinationNode];
-    
-    [self.keys addObject:key];
-    [self.styles addObject:transitionStyle];
+    [self.entries addObject:[[LHTransitionStyleEntry alloc] initWithTransitionStyle:transitionStyle
+                                                                         sourceNode:sourceNode
+                                                                    destinationNode:destinationNode]];
 }
 
 - (void)registerDefaultTransitionStyle:(id)transitionStyle {
-    self.defaultStyle = transitionStyle;
+    self.defaultEntry = [[LHTransitionStyleEntry alloc] initWithTransitionStyle:transitionStyle
+                                                                     sourceNode:nil
+                                                                destinationNode:nil];
 }
 
 @end
@@ -81,33 +72,20 @@
 
 @implementation LHTransitionStyleRegistry (Query)
 
-- (id)transitionStyleForSourceNodes:(NSSet<id<LHNode>> *)sourceNodes destinationNodes:(NSSet<id<LHNode>> *)destinationNodes {
-    __block id result = nil;
-    
-    [self.keys enumerateObjectsUsingBlock:^(LHTransitionStyleRegistryKey *key, NSUInteger idx, BOOL *stop) {
-        if (key.source && ![sourceNodes containsObject:key.source]) {
-            return;
+- (LHTransitionStyleEntry *)entryForSourceNodes:(NSSet<id<LHNode>> *)sourceNodes destinationNodes:(NSSet<id<LHNode>> *)destinationNodes {
+    for (LHTransitionStyleEntry *entry in self.entries) {
+        if (entry.sourceNode && ![sourceNodes containsObject:entry.sourceNode]) {
+            continue;
         }
         
-        if (key.destination && ![destinationNodes containsObject:key.destination]) {
-            return;
+        if (entry.destinationNode && ![destinationNodes containsObject:entry.destinationNode]) {
+            continue;
         }
         
-        result = self.styles[idx];
-        *stop = YES;
-    }];
+        return entry;
+    }
     
-    return result ?: self.defaultStyle;
-}
-
-- (id<LHNode>)sourceNodeForTransitionStyle:(id)transitionStyle {
-    NSUInteger index = [self.styles indexOfObject:transitionStyle];
-    return index != NSNotFound ? self.keys[index].source : nil;
-}
-
-- (id<LHNode>)destinationNodeForTransitionStyle:(id)transitionStyle {
-    NSUInteger index = [self.styles indexOfObject:transitionStyle];
-    return index != NSNotFound ? self.keys[index].destination : nil;
+    return self.defaultEntry;
 }
 
 @end

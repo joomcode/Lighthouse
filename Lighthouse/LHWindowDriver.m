@@ -8,6 +8,7 @@
 
 #import "LHWindowDriver.h"
 #import "LHStackNode.h"
+#import "LHDriverTools.h"
 #import "LHDriverChannel.h"
 #import "LHDriverUpdateContext.h"
 #import "LHTaskQueue.h"
@@ -23,7 +24,7 @@
 @interface LHWindowDriver ()
 
 @property (nonatomic, strong, readonly) LHStackNode *node;
-@property (nonatomic, strong, readonly) id<LHDriverChannel> channel;
+@property (nonatomic, strong, readonly) LHDriverTools *tools;
 
 @property (nonatomic, strong, readonly) NSMapTable<UIViewController *, LHModalTransitioningDelegate *> *transitioningDelegates;
 
@@ -36,13 +37,13 @@
 
 - (instancetype)initWithWindow:(UIWindow *)window
                           node:(LHStackNode *)node
-                       channel:(id<LHDriverChannel>)channel {
+                         tools:(LHDriverTools *)tools {
     self = [super init];
     if (!self) return nil;
     
     _data = window;
     _node = node;
-    _channel = channel;
+    _tools = tools;
     
     _transitioningDelegates = [NSMapTable strongToStrongObjectsMapTable];
     
@@ -62,9 +63,9 @@
 
 @synthesize data = _data;
 
-- (void)updateWithContext:(id<LHDriverUpdateContext>)context {
+- (void)updateWithContext:(LHDriverUpdateContext *)context {
     NSArray<UIViewController *> *viewControllers =
-        [LHViewControllerDriverHelpers viewControllersForNodes:self.node.childrenState.stack withUpdateContext:context];
+        [LHViewControllerDriverHelpers viewControllersForNodes:self.node.childrenState.stack driverProvider:self.tools.driverProvider];
     
     NSArray<UIViewController *> *presentedViewControllers = [self presentedViewControllers];
     
@@ -95,7 +96,7 @@
                 
                 [self presentViewController:viewController
                          fromViewController:presentingViewController
-                                    context:context
+                                   animated:context.animated
                                  completion:completion];
             }];
         }
@@ -130,31 +131,25 @@
 
 - (void)presentViewController:(UIViewController *)viewControllerToPresent
            fromViewController:(UIViewController *)presentingViewController
-                      context:(id<LHDriverUpdateContext>)context
+                     animated:(BOOL)animated
                    completion:(LHTaskCompletionBlock)completion {
-    id<LHModalTransitionStyle> transitionStyle =
-        [LHViewControllerDriverHelpers transitionStyleForSourceViewController:presentingViewController
-                                                    destinationViewController:viewControllerToPresent
-                                                                 withRegistry:self.transitionStyleRegistry];
     
-    if (transitionStyle) {
-        LHTransitionContext *transitionContext =
-            [LHViewControllerDriverHelpers transitionContextForSourceViewController:presentingViewController
-                                                          destinationViewController:viewControllerToPresent
-                                                                    transitionStyle:transitionStyle
-                                                                           registry:self.transitionStyleRegistry];
-        
-        LHModalTransitioningDelegate *transitioningDelegate = [[LHModalTransitioningDelegate alloc] initWithStyle:transitionStyle
-                                                                                                          context:transitionContext];
-        
+    LHModalTransitioningDelegate *transitioningDelegate =
+        [LHViewControllerDriverHelpers modalTransitioningDelegateForSourceViewController:presentingViewController
+                                                               destinationViewController:viewControllerToPresent
+                                                                                registry:self.transitionStyleRegistry
+                                                                          driverProvider:self.tools.driverProvider];
+    
+    if (transitioningDelegate) {
         // TODO: cleanup this later (on dismissal?)
         [self.transitioningDelegates setObject:transitioningDelegate forKey:viewControllerToPresent];
         
         viewControllerToPresent.transitioningDelegate = transitioningDelegate;
-        [transitionStyle setupControllersForContext:transitionContext];
+        
+        [transitioningDelegate prepareTransition];
     }
     
-    [presentingViewController presentViewController:viewControllerToPresent animated:context.animated completion:completion];
+    [presentingViewController presentViewController:viewControllerToPresent animated:animated completion:completion];
 }
 
 - (LHViewControllerDismissalTrackingBlock)onDismissalBlockForViewControllerAtIndex:(NSInteger)index {
@@ -164,13 +159,13 @@
         id<LHNode> oldActiveNode = self.node.childrenState.stack.lastObject;
         id<LHNode> newActiveNode = self.node.childrenState.stack[index - 1];
         
-        [self.channel startNodeUpdateWithBlock:^(id<LHNode> node) {
+        [self.tools.channel startNodeUpdateWithBlock:^(id<LHNode> node) {
             [self.node updateChildrenState:[LHTarget withActiveNode:newActiveNode]];
         }];
         
         [viewController.transitionCoordinator notifyWhenInteractionEndsUsingBlock:^(id<UIViewControllerTransitionCoordinatorContext> context) {
             if ([context isCancelled]) {
-                [self.channel startNodeUpdateWithBlock:^(id<LHNode> node) {
+                [self.tools.channel startNodeUpdateWithBlock:^(id<LHNode> node) {
                     [self.node updateChildrenState:[LHTarget withActiveNode:oldActiveNode]];
                 }];
             }
@@ -181,7 +176,7 @@
                 viewController.lh_onDismissalBlock = nil;
             }
             
-            [self.channel finishNodeUpdate];
+            [self.tools.channel finishNodeUpdate];
         }];
     };
 }

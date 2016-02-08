@@ -10,7 +10,7 @@
 #import <UIKit/UIKit.h>
 
 @class LHStackNode;
-@protocol LHDriverChannel;
+@class LHDriverTools;
 @class LHModalTransitionStyleRegistry;
 
 NS_ASSUME_NONNULL_BEGIN
@@ -24,7 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)initWithWindow:(UIWindow *)window
                           node:(LHStackNode *)node
-                       channel:(id<LHDriverChannel>)channel NS_DESIGNATED_INITIALIZER;
+                         tools:(LHDriverTools *)tools NS_DESIGNATED_INITIALIZER;
 
 - (instancetype)init NS_UNAVAILABLE;
 

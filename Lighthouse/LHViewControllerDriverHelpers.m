@@ -7,23 +7,26 @@
 //
 
 #import "LHViewControllerDriverHelpers.h"
-#import "LHDriverUpdateContext.h"
+#import "LHDriverProvider.h"
 #import "LHNodeChildrenState.h"
 #import "LHDriver.h"
 #import "LHNodeTree.h"
+#import "LHModalTransitioningDelegate.h"
+#import "LHContainerTransitioning.h"
 #import "LHTransitionStyleRegistry.h"
 #import "LHTransitionContext.h"
 #import <objc/runtime.h>
 
 @implementation LHViewControllerDriverHelpers
 
-+ (NSArray<UIViewController *> *)viewControllersForNodes:(id<NSFastEnumeration>)nodes
-                                       withUpdateContext:(id<LHDriverUpdateContext>)updateContext {
+#pragma mark - Public
 
++ (NSArray<UIViewController *> *)viewControllersForNodes:(id<NSFastEnumeration>)nodes
+                                          driverProvider:(id<LHDriverProvider>)driverProvider {
     NSMutableArray<UIViewController *> *viewControllers = [NSMutableArray array];
     
     for (id<LHNode> node in nodes) {
-        id<LHDriver> driver = [updateContext driverForNode:node];
+        id<LHDriver> driver = [driverProvider driverForNode:node];
         NSAssert([driver.data isKindOfClass:[UIViewController class]], nil); // TODO
         
         UIViewController *viewController = driver.data;
@@ -34,9 +37,53 @@
     return viewControllers;
 }
 
-+ (id)transitionStyleForSourceViewController:(UIViewController *)sourceViewController
-                   destinationViewController:(UIViewController *)destinationViewController
-                                withRegistry:(LHTransitionStyleRegistry *)registry {
++ (LHModalTransitioningDelegate *)modalTransitioningDelegateForSourceViewController:(UIViewController *)sourceViewController
+                                                          destinationViewController:(UIViewController *)destinationViewController
+                                                                           registry:(LHTransitionStyleRegistry *)registry
+                                                                     driverProvider:(id<LHDriverProvider>)driverProvider {
+    
+    LHTransitionStyleEntry *entry = [self transitionStyleEntryForSourceViewController:sourceViewController
+                                                            destinationViewController:destinationViewController
+                                                                             registry:registry];
+    
+    if (!entry) {
+        return nil;
+    }
+    
+    LHTransitionContext *context = [self transitionContextForSourceViewController:sourceViewController
+                                                        destinationViewController:destinationViewController
+                                                                            entry:entry
+                                                                   driverProvider:driverProvider];
+    
+    return [[LHModalTransitioningDelegate alloc] initWithStyle:entry.transitionStyle context:context];
+}
+
++ (LHContainerTransitioning *)containerTransitioningForSourceViewController:(UIViewController *)sourceViewController
+                                                  destinationViewController:(UIViewController *)destinationViewController
+                                                                   registry:(LHTransitionStyleRegistry *)registry
+                                                             driverProvider:(id<LHDriverProvider>)driverProvider {
+    
+    LHTransitionStyleEntry *entry = [self transitionStyleEntryForSourceViewController:sourceViewController
+                                                            destinationViewController:destinationViewController
+                                                                             registry:registry];
+    
+    if (!entry) {
+        return nil;
+    }
+    
+    LHTransitionContext *context = [self transitionContextForSourceViewController:sourceViewController
+                                                        destinationViewController:destinationViewController
+                                                                            entry:entry
+                                                                   driverProvider:driverProvider];
+    
+    return [[LHContainerTransitioning alloc] initWithStyle:entry.transitionStyle context:context];
+}
+
+#pragma mark - Private
+
++ (LHTransitionStyleEntry *)transitionStyleEntryForSourceViewController:(UIViewController *)sourceViewController
+                                              destinationViewController:(UIViewController *)destinationViewController
+                                                               registry:(LHTransitionStyleRegistry *)registry {
     id<LHNode> sourceNode = sourceViewController.lh_node;
     id<LHNode> destinationNode = destinationViewController.lh_node;
     
@@ -44,19 +91,19 @@
         return nil;
     }
     
-    return [registry transitionStyleForSourceNodes:[LHNodeTree treeWithDescendantsOfNode:sourceNode].allItems
-                                  destinationNodes:[LHNodeTree treeWithDescendantsOfNode:destinationNode].allItems];
+    return [registry entryForSourceNodes:[LHNodeTree treeWithDescendantsOfNode:sourceNode].allItems
+                        destinationNodes:[LHNodeTree treeWithDescendantsOfNode:destinationNode].allItems];
 }
 
-+ (nullable LHTransitionContext *)transitionContextForSourceViewController:(UIViewController *)sourceViewController
-                                                 destinationViewController:(UIViewController *)destinationViewController
-                                                           transitionStyle:(id)transitionStyle
-                                                                  registry:(LHTransitionStyleRegistry *)registry {
-    id<LHNode> styleSourceNode = [registry sourceNodeForTransitionStyle:transitionStyle];
-    id<LHNode> styleDestinationNode = [registry destinationNodeForTransitionStyle:transitionStyle];
++ (LHTransitionContext *)transitionContextForSourceViewController:(UIViewController *)sourceViewController
+                                        destinationViewController:(UIViewController *)destinationViewController
+                                                            entry:(LHTransitionStyleEntry *)entry
+                                                   driverProvider:(id<LHDriverProvider>)driverProvider {
+    UIViewController *styleSourceViewController =
+        entry.sourceNode ? [driverProvider driverForNode:entry.sourceNode].data : sourceViewController;
     
-    UIViewController *styleSourceViewController = sourceViewController; // TODO
-    UIViewController *styleDestinationViewController = destinationViewController; // TODO
+    UIViewController *styleDestinationViewController =
+        entry.destinationNode ? [driverProvider driverForNode:entry.destinationNode].data : destinationViewController;
     
     return [[LHTransitionContext alloc] initWithSource:sourceViewController
                                            destination:destinationViewController

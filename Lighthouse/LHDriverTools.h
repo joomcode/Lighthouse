@@ -16,12 +16,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface LHDriverTools : NSObject
 
-@property (nonatomic, strong, readonly) id<LHDriverProvider> provider;
+@property (nonatomic, strong, readonly) id<LHDriverProvider> driverProvider;
 
 @property (nonatomic, strong, readonly) id<LHDriverChannel> channel;
 
-- (instancetype)initWithProvider:(id<LHDriverProvider>)provider
-                         channel:(id<LHDriverChannel>)channel NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithDriverProvider:(id<LHDriverProvider>)driverProvider
+                               channel:(id<LHDriverChannel>)channel NS_DESIGNATED_INITIALIZER;
 
 - (instancetype)init NS_UNAVAILABLE;
 

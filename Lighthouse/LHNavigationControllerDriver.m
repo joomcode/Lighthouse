@@ -8,6 +8,7 @@
 
 #import "LHNavigationControllerDriver.h"
 #import "LHStackNode.h"
+#import "LHDriverTools.h"
 #import "LHDriverChannel.h"
 #import "LHDriverUpdateContext.h"
 #import "LHTaskQueue.h"
@@ -22,7 +23,7 @@
 @interface LHNavigationControllerDriver () <UINavigationControllerDelegate>
 
 @property (nonatomic, strong, readonly) LHStackNode *node;
-@property (nonatomic, strong, readonly) id<LHDriverChannel> channel;
+@property (nonatomic, strong, readonly) LHDriverTools *tools;
 
 @property (nonatomic, strong) LHContainerTransitioning *currentTransitioning;
 
@@ -33,12 +34,12 @@
 
 #pragma mark - Init
 
-- (instancetype)initWithNode:(LHStackNode *)node channel:(id<LHDriverChannel>)channel {
+- (instancetype)initWithNode:(LHStackNode *)node tools:(LHDriverTools *)tools {
     self = [super init];
     if (!self) return nil;
     
     _node = node;
-    _channel = channel;
+    _tools = tools;
     
     return self;
 }
@@ -70,9 +71,9 @@
     return _data;
 }
 
-- (void)updateWithContext:(id<LHDriverUpdateContext>)context {
+- (void)updateWithContext:(LHDriverUpdateContext *)context {
     NSArray<UIViewController *> *childViewControllers =
-        [LHViewControllerDriverHelpers viewControllersForNodes:self.node.childrenState.stack withUpdateContext:context];
+        [LHViewControllerDriverHelpers viewControllersForNodes:self.node.childrenState.stack driverProvider:self.tools.driverProvider];
     
     if ([childViewControllers isEqual:self.data.viewControllers]) {
         return;
@@ -111,20 +112,20 @@
     
     id<LHNode> oldActiveNode = self.node.childrenState.stack.lastObject;
     
-    [self.channel startNodeUpdateWithBlock:^(id<LHNode> node) {
+    [self.tools.channel startNodeUpdateWithBlock:^(id<LHNode> node) {
         [node updateChildrenState:[LHTarget withInactiveNode:oldActiveNode]];
     }];
     
     [navigationController.transitionCoordinator notifyWhenInteractionEndsUsingBlock:^(id<UIViewControllerTransitionCoordinatorContext> context) {
         if ([context isCancelled]) {
-            [self.channel startNodeUpdateWithBlock:^(id<LHNode> node) {
+            [self.tools.channel startNodeUpdateWithBlock:^(id<LHNode> node) {
                 [node updateChildrenState:[LHTarget withActiveNode:oldActiveNode]];
             }];
         }
     }];
     
     [navigationController.transitionCoordinator animateAlongsideTransition:nil completion:^(id<UIViewControllerTransitionCoordinatorContext> context) {
-        [self.channel finishNodeUpdate];
+        [self.tools.channel finishNodeUpdate];
     }];
 }
 
@@ -175,28 +176,17 @@
     UIViewController *sourceViewController = self.data.viewControllers.lastObject;
     UIViewController *destinationViewController = self.data.viewControllers[self.data.viewControllers.count - 2];
     
-    [self updateCurrentTransitioningForSourceViewController:sourceViewController destinationViewController:destinationViewController];
+    [self updateCurrentTransitioningForSourceViewController:sourceViewController
+                                  destinationViewController:destinationViewController];
 }
 
 - (void)updateCurrentTransitioningForSourceViewController:(UIViewController *)sourceViewController
                                 destinationViewController:(UIViewController *)destinationViewController {
-    id<LHContainerTransitionStyle> transitionStyle =
-        [LHViewControllerDriverHelpers transitionStyleForSourceViewController:sourceViewController
-                                                    destinationViewController:destinationViewController
-                                                                 withRegistry:self.transitionStyleRegistry];
-    
-    if (!transitionStyle) {
-        self.currentTransitioning = nil;
-        return;
-    }
-
-    LHTransitionContext *transitionContext =
-        [LHViewControllerDriverHelpers transitionContextForSourceViewController:sourceViewController
-                                                      destinationViewController:destinationViewController
-                                                                transitionStyle:transitionStyle
-                                                                       registry:self.transitionStyleRegistry];
-    
-    self.currentTransitioning = [[LHContainerTransitioning alloc] initWithStyle:transitionStyle context:transitionContext];
+    self.currentTransitioning =
+        [LHViewControllerDriverHelpers containerTransitioningForSourceViewController:sourceViewController
+                                                           destinationViewController:destinationViewController
+                                                                            registry:self.transitionStyleRegistry
+                                                                      driverProvider:self.tools.driverProvider];
 }
 
 @end

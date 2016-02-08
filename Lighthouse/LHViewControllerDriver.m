@@ -30,7 +30,7 @@
 
 @synthesize data = _data;
 
-- (void)updateWithContext:(id<LHDriverUpdateContext>)context {
+- (void)updateWithContext:(LHDriverUpdateContext *)context {
     if (!_data) {
         _data = [[self.viewControllerClass alloc] init];
     }
