@@ -74,6 +74,10 @@
         [driver bindDescendantNode:hierarchy.anotherGreenNode toTabBarItem:[[UITabBarItem alloc] initWithTitle:@"Bar" image:nil selectedImage:nil]];
         [driver bindDescendantNode:hierarchy.anotherBlueNode toTabBarItem:[[UITabBarItem alloc] initWithTitle:@"Derp" image:nil selectedImage:nil]];
         
+        [driver.transitionStyleRegistry registerTransitionStyle:[[PXFadeContainerTransitionStyle alloc] init]
+                                                  forSourceNode:nil
+                                                destinationNode:hierarchy.anotherRedNode];
+        
         return driver;
     }];
     

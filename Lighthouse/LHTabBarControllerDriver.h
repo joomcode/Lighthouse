@@ -9,9 +9,10 @@
 #import "LHDriver.h"
 #import <UIKit/UIKit.h>
 
+@protocol LHNode;
 @class LHTabNode;
 @class LHDriverTools;
-@protocol LHNode;
+@class LHContainerTransitionStyleRegistry;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -19,6 +20,8 @@ NS_ASSUME_NONNULL_BEGIN
 @interface LHTabBarControllerDriver : NSObject <LHDriver>
 
 @property (nonatomic, strong, readonly) UITabBarController *data;
+
+@property (nonatomic, strong, null_resettable) LHContainerTransitionStyleRegistry *transitionStyleRegistry;
 
 - (instancetype)initWithNode:(LHTabNode *)node tools:(LHDriverTools *)tools;
 

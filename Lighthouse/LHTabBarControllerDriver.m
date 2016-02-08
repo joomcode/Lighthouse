@@ -11,9 +11,12 @@
 #import "LHDriverTools.h"
 #import "LHDriverChannel.h"
 #import "LHDriverUpdateContext.h"
+#import "LHTaskQueue.h"
 #import "LHTarget.h"
 #import "LHNodeTree.h"
 #import "LHViewControllerDriverHelpers.h"
+#import "LHContainerTransitionStyleRegistry.h"
+#import "LHContainerTransitioning.h"
 #import "UIViewController+LHNavigationItemForwarding.h"
 
 @interface LHTabBarControllerDriver () <UITabBarControllerDelegate>
@@ -23,6 +26,8 @@
 
 @property (nonatomic, strong, readonly) NSMapTable<id<LHNode>, UITabBarItem *> *tabBarItems;
 @property (nonatomic, strong, readonly) NSMutableSet<id<LHNode>> *tabBarItemBoundNodes;
+
+@property (nonatomic, strong) LHContainerTransitioning *currentTransitioning;
 
 @end
 
@@ -52,6 +57,13 @@
 
 #pragma mark - Public
 
+- (LHContainerTransitionStyleRegistry *)transitionStyleRegistry {
+    if (!_transitionStyleRegistry) {
+        _transitionStyleRegistry = [[LHContainerTransitionStyleRegistry alloc] init];
+    }
+    return _transitionStyleRegistry;
+}
+
 - (void)bindDescendantNode:(id<LHNode>)descendantNode toTabBarItem:(UITabBarItem *)tabBarItem {
     [self.tabBarItems setObject:tabBarItem forKey:descendantNode];
     [self.tabBarItemBoundNodes addObject:descendantNode];
@@ -70,17 +82,28 @@
 }
 
 - (void)updateWithContext:(LHDriverUpdateContext *)context {
-    NSArray<UIViewController *> *childViewControllers = [self childViewControllersForUpdateContext:context];
-    
-    if (![childViewControllers isEqualToArray:self.data.viewControllers]) {
-        [self.data setViewControllers:childViewControllers animated:context.animated]; // TODO: use updateQueue for animated update
-    }
-    
-    if (self.data.selectedIndex != self.node.childrenState.activeChildIndex) {
-        [self.data setSelectedIndex:self.node.childrenState.activeChildIndex];
-    }
-    
-    [self updateForSelectedViewController:self.data.viewControllers[self.data.selectedIndex]];
+    [context.updateQueue runAsyncTaskWithBlock:^(LHTaskCompletionBlock completion) {
+        NSArray<UIViewController *> *childViewControllers = [self childViewControllersForUpdateContext:context];
+        UIViewController *oldSelectedViewController = self.data.selectedViewController;
+        
+        if (![childViewControllers isEqualToArray:self.data.viewControllers]) {
+            [self.data setViewControllers:childViewControllers animated:context.animated];
+        }
+        
+        if (self.data.selectedIndex != self.node.childrenState.activeChildIndex) {
+            [self.data setSelectedIndex:self.node.childrenState.activeChildIndex];
+        }
+        
+        [self updateForSelectedViewController:self.data.viewControllers[self.data.selectedIndex]];
+        
+        if (oldSelectedViewController != self.data.selectedViewController && context.animated && self.currentTransitioning) {
+            [self.data.transitionCoordinator animateAlongsideTransition:nil completion:^(id<UIViewControllerTransitionCoordinatorContext> context) {
+                completion();
+            }];
+        } else {
+            completion();
+        }
+    }];
 }
 
 - (void)presentationStateDidChange:(LHNodePresentationState)presentationState {
@@ -102,7 +125,23 @@
 }
 
 - (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController {
+    // TODO: support animated transitions
     [self.tools.channel finishNodeUpdate];
+}
+
+- (id<UIViewControllerAnimatedTransitioning>)tabBarController:(UITabBarController *)tabBarController animationControllerForTransitionFromViewController:(UIViewController *)fromVC toViewController:(UIViewController *)toVC {
+    
+    self.currentTransitioning =
+        [LHViewControllerDriverHelpers containerTransitioningForSourceViewController:fromVC
+                                                           destinationViewController:toVC
+                                                                            registry:self.transitionStyleRegistry
+                                                                      driverProvider:self.tools.driverProvider];
+    
+    return [self.currentTransitioning animationController];
+}
+
+- (id<UIViewControllerInteractiveTransitioning>)tabBarController:(UITabBarController *)tabBarController interactionControllerForAnimationController:(id<UIViewControllerAnimatedTransitioning>)animationController {
+    return [self.currentTransitioning interactionController];
 }
 
 #pragma mark - Helpers
