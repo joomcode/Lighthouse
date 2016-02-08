@@ -27,7 +27,10 @@
     
     for (id<LHNode> node in nodes) {
         id<LHDriver> driver = [driverProvider driverForNode:node];
-        NSAssert([driver.data isKindOfClass:[UIViewController class]], nil); // TODO
+        
+        if (![driver.data isKindOfClass:[UIViewController class]]) {
+            [NSException raise:NSInternalInconsistencyException format:@"Expected a non-nil data of UIViewController class, got %@", driver.data];
+        }
         
         UIViewController *viewController = driver.data;
         viewController.lh_node = node;

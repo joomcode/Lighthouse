@@ -166,7 +166,9 @@
     LHNodeData *data = [self.components.nodeDataStorage dataForNode:node];
     LHTaskQueue *localUpdateQueue = [[LHTaskQueue alloc] init];
     
-    NSAssert(data.driver != nil, @""); // TODO
+    if (!data.driver) {
+        [NSException raise:NSInternalInconsistencyException format:@"Expected a driver for node %@, got nothing - something went wrong", node];
+    }
     
     [self.driverUpdateQueue runTaskWithBlock:^{
         [self willUpdateDriverForNode:node];

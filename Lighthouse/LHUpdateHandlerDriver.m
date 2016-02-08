@@ -65,7 +65,9 @@
             _data = block(command, self.updateBus);
         }
         
-        NSAssert(_data != nil, @""); // TODO
+        if (!_data) {
+            [NSException raise:NSInternalInconsistencyException format:@"LHUpdateHandlerDriver couldn't create data for command %@. Consider using defaultDataInitBlock?", command];
+        }
         
         if ([_data conformsToProtocol:@protocol(LHUpdateHandler)]) {
             [(id<LHUpdateHandler>)_data awakeForLighthouseUpdateHandlingWithUpdateBus:self.updateBus];

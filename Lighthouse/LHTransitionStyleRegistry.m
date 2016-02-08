@@ -52,8 +52,7 @@
 
 - (void)registerTransitionStyle:(id)transitionStyle forSourceNode:(id<LHNode>)sourceNode destinationNode:(id<LHNode>)destinationNode {
     if (!sourceNode && !destinationNode) {
-        NSAssert(NO, @""); // TODO;
-        return;
+        [NSException raise:NSInvalidArgumentException format:@"LHTransitionStyleRegistry: sourceNode and destinationNode cannot be nil at the same time, please use registerDefaultTransitionStyle: instead"];
     }
     
     [self.entries addObject:[[LHTransitionStyleEntry alloc] initWithTransitionStyle:transitionStyle

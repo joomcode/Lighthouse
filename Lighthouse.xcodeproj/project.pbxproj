@@ -205,7 +205,6 @@
 		01A01A791BA8420000608274 /* LHDriverFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHDriverFactory.h; sourceTree = "<group>"; };
 		01A01A7E1BA84D2500608274 /* LHNodeData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHNodeData.h; sourceTree = "<group>"; };
 		01A01A7F1BA84D2500608274 /* LHNodeData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHNodeData.m; sourceTree = "<group>"; };
-		01A01A951BA8790900608274 /* Lighthouse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Lighthouse.h; sourceTree = "<group>"; };
 		01A01A971BA8834500608274 /* LHLeafNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHLeafNode.h; sourceTree = "<group>"; };
 		01A01A981BA8834500608274 /* LHLeafNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHLeafNode.m; sourceTree = "<group>"; };
 		01A01A9F1BA88B4000608274 /* LHWindowDriver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHWindowDriver.h; sourceTree = "<group>"; };
@@ -331,13 +330,12 @@
 			name = Helpers;
 			sourceTree = "<group>";
 		};
-		012A953B1C4EFD5E000A4ECB /* Lighthouse */ = {
+		012A953B1C4EFD5E000A4ECB /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				012A953C1C4EFD5E000A4ECB /* Lighthouse.h */,
 				012A953E1C4EFD5E000A4ECB /* Info.plist */,
 			);
-			path = Lighthouse;
+			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		012A95471C4EFD5E000A4ECB /* LighthouseTests */ = {
@@ -353,7 +351,6 @@
 			isa = PBXGroup;
 			children = (
 				013F68A51BA62BE900B5797B /* Lighthouse */,
-				012A953B1C4EFD5E000A4ECB /* Lighthouse */,
 				012A95471C4EFD5E000A4ECB /* LighthouseTests */,
 				013F68A41BA62BE900B5797B /* Products */,
 			);
@@ -379,7 +376,8 @@
 				01A01AA51BA8927500608274 /* Command Registry */,
 				0111CC371BAB95E500C19022 /* Misc */,
 				01A01A7A1BA8428B00608274 /* Internals */,
-				01A01A951BA8790900608274 /* Lighthouse.h */,
+				012A953B1C4EFD5E000A4ECB /* Supporting Files */,
+				012A953C1C4EFD5E000A4ECB /* Lighthouse.h */,
 			);
 			path = Lighthouse;
 			sourceTree = "<group>";

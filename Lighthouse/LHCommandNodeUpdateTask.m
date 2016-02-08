@@ -59,7 +59,7 @@
                     break;
                     
                 case LHNodeUpdateResultInvalid:
-                    NSAssert(NO, @""); // TODO
+                    [NSException raise:NSInternalInconsistencyException format:@"Attempted to update children of node %@ with target %@, got invalid state", parent, target];
                     break;
             }
         }
