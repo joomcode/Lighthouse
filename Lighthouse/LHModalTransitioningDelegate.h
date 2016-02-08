@@ -10,15 +10,14 @@
 #import <UIKit/UIKit.h>
 
 @protocol LHModalTransitionStyle;
-@class LHModalTransitionContext;
+@class LHTransitionContext;
 
 NS_ASSUME_NONNULL_BEGIN
 
 
 @interface LHModalTransitioningDelegate : NSObject <UIViewControllerTransitioningDelegate>
 
-- (instancetype)initWithStyle:(id<LHModalTransitionStyle>)style
-                      context:(LHModalTransitionContext *)context NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithStyle:(id<LHModalTransitionStyle>)style context:(LHTransitionContext *)context NS_DESIGNATED_INITIALIZER;
 
 - (instancetype)init NS_UNAVAILABLE;
 

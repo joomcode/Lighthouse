@@ -14,8 +14,8 @@
 #import "LHTarget.h"
 #import "LHViewControllerDriverHelpers.h"
 #import "LHNodeTree.h"
+#import "LHTransitionContext.h"
 #import "LHModalTransitionStyle.h"
-#import "LHModalTransitionContext.h"
 #import "LHModalTransitionStyleRegistry.h"
 #import "LHModalTransitioningDelegate.h"
 #import "UIViewController+LHDismissalTracking.h"
@@ -132,36 +132,23 @@
            fromViewController:(UIViewController *)presentingViewController
                       context:(id<LHDriverUpdateContext>)context
                    completion:(LHTaskCompletionBlock)completion {
-    
-    id<LHNode> presentingNode = presentingViewController.lh_node;
-    id<LHNode> nodeToPresent = viewControllerToPresent.lh_node;
-    
-    NSAssert(presentingNode != nil && nodeToPresent != nil, @""); // TODO
-    
     id<LHModalTransitionStyle> transitionStyle =
-        [self.transitionStyleRegistry transitionStyleForSourceNodes:[LHNodeTree treeWithDescendantsOfNode:presentingNode].allItems
-                                                   destinationNodes:[LHNodeTree treeWithDescendantsOfNode:nodeToPresent].allItems];
+        [LHViewControllerDriverHelpers transitionStyleForSourceViewController:presentingViewController
+                                                    destinationViewController:viewControllerToPresent
+                                                                 withRegistry:self.transitionStyleRegistry];
     
     if (transitionStyle) {
-        id<LHNode> sourceNode = [self.transitionStyleRegistry sourceNodeForTransitionStyle:transitionStyle];
-        
-        id<LHNode> destinationNode = [self.transitionStyleRegistry destinationNodeForTransitionStyle:transitionStyle];
-        
-        UIViewController *sourceViewController = sourceNode ? [context driverForNode:sourceNode].data : presentingViewController;
-        
-        UIViewController *destinationViewContoller = destinationNode ? [context driverForNode:destinationNode].data : viewControllerToPresent;
-        
-        LHModalTransitionContext *transitionContext =
-            [[LHModalTransitionContext alloc] initWithSourceViewController:sourceViewController
-                                                 destinationViewController:destinationViewContoller
-                                                  presentingViewController:presentingViewController
-                                              viewControllerBeingPresented:viewControllerToPresent];
+        LHTransitionContext *transitionContext =
+            [LHViewControllerDriverHelpers transitionContextForSourceViewController:presentingViewController
+                                                          destinationViewController:viewControllerToPresent
+                                                                    transitionStyle:transitionStyle
+                                                                           registry:self.transitionStyleRegistry];
         
         LHModalTransitioningDelegate *transitioningDelegate = [[LHModalTransitioningDelegate alloc] initWithStyle:transitionStyle
                                                                                                           context:transitionContext];
         
-        [self.transitioningDelegates setObject:transitioningDelegate forKey:viewControllerToPresent];
         // TODO: cleanup this later (on dismissal?)
+        [self.transitioningDelegates setObject:transitioningDelegate forKey:viewControllerToPresent];
         
         viewControllerToPresent.transitioningDelegate = transitioningDelegate;
         [transitionStyle setupControllersForContext:transitionContext];

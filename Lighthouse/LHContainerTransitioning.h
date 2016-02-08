@@ -10,15 +10,14 @@
 #import <UIKit/UIKit.h>
 
 @protocol LHContainerTransitionStyle;
-@class LHContainerTransitionContext;
+@class LHTransitionContext;
 
 NS_ASSUME_NONNULL_BEGIN
 
 
 @interface LHContainerTransitioning : NSObject
 
-- (instancetype)initWithStyle:(id<LHContainerTransitionStyle>)style
-                      context:(LHContainerTransitionContext *)context NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithStyle:(id<LHContainerTransitionStyle>)style context:(LHTransitionContext *)context NS_DESIGNATED_INITIALIZER;
 
 - (instancetype)init NS_UNAVAILABLE;
 

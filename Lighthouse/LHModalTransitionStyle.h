@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@class LHModalTransitionContext;
+@class LHTransitionContext;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -17,13 +17,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 // TODO: make optional?
 
-- (nullable id<UIViewControllerAnimatedTransitioning>)animationControllerForContext:(LHModalTransitionContext *)context;
+- (nullable id<UIViewControllerAnimatedTransitioning>)animationControllerForContext:(LHTransitionContext *)context;
 
-- (nullable id<UIViewControllerInteractiveTransitioning>)interactionControllerForContext:(LHModalTransitionContext *)context;
+- (nullable id<UIViewControllerInteractiveTransitioning>)interactionControllerForContext:(LHTransitionContext *)context;
 
-- (nullable UIPresentationController *)presentationControllerForContext:(LHModalTransitionContext *)context;
+- (nullable UIPresentationController *)presentationControllerForContext:(LHTransitionContext *)context;
 
-- (void)setupControllersForContext:(LHModalTransitionContext *)context;
+- (void)setupControllersForContext:(LHTransitionContext *)context;
 
 @end
 

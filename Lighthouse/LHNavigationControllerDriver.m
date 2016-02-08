@@ -14,8 +14,8 @@
 #import "LHTarget.h"
 #import "LHNodeTree.h"
 #import "LHViewControllerDriverHelpers.h"
+#import "LHTransitionContext.h"
 #import "LHContainerTransitionStyle.h"
-#import "LHContainerTransitionContext.h"
 #import "LHContainerTransitionStyleRegistry.h"
 #import "LHContainerTransitioning.h"
 
@@ -180,29 +180,23 @@
 
 - (void)updateCurrentTransitioningForSourceViewController:(UIViewController *)sourceViewController
                                 destinationViewController:(UIViewController *)destinationViewController {
-    id<LHNode> sourceNode = sourceViewController.lh_node;
-    id<LHNode> destinationNode = destinationViewController.lh_node;
+    id<LHContainerTransitionStyle> transitionStyle =
+        [LHViewControllerDriverHelpers transitionStyleForSourceViewController:sourceViewController
+                                                    destinationViewController:destinationViewController
+                                                                 withRegistry:self.transitionStyleRegistry];
     
-    if (!sourceNode || !destinationNode) {
+    if (!transitionStyle) {
         self.currentTransitioning = nil;
         return;
     }
+
+    LHTransitionContext *transitionContext =
+        [LHViewControllerDriverHelpers transitionContextForSourceViewController:sourceViewController
+                                                      destinationViewController:destinationViewController
+                                                                transitionStyle:transitionStyle
+                                                                       registry:self.transitionStyleRegistry];
     
-    NSSet<id<LHNode>> *sourceNodes = [LHNodeTree treeWithDescendantsOfNode:sourceNode].allItems;
-    NSSet<id<LHNode>> *destinationNodes = [LHNodeTree treeWithDescendantsOfNode:destinationNode].allItems;
-    
-    id<LHContainerTransitionStyle> style = [self.transitionStyleRegistry transitionStyleForSourceNodes:sourceNodes
-                                                                                      destinationNodes:destinationNodes];
-    
-    if (!style) {
-        self.currentTransitioning = nil;
-        return;
-    }
-    
-    LHContainerTransitionContext *context = [[LHContainerTransitionContext alloc] initWithSourceViewController:sourceViewController
-                                                                                     destinationViewController:destinationViewController];
-    
-    self.currentTransitioning = [[LHContainerTransitioning alloc] initWithStyle:style context:context];
+    self.currentTransitioning = [[LHContainerTransitioning alloc] initWithStyle:transitionStyle context:transitionContext];
 }
 
 @end

@@ -10,20 +10,20 @@
 
 @implementation PXFlipModalTransitionStyle
 
-- (id<UIViewControllerAnimatedTransitioning>)animationControllerForContext:(LHModalTransitionContext *)context {
+- (id<UIViewControllerAnimatedTransitioning>)animationControllerForContext:(LHTransitionContext *)context {
     return nil;
 }
 
-- (id<UIViewControllerInteractiveTransitioning>)interactionControllerForContext:(LHModalTransitionContext *)context {
+- (id<UIViewControllerInteractiveTransitioning>)interactionControllerForContext:(LHTransitionContext *)context {
     return nil;
 }
 
-- (UIPresentationController *)presentationControllerForContext:(LHModalTransitionContext *)context {
+- (UIPresentationController *)presentationControllerForContext:(LHTransitionContext *)context {
     return nil;
 }
 
-- (void)setupControllersForContext:(LHModalTransitionContext *)context {
-    context.viewControllerBeingPresented.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
+- (void)setupControllersForContext:(LHTransitionContext *)context {
+    context.destination.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
 }
 
 @end

@@ -8,12 +8,12 @@
 
 #import "LHModalTransitioningDelegate.h"
 #import "LHModalTransitionStyle.h"
-#import "LHModalTransitionContext.h"
+#import "LHTransitionContext.h"
 
 @interface LHModalTransitioningDelegate ()
 
 @property (nonatomic, strong, readonly) id<LHModalTransitionStyle> style;
-@property (nonatomic, strong, readonly) LHModalTransitionContext *context;
+@property (nonatomic, strong, readonly) LHTransitionContext *context;
 
 @end
 
@@ -23,7 +23,7 @@
 #pragma mark - Init
 
 - (instancetype)initWithStyle:(id<LHModalTransitionStyle>)style
-                      context:(LHModalTransitionContext *)context {
+                      context:(LHTransitionContext *)context {
     self = [super init];
     if (!self) return nil;
     

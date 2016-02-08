@@ -21,6 +21,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)registerDefaultTransitionStyle:(StyleType)transitionStyle;
 
+@end
+
+
+@interface LHTransitionStyleRegistry<StyleType> (Query)
+
 - (nullable StyleType)transitionStyleForSourceNodes:(NSSet<id<LHNode>> *)sourceNodes
                                    destinationNodes:(NSSet<id<LHNode>> *)destinationNodes;
 

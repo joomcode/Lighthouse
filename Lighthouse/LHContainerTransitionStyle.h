@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-@class LHContainerTransitionContext;
+@class LHTransitionContext;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -18,9 +18,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 // TODO: make optional?
 
-- (nullable id<UIViewControllerAnimatedTransitioning>)animationControllerForContext:(LHContainerTransitionContext *)context;
+- (nullable id<UIViewControllerAnimatedTransitioning>)animationControllerForContext:(LHTransitionContext *)context;
 
-- (nullable id<UIViewControllerInteractiveTransitioning>)interactionControllerForContext:(LHContainerTransitionContext *)context;
+- (nullable id<UIViewControllerInteractiveTransitioning>)interactionControllerForContext:(LHTransitionContext *)context;
 
 @end
 

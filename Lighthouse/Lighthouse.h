@@ -49,11 +49,10 @@ FOUNDATION_EXPORT const unsigned char LighthouseVersionString[];
 #import <Lighthouse/LHWindowDriver.h>
 
 #import <Lighthouse/LHContainerTransitionStyle.h>
-#import <Lighthouse/LHContainerTransitionContext.h>
 #import <Lighthouse/LHContainerTransitionStyleRegistry.h>
 #import <Lighthouse/LHModalTransitionStyle.h>
-#import <Lighthouse/LHModalTransitionContext.h>
 #import <Lighthouse/LHModalTransitionStyleRegistry.h>
+#import <Lighthouse/LHTransitionContext.h>
 
 #import <Lighthouse/LHUpdateHandlerDriver.h>
 #import <Lighthouse/LHUpdateHandler.h>

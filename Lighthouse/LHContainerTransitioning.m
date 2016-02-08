@@ -8,12 +8,12 @@
 
 #import "LHContainerTransitioning.h"
 #import "LHContainerTransitionStyle.h"
-#import "LHContainerTransitionContext.h"
+#import "LHTransitionContext.h"
 
 @interface LHContainerTransitioning ()
 
 @property (nonatomic, strong, readonly) id<LHContainerTransitionStyle> style;
-@property (nonatomic, strong, readonly) LHContainerTransitionContext *context;
+@property (nonatomic, strong, readonly) LHTransitionContext *context;
 
 @end
 
@@ -22,7 +22,7 @@
 
 #pragma mark - Init
 
-- (instancetype)initWithStyle:(id<LHContainerTransitionStyle>)style context:(LHContainerTransitionContext *)context {
+- (instancetype)initWithStyle:(id<LHContainerTransitionStyle>)style context:(LHTransitionContext *)context {
     self = [super init];
     if (!self) return nil;
     

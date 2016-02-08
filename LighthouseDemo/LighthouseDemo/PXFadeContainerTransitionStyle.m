@@ -17,11 +17,11 @@
 
 #pragma mark - LHContainerTransitionStyle
 
-- (id<UIViewControllerAnimatedTransitioning>)animationControllerForContext:(LHContainerTransitionContext *)context {
+- (id<UIViewControllerAnimatedTransitioning>)animationControllerForContext:(LHTransitionContext *)context {
     return self;
 }
 
-- (id<UIViewControllerInteractiveTransitioning>)interactionControllerForContext:(LHContainerTransitionContext *)context {
+- (id<UIViewControllerInteractiveTransitioning>)interactionControllerForContext:(LHTransitionContext *)context {
     return nil;
 }
 

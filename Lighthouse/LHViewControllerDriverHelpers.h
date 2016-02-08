@@ -11,6 +11,8 @@
 
 @protocol LHNode;
 @protocol LHDriverUpdateContext;
+@class LHTransitionStyleRegistry;
+@class LHTransitionContext;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -19,6 +21,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (NSArray<UIViewController *> *)viewControllersForNodes:(id<NSFastEnumeration>)nodes
                                        withUpdateContext:(id<LHDriverUpdateContext>)updateContext;
+
++ (nullable id)transitionStyleForSourceViewController:(UIViewController *)sourceViewController
+                            destinationViewController:(UIViewController *)destinationViewController
+                                         withRegistry:(LHTransitionStyleRegistry *)registry;
+
++ (nullable LHTransitionContext *)transitionContextForSourceViewController:(UIViewController *)sourceViewController
+                                                 destinationViewController:(UIViewController *)destinationViewController
+                                                           transitionStyle:(id)transitionStyle
+                                                                  registry:(LHTransitionStyleRegistry *)registry;
 
 @end
 

@@ -76,6 +76,11 @@
     self.defaultStyle = transitionStyle;
 }
 
+@end
+
+
+@implementation LHTransitionStyleRegistry (Query)
+
 - (id)transitionStyleForSourceNodes:(NSSet<id<LHNode>> *)sourceNodes destinationNodes:(NSSet<id<LHNode>> *)destinationNodes {
     __block id result = nil;
     
