@@ -12,7 +12,7 @@
 @protocol LHNode;
 @protocol LHCommand;
 @protocol LHCommandRegistry;
-@protocol LHDriverProvider;
+@protocol LHDriverFactory;
 @protocol LHRouterDelegate;
 
 NS_ASSUME_NONNULL_BEGIN
@@ -21,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface LHRouter : NSObject
 
 - (instancetype)initWithRootNode:(id<LHNode>)rootNode
-                  driverProvider:(id<LHDriverProvider>)driverProvider
+                   driverFactory:(id<LHDriverFactory>)driverFactory
                  commandRegistry:(id<LHCommandRegistry>)commandRegistry NS_DESIGNATED_INITIALIZER;
 
 - (instancetype)init NS_UNAVAILABLE;

@@ -7,20 +7,27 @@
 //
 
 #import "LHComponents.h"
+#import "LHNodeDataStorage.h"
+#import "LHNodeData.h"
+#import "LHDriverProviderImpl.h"
 
 @implementation LHComponents
 
 - (instancetype)initWithGraph:(LHGraph *)graph
               nodeDataStorage:(LHNodeDataStorage *)nodeDataStorage
-               driverProvider:(id<LHDriverProvider>)driverProvider
+                driverFactory:(id<LHDriverFactory>)driverFactory
               commandRegistry:(id<LHCommandRegistry>)commandRegistry {
     self = [super init];
     if (!self) return nil;
     
     _graph = graph;
     _nodeDataStorage = nodeDataStorage;
-    _driverProvider = driverProvider;
+    _driverFactory = driverFactory;
     _commandRegistry = commandRegistry;
+    
+    _driverProvider = [[LHDriverProviderImpl alloc] initWithBlock:^(id<LHNode> node) {
+        return [nodeDataStorage dataForNode:node].driver;
+    }];
     
     return self;
 }

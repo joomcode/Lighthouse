@@ -10,7 +10,8 @@
 #import "LHRouterDelegate.h"
 #import "LHNode.h"
 #import "LHDriver.h"
-#import "LHDriverProvider.h"
+#import "LHDriverFactory.h"
+#import "LHDriverTools.h"
 #import "LHNodeDataStorage.h"
 #import "LHNodeData.h"
 #import "LHComponents.h"
@@ -21,7 +22,6 @@
 #import "LHCommandNodeUpdateTask.h"
 #import "LHManualNodeUpdateTask.h"
 #import "LHDriverChannelImpl.h"
-#import "LHDriverProviderContextImpl.h"
 
 NSString * const LHRouterNodeStateDidUpdateNotification = @"com.pixty.lighthouse.router.nodeStateDidUpdate";
 NSString * const LHRouterNodeUserInfoKey = @"com.pixty.lighthouse.router.node";
@@ -41,15 +41,16 @@ NSString * const LHRouterNodeUserInfoKey = @"com.pixty.lighthouse.router.node";
 #pragma mark - Init
 
 - (instancetype)initWithRootNode:(id<LHNode>)rootNode
-                  driverProvider:(id<LHDriverProvider>)driverProvider
+                   driverFactory:(id<LHDriverFactory>)driverFactory
                  commandRegistry:(id<LHCommandRegistry>)commandRegistry {
     self = [super init];
     if (!self) return nil;
     
     _components = [[LHComponents alloc] initWithGraph:[[LHGraph alloc] initWithRootNode:rootNode]
-                                       nodeDataStorage:[[LHNodeDataStorage alloc] init]
-                                        driverProvider:driverProvider
-                                       commandRegistry:commandRegistry];
+                                      nodeDataStorage:[[LHNodeDataStorage alloc] init]
+                                        driverFactory:driverFactory
+                                      commandRegistry:commandRegistry];
+    
     _components.nodeDataStorage.delegate = self;
     
     return self;
@@ -116,12 +117,13 @@ NSString * const LHRouterNodeUserInfoKey = @"com.pixty.lighthouse.router.node";
 
 - (id<LHDriver>)createDriverForNode:(id<LHNode>)node {
     id<LHDriverChannel> channel = [[LHDriverChannelImpl alloc] initWithNode:node
-                                                                                         components:self.components
-                                                                                        updateQueue:self.commandQueue];
+                                                                 components:self.components
+                                                                updateQueue:self.commandQueue];
     
-    id<LHDriverProviderContext> context = [[LHDriverProviderContextImpl alloc] initWithChannel:channel];
+    LHDriverTools *driverTools = [[LHDriverTools alloc] initWithProvider:self.components.driverProvider
+                                                                 channel:channel];
     
-    id<LHDriver> driver = [self.components.driverProvider driverForNode:node withContext:context];
+    id<LHDriver> driver = [self.components.driverFactory driverForNode:node withTools:driverTools];
     
     if (!driver) {
         return nil;

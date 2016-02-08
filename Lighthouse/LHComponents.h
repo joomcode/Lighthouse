@@ -10,8 +10,9 @@
 
 @class LHGraph;
 @class LHNodeDataStorage;
-@protocol LHDriverProvider;
+@protocol LHDriverFactory;
 @protocol LHCommandRegistry;
+@protocol LHDriverProvider;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -22,13 +23,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong, readonly) LHNodeDataStorage *nodeDataStorage;
 
-@property (nonatomic, strong, readonly) id<LHDriverProvider> driverProvider;
+@property (nonatomic, strong, readonly) id<LHDriverFactory> driverFactory;
 
 @property (nonatomic, strong, readonly) id<LHCommandRegistry> commandRegistry;
 
+@property (nonatomic, strong, readonly) id<LHDriverProvider> driverProvider;
+
 - (instancetype)initWithGraph:(LHGraph *)graph
               nodeDataStorage:(LHNodeDataStorage *)nodeDataStorage
-               driverProvider:(id<LHDriverProvider>)driverProvider
+                driverFactory:(id<LHDriverFactory>)driverFactory
               commandRegistry:(id<LHCommandRegistry>)commandRegistry NS_DESIGNATED_INITIALIZER;
 
 - (instancetype)init NS_UNAVAILABLE;
