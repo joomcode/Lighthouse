@@ -15,6 +15,7 @@
 @interface LHUpdateHandlerDriver ()
 
 @property (nonatomic, strong, readonly) NSMapTable<Class, LHDriverDataInitBlock> *dataInitBlocksByCommandClass;
+@property (nonatomic, strong, readonly) NSMapTable<Class, LHDriverDataUpdateBlock> *dataUpdateBlocksByCommandClass;
 
 @property (nonatomic, strong, readonly) LHUpdateBusImpl *updateBus;
 
@@ -36,6 +37,8 @@
     _defaultDataInitBlock = [block copy];
     
     _dataInitBlocksByCommandClass = [NSMapTable strongToStrongObjectsMapTable];
+    _dataUpdateBlocksByCommandClass = [NSMapTable strongToStrongObjectsMapTable];
+    
     _updateBus = [[LHUpdateBusImpl alloc] init];
     
     return self;
@@ -47,12 +50,18 @@
     [self.dataInitBlocksByCommandClass setObject:[block copy] forKey:commandClass];
 }
 
+- (void)bindCommandClass:(Class)commandClass toDataUpdateBlock:(LHDriverDataUpdateBlock)block {
+    [self.dataUpdateBlocksByCommandClass setObject:[block copy] forKey:commandClass];
+}
+
 #pragma mark - LHDriver
 
 @synthesize data = _data;
 
 - (void)updateWithContext:(LHDriverUpdateContext *)context {
     id<LHCommand> command = context.command;
+    
+    id oldData = _data;
     
     if (!_data) {
         LHDriverDataInitBlock block = [self.dataInitBlocksByCommandClass objectForKey:[command class]];
@@ -68,12 +77,28 @@
         if (!_data) {
             [NSException raise:NSInternalInconsistencyException format:@"LHUpdateHandlerDriver couldn't create data for command %@. Consider using defaultDataInitBlock?", command];
         }
+    } else {
+        LHDriverDataUpdateBlock block = [self.dataUpdateBlocksByCommandClass objectForKey:[command class]];
+        
+        if (!block) {
+            block = self.defaultDataUpdateBlock;
+        }
+        
+        if (block) {
+            _data = block(_data, command, self.updateBus);
+        }
+        
+        if (oldData == _data) {
+            [self.updateBus handleCommand:command animated:context.animated];
+        }
+    }
+    
+    if (oldData != _data) {
+        // Inject updateBus into the newly created data if it conforms to <LHUpdateHandler>.
         
         if ([_data conformsToProtocol:@protocol(LHUpdateHandler)]) {
             [(id<LHUpdateHandler>)_data awakeForLighthouseUpdateHandlingWithUpdateBus:self.updateBus];
         }
-    } else {
-        [self.updateBus handleCommand:command animated:context.animated];
     }
 }
 

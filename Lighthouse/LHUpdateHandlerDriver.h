@@ -16,14 +16,20 @@ NS_ASSUME_NONNULL_BEGIN
 
 typedef _Nullable id (^LHDriverDataInitBlock)(__kindof id<LHCommand> command, id<LHUpdateBus> updateBus);
 
+typedef _Nonnull id (^LHDriverDataUpdateBlock)(id data, __kindof id<LHCommand> command, id<LHUpdateBus> updateBus);
+
 
 @interface LHUpdateHandlerDriver : NSObject <LHDriver>
 
 @property (nonatomic, copy, nullable) LHDriverDataInitBlock defaultDataInitBlock;
 
+@property (nonatomic, copy, nullable) LHDriverDataUpdateBlock defaultDataUpdateBlock;
+
 - (instancetype)initWithDefaultDataInitBlock:(nullable LHDriverDataInitBlock)block NS_DESIGNATED_INITIALIZER;
 
 - (void)bindCommandClass:(Class)commandClass toDataInitBlock:(LHDriverDataInitBlock)block;
+
+- (void)bindCommandClass:(Class)commandClass toDataUpdateBlock:(LHDriverDataUpdateBlock)block;
 
 @end
 
