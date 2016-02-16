@@ -80,16 +80,8 @@
     } else {
         LHDriverDataUpdateBlock block = [self.dataUpdateBlocksByCommandClass objectForKey:[command class]];
         
-        if (!block) {
-            block = self.defaultDataUpdateBlock;
-        }
-        
         if (block) {
             _data = block(_data, command, self.updateBus);
-        }
-        
-        if (oldData == _data) {
-            [self.updateBus handleCommand:command animated:context.animated];
         }
     }
     
@@ -100,6 +92,8 @@
             [(id<LHUpdateHandler>)_data awakeForLighthouseUpdateHandlingWithUpdateBus:self.updateBus];
         }
     }
+    
+    [self.updateBus handleCommand:command animated:context.animated];
 }
 
 - (void)presentationStateDidChange:(LHNodePresentationState)presentationState {

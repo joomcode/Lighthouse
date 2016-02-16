@@ -23,8 +23,6 @@ typedef _Nonnull id (^LHDriverDataUpdateBlock)(id data, __kindof id<LHCommand> c
 
 @property (nonatomic, copy, nullable) LHDriverDataInitBlock defaultDataInitBlock;
 
-@property (nonatomic, copy, nullable) LHDriverDataUpdateBlock defaultDataUpdateBlock;
-
 - (instancetype)initWithDefaultDataInitBlock:(nullable LHDriverDataInitBlock)block NS_DESIGNATED_INITIALIZER;
 
 - (void)bindCommandClass:(Class)commandClass toDataInitBlock:(LHDriverDataInitBlock)block;
