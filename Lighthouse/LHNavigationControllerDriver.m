@@ -85,7 +85,7 @@
         [self.data setViewControllers:childViewControllers animated:context.animated];
         
         if (context.animated) {
-            [topChildViewController.transitionCoordinator animateAlongsideTransition:nil completion:^(id<UIViewControllerTransitionCoordinatorContext> context) {
+            [self.data.transitionCoordinator animateAlongsideTransition:nil completion:^(id<UIViewControllerTransitionCoordinatorContext> context) {
                 completion();
             }];
         } else {
