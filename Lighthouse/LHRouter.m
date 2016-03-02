@@ -69,16 +69,16 @@ NSString * const LHRouterNodeUserInfoKey = @"com.pixty.lighthouse.router.node";
 
 - (void)executeCommand:(id<LHCommand>)command animated:(BOOL)animated {
     LHCommandNodeUpdateTask *task = [[LHCommandNodeUpdateTask alloc] initWithComponents:self.components
-                                                                                 animated:animated
-                                                                                  command:command];
+                                                                               animated:animated
+                                                                                command:command];
     
     [self.commandQueue runTask:task];
 }
 
-- (void)executeUpdateWithBlock:(void (^)())block animated:(BOOL)animated {
+- (void)executeUpdateWithBlock:(LHAsyncTaskBlock)block animated:(BOOL)animated {
     LHManualNodeUpdateTask *task = [[LHManualNodeUpdateTask alloc] initWithComponents:self.components
-                                                                               animated:animated
-                                                                        nodeUpdateBlock:block];
+                                                                             animated:animated
+                                                                                block:block];
     
     [self.commandQueue runTask:task];
 }

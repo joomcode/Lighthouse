@@ -10,7 +10,7 @@
 
 @interface LHManualNodeUpdateTask ()
 
-@property (nonatomic, copy, readonly) void (^nodeUpdateBlock)();
+@property (nonatomic, copy, readonly) LHAsyncTaskBlock block;
 
 @end
 
@@ -19,19 +19,19 @@
 
 #pragma mark - Init
 
-- (instancetype)initWithComponents:(LHComponents *)components animated:(BOOL)animated nodeUpdateBlock:(void (^)())block {
+- (instancetype)initWithComponents:(LHComponents *)components animated:(BOOL)animated block:(LHAsyncTaskBlock)block {
     self = [super initWithComponents:components animated:animated];
     if (!self) return nil;
     
-    _nodeUpdateBlock = [block copy];
+    _block = [block copy];
     
     return self;
 }
 
 #pragma mark - LHNodeUpdateTask
 
-- (void)updateNodes {
-    self.nodeUpdateBlock();
+- (void)updateNodesWithCompletion:(LHTaskCompletionBlock)completion {
+    self.block(completion);
 }
 
 @end

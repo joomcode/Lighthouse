@@ -60,19 +60,21 @@
     }
     
     [self markAffectedNodes];
-    [self updateNodes];
-    [self markAffectedNodes];
     
-    [self updateAffectedNodesState];
-    
-    [self updateDrivers];
-    
-    [self.driverUpdateQueue runTaskWithBlock:^{
-        if (!self.cancelled) {
-            [self cleanupAffectedNodes];
-        }
+    [self updateNodesWithCompletion:^{
+        [self markAffectedNodes];
         
-        completionBlock();
+        [self updateAffectedNodesState];
+        
+        [self updateDrivers];
+        
+        [self.driverUpdateQueue runTaskWithBlock:^{
+            if (!self.cancelled) {
+                [self cleanupAffectedNodes];
+            }
+            
+            completionBlock();
+        }];
     }];
 }
 
@@ -91,7 +93,8 @@
     return nil;
 }
 
-- (void)updateNodes {
+- (void)updateNodesWithCompletion:(LHTaskCompletionBlock)completion {
+    completion();
 }
 
 - (void)updateDriverForNode:(id<LHNode>)node withUpdateQueue:(LHTaskQueue *)updateQueue {

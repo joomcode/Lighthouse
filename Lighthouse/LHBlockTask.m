@@ -10,7 +10,7 @@
 
 @interface LHBlockTask ()
 
-@property (nonatomic, copy, readonly) LHTaskQueueAsyncBlock block;
+@property (nonatomic, copy, readonly) LHAsyncTaskBlock block;
 
 @end
 
@@ -19,14 +19,14 @@
 
 #pragma mark - Init
 
-- (instancetype)initWithBlock:(LHTaskQueueBlock)block {
+- (instancetype)initWithBlock:(LHTaskBlock)block {
     return [self initWithAsyncBlock:^(LHTaskCompletionBlock completion) {
         block();
         completion();
     }];
 }
 
-- (instancetype)initWithAsyncBlock:(LHTaskQueueAsyncBlock)block {
+- (instancetype)initWithAsyncBlock:(LHAsyncTaskBlock)block {
     self = [super init];
     if (!self) return nil;
     

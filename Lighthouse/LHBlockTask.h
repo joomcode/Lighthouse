@@ -7,16 +7,16 @@
 //
 
 #import "LHTask.h"
-#import "LHTaskQueue.h"
+#import "LHTaskBlocks.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 
 @interface LHBlockTask : NSObject <LHTask>
 
-- (instancetype)initWithBlock:(LHTaskQueueBlock)block;
+- (instancetype)initWithBlock:(LHTaskBlock)block;
 
-- (instancetype)initWithAsyncBlock:(LHTaskQueueAsyncBlock)block NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithAsyncBlock:(LHAsyncTaskBlock)block NS_DESIGNATED_INITIALIZER;
 
 - (instancetype)init NS_UNAVAILABLE;
 

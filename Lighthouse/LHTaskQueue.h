@@ -7,13 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "LHTask.h"
+#import "LHTaskBlocks.h"
+
+@protocol LHTask;
 
 NS_ASSUME_NONNULL_BEGIN
-
-
-typedef void (^LHTaskQueueBlock)();
-typedef void (^LHTaskQueueAsyncBlock)(LHTaskCompletionBlock completion);
 
 
 @protocol LHTaskQueue <NSObject>
@@ -25,9 +23,9 @@ typedef void (^LHTaskQueueAsyncBlock)(LHTaskCompletionBlock completion);
 
 @interface LHTaskQueue : NSObject <LHTaskQueue>
 
-- (void)runTaskWithBlock:(LHTaskQueueBlock)block;
+- (void)runTaskWithBlock:(LHTaskBlock)block;
 
-- (void)runAsyncTaskWithBlock:(LHTaskQueueAsyncBlock)block;
+- (void)runAsyncTaskWithBlock:(LHAsyncTaskBlock)block;
 
 @end
 

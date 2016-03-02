@@ -40,8 +40,9 @@
 
 #pragma mark - LHNodeUpdateTask
 
-- (void)updateNodes {
+- (void)updateNodesWithCompletion:(LHTaskCompletionBlock)completion {
     self.nodeUpdateBlock();
+    completion();
 }
 
 - (void)updateDriverForNode:(id<LHNode>)node withUpdateQueue:(LHTaskQueue *)updateQueue {

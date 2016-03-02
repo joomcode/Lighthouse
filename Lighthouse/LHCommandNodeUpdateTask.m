@@ -36,7 +36,7 @@
 
 #pragma mark - LHNodeUpdateTask
 
-- (void)updateNodes {
+- (void)updateNodesWithCompletion:(LHTaskCompletionBlock)completion {
     id<LHTarget> target = [self.components.commandRegistry targetForCommand:self.command];
     
     while (target) {
@@ -66,6 +66,8 @@
         
         target = parentsToDeactivate.count > 0 ? [LHTarget withInactiveNodes:parentsToDeactivate] : nil;
     }
+    
+    completion();
 }
 
 - (BOOL)shouldUpdateDriverForNode:(id<LHNode>)node {

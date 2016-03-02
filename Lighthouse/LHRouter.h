@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "LHNodePresentationState.h"
+#import "LHTaskBlocks.h"
 
 @protocol LHNode;
 @protocol LHCommand;
@@ -29,7 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)executeCommand:(id<LHCommand>)command animated:(BOOL)animated;
 
-- (void)executeUpdateWithBlock:(void (^)())block animated:(BOOL)animated;
+- (void)executeUpdateWithBlock:(LHAsyncTaskBlock)block animated:(BOOL)animated;
 
 
 @property (nonatomic, strong, readonly) id<LHNode> rootNode;

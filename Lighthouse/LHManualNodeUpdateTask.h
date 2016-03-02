@@ -7,6 +7,7 @@
 //
 
 #import "LHNodeUpdateTask.h"
+#import "LHTaskBlocks.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -15,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)initWithComponents:(LHComponents *)components
                           animated:(BOOL)animated
-                   nodeUpdateBlock:(void (^)())block NS_DESIGNATED_INITIALIZER;
+                             block:(LHAsyncTaskBlock)block NS_DESIGNATED_INITIALIZER;
 
 - (instancetype)initWithComponents:(LHComponents *)components animated:(BOOL)animated NS_UNAVAILABLE;
 

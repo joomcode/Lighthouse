@@ -41,11 +41,11 @@
     }
 }
 
-- (void)runTaskWithBlock:(LHTaskQueueBlock)block {
+- (void)runTaskWithBlock:(LHTaskBlock)block {
     [self runTask:[[LHBlockTask alloc] initWithBlock:block]];
 }
 
-- (void)runAsyncTaskWithBlock:(LHTaskQueueAsyncBlock)block {
+- (void)runAsyncTaskWithBlock:(LHAsyncTaskBlock)block {
     [self runTask:[[LHBlockTask alloc] initWithAsyncBlock:block]];
 }
 

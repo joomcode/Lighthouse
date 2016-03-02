@@ -64,6 +64,7 @@
 		015A4FB51C68216900F950B3 /* LHDriverUpdateContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 015A4FB41C68216900F950B3 /* LHDriverUpdateContext.m */; };
 		01A28DBD1C5CEFBD006F0A95 /* UIViewController+LHNavigationItemForwarding.h in Headers */ = {isa = PBXBuildFile; fileRef = 01A28DBB1C5CEFBD006F0A95 /* UIViewController+LHNavigationItemForwarding.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		01A28DBE1C5CEFBD006F0A95 /* UIViewController+LHNavigationItemForwarding.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A28DBC1C5CEFBD006F0A95 /* UIViewController+LHNavigationItemForwarding.m */; };
+		01B3917D1C86FE8F00579C2B /* LHTaskBlocks.h in Headers */ = {isa = PBXBuildFile; fileRef = 01B3917C1C86FE8F00579C2B /* LHTaskBlocks.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		01D57A111C50467F008E4EB5 /* LHNodePresentationState.h in Headers */ = {isa = PBXBuildFile; fileRef = 01D57A101C502F3F008E4EB5 /* LHNodePresentationState.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		01D57A191C505DF1008E4EB5 /* LHDriverTools.h in Headers */ = {isa = PBXBuildFile; fileRef = 01D57A181C505DF1008E4EB5 /* LHDriverTools.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		01D57AB31C547557008E4EB5 /* LHTabNodeChildrenState.h in Headers */ = {isa = PBXBuildFile; fileRef = 01D57AB11C547557008E4EB5 /* LHTabNodeChildrenState.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -219,6 +220,7 @@
 		01A01AB01BA97B7100608274 /* LHCompositeDriverFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHCompositeDriverFactory.m; sourceTree = "<group>"; };
 		01A28DBB1C5CEFBD006F0A95 /* UIViewController+LHNavigationItemForwarding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+LHNavigationItemForwarding.h"; sourceTree = "<group>"; };
 		01A28DBC1C5CEFBD006F0A95 /* UIViewController+LHNavigationItemForwarding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+LHNavigationItemForwarding.m"; sourceTree = "<group>"; };
+		01B3917C1C86FE8F00579C2B /* LHTaskBlocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHTaskBlocks.h; sourceTree = "<group>"; };
 		01C6F8CB1BB6D61D00A13C1E /* LHTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHTask.h; sourceTree = "<group>"; };
 		01C6F8CC1BB6D6F500A13C1E /* LHTaskQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHTaskQueue.m; sourceTree = "<group>"; };
 		01C6F8CE1BB6D8DD00A13C1E /* LHBlockTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHBlockTask.h; sourceTree = "<group>"; };
@@ -282,6 +284,7 @@
 			isa = PBXGroup;
 			children = (
 				01C6F8CB1BB6D61D00A13C1E /* LHTask.h */,
+				01B3917C1C86FE8F00579C2B /* LHTaskBlocks.h */,
 				0111CC391BAB963900C19022 /* LHTaskQueue.h */,
 				01C6F8CC1BB6D6F500A13C1E /* LHTaskQueue.m */,
 				0186CAF01BACC29E00B22431 /* LHDescriptionHelpers.h */,
@@ -658,6 +661,7 @@
 				01DBF2DC1C4EFE700034783C /* LHViewControllerDriverHelpers.h in Headers */,
 				015A4FA61C67D77F00F950B3 /* LHContainerTransitionData.h in Headers */,
 				01DBF2DD1C4EFE700034783C /* UIViewController+LHDismissalTracking.h in Headers */,
+				01B3917D1C86FE8F00579C2B /* LHTaskBlocks.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

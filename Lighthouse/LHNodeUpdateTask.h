@@ -34,7 +34,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (nullable id<LHCommand>)command;
 
-- (void)updateNodes;
+- (void)updateNodesWithCompletion:(LHTaskCompletionBlock)completion;
 
 - (void)updateDriverForNode:(id<LHNode>)node withUpdateQueue:(LHTaskQueue *)updateQueue;
 

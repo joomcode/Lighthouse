@@ -83,6 +83,7 @@ FOUNDATION_EXPORT const unsigned char LighthouseVersionString[];
 
 // Misc
 
+#import <Lighthouse/LHTaskBlocks.h>
 #import <Lighthouse/LHTaskQueue.h>
 #import <Lighthouse/LHDescriptionHelpers.h>
 
