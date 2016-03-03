@@ -8,59 +8,50 @@
 
 #import "LHNodeTree.h"
 #import "LHNode.h"
-#import "LHNodeChildrenState.h"
+#import "LHNodeUtils.h"
+#import "LHNodeModelState.h"
 
 @implementation LHNodeTree
 
 #pragma mark - Public
 
 + (instancetype)treeWithDescendantsOfNode:(id<LHNode>)node {
-    return [self treeWithDescendantsOfNode:node withStates:LHNodeStateMaskAll];
+    return [self treeWithDescendantsOfNode:node withModelStates:LHNodeModelStateMaskAll];
 }
 
-+ (instancetype)treeWithDescendantsOfNode:(id<LHNode>)node withStates:(LHNodeStateMask)stateMask {
-    LHNodeTree *tree = [[LHNodeTree alloc] init];
-    [tree addItem:node afterItemOrNil:nil];
-    [self collectChildrenOfNode:node withStates:stateMask toTree:tree];
-    return tree;
++ (instancetype)treeWithInitializedDescendantsOfNode:(id<LHNode>)node {
+    return [self treeWithDescendantsOfNode:node withModelStates:LHNodeModelStateMaskInitialized];
+}
+
++ (instancetype)treeWithActiveDescendantsOfNode:(id<LHNode>)node {
+    return [self treeWithDescendantsOfNode:node withModelStates:LHNodeModelStateMaskActive];
 }
 
 #pragma mark - Private
 
++ (instancetype)treeWithDescendantsOfNode:(id<LHNode>)node withModelStates:(LHNodeModelStateMask)modelStateMask {
+    LHNodeTree *tree = [[LHNodeTree alloc] init];
+    [tree addItem:node afterItemOrNil:nil];
+    [self collectChildrenOfNode:node withModelStates:modelStateMask toTree:tree];
+    return tree;
+}
+
 + (void)collectChildrenOfNode:(id<LHNode>)node
-                   withStates:(LHNodeStateMask)stateMask
+              withModelStates:(LHNodeModelStateMask)modelStateMask
                        toTree:(LHNodeTree *)tree {
-    if (stateMask == LHNodeStateMaskAll) {
+    if (modelStateMask == LHNodeModelStateMaskAll) {
         // Let's make this optimization.
         [tree addFork:node.allChildren.allObjects afterItemOrNil:node];
     } else {
-        id<LHNodeChildrenState> childrenState = node.childrenState;
-        
-        if (stateMask & LHNodeStateMaskActive) {
-            for (id<LHNode> child in childrenState.activeChildren) {
-                [tree addItem:child afterItemOrNil:node];
+        [LHNodeUtils enumerateChildrenOfNode:node withBlock:^(id<LHNode> childNode, LHNodeModelState childModelState) {
+            if (modelStateMask & LHNodeModelStateMaskWithState(childModelState)) {
+                [tree addItem:childNode afterItemOrNil:node];
             }
-        }
-        
-        if (stateMask & LHNodeStateMaskInactive) {
-            for (id<LHNode> child in childrenState.initializedChildren) {
-                if (![childrenState.activeChildren containsObject:child]) {
-                    [tree addItem:child afterItemOrNil:node];
-                }
-            }
-        }
-        
-        if (stateMask & LHNodeStateMaskNotInitialized) {
-            for (id<LHNode> child in node.allChildren) {
-                if (![childrenState.initializedChildren containsObject:child]) {
-                    [tree addItem:child afterItemOrNil:node];
-                }
-            }
-        }
+        }];
     }
     
     for (id<LHNode> child in [tree nextItems:node]) {
-        [self collectChildrenOfNode:child withStates:stateMask toTree:tree];
+        [self collectChildrenOfNode:child withModelStates:modelStateMask toTree:tree];
     }
 }
 

@@ -2,27 +2,33 @@
 //  LHNodeState.h
 //  Lighthouse
 //
-//  Created by Nick Tymchenko on 14/09/15.
-//  Copyright (c) 2015 Pixty. All rights reserved.
+//  Created by Nick Tymchenko on 21/01/16.
+//  Copyright © 2016 Pixty. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 
 
 typedef NS_ENUM(NSInteger, LHNodeState) {
-    LHNodeStateNotInitialized = 0,
-    LHNodeStateInactive = 1,
-    LHNodeStateActive = 4
+    LHNodeStateNotInitialized,
+    LHNodeStateInactive,
+    LHNodeStateDeactivating,
+    LHNodeStateActivating,
+    LHNodeStateActive
 };
 
 
 typedef NS_OPTIONS(NSInteger, LHNodeStateMask) {
     LHNodeStateMaskNotInitialized = (1 << LHNodeStateNotInitialized),
     LHNodeStateMaskInactive = (1 << LHNodeStateInactive),
+    LHNodeStateMaskDeactivating = (1 << LHNodeStateDeactivating),
+    LHNodeStateMaskActivating = (1 << LHNodeStateActivating),
     LHNodeStateMaskActive = (1 << LHNodeStateActive),
     
-    LHNodeStateMaskAll = (LHNodeStateMaskNotInitialized | LHNodeStateMaskInactive | LHNodeStateMaskActive),
-    LHNodeStateMaskInitialized = (LHNodeStateMaskInactive | LHNodeStateMaskActive)
+    LHNodeStateMaskAll = (LHNodeStateMaskNotInitialized | LHNodeStateMaskInactive | LHNodeStateMaskDeactivating | LHNodeStateMaskActivating | LHNodeStateMaskActive),
+    LHNodeStateMaskInitialized = (LHNodeStateMaskInactive | LHNodeStateMaskDeactivating | LHNodeStateMaskActivating | LHNodeStateMaskActive),
+    LHNodeStateMaskTransitioning = (LHNodeStateMaskDeactivating | LHNodeStateMaskActivating),
+    LHNodeStateMaskNotTransitioning = (LHNodeStateMaskNotInitialized | LHNodeStateMaskInactive | LHNodeStateMaskActive)
 };
 
 

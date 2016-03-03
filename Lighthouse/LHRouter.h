@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "LHNodePresentationState.h"
+#import "LHNodeState.h"
 #import "LHTaskBlocks.h"
 
 @protocol LHNode;
@@ -37,7 +37,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong, readonly) NSSet<id<LHNode>> *initializedNodes;
 
-- (LHNodePresentationState)presentationStateForNode:(id<LHNode>)node;
+- (LHNodeState)stateForNode:(id<LHNode>)node;
 
 
 @property (nonatomic, weak, nullable) id<LHRouterDelegate> delegate;

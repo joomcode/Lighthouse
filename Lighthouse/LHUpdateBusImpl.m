@@ -12,7 +12,7 @@
 @interface LHUpdateBusImpl ()
 
 @property (nonatomic, strong, readonly) NSMutableArray<LHSingleShotCommandHandlerBlock> *commandHandlerBlocks;
-@property (nonatomic, strong, readonly) NSMutableArray<LHPresentationStateHandlerBlock> *stateHandlerBlocks;
+@property (nonatomic, strong, readonly) NSMutableArray<LHStateHandlerBlock> *stateHandlerBlocks;
 
 @end
 
@@ -52,7 +52,7 @@
     }];
 }
 
-- (void)addPresentationStateUpdateHandler:(LHPresentationStateHandlerBlock)handlerBlock {
+- (void)addStateUpdateHandler:(LHStateHandlerBlock)handlerBlock {
     [self.stateHandlerBlocks addObject:[handlerBlock copy]];
 }
 
@@ -77,9 +77,9 @@
     }
 }
 
-- (void)handlePresentationStateUpdate:(LHNodePresentationState)presentationState {
-    for (LHPresentationStateHandlerBlock block in self.stateHandlerBlocks) {
-        block(presentationState);
+- (void)handleStateUpdate:(LHNodeState)state {
+    for (LHStateHandlerBlock block in self.stateHandlerBlocks) {
+        block(state);
     }
 }
 

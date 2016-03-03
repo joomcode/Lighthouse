@@ -100,7 +100,7 @@
     }
 }
 
-- (void)presentationStateDidChange:(LHNodePresentationState)presentationState {
+- (void)stateDidChange:(LHNodeState)state {
 }
 
 #pragma mark - Private

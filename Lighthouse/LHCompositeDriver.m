@@ -50,9 +50,9 @@
     }];
 }
 
-- (void)presentationStateDidChange:(LHNodePresentationState)presentationState {
+- (void)stateDidChange:(LHNodeState)state {
     [self.driversById enumerateKeysAndObjectsUsingBlock:^(id<NSCopying> driverId, id<LHDriver> driver, BOOL *stop) {
-        [driver presentationStateDidChange:presentationState];
+        [driver stateDidChange:state];
     }];
 }
 

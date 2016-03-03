@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "LHNodePresentationState.h"
+#import "LHNodeState.h"
 
 @protocol LHCommand;
 
@@ -17,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 typedef void (^LHCommandHandlerBlock)(__kindof id<LHCommand> command, BOOL animated);
 typedef BOOL (^LHSingleShotCommandHandlerBlock)(__kindof id<LHCommand> command, BOOL animated);
 
-typedef void (^LHPresentationStateHandlerBlock)(LHNodePresentationState presentationState);
+typedef void (^LHStateHandlerBlock)(LHNodeState state);
 
 
 @protocol LHUpdateBus <NSObject>
@@ -29,7 +29,7 @@ typedef void (^LHPresentationStateHandlerBlock)(LHNodePresentationState presenta
 - (void)addCommandClass:(Class)commandClass handler:(LHCommandHandlerBlock)handlerBlock;
 
 
-- (void)addPresentationStateUpdateHandler:(LHPresentationStateHandlerBlock)handlerBlock;
+- (void)addStateUpdateHandler:(LHStateHandlerBlock)handlerBlock;
 
 @end
 

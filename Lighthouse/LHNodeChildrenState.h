@@ -15,9 +15,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol LHNodeChildrenState <NSObject>
 
-@property (nonatomic, strong, readonly) NSSet<id<LHNode>> *initializedChildren;
-
 @property (nonatomic, strong, readonly) NSSet<id<LHNode>> *activeChildren;
+
+@property (nonatomic, strong, readonly) NSSet<id<LHNode>> *inactiveChildren;
 
 @end
 

@@ -16,6 +16,7 @@
 #import "LHNode.h"
 #import "LHNodeChildrenState.h"
 #import "LHNodeTree.h"
+#import "LHNodeUtils.h"
 #import "LHDriverUpdateContext.h"
 #import "LHDriverChannelImpl.h"
 
@@ -63,8 +64,6 @@
     
     [self updateNodesWithCompletion:^{
         [self markAffectedNodes];
-        
-        [self updateAffectedNodesState];
         
         [self updateDrivers];
         
@@ -118,36 +117,13 @@
     }];
 }
 
-- (void)updateAffectedNodesState {
-    [self.affectedNodes enumerateItemsWithBlock:^(id<LHNode> node, id<LHNode> previousNode, BOOL *stop) {
-        if (!previousNode) {
-            LHNodeData *data = [self.components.nodeDataStorage dataForNode:node];
-            data.state = LHNodeStateActive;
-            data.presentationState = LHNodePresentationStateActive;
-        }
-        
-        for (id<LHNode> childNode in [self.affectedNodes nextItems:node]) {
-            LHNodeState childState;
-            
-            // TODO: move this code somewhere
-            if ([node.childrenState.activeChildren containsObject:childNode]) {
-                childState = LHNodeStateActive;
-            } else if ([node.childrenState.initializedChildren containsObject:childNode]) {
-                childState = LHNodeStateInactive;
-            } else {
-                childState = LHNodeStateNotInitialized;
-            }
-            
-            [self.components.nodeDataStorage dataForNode:childNode].state = childState;
-        }
-    }];
-}
-
 - (void)cleanupAffectedNodes {
     [self.affectedNodes enumerateItemsWithBlock:^(id<LHNode> node, id<LHNode> previousNode, BOOL *stop) {
-        if (previousNode && ![previousNode.childrenState.initializedChildren containsObject:node]) {
-            [self.components.nodeDataStorage resetDataForNode:node];
-        }
+        [LHNodeUtils enumerateChildrenOfNode:node withBlock:^(id<LHNode> childNode, LHNodeModelState childModelState) {
+            if (childModelState == LHNodeModelStateNotInitialized) {
+                [self.components.nodeDataStorage resetDataForNode:childNode];
+            }
+        }];
     }];
 }
 
@@ -191,19 +167,19 @@
 }
 
 - (void)willUpdateDriverForNode:(id<LHNode>)node {
-    for (id<LHNode> child in [node allChildren]) {
-        LHNodeData *childData = [self.components.nodeDataStorage dataForNode:child];
-        childData.presentationState = LHNodePresentationStateForTransition(childData.presentationState, childData.state);
-    }
+    [LHNodeUtils enumerateChildrenOfNode:node withBlock:^(id<LHNode> childNode, LHNodeModelState childModelState) {
+        LHNodeData *childData = [self.components.nodeDataStorage dataForNode:childNode];
+        childData.state = LHNodeStateForTransition(childData.state, childModelState);
+    }];
     
     [self.components.nodeDataStorage updateResolvedStateForAffectedNodeTree:self.affectedNodes];
 }
 
 - (void)didUpdateDriverForNode:(id<LHNode>)node {
-    for (id<LHNode> child in [node allChildren]) {
-        LHNodeData *childData = [self.components.nodeDataStorage dataForNode:child];
-        childData.presentationState = LHNodePresentationStateWithState(childData.state);
-    }
+    [LHNodeUtils enumerateChildrenOfNode:node withBlock:^(id<LHNode> childNode, LHNodeModelState childModelState) {
+        LHNodeData *childData = [self.components.nodeDataStorage dataForNode:childNode];
+        childData.state = LHNodeStateWithModelState(childModelState);
+    }];
     
     [self.components.nodeDataStorage updateResolvedStateForAffectedNodeTree:self.affectedNodes];
 }

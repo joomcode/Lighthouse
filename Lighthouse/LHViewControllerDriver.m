@@ -36,7 +36,7 @@
     }
 }
 
-- (void)presentationStateDidChange:(LHNodePresentationState)presentationState {
+- (void)stateDidChange:(LHNodeState)state {
 }
 
 @end

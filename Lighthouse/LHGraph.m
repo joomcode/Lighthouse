@@ -55,11 +55,11 @@
 }
 
 - (LHNodeTree *)initializedNodesTree {
-    return [LHNodeTree treeWithDescendantsOfNode:self.rootNode withStates:LHNodeStateMaskInitialized];
+    return [LHNodeTree treeWithInitializedDescendantsOfNode:self.rootNode];
 }
 
 - (LHNodeTree *)activeNodesTree {
-    return [LHNodeTree treeWithDescendantsOfNode:self.rootNode withStates:LHNodeStateMaskActive];
+    return [LHNodeTree treeWithActiveDescendantsOfNode:self.rootNode];
 }
 
 @end

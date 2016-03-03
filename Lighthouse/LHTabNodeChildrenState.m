@@ -18,15 +18,18 @@
     _activeChild = [parent.orderedChildren objectAtIndex:activeChildIndex];
     _activeChildIndex = activeChildIndex;
     
-    _initializedChildren = [parent.orderedChildren.set copy];
+    NSMutableSet *inactiveChildren = [parent.orderedChildren.set mutableCopy];
+    [inactiveChildren removeObject:_activeChild];
+    
     _activeChildren = [NSSet setWithObject:_activeChild];
+    _inactiveChildren = [inactiveChildren copy];
     
     return self;
 }
 
 #pragma mark - LHNodeChildrenState
 
-@synthesize initializedChildren = _initializedChildren;
 @synthesize activeChildren = _activeChildren;
+@synthesize inactiveChildren = _inactiveChildren;
 
 @end

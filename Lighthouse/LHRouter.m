@@ -53,6 +53,9 @@ NSString * const LHRouterNodeUserInfoKey = @"com.pixty.lighthouse.router.node";
     
     _components.nodeDataStorage.delegate = self;
     
+    LHNodeData *rootData = [_components.nodeDataStorage dataForNode:rootNode];
+    rootData.state = LHNodeStateActive;
+    
     return self;
 }
 
@@ -93,7 +96,7 @@ NSString * const LHRouterNodeUserInfoKey = @"com.pixty.lighthouse.router.node";
     return self.components.nodeDataStorage.resolvedInitializedNodes;
 }
 
-- (LHNodePresentationState)presentationStateForNode:(id<LHNode>)node {
+- (LHNodeState)stateForNode:(id<LHNode>)node {
     return [self.components.nodeDataStorage resolvedStateForNode:node];
 }
 
@@ -139,7 +142,7 @@ NSString * const LHRouterNodeUserInfoKey = @"com.pixty.lighthouse.router.node";
 - (void)nodeDataStorage:(LHNodeDataStorage *)storage didChangeResolvedStateForNode:(id<LHNode>)node {
     if ([self.components.nodeDataStorage hasDataForNode:node]) {
         id<LHDriver> driver = [self.components.nodeDataStorage dataForNode:node].driver;
-        [driver presentationStateDidChange:[self.components.nodeDataStorage resolvedStateForNode:node]];
+        [driver stateDidChange:[self.components.nodeDataStorage resolvedStateForNode:node]];
     }
     
     [self.delegate router:self nodeStateDidUpdate:node];

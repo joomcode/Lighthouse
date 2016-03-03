@@ -16,22 +16,11 @@
             return @"not initialized";
         case LHNodeStateInactive:
             return @"inactive";
-        case LHNodeStateActive:
-            return @"active";
-    }
-}
-
-+ (NSString *)stringFromNodePresentationState:(LHNodePresentationState)state {
-    switch (state) {
-        case LHNodePresentationStateNotInitialized:
-            return @"not initialized";
-        case LHNodePresentationStateInactive:
-            return @"inactive";
-        case LHNodePresentationStateDeactivating:
+        case LHNodeStateDeactivating:
             return @"deactivating";
-        case LHNodePresentationStateActivating:
+        case LHNodeStateActivating:
             return @"activating";
-        case LHNodePresentationStateActive:
+        case LHNodeStateActive:
             return @"active";
     }
 }

@@ -7,7 +7,6 @@
 //
 
 #import "LHTree.h"
-#import "LHNodeState.h"
 
 @protocol LHNode;
 
@@ -18,7 +17,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (instancetype)treeWithDescendantsOfNode:(id<LHNode>)node;
 
-+ (instancetype)treeWithDescendantsOfNode:(id<LHNode>)node withStates:(LHNodeStateMask)stateMask;
++ (instancetype)treeWithInitializedDescendantsOfNode:(id<LHNode>)node;
+
++ (instancetype)treeWithActiveDescendantsOfNode:(id<LHNode>)node;
 
 @end
 

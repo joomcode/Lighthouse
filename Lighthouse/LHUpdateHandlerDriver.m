@@ -96,8 +96,8 @@
     [self.updateBus handleCommand:command animated:context.animated];
 }
 
-- (void)presentationStateDidChange:(LHNodePresentationState)presentationState {
-    [self.updateBus handlePresentationStateUpdate:presentationState];
+- (void)stateDidChange:(LHNodeState)state {
+    [self.updateBus handleStateUpdate:state];
 }
 
 @end

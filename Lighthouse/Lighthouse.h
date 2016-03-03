@@ -25,7 +25,6 @@ FOUNDATION_EXPORT const unsigned char LighthouseVersionString[];
 
 #import <Lighthouse/LHNode.h>
 #import <Lighthouse/LHNodeState.h>
-#import <Lighthouse/LHNodePresentationState.h>
 #import <Lighthouse/LHNodeChildrenState.h>
 #import <Lighthouse/LHTarget.h>
 

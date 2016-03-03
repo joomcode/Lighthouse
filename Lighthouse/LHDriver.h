@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "LHNodePresentationState.h"
+#import "LHNodeState.h"
 
 @class LHDriverUpdateContext;
 
@@ -20,7 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)updateWithContext:(LHDriverUpdateContext *)context;
 
-- (void)presentationStateDidChange:(LHNodePresentationState)presentationState;
+- (void)stateDidChange:(LHNodeState)state;
 
 @end
 

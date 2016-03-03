@@ -20,15 +20,18 @@
     
     _stack = [stack copy];
     
-    _initializedChildren = _stack.set;
+    NSMutableSet *inactiveChildren = [stack.set mutableCopy];
+    [inactiveChildren removeObject:stack.lastObject];
+    
     _activeChildren = [NSSet setWithObject:stack.lastObject];
+    _inactiveChildren = [inactiveChildren copy];
     
     return self;
 }
 
 #pragma mark - LHNodeChildrenState
 
-@synthesize initializedChildren = _initializedChildren;
 @synthesize activeChildren = _activeChildren;
+@synthesize inactiveChildren = _inactiveChildren;
 
 @end

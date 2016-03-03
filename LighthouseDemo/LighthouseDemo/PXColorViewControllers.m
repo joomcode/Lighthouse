@@ -63,8 +63,8 @@
 - (void)awakeForLighthouseUpdateHandlingWithUpdateBus:(id<LHUpdateBus>)updateBus {
     [super awakeForLighthouseUpdateHandlingWithUpdateBus:updateBus];
     
-    [updateBus addPresentationStateUpdateHandler:^(LHNodePresentationState presentationState) {
-        if (presentationState == LHNodePresentationStateActive) {
+    [updateBus addStateUpdateHandler:^(LHNodeState state) {
+        if (state == LHNodeStateActive) {
             [self presentAlert];
         }
     }];
