@@ -32,8 +32,8 @@
 
 #pragma mark - Setup
 
-- (void)bindCommandClass:(Class)commandClass toTarget:(id<LHTarget>)target {
-    [self bindCommandClass:commandClass toBlock:^id<LHTarget>(id<LHCommand> command) {
+- (void)bindCommandClass:(Class)commandClass toTarget:(LHTarget *)target {
+    [self bindCommandClass:commandClass toBlock:^LHTarget *(id<LHCommand> command) {
         return target;
     }];
 }
@@ -52,7 +52,7 @@
 
 #pragma mark - LHCommandRegistry
 
-- (id<LHTarget>)targetForCommand:(id<LHCommand>)command {
+- (LHTarget *)targetForCommand:(id<LHCommand>)command {
     LHCommandTargetProvidingBlock block = [self.blocksByCommandClass objectForKey:[command class]];
     return block ? block(command) : nil;
 }

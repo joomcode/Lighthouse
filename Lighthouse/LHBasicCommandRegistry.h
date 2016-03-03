@@ -9,17 +9,17 @@
 #import "LHCommandRegistry.h"
 
 @protocol LHNode;
-@protocol LHTarget;
+@class LHTarget;
 
 NS_ASSUME_NONNULL_BEGIN
 
 
-typedef _Nullable id<LHTarget> (^LHCommandTargetProvidingBlock)(__kindof id<LHCommand> command);
+typedef LHTarget * _Nullable (^LHCommandTargetProvidingBlock)(__kindof id<LHCommand> command);
 
 
 @interface LHBasicCommandRegistry : NSObject <LHCommandRegistry>
 
-- (void)bindCommandClass:(Class)commandClass toTarget:(id<LHTarget>)target;
+- (void)bindCommandClass:(Class)commandClass toTarget:(LHTarget *)target;
 
 - (void)bindCommandClass:(Class)commandClass toTargetWithActiveNode:(id<LHNode>)node;
 

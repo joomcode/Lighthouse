@@ -37,7 +37,7 @@
 #pragma mark - LHNodeUpdateTask
 
 - (void)updateNodesWithCompletion:(LHTaskCompletionBlock)completion {
-    id<LHTarget> target = [self.components.commandRegistry targetForCommand:self.command];
+    LHTarget *target = [self.components.commandRegistry targetForCommand:self.command];
     
     while (target) {
         NSMapTable *targetsByParent = [self splitTargetIntoTargetsByParent:target];
@@ -45,7 +45,7 @@
         NSMutableArray<id<LHNode>> *parentsToDeactivate = [NSMutableArray array];
         
         for (id<LHNode> parent in targetsByParent) {
-            id<LHTarget> target = [targetsByParent objectForKey:parent];
+            LHTarget *target = [targetsByParent objectForKey:parent];
             
             LHNodeUpdateResult result = [parent updateChildrenState:target];
             
@@ -76,8 +76,8 @@
 
 #pragma mark - Stuff
 
-- (NSMapTable<id<LHNode>, id<LHTarget>> *)splitTargetIntoTargetsByParent:(id<LHTarget>)jointTarget {
-    NSMapTable<id<LHNode>, id<LHTarget>> *targetsByParent = [NSMapTable strongToStrongObjectsMapTable];
+- (NSMapTable<id<LHNode>, LHTarget *> *)splitTargetIntoTargetsByParent:(LHTarget *)jointTarget {
+    NSMapTable<id<LHNode>, LHTarget *> *targetsByParent = [NSMapTable strongToStrongObjectsMapTable];
     
     for (id<LHNode> activeNode in jointTarget.activeNodes) {
         NSOrderedSet<id<LHNode>> *pathToNode = [self.components.graph pathToNode:activeNode];
@@ -89,7 +89,7 @@
             
             id<LHNode> parent = pathToNode[idx - 1];
             
-            id<LHTarget> target = [targetsByParent objectForKey:parent];
+            LHTarget *target = [targetsByParent objectForKey:parent];
             
             if (target) {
                 target = [[LHTarget alloc] initWithActiveNodes:[target.activeNodes setByAddingObject:node]
@@ -107,11 +107,11 @@
         
         id<LHNode> parent = pathToNode[pathToNode.count - 2];
         
-        id<LHTarget> target = [targetsByParent objectForKey:parent];
+        LHTarget *target = [targetsByParent objectForKey:parent];
         
         if (target) {
             target = [[LHTarget alloc] initWithActiveNodes:target.activeNodes
-                                              inactiveNodes:[target.inactiveNodes setByAddingObject:inactiveNode]];
+                                            inactiveNodes:[target.inactiveNodes setByAddingObject:inactiveNode]];
         } else {
             target = [LHTarget withInactiveNode:inactiveNode];
         }

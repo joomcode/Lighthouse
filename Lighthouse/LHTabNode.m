@@ -45,7 +45,7 @@
     self.childrenState = [[LHTabNodeChildrenState alloc] initWithParent:self activeChildIndex:0];
 }
 
-- (LHNodeUpdateResult)updateChildrenState:(id<LHTarget>)target {
+- (LHNodeUpdateResult)updateChildrenState:(LHTarget *)target {
     if (target.activeNodes.count > 1) {
         return LHNodeUpdateResultInvalid;
     }

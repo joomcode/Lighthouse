@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @protocol LHNodeChildrenState;
-@protocol LHTarget;
+@class LHTarget;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -29,7 +29,7 @@ typedef NS_ENUM(NSInteger, LHNodeUpdateResult) {
 
 - (void)resetChildrenState;
 
-- (LHNodeUpdateResult)updateChildrenState:(id<LHTarget>)target;
+- (LHNodeUpdateResult)updateChildrenState:(LHTarget *)target;
 
 @end
 

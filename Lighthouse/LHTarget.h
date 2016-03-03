@@ -13,16 +13,11 @@
 NS_ASSUME_NONNULL_BEGIN
 
 
-@protocol LHTarget <NSObject>
+@interface LHTarget : NSObject
 
 @property (nonatomic, copy, readonly) NSSet<id<LHNode>> *activeNodes;
 
 @property (nonatomic, copy, readonly) NSSet<id<LHNode>> *inactiveNodes;
-
-@end
-
-
-@interface LHTarget : NSObject <LHTarget>
 
 - (instancetype)initWithActiveNodes:(nullable NSSet<id<LHNode>> *)activeNodes
                       inactiveNodes:(nullable NSSet<id<LHNode>> *)inactiveNodes NS_DESIGNATED_INITIALIZER;

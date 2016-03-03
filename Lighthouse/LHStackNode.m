@@ -88,8 +88,9 @@
     [self doUpdateChildrenState];
 }
 
-- (LHNodeUpdateResult)updateChildrenState:(id<LHTarget>)target {
+- (LHNodeUpdateResult)updateChildrenState:(LHTarget *)target {
     BOOL error = NO;
+    
     id<LHNode> activeChild = [self activeChildForApplyingTarget:target
                                           toActiveChildrenStack:self.childrenState.stack
                                                           error:&error];
@@ -117,7 +118,7 @@
 
 #pragma mark - Stuff
 
-- (id<LHNode>)activeChildForApplyingTarget:(id<LHTarget>)target
+- (id<LHNode>)activeChildForApplyingTarget:(LHTarget *)target
                      toActiveChildrenStack:(NSOrderedSet<id<LHNode>> *)activeChildrenStack
                                      error:(BOOL *)error {
     if (target.activeNodes.count > 1) {

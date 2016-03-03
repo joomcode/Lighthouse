@@ -10,14 +10,14 @@
 
 @protocol LHNode;
 @protocol LHCommand;
-@protocol LHTarget;
+@class LHTarget;
 
 NS_ASSUME_NONNULL_BEGIN
 
 
 @protocol LHCommandRegistry <NSObject>
 
-- (nullable id<LHTarget>)targetForCommand:(id<LHCommand>)command;
+- (nullable LHTarget *)targetForCommand:(id<LHCommand>)command;
 
 @end
 

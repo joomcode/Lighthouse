@@ -24,7 +24,7 @@
 - (void)resetChildrenState {
 }
 
-- (LHNodeUpdateResult)updateChildrenState:(id<LHTarget>)target {
+- (LHNodeUpdateResult)updateChildrenState:(LHTarget *)target {
     if (target.activeNodes.count > 0 || target.inactiveNodes.count > 0) {
         return LHNodeUpdateResultInvalid;
     }
