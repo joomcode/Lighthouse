@@ -7,6 +7,7 @@
 //
 
 #import "LHRouter.h"
+#import "LHRouterState.h"
 #import "LHRouterDelegate.h"
 #import "LHNode.h"
 #import "LHDriver.h"
@@ -47,16 +48,23 @@ NSString * const LHRouterNodeUserInfoKey = @"com.pixty.lighthouse.router.node";
     if (!self) return nil;
     
     _components = [[LHComponents alloc] initWithGraph:[[LHGraph alloc] initWithRootNode:rootNode]
-                                      nodeDataStorage:[[LHNodeDataStorage alloc] init]
+                                      nodeDataStorage:[[LHNodeDataStorage alloc] initWithRootNode:rootNode]
                                         driverFactory:driverFactory
                                       commandRegistry:commandRegistry];
     
     _components.nodeDataStorage.delegate = self;
     
-    LHNodeData *rootData = [_components.nodeDataStorage dataForNode:rootNode];
-    rootData.state = LHNodeStateActive;
-    
     return self;
+}
+
+#pragma mark - Properties
+
+- (id<LHNode>)rootNode {
+    return self.components.graph.rootNode;
+}
+
+- (id<LHRouterState>)state {
+    return self.components.nodeDataStorage.routerState;
 }
 
 #pragma mark - Updates
@@ -86,27 +94,13 @@ NSString * const LHRouterNodeUserInfoKey = @"com.pixty.lighthouse.router.node";
     [self.commandQueue runTask:task];
 }
 
-#pragma mark - Node query
-
-- (id<LHNode>)rootNode {
-    return self.components.graph.rootNode;
-}
-
-- (NSSet *)initializedNodes {
-    return self.components.nodeDataStorage.resolvedInitializedNodes;
-}
-
-- (LHNodeState)stateForNode:(id<LHNode>)node {
-    return [self.components.nodeDataStorage resolvedStateForNode:node];
-}
-
 #pragma mark - KVO
 
 + (NSSet *)keyPathsForValuesAffectingValueForKey:(NSString *)key {
     NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
     
-    if ([key isEqualToString:@"initializedNodes"]) {
-        keyPaths = [keyPaths setByAddingObject:@"components.nodeDataStorage.resolvedInitializedNodes"];
+    if ([key isEqualToString:@"state"]) {
+        keyPaths = [keyPaths setByAddingObject:@"components.nodeDataStorage.routerState"];
     }
     
     return keyPaths;
@@ -142,7 +136,7 @@ NSString * const LHRouterNodeUserInfoKey = @"com.pixty.lighthouse.router.node";
 - (void)nodeDataStorage:(LHNodeDataStorage *)storage didChangeResolvedStateForNode:(id<LHNode>)node {
     if ([self.components.nodeDataStorage hasDataForNode:node]) {
         id<LHDriver> driver = [self.components.nodeDataStorage dataForNode:node].driver;
-        [driver stateDidChange:[self.components.nodeDataStorage resolvedStateForNode:node]];
+        [driver stateDidChange:[self.state stateForNode:node]];
     }
     
     [self.delegate router:self nodeStateDidUpdate:node];

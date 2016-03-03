@@ -10,6 +10,7 @@
 #import "LHNodeState.h"
 
 @protocol LHNode;
+@protocol LHRouterState;
 @protocol LHNodeDataStorageDelegate;
 @class LHNodeData;
 @class LHNodeTree;
@@ -20,6 +21,10 @@ NS_ASSUME_NONNULL_BEGIN
 @interface LHNodeDataStorage : NSObject
 
 @property (nonatomic, weak, nullable) id<LHNodeDataStorageDelegate> delegate;
+
+- (instancetype)initWithRootNode:(id<LHNode>)rootNode NS_DESIGNATED_INITIALIZER;
+
+- (instancetype)init NS_UNAVAILABLE;
 
 @end
 
@@ -35,13 +40,12 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 
+// TODO: move this elsewhere
 @interface LHNodeDataStorage (State)
 
-@property (nonatomic, strong, readonly) NSSet<id<LHNode>> *resolvedInitializedNodes;
+@property (nonatomic, strong, readonly) id<LHRouterState> routerState;
 
-- (LHNodeState)resolvedStateForNode:(id<LHNode>)node;
-
-- (void)updateResolvedStateForAffectedNodeTree:(LHNodeTree *)nodeTree;
+- (void)updateRouterStateForAffectedNodeTree:(LHNodeTree *)nodeTree;
 
 @end
 

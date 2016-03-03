@@ -10,13 +10,17 @@
 #import "LHNodeData.h"
 #import "LHNode.h"
 #import "LHNodeTree.h"
+#import "LHRouterStateImpl.h"
 
 @interface LHNodeDataStorage ()
 
+@property (nonatomic, strong, readonly) id<LHNode> rootNode;
 @property (nonatomic, strong, readonly) NSMapTable<id<LHNode>, LHNodeData *> *dataByNode;
 
 @property (nonatomic, strong) NSMutableSet<id<LHNode>> *resolvedInitializedNodes;
 @property (nonatomic, strong) NSMapTable<id<LHNode>, NSNumber *> *resolvedStateByNode;
+
+@property (nonatomic, strong) LHRouterStateImpl *routerState;
 
 @end
 
@@ -25,14 +29,17 @@
 
 #pragma mark - Init
 
-- (instancetype)init {
+- (instancetype)initWithRootNode:(id<LHNode>)rootNode {
     self = [super init];
     if (!self) return nil;
     
+    _rootNode = rootNode;
     _dataByNode = [NSMapTable strongToStrongObjectsMapTable];
     
     _resolvedInitializedNodes = [[NSMutableSet alloc] init];
     _resolvedStateByNode = [NSMapTable strongToStrongObjectsMapTable];
+    
+    _routerState = [[LHRouterStateImpl alloc] initWithRootNode:rootNode];
     
     return self;
 }
@@ -65,44 +72,21 @@
 
 #pragma mark - State
 
-- (LHNodeState)resolvedStateForNode:(id<LHNode>)node {
-    return [[self.resolvedStateByNode objectForKey:node] integerValue];
-}
-
-- (void)updateResolvedStateForAffectedNodeTree:(LHNodeTree *)nodeTree {
-    [self updateResolvedNodeStateRecursivelyForNodeTree:nodeTree
-                                             parentNode:nil
-                                    parentResolvedState:LHNodeStateActive];
-}
-
-- (void)updateResolvedNodeStateRecursivelyForNodeTree:(LHNodeTree *)nodeTree
-                                           parentNode:(id<LHNode>)parentNode
-                                  parentResolvedState:(LHNodeState)parentResolvedState
-{
-    for (id<LHNode> node in [nodeTree nextItems:parentNode]) {
-        LHNodeState oldResolvedState = [self resolvedStateForNode:node];
-        
-        LHNodeState newState = [self hasDataForNode:node] ? [self dataForNode:node].state : LHNodeStateNotInitialized;
-        
-        LHNodeState newResolvedState = MIN(newState, parentResolvedState);
-        
-        if (oldResolvedState != newResolvedState) {
-            [self willChangeValueForKey:@"resolvedInitializedNodes"];
-            
-            if (newResolvedState == LHNodeStateNotInitialized) {
-                [self.resolvedInitializedNodes removeObject:node];
-                [self.resolvedStateByNode removeObjectForKey:node];
-            } else {
-                [self.resolvedInitializedNodes addObject:node];
-                [self.resolvedStateByNode setObject:@(newResolvedState) forKey:node];
-            }
-            
-            [self didChangeValueForKey:@"resolvedInitializedNodes"];
-            
-            [self.delegate nodeDataStorage:self didChangeResolvedStateForNode:node];
+- (void)updateRouterStateForAffectedNodeTree:(LHNodeTree *)nodeTree {
+    LHRouterStateImpl *updatedRouterState = [self.routerState copy];
+    
+    NSArray<id<LHNode>> *updatedNodes = [updatedRouterState updateForAffectedNodeTree:nodeTree nodeStateBlock:^LHNodeState(id<LHNode> node) {
+        if (node == self.rootNode) {
+            return LHNodeStateActive;
+        } else {
+            return [self hasDataForNode:node] ? [self dataForNode:node].state : LHNodeStateNotInitialized;
         }
-        
-        [self updateResolvedNodeStateRecursivelyForNodeTree:nodeTree parentNode:node parentResolvedState:newResolvedState];
+    }];
+    
+    self.routerState = updatedRouterState;
+    
+    for (id<LHNode> node in updatedNodes) {
+        [self.delegate nodeDataStorage:self didChangeResolvedStateForNode:node];
     }
 }
 

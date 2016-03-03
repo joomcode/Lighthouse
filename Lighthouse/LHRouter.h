@@ -14,12 +14,20 @@
 @protocol LHCommand;
 @protocol LHCommandRegistry;
 @protocol LHDriverFactory;
+@protocol LHRouterState;
 @protocol LHRouterDelegate;
 
 NS_ASSUME_NONNULL_BEGIN
 
 
 @interface LHRouter : NSObject
+
+@property (nonatomic, strong, readonly) id<LHNode> rootNode;
+
+@property (nonatomic, strong, readonly) id<LHRouterState> state;
+
+@property (nonatomic, weak, nullable) id<LHRouterDelegate> delegate;
+
 
 - (instancetype)initWithRootNode:(id<LHNode>)rootNode
                    driverFactory:(id<LHDriverFactory>)driverFactory
@@ -31,16 +39,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)executeCommand:(id<LHCommand>)command animated:(BOOL)animated;
 
 - (void)executeUpdateWithBlock:(LHAsyncTaskBlock)block animated:(BOOL)animated;
-
-
-@property (nonatomic, strong, readonly) id<LHNode> rootNode;
-
-@property (nonatomic, strong, readonly) NSSet<id<LHNode>> *initializedNodes;
-
-- (LHNodeState)stateForNode:(id<LHNode>)node;
-
-
-@property (nonatomic, weak, nullable) id<LHRouterDelegate> delegate;
 
 @end
 

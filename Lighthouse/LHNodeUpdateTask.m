@@ -172,7 +172,7 @@
         childData.state = LHNodeStateForTransition(childData.state, childModelState);
     }];
     
-    [self.components.nodeDataStorage updateResolvedStateForAffectedNodeTree:self.affectedNodes];
+    [self.components.nodeDataStorage updateRouterStateForAffectedNodeTree:self.affectedNodes];
 }
 
 - (void)didUpdateDriverForNode:(id<LHNode>)node {
@@ -181,7 +181,7 @@
         childData.state = LHNodeStateWithModelState(childModelState);
     }];
     
-    [self.components.nodeDataStorage updateResolvedStateForAffectedNodeTree:self.affectedNodes];
+    [self.components.nodeDataStorage updateRouterStateForAffectedNodeTree:self.affectedNodes];
 }
 
 @end
