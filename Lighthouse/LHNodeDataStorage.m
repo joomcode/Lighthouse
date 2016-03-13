@@ -84,10 +84,8 @@
     }];
     
     self.routerState = updatedRouterState;
-    
-    for (id<LHNode> node in updatedNodes) {
-        [self.delegate nodeDataStorage:self didChangeResolvedStateForNode:node];
-    }
+
+    [self.delegate nodeDataStorage:self didChangeResolvedStateForNodes:updatedNodes];
 }
 
 @end

@@ -17,7 +17,7 @@
 #import "PXFadeContainerTransitionStyle.h"
 #import <Lighthouse/Lighthouse.h>
 
-@interface AppDelegate () <LHRouterDelegate>
+@interface AppDelegate () <LHRouterObserver>
 
 @property (nonatomic, strong) LHRouter *router;
 
@@ -119,7 +119,7 @@
     LHRouter *router = [[LHRouter alloc] initWithRootNode:hierarchy.rootNode
                                             driverFactory:driverFactory
                                           commandRegistry:commandRegistry];
-    router.delegate = self;
+    [router addObserver:self];
     
     self.router = router;
 }
@@ -166,9 +166,9 @@
 ////    [self.router executeCommand:[[PXPresentGreen alloc] init] animated:YES];
 //}
 
-#pragma mark - PXRouterDelegate
+#pragma mark - PXRouterObserver
 
-- (void)router:(LHRouter *)router nodeStateDidUpdate:(id<LHNode>)node {
+- (void)routerStateDidChange:(LHRouter *)router {
 }
 
 @end

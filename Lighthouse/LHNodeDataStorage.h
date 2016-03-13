@@ -55,7 +55,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)nodeDataStorage:(LHNodeDataStorage *)storage didCreateData:(LHNodeData *)data forNode:(id<LHNode>)node;
 - (void)nodeDataStorage:(LHNodeDataStorage *)storage willResetData:(LHNodeData *)data forNode:(id<LHNode>)node;
 
-- (void)nodeDataStorage:(LHNodeDataStorage *)storage didChangeResolvedStateForNode:(id<LHNode>)node;
+- (void)nodeDataStorage:(LHNodeDataStorage *)storage didChangeResolvedStateForNodes:(NSArray<id<LHNode>> *)nodes;
 
 @end
 

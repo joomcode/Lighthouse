@@ -75,7 +75,7 @@
 		01D57AB31C547557008E4EB5 /* LHTabNodeChildrenState.h in Headers */ = {isa = PBXBuildFile; fileRef = 01D57AB11C547557008E4EB5 /* LHTabNodeChildrenState.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		01D57AB41C547557008E4EB5 /* LHTabNodeChildrenState.m in Sources */ = {isa = PBXBuildFile; fileRef = 01D57AB21C547557008E4EB5 /* LHTabNodeChildrenState.m */; };
 		01DBF2CE1C4EFE700034783C /* LHRouter.h in Headers */ = {isa = PBXBuildFile; fileRef = 01A01A651BA837B100608274 /* LHRouter.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		01DBF2CF1C4EFE700034783C /* LHRouterDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 012497A01BAA1FDE007CD98B /* LHRouterDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		01DBF2CF1C4EFE700034783C /* LHRouterObserver.h in Headers */ = {isa = PBXBuildFile; fileRef = 012497A01BAA1FDE007CD98B /* LHRouterObserver.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		01DBF2D01C4EFE700034783C /* LHTree.h in Headers */ = {isa = PBXBuildFile; fileRef = 0186CB051BAE038600B22431 /* LHTree.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		01DBF2D11C4EFE700034783C /* LHNodeTree.h in Headers */ = {isa = PBXBuildFile; fileRef = 0160A96E1BA7434B0035A331 /* LHNodeTree.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		01DBF2D21C4EFE700034783C /* LHNodeForest.h in Headers */ = {isa = PBXBuildFile; fileRef = 0186CB081BAE0A1700B22431 /* LHNodeForest.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -142,7 +142,7 @@
 		012497971BA9D92E007CD98B /* LHTabBarControllerDriver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHTabBarControllerDriver.m; sourceTree = "<group>"; };
 		0124979C1BA9E7B1007CD98B /* LHViewControllerDriverHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHViewControllerDriverHelpers.h; sourceTree = "<group>"; };
 		0124979D1BA9E7B1007CD98B /* LHViewControllerDriverHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHViewControllerDriverHelpers.m; sourceTree = "<group>"; };
-		012497A01BAA1FDE007CD98B /* LHRouterDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHRouterDelegate.h; sourceTree = "<group>"; };
+		012497A01BAA1FDE007CD98B /* LHRouterObserver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHRouterObserver.h; sourceTree = "<group>"; };
 		012A87A41BB3791200C9679D /* LHNodeDataStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHNodeDataStorage.h; sourceTree = "<group>"; };
 		012A87A51BB3791200C9679D /* LHNodeDataStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHNodeDataStorage.m; sourceTree = "<group>"; };
 		012A952F1C4EEFAC000A4ECB /* LHUpdateBus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHUpdateBus.h; sourceTree = "<group>"; };
@@ -309,7 +309,7 @@
 				01A01A651BA837B100608274 /* LHRouter.h */,
 				01A01A661BA837B100608274 /* LHRouter.m */,
 				01B3918C1C888FFD00579C2B /* LHRouterState.h */,
-				012497A01BAA1FDE007CD98B /* LHRouterDelegate.h */,
+				012497A01BAA1FDE007CD98B /* LHRouterObserver.h */,
 			);
 			name = Router;
 			sourceTree = "<group>";
@@ -617,7 +617,7 @@
 			files = (
 				012A953D1C4EFD5E000A4ECB /* Lighthouse.h in Headers */,
 				01DBF2CE1C4EFE700034783C /* LHRouter.h in Headers */,
-				01DBF2CF1C4EFE700034783C /* LHRouterDelegate.h in Headers */,
+				01DBF2CF1C4EFE700034783C /* LHRouterObserver.h in Headers */,
 				01DBF2D01C4EFE700034783C /* LHTree.h in Headers */,
 				01DBF2D11C4EFE700034783C /* LHNodeTree.h in Headers */,
 				01DBF2D21C4EFE700034783C /* LHNodeForest.h in Headers */,

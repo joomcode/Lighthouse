@@ -8,7 +8,7 @@
 
 #import "LHRouter.h"
 #import "LHRouterState.h"
-#import "LHRouterDelegate.h"
+#import "LHRouterObserver.h"
 #import "LHNode.h"
 #import "LHDriver.h"
 #import "LHDriverFactory.h"
@@ -24,15 +24,13 @@
 #import "LHManualNodeUpdateTask.h"
 #import "LHDriverChannelImpl.h"
 
-NSString * const LHRouterNodeStateDidUpdateNotification = @"com.pixty.lighthouse.router.nodeStateDidUpdate";
-NSString * const LHRouterNodeUserInfoKey = @"com.pixty.lighthouse.router.node";
-
-
 @interface LHRouter () <LHNodeDataStorageDelegate>
 
 @property (nonatomic, strong, readonly) LHComponents *components;
 
 @property (nonatomic, strong, readonly) LHTaskQueue *commandQueue;
+
+@property (nonatomic, strong, readonly) NSPointerArray *observers;
 
 @end
 
@@ -54,17 +52,25 @@ NSString * const LHRouterNodeUserInfoKey = @"com.pixty.lighthouse.router.node";
     
     _components.nodeDataStorage.delegate = self;
     
+    _observers = [NSPointerArray weakObjectsPointerArray];
+    
     return self;
 }
 
 #pragma mark - Properties
 
-- (id<LHNode>)rootNode {
-    return self.components.graph.rootNode;
-}
-
 - (id<LHRouterState>)state {
     return self.components.nodeDataStorage.routerState;
+}
+
++ (NSSet *)keyPathsForValuesAffectingValueForKey:(NSString *)key {
+    NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
+    
+    if ([key isEqualToString:@"state"]) {
+        keyPaths = [keyPaths setByAddingObject:@"components.nodeDataStorage.routerState"];
+    }
+    
+    return keyPaths;
 }
 
 #pragma mark - Updates
@@ -94,16 +100,30 @@ NSString * const LHRouterNodeUserInfoKey = @"com.pixty.lighthouse.router.node";
     [self.commandQueue runTask:task];
 }
 
-#pragma mark - KVO
+#pragma mark - Observers
 
-+ (NSSet *)keyPathsForValuesAffectingValueForKey:(NSString *)key {
-    NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
-    
-    if ([key isEqualToString:@"state"]) {
-        keyPaths = [keyPaths setByAddingObject:@"components.nodeDataStorage.routerState"];
+- (void)addObserver:(id<LHRouterObserver>)observer {
+    NSUInteger index = [self indexOfObserver:observer];
+    if (index == NSNotFound) {
+        [self.observers addPointer:(__bridge void *)observer];
+    }
+}
+
+- (void)removeObserver:(id<LHRouterObserver>)observer {
+    NSUInteger index = [self indexOfObserver:observer];
+    if (index != NSNotFound) {
+        [self.observers removePointerAtIndex:index];
+    }
+}
+
+- (NSUInteger)indexOfObserver:(id<LHRouterObserver>)observer {
+    for (NSUInteger index = 0; index < self.observers.count; ++index) {
+        if (observer == [self.observers pointerAtIndex:index]) {
+            return index;
+        }
     }
     
-    return keyPaths;
+    return NSNotFound;
 }
 
 #pragma mark - LHNodeDataStorageDelegate
@@ -133,17 +153,19 @@ NSString * const LHRouterNodeUserInfoKey = @"com.pixty.lighthouse.router.node";
     [node resetChildrenState];
 }
 
-- (void)nodeDataStorage:(LHNodeDataStorage *)storage didChangeResolvedStateForNode:(id<LHNode>)node {
-    if ([self.components.nodeDataStorage hasDataForNode:node]) {
-        id<LHDriver> driver = [self.components.nodeDataStorage dataForNode:node].driver;
-        [driver stateDidChange:[self.state stateForNode:node]];
+- (void)nodeDataStorage:(LHNodeDataStorage *)storage didChangeResolvedStateForNodes:(NSArray<id<LHNode>> *)nodes {
+    for (id<LHNode> node in nodes) {
+        if ([self.components.nodeDataStorage hasDataForNode:node]) {
+            id<LHDriver> driver = [self.components.nodeDataStorage dataForNode:node].driver;
+            [driver stateDidChange:[self.state stateForNode:node]];
+        }
     }
     
-    [self.delegate router:self nodeStateDidUpdate:node];
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName:LHRouterNodeStateDidUpdateNotification
-                                                        object:self
-                                                      userInfo:@{ LHRouterNodeUserInfoKey: node }];
+    for (id<LHRouterObserver> observer in self.observers) {
+        if ([observer respondsToSelector:@selector(routerStateDidChange:)]) {
+            [observer routerStateDidChange:self];
+        }
+    }
 }
 
 @end

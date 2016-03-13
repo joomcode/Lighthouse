@@ -19,7 +19,7 @@ FOUNDATION_EXPORT const unsigned char LighthouseVersionString[];
 
 #import <Lighthouse/LHRouter.h>
 #import <Lighthouse/LHRouterState.h>
-#import <Lighthouse/LHRouterDelegate.h>
+#import <Lighthouse/LHRouterObserver.h>
 
 
 // Nodes
