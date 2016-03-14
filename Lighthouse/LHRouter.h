@@ -15,8 +15,9 @@
 @protocol LHCommandRegistry;
 @protocol LHDriverFactory;
 @protocol LHRouterState;
-@protocol LHRouterResumeToken;
+@protocol LHRouterDelegate;
 @protocol LHRouterObserver;
+@protocol LHRouterResumeToken;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -29,6 +30,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, assign, readonly, getter = isSuspended) BOOL suspended;
 
+@property (nonatomic, weak, nullable) id<LHRouterDelegate> delegate;
+
 
 - (instancetype)initWithRootNode:(id<LHNode>)rootNode
                    driverFactory:(id<LHDriverFactory>)driverFactory
@@ -37,9 +40,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)init NS_UNAVAILABLE;
 
 
-- (void)executeCommand:(id<LHCommand>)command animated:(BOOL)animated;
+- (void)executeCommand:(id<LHCommand>)command;
 
-- (void)executeUpdateWithBlock:(LHAsyncTaskBlock)block animated:(BOOL)animated;
+- (void)executeCommand:(id<LHCommand>)command completion:(nullable void (^)())completion;
 
 
 - (id<LHRouterResumeToken>)suspend;

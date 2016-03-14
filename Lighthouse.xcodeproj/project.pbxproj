@@ -67,6 +67,11 @@
 		015A4FB21C681E7100F950B3 /* LHDriverProviderImpl.h in Headers */ = {isa = PBXBuildFile; fileRef = 015A4FB01C681E7100F950B3 /* LHDriverProviderImpl.h */; };
 		015A4FB31C681E7100F950B3 /* LHDriverProviderImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 015A4FB11C681E7100F950B3 /* LHDriverProviderImpl.m */; };
 		015A4FB51C68216900F950B3 /* LHDriverUpdateContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 015A4FB41C68216900F950B3 /* LHDriverUpdateContext.m */; };
+		019DE7341C971DD900656C15 /* LHRouterDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 019DE7331C971DD900656C15 /* LHRouterDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		019DE7371C971F6800656C15 /* LHRouterDelegateImpl.h in Headers */ = {isa = PBXBuildFile; fileRef = 019DE7351C971F6800656C15 /* LHRouterDelegateImpl.h */; };
+		019DE7381C971F6800656C15 /* LHRouterDelegateImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 019DE7361C971F6800656C15 /* LHRouterDelegateImpl.m */; };
+		019DE73B1C97227900656C15 /* LHWrapperTask.h in Headers */ = {isa = PBXBuildFile; fileRef = 019DE7391C97227900656C15 /* LHWrapperTask.h */; };
+		019DE73C1C97227900656C15 /* LHWrapperTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 019DE73A1C97227900656C15 /* LHWrapperTask.m */; };
 		01A28DBD1C5CEFBD006F0A95 /* UIViewController+LHNavigationItemForwarding.h in Headers */ = {isa = PBXBuildFile; fileRef = 01A28DBB1C5CEFBD006F0A95 /* UIViewController+LHNavigationItemForwarding.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		01A28DBE1C5CEFBD006F0A95 /* UIViewController+LHNavigationItemForwarding.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A28DBC1C5CEFBD006F0A95 /* UIViewController+LHNavigationItemForwarding.m */; };
 		01B3917D1C86FE8F00579C2B /* LHTaskBlocks.h in Headers */ = {isa = PBXBuildFile; fileRef = 01B3917C1C86FE8F00579C2B /* LHTaskBlocks.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -212,6 +217,11 @@
 		0186CB091BAE0A1700B22431 /* LHNodeForest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHNodeForest.m; sourceTree = "<group>"; };
 		0186CB0B1BAE0C3200B22431 /* LHStackNodeChildrenState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHStackNodeChildrenState.h; sourceTree = "<group>"; };
 		0186CB0C1BAE0C3200B22431 /* LHStackNodeChildrenState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHStackNodeChildrenState.m; sourceTree = "<group>"; };
+		019DE7331C971DD900656C15 /* LHRouterDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHRouterDelegate.h; sourceTree = "<group>"; };
+		019DE7351C971F6800656C15 /* LHRouterDelegateImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHRouterDelegateImpl.h; sourceTree = "<group>"; };
+		019DE7361C971F6800656C15 /* LHRouterDelegateImpl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHRouterDelegateImpl.m; sourceTree = "<group>"; };
+		019DE7391C97227900656C15 /* LHWrapperTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHWrapperTask.h; sourceTree = "<group>"; };
+		019DE73A1C97227900656C15 /* LHWrapperTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHWrapperTask.m; sourceTree = "<group>"; };
 		01A01A621BA8373B00608274 /* LHViewControllerDriver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHViewControllerDriver.h; sourceTree = "<group>"; };
 		01A01A631BA8373B00608274 /* LHViewControllerDriver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHViewControllerDriver.m; sourceTree = "<group>"; };
 		01A01A651BA837B100608274 /* LHRouter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHRouter.h; sourceTree = "<group>"; };
@@ -319,8 +329,9 @@
 				01A01A651BA837B100608274 /* LHRouter.h */,
 				01A01A661BA837B100608274 /* LHRouter.m */,
 				01B3918C1C888FFD00579C2B /* LHRouterState.h */,
-				014C9F081C9620AF00D35950 /* LHRouterResumeToken.h */,
+				019DE7331C971DD900656C15 /* LHRouterDelegate.h */,
 				012497A01BAA1FDE007CD98B /* LHRouterObserver.h */,
+				014C9F081C9620AF00D35950 /* LHRouterResumeToken.h */,
 			);
 			name = Router;
 			sourceTree = "<group>";
@@ -414,6 +425,8 @@
 				01B3918F1C88900A00579C2B /* LHRouterStateImpl.m */,
 				014C9F0E1C96EF0B00D35950 /* LHRouterResumeTokenImpl.h */,
 				014C9F0F1C96EF0B00D35950 /* LHRouterResumeTokenImpl.m */,
+				019DE7351C971F6800656C15 /* LHRouterDelegateImpl.h */,
+				019DE7361C971F6800656C15 /* LHRouterDelegateImpl.m */,
 			);
 			name = Internal;
 			sourceTree = "<group>";
@@ -594,6 +607,8 @@
 			children = (
 				01C6F8CE1BB6D8DD00A13C1E /* LHBlockTask.h */,
 				01C6F8CF1BB6D8DD00A13C1E /* LHBlockTask.m */,
+				019DE7391C97227900656C15 /* LHWrapperTask.h */,
+				019DE73A1C97227900656C15 /* LHWrapperTask.m */,
 				01C6F8D11BB6DE8000A13C1E /* LHNodeUpdateTask.h */,
 				01C6F8D21BB6DE8000A13C1E /* LHNodeUpdateTask.m */,
 				01C6F8D51BB81FB700A13C1E /* LHCommandNodeUpdateTask.h */,
@@ -686,6 +701,7 @@
 				01DBF2EE1C4EFE700034783C /* LHCommandRegistry.h in Headers */,
 				01DBF2EF1C4EFE700034783C /* LHTask.h in Headers */,
 				01DBF2F01C4EFE710034783C /* LHTaskQueue.h in Headers */,
+				019DE7341C971DD900656C15 /* LHRouterDelegate.h in Headers */,
 				01DBF2F11C4EFE710034783C /* LHDescriptionHelpers.h in Headers */,
 				01DBF2F21C4EFEB00034783C /* LHGraph.h in Headers */,
 				01DBF2F31C4EFEB00034783C /* LHNodeData.h in Headers */,
@@ -693,6 +709,7 @@
 				01DBF2F51C4EFEB00034783C /* LHComponents.h in Headers */,
 				015A4FAA1C67FF5700F950B3 /* LHTransitionContext.h in Headers */,
 				015A4FB21C681E7100F950B3 /* LHDriverProviderImpl.h in Headers */,
+				019DE7371C971F6800656C15 /* LHRouterDelegateImpl.h in Headers */,
 				01DBF2F61C4EFEB00034783C /* LHBlockTask.h in Headers */,
 				014C9F101C96EF0B00D35950 /* LHRouterResumeTokenImpl.h in Headers */,
 				015A4FAF1C681D9900F950B3 /* LHDriverProvider.h in Headers */,
@@ -713,6 +730,7 @@
 				01DBF2DC1C4EFE700034783C /* LHViewControllerDriverHelpers.h in Headers */,
 				01B391901C88900B00579C2B /* LHRouterStateImpl.h in Headers */,
 				015A4FA61C67D77F00F950B3 /* LHContainerTransitionData.h in Headers */,
+				019DE73B1C97227900656C15 /* LHWrapperTask.h in Headers */,
 				01DBF2DD1C4EFE700034783C /* UIViewController+LHDismissalTracking.h in Headers */,
 				01B3917D1C86FE8F00579C2B /* LHTaskBlocks.h in Headers */,
 			);
@@ -834,6 +852,7 @@
 				012A955F1C4EFD9A000A4ECB /* LHNavigationControllerDriver.m in Sources */,
 				015A4FB51C68216900F950B3 /* LHDriverUpdateContext.m in Sources */,
 				015A4FAD1C6819C700F950B3 /* LHDriverTools.m in Sources */,
+				019DE7381C971F6800656C15 /* LHRouterDelegateImpl.m in Sources */,
 				01A28DBE1C5CEFBD006F0A95 /* UIViewController+LHNavigationItemForwarding.m in Sources */,
 				012A95601C4EFD9A000A4ECB /* LHTabBarControllerDriver.m in Sources */,
 				012A95611C4EFD9A000A4ECB /* LHWindowDriver.m in Sources */,
@@ -854,6 +873,7 @@
 				012A956C1C4EFD9A000A4ECB /* LHComponents.m in Sources */,
 				01D57AB41C547557008E4EB5 /* LHTabNodeChildrenState.m in Sources */,
 				012A956D1C4EFD9A000A4ECB /* LHBlockTask.m in Sources */,
+				019DE73C1C97227900656C15 /* LHWrapperTask.m in Sources */,
 				012A956E1C4EFD9A000A4ECB /* LHNodeUpdateTask.m in Sources */,
 				015A4F9C1C67A49400F950B3 /* LHModalTransitionData.m in Sources */,
 				012A956F1C4EFD9A000A4ECB /* LHCommandNodeUpdateTask.m in Sources */,

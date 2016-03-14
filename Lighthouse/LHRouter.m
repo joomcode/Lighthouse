@@ -8,8 +8,9 @@
 
 #import "LHRouter.h"
 #import "LHRouterState.h"
-#import "LHRouterResumeTokenImpl.h"
+#import "LHRouterDelegateImpl.h"
 #import "LHRouterObserver.h"
+#import "LHRouterResumeTokenImpl.h"
 #import "LHNode.h"
 #import "LHDriver.h"
 #import "LHDriverFactory.h"
@@ -21,6 +22,7 @@
 #import "LHCommand.h"
 #import "LHCommandRegistry.h"
 #import "LHTaskQueueImpl.h"
+#import "LHWrapperTask.h"
 #import "LHCommandNodeUpdateTask.h"
 #import "LHManualNodeUpdateTask.h"
 #import "LHDriverChannelImpl.h"
@@ -35,6 +37,8 @@
 @property (nonatomic, strong, readonly) NSPointerArray *observers;
 
 @property (nonatomic, strong, readonly) NSHashTable<id<LHRouterResumeToken>> *resumeTokens;
+
+@property (nonatomic, strong, readonly) LHRouterDelegateImpl *internalDelegate;
 
 @end
 
@@ -60,6 +64,8 @@
     
     _resumeTokens = [NSHashTable weakObjectsHashTable];
     
+    _internalDelegate = [[LHRouterDelegateImpl alloc] init];
+    
     return self;
 }
 
@@ -77,6 +83,14 @@
     return self.commandQueue.suspended;
 }
 
+- (id<LHRouterDelegate>)delegate {
+    return self.internalDelegate.delegate;
+}
+
+- (void)setDelegate:(id<LHRouterDelegate>)delegate {
+    self.internalDelegate.delegate = delegate;
+}
+
 + (NSSet *)keyPathsForValuesAffectingValueForKey:(NSString *)key {
     NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
     
@@ -91,7 +105,7 @@
     return keyPaths;
 }
 
-#pragma mark - Updates
+#pragma mark - Command Execution
 
 @synthesize commandQueue = _commandQueue;
 
@@ -102,18 +116,20 @@
     return _commandQueue;
 }
 
-- (void)executeCommand:(id<LHCommand>)command animated:(BOOL)animated {
-    LHCommandNodeUpdateTask *task = [[LHCommandNodeUpdateTask alloc] initWithComponents:self.components
-                                                                               animated:animated
-                                                                                command:command];
-    
-    [self.commandQueue runTask:task];
+- (void)executeCommand:(id<LHCommand>)command {
+    [self executeCommand:command completion:nil];
 }
 
-- (void)executeUpdateWithBlock:(LHAsyncTaskBlock)block animated:(BOOL)animated {
-    LHManualNodeUpdateTask *task = [[LHManualNodeUpdateTask alloc] initWithComponents:self.components
-                                                                             animated:animated
-                                                                                block:block];
+- (void)executeCommand:(id<LHCommand>)command completion:(void (^)())completion {
+    BOOL shouldAnimate = [self.internalDelegate router:self shouldAnimateDriverUpdatesForCommand:command];
+    
+    id<LHTask> task = [[LHCommandNodeUpdateTask alloc] initWithComponents:self.components
+                                                                 animated:shouldAnimate
+                                                                  command:command];
+    
+    if (completion) {
+        task = [[LHWrapperTask alloc] initWithTask:task completion:completion];
+    }
     
     [self.commandQueue runTask:task];
 }

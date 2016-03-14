@@ -134,11 +134,13 @@
 }
 
 - (void)doSomething {
-    [self.router executeCommand:[[PXPresentGreen alloc] init] animated:NO];
+    [self.router executeCommand:[[PXPresentGreen alloc] init]];
 }
 
 - (void)doSomethingLater {
-    [self.router executeCommand:[[PXPresentAnotherModal alloc] init] animated:YES];
+    [self.router executeCommand:[[PXPresentAnotherModal alloc] init] completion:^{
+        NSLog(@"hi there!");
+    }];
     
 //    [self.router executeCommand:[[PXPresentModal alloc] init] animated:YES];
 //    [self.router executeCommand:[[PXPresentBlue alloc] init] animated:YES];
@@ -147,11 +149,11 @@
 }
 
 - (void)doSomethingEvenLater {
-    [self.router executeCommand:[[PXPresentModal alloc] init] animated:YES];
+    [self.router executeCommand:[[PXPresentModal alloc] init]];
 }
 
 - (void)doSomethingEvenMoreLater {
-    [self.router executeCommand:[[PXDismissModal alloc] init] animated:YES];
+    [self.router executeCommand:[[PXDismissModal alloc] init]];
 }
 
 
