@@ -7,13 +7,16 @@
 //
 
 #import "LHTask.h"
+#import "LHTaskBlocks.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 
 @interface LHWrapperTask : NSObject <LHTask>
 
-- (instancetype)initWithTask:(id<LHTask>)task completion:(LHTaskCompletionBlock)completion NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithTask:(id<LHTask>)task
+              willStartBlock:(nullable LHTaskBlock)willStartBlock
+              didFinishBlock:(nullable LHTaskBlock)didFinishBlock NS_DESIGNATED_INITIALIZER;
 
 - (instancetype)init NS_UNAVAILABLE;
 

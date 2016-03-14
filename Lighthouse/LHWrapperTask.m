@@ -11,8 +11,8 @@
 @interface LHWrapperTask ()
 
 @property (nonatomic, strong, readonly) id<LHTask> task;
-
-@property (nonatomic, copy, readonly) LHTaskCompletionBlock completion;
+@property (nonatomic, copy, readonly) LHTaskBlock willStartBlock;
+@property (nonatomic, copy, readonly) LHTaskBlock didFinishBlock;
 
 @end
 
@@ -21,12 +21,15 @@
 
 #pragma mark - Init
 
-- (instancetype)initWithTask:(id<LHTask>)task completion:(LHTaskCompletionBlock)completion {
+- (instancetype)initWithTask:(id<LHTask>)task
+              willStartBlock:(LHTaskBlock)willStartBlock
+              didFinishBlock:(LHTaskBlock)didFinishBlock {
     self = [super init];
     if (!self) return nil;
     
     _task = task;
-    _completion = [completion copy];
+    _willStartBlock = [willStartBlock copy];
+    _didFinishBlock = [didFinishBlock copy];
     
     return self;
 }
@@ -34,8 +37,15 @@
 #pragma mark - LHTask
 
 - (void)startWithCompletionBlock:(LHTaskCompletionBlock)completionBlock {
+    if (self.willStartBlock) {
+        self.willStartBlock();
+    }
+    
     [self.task startWithCompletionBlock:^{
-        self.completion();
+        if (self.didFinishBlock) {
+            self.didFinishBlock();
+        }
+        
         completionBlock();
     }];
 }

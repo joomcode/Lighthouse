@@ -127,9 +127,19 @@
                                                                  animated:shouldAnimate
                                                                   command:command];
     
-    if (completion) {
-        task = [[LHWrapperTask alloc] initWithTask:task completion:completion];
-    }
+    task = [[LHWrapperTask alloc] initWithTask:task willStartBlock:^{
+        [self notifyObserversForSelector:@selector(router:willExecuteCommand:) withBlock:^(id<LHRouterObserver> observer) {
+            [observer router:self willExecuteCommand:command];
+        }];
+    } didFinishBlock:^{
+        [self notifyObserversForSelector:@selector(router:didExecuteCommand:) withBlock:^(id<LHRouterObserver> observer) {
+            [observer router:self didExecuteCommand:command];
+        }];
+        
+        if (completion) {
+            completion();
+        }
+    }];
     
     [self.commandQueue runTask:task];
 }
@@ -193,6 +203,14 @@
     return NSNotFound;
 }
 
+- (void)notifyObserversForSelector:(SEL)selector withBlock:(void (^)(id<LHRouterObserver> observer))block {
+    for (id<LHRouterObserver> observer in self.observers) {
+        if ([observer respondsToSelector:selector]) {
+            block(observer);
+        }
+    }
+}
+
 #pragma mark - LHNodeDataStorageDelegate
 
 - (void)nodeDataStorage:(LHNodeDataStorage *)storage didCreateData:(LHNodeData *)data forNode:(id<LHNode>)node {
@@ -222,11 +240,9 @@
         }
     }
     
-    for (id<LHRouterObserver> observer in self.observers) {
-        if ([observer respondsToSelector:@selector(routerStateDidChange:)]) {
-            [observer routerStateDidChange:self];
-        }
-    }
+    [self notifyObserversForSelector:@selector(routerStateDidChange:) withBlock:^(id<LHRouterObserver> observer) {
+        [observer routerStateDidChange:self];
+    }];
 }
 
 @end

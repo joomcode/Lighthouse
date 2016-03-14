@@ -30,6 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, assign, readonly, getter = isSuspended) BOOL suspended;
 
+
 @property (nonatomic, weak, nullable) id<LHRouterDelegate> delegate;
 
 

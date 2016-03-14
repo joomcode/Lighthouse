@@ -8,6 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
+@class LHRouter;
+@protocol LHCommand;
+
 NS_ASSUME_NONNULL_BEGIN
 
 
@@ -16,6 +19,10 @@ NS_ASSUME_NONNULL_BEGIN
 @optional
 
 - (void)routerStateDidChange:(LHRouter *)router;
+
+- (void)router:(LHRouter *)router willExecuteCommand:(id<LHCommand>)command;
+
+- (void)router:(LHRouter *)router didExecuteCommand:(id<LHCommand>)command;
 
 @end
 
