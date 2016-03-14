@@ -9,7 +9,7 @@
 #import "LHDriverChannel.h"
 
 @class LHComponents;
-@class LHTaskQueue;
+@protocol LHTaskQueue;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -18,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)initWithNode:(id<LHNode>)node
                   components:(LHComponents *)components
-                 updateQueue:(LHTaskQueue *)updateQueue NS_DESIGNATED_INITIALIZER;
+                 updateQueue:(id<LHTaskQueue>)updateQueue NS_DESIGNATED_INITIALIZER;
 
 - (instancetype)init NS_UNAVAILABLE;
 

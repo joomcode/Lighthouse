@@ -18,10 +18,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)runTask:(id<LHTask>)task;
 
-@end
 
-
-@interface LHTaskQueue : NSObject <LHTaskQueue>
+// TODO (swift): these methods belong to the protocol extension. Unfortunately, there are no protocol extensions in obj-c :)
 
 - (void)runTaskWithBlock:(LHTaskBlock)block;
 

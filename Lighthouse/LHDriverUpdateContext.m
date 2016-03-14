@@ -13,7 +13,7 @@
 - (instancetype)initWithAnimated:(BOOL)animated
                          command:(id<LHCommand>)command
                    childrenState:(id<LHNodeChildrenState>)childrenState
-                     updateQueue:(LHTaskQueue *)updateQueue {
+                     updateQueue:(id<LHTaskQueue>)updateQueue {
     self = [super init];
     if (!self) return nil;
     

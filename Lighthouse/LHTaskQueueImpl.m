@@ -1,15 +1,15 @@
 //
-//  LHTaskQueue.m
+//  LHTaskQueueImpl.m
 //  Lighthouse
 //
-//  Created by Nick Tymchenko on 26/09/15.
-//  Copyright © 2015 Pixty. All rights reserved.
+//  Created by Nick Tymchenko on 14/03/16.
+//  Copyright © 2016 Pixty. All rights reserved.
 //
 
-#import "LHTaskQueue.h"
+#import "LHTaskQueueImpl.h"
 #import "LHBlockTask.h"
 
-@interface LHTaskQueue ()
+@interface LHTaskQueueImpl ()
 
 @property (nonatomic, strong) NSMutableArray<id<LHTask>> *tasks;
 
@@ -18,7 +18,7 @@
 @end
 
 
-@implementation LHTaskQueue
+@implementation LHTaskQueueImpl
 
 #pragma mark - Init
 
@@ -36,9 +36,7 @@
 - (void)runTask:(id<LHTask>)task {
     [self.tasks addObject:task];
     
-    if (!self.taskInProgress) {
-        [self doRunTask:task];
-    }
+    [self runNextTaskIfPossible];
 }
 
 - (void)runTaskWithBlock:(LHTaskBlock)block {
@@ -49,7 +47,25 @@
     [self runTask:[[LHBlockTask alloc] initWithAsyncBlock:block]];
 }
 
+#pragma mark - Public
+
+- (void)setSuspended:(BOOL)suspended {
+    if (_suspended != suspended) {
+        _suspended = suspended;
+        
+        [self runNextTaskIfPossible];
+    }
+}
+
 #pragma mark - Private
+
+- (void)runNextTaskIfPossible {
+    if (self.suspended || self.taskInProgress || self.tasks.count == 0) {
+        return;
+    }
+    
+    [self doRunTask:self.tasks[0]];
+}
 
 - (void)doRunTask:(id<LHTask>)task {
     self.taskInProgress = YES;
@@ -61,14 +77,6 @@
         
         [self runNextTaskIfPossible];
     }];
-}
-
-- (void)runNextTaskIfPossible {
-    if (self.taskInProgress || self.tasks.count == 0) {
-        return;
-    }
-    
-    [self doRunTask:self.tasks[0]];
 }
 
 @end

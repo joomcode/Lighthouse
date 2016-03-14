@@ -11,7 +11,7 @@
 @protocol LHNode;
 @protocol LHCommand;
 @protocol LHNodeChildrenState;
-@class LHTaskQueue;
+@protocol LHTaskQueue;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -24,12 +24,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong, readonly, nullable) id<LHNodeChildrenState> childrenState;
 
-@property (nonatomic, strong, readonly) LHTaskQueue *updateQueue;
+@property (nonatomic, strong, readonly) id<LHTaskQueue> updateQueue;
 
 - (instancetype)initWithAnimated:(BOOL)animated
                          command:(nullable id<LHCommand>)command
                    childrenState:(nullable id<LHNodeChildrenState>)childrenState
-                     updateQueue:(LHTaskQueue *)updateQueue NS_DESIGNATED_INITIALIZER;
+                     updateQueue:(id<LHTaskQueue>)updateQueue NS_DESIGNATED_INITIALIZER;
 
 - (instancetype)init NS_UNAVAILABLE;
 

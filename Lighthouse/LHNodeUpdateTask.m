@@ -12,7 +12,7 @@
 #import "LHNodeData.h"
 #import "LHGraph.h"
 #import "LHDriver.h"
-#import "LHTaskQueue.h"
+#import "LHTaskQueueImpl.h"
 #import "LHNode.h"
 #import "LHNodeChildrenState.h"
 #import "LHNodeTree.h"
@@ -23,7 +23,7 @@
 
 @interface LHNodeUpdateTask ()
 
-@property (nonatomic, strong, readonly) LHTaskQueue *driverUpdateQueue;
+@property (nonatomic, strong, readonly) id<LHTaskQueue> driverUpdateQueue;
 
 @property (nonatomic, strong, readonly) LHNodeTree *affectedNodes;
 
@@ -45,7 +45,7 @@
     _components = components;
     _animated = animated;
     
-    _driverUpdateQueue = [[LHTaskQueue alloc] init];
+    _driverUpdateQueue = [[LHTaskQueueImpl alloc] init];
     
     _affectedNodes = [[LHNodeTree alloc] init];
     [_affectedNodes addItem:_components.graph.rootNode afterItemOrNil:nil];
@@ -96,7 +96,7 @@
     completion();
 }
 
-- (void)updateDriverForNode:(id<LHNode>)node withUpdateQueue:(LHTaskQueue *)updateQueue {
+- (void)updateDriverForNode:(id<LHNode>)node withUpdateQueue:(id<LHTaskQueue>)updateQueue {
     id<LHDriver> driver = [self.components.nodeDataStorage dataForNode:node].driver;
     
     LHDriverUpdateContext *context = [[LHDriverUpdateContext alloc] initWithAnimated:[self.nodesForAnimatedDriverUpdate containsObject:node]
@@ -143,7 +143,7 @@
 
 - (void)updateDriverForNode:(id<LHNode>)node {
     LHNodeData *data = [self.components.nodeDataStorage dataForNode:node];
-    LHTaskQueue *localUpdateQueue = [[LHTaskQueue alloc] init];
+    id<LHTaskQueue> localUpdateQueue = [[LHTaskQueueImpl alloc] init];
     
     if (!data.driver) {
         [NSException raise:NSInternalInconsistencyException format:@"Expected a driver for node %@, got nothing - something went wrong", node];

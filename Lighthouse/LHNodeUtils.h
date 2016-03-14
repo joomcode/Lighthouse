@@ -16,6 +16,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface LHNodeUtils : NSObject
 
+// TODO (swift): move these to the protocol extension.
+
 + (LHNodeModelState)node:(id<LHNode>)node modelStateForChild:(id<LHNode>)childNode;
 
 + (void)enumerateChildrenOfNode:(id<LHNode>)node withBlock:(void (^)(id<LHNode> childNode, LHNodeModelState childModelState))block;

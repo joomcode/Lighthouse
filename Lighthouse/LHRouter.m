@@ -8,6 +8,7 @@
 
 #import "LHRouter.h"
 #import "LHRouterState.h"
+#import "LHRouterResumeTokenImpl.h"
 #import "LHRouterObserver.h"
 #import "LHNode.h"
 #import "LHDriver.h"
@@ -19,7 +20,7 @@
 #import "LHGraph.h"
 #import "LHCommand.h"
 #import "LHCommandRegistry.h"
-#import "LHTaskQueue.h"
+#import "LHTaskQueueImpl.h"
 #import "LHCommandNodeUpdateTask.h"
 #import "LHManualNodeUpdateTask.h"
 #import "LHDriverChannelImpl.h"
@@ -28,9 +29,11 @@
 
 @property (nonatomic, strong, readonly) LHComponents *components;
 
-@property (nonatomic, strong, readonly) LHTaskQueue *commandQueue;
+@property (nonatomic, strong, readonly) LHTaskQueueImpl *commandQueue;
 
 @property (nonatomic, strong, readonly) NSPointerArray *observers;
+
+@property (nonatomic, strong, readonly) NSHashTable<id<LHRouterResumeToken>> *resumeTokens;
 
 @end
 
@@ -54,6 +57,8 @@
     
     _observers = [NSPointerArray weakObjectsPointerArray];
     
+    _resumeTokens = [NSHashTable weakObjectsHashTable];
+    
     return self;
 }
 
@@ -63,11 +68,17 @@
     return self.components.nodeDataStorage.routerState;
 }
 
+- (BOOL)isSuspended {
+    return self.commandQueue.suspended;
+}
+
 + (NSSet *)keyPathsForValuesAffectingValueForKey:(NSString *)key {
     NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
     
     if ([key isEqualToString:@"state"]) {
         keyPaths = [keyPaths setByAddingObject:@"components.nodeDataStorage.routerState"];
+    } else if ([key isEqualToString:@"suspended"]) {
+        keyPaths = [keyPaths setByAddingObject:@"commandQueue.suspended"];
     }
     
     return keyPaths;
@@ -77,9 +88,9 @@
 
 @synthesize commandQueue = _commandQueue;
 
-- (LHTaskQueue *)commandQueue {
+- (LHTaskQueueImpl *)commandQueue {
     if (!_commandQueue) {
-        _commandQueue = [[LHTaskQueue alloc] init];
+        _commandQueue = [[LHTaskQueueImpl alloc] init];
     }
     return _commandQueue;
 }
@@ -100,10 +111,42 @@
     [self.commandQueue runTask:task];
 }
 
+#pragma mark - Suspending
+
+- (id<LHRouterResumeToken>)suspend {
+    __weak typeof(self) weakSelf = self;
+    
+    LHRouterResumeTokenImpl *resumeToken = [[LHRouterResumeTokenImpl alloc] initWithResumeBlock:^(LHRouterResumeTokenImpl *token) {
+        __strong typeof(self) strongSelf = weakSelf;
+        [strongSelf removeResumeToken:token];
+    }];
+    
+    [self addResumeToken:resumeToken];
+    
+    return resumeToken;
+}
+
+- (void)addResumeToken:(id<LHRouterResumeToken>)token {
+    [self.resumeTokens addObject:token];
+    
+    if (self.resumeTokens.count > 0) {
+        self.commandQueue.suspended = YES;
+    }
+}
+
+- (void)removeResumeToken:(id<LHRouterResumeToken>)token {
+    [self.resumeTokens removeObject:token];
+    
+    if (self.resumeTokens.count == 0) {
+        self.commandQueue.suspended = NO;
+    }
+}
+
 #pragma mark - Observers
 
 - (void)addObserver:(id<LHRouterObserver>)observer {
     NSUInteger index = [self indexOfObserver:observer];
+    
     if (index == NSNotFound) {
         [self.observers addPointer:(__bridge void *)observer];
     }
@@ -111,6 +154,7 @@
 
 - (void)removeObserver:(id<LHRouterObserver>)observer {
     NSUInteger index = [self indexOfObserver:observer];
+    
     if (index != NSNotFound) {
         [self.observers removePointerAtIndex:index];
     }
@@ -140,13 +184,7 @@
     LHDriverTools *driverTools = [[LHDriverTools alloc] initWithDriverProvider:self.components.driverProvider
                                                                        channel:channel];
     
-    id<LHDriver> driver = [self.components.driverFactory driverForNode:node withTools:driverTools];
-    
-    if (!driver) {
-        return nil;
-    }
-    
-    return driver;
+    return [self.components.driverFactory driverForNode:node withTools:driverTools];
 }
 
 - (void)nodeDataStorage:(LHNodeDataStorage *)storage willResetData:(LHNodeData *)data forNode:(id<LHNode>)node {

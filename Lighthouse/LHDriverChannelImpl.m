@@ -15,7 +15,7 @@
 
 @property (nonatomic, strong, readonly) id<LHNode> node;
 @property (nonatomic, strong, readonly) LHComponents *components;
-@property (nonatomic, strong, readonly) LHTaskQueue *updateQueue;
+@property (nonatomic, strong, readonly) id<LHTaskQueue> updateQueue;
 
 @property (nonatomic, strong) LHDriverFeedbackUpdateTask *currentTask;
 
@@ -26,7 +26,7 @@
 
 #pragma mark - Init
 
-- (instancetype)initWithNode:(id<LHNode>)node components:(LHComponents *)components updateQueue:(LHTaskQueue *)updateQueue {
+- (instancetype)initWithNode:(id<LHNode>)node components:(LHComponents *)components updateQueue:(id<LHTaskQueue>)updateQueue {
     self = [super init];
     if (!self) return nil;
     

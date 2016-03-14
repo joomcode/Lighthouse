@@ -45,7 +45,7 @@
     completion();
 }
 
-- (void)updateDriverForNode:(id<LHNode>)node withUpdateQueue:(LHTaskQueue *)updateQueue {
+- (void)updateDriverForNode:(id<LHNode>)node withUpdateQueue:(id<LHTaskQueue>)updateQueue {
     if (node != self.sourceNode) {
         [super updateDriverForNode:node withUpdateQueue:updateQueue];
         return;

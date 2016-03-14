@@ -30,7 +30,6 @@
 		012A95641C4EFD9A000A4ECB /* LHCompositeDriverFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A01AB01BA97B7100608274 /* LHCompositeDriverFactory.m */; };
 		012A95651C4EFD9A000A4ECB /* LHCompositeDriver.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A01AAB1BA9743900608274 /* LHCompositeDriver.m */; };
 		012A95661C4EFD9A000A4ECB /* LHBasicCommandRegistry.m in Sources */ = {isa = PBXBuildFile; fileRef = 0111CC2A1BAB026B00C19022 /* LHBasicCommandRegistry.m */; };
-		012A95671C4EFD9A000A4ECB /* LHTaskQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 01C6F8CC1BB6D6F500A13C1E /* LHTaskQueue.m */; };
 		012A95681C4EFD9A000A4ECB /* LHDescriptionHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 0186CAF11BACC29E00B22431 /* LHDescriptionHelpers.m */; };
 		012A95691C4EFD9A000A4ECB /* LHGraph.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A01A711BA83B0B00608274 /* LHGraph.m */; };
 		012A956A1C4EFD9A000A4ECB /* LHNodeData.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A01A7F1BA84D2500608274 /* LHNodeData.m */; };
@@ -43,6 +42,11 @@
 		012A95711C4EFD9A000A4ECB /* LHDriverFeedbackUpdateTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 01C6F9031BBA063800A13C1E /* LHDriverFeedbackUpdateTask.m */; };
 		012A95731C4EFD9A000A4ECB /* LHDriverChannelImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A01AA71BA8E9FB00608274 /* LHDriverChannelImpl.m */; };
 		012A95741C4EFD9A000A4ECB /* LHUpdateBusImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 012A95331C4EF2E9000A4ECB /* LHUpdateBusImpl.m */; };
+		014C9F091C9620AF00D35950 /* LHRouterResumeToken.h in Headers */ = {isa = PBXBuildFile; fileRef = 014C9F081C9620AF00D35950 /* LHRouterResumeToken.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		014C9F0C1C96E98E00D35950 /* LHTaskQueueImpl.h in Headers */ = {isa = PBXBuildFile; fileRef = 014C9F0A1C96E98E00D35950 /* LHTaskQueueImpl.h */; };
+		014C9F0D1C96E98E00D35950 /* LHTaskQueueImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 014C9F0B1C96E98E00D35950 /* LHTaskQueueImpl.m */; };
+		014C9F101C96EF0B00D35950 /* LHRouterResumeTokenImpl.h in Headers */ = {isa = PBXBuildFile; fileRef = 014C9F0E1C96EF0B00D35950 /* LHRouterResumeTokenImpl.h */; };
+		014C9F111C96EF0B00D35950 /* LHRouterResumeTokenImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 014C9F0F1C96EF0B00D35950 /* LHRouterResumeTokenImpl.m */; };
 		015A4F811C663F0500F950B3 /* LHContainerTransitionStyle.h in Headers */ = {isa = PBXBuildFile; fileRef = 015A4F801C663F0500F950B3 /* LHContainerTransitionStyle.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		015A4F871C664BF200F950B3 /* LHModalTransitionStyle.h in Headers */ = {isa = PBXBuildFile; fileRef = 015A4F861C664BF200F950B3 /* LHModalTransitionStyle.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		015A4F8E1C66950E00F950B3 /* LHTransitionStyleRegistry.h in Headers */ = {isa = PBXBuildFile; fileRef = 015A4F8C1C66950E00F950B3 /* LHTransitionStyleRegistry.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -156,6 +160,11 @@
 		012A954A1C4EFD5E000A4ECB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		013176A11BC1F7650007668B /* LHTarget.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHTarget.h; sourceTree = "<group>"; };
 		013176A21BC1F7650007668B /* LHTarget.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHTarget.m; sourceTree = "<group>"; };
+		014C9F081C9620AF00D35950 /* LHRouterResumeToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHRouterResumeToken.h; sourceTree = "<group>"; };
+		014C9F0A1C96E98E00D35950 /* LHTaskQueueImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHTaskQueueImpl.h; sourceTree = "<group>"; };
+		014C9F0B1C96E98E00D35950 /* LHTaskQueueImpl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHTaskQueueImpl.m; sourceTree = "<group>"; };
+		014C9F0E1C96EF0B00D35950 /* LHRouterResumeTokenImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHRouterResumeTokenImpl.h; sourceTree = "<group>"; };
+		014C9F0F1C96EF0B00D35950 /* LHRouterResumeTokenImpl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHRouterResumeTokenImpl.m; sourceTree = "<group>"; };
 		015A4F801C663F0500F950B3 /* LHContainerTransitionStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHContainerTransitionStyle.h; sourceTree = "<group>"; };
 		015A4F861C664BF200F950B3 /* LHModalTransitionStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHModalTransitionStyle.h; sourceTree = "<group>"; };
 		015A4F8C1C66950E00F950B3 /* LHTransitionStyleRegistry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHTransitionStyleRegistry.h; sourceTree = "<group>"; };
@@ -232,7 +241,6 @@
 		01B3918E1C88900A00579C2B /* LHRouterStateImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHRouterStateImpl.h; sourceTree = "<group>"; };
 		01B3918F1C88900A00579C2B /* LHRouterStateImpl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHRouterStateImpl.m; sourceTree = "<group>"; };
 		01C6F8CB1BB6D61D00A13C1E /* LHTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHTask.h; sourceTree = "<group>"; };
-		01C6F8CC1BB6D6F500A13C1E /* LHTaskQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHTaskQueue.m; sourceTree = "<group>"; };
 		01C6F8CE1BB6D8DD00A13C1E /* LHBlockTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHBlockTask.h; sourceTree = "<group>"; };
 		01C6F8CF1BB6D8DD00A13C1E /* LHBlockTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHBlockTask.m; sourceTree = "<group>"; };
 		01C6F8D11BB6DE8000A13C1E /* LHNodeUpdateTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHNodeUpdateTask.h; sourceTree = "<group>"; };
@@ -296,7 +304,6 @@
 				01C6F8CB1BB6D61D00A13C1E /* LHTask.h */,
 				01B3917C1C86FE8F00579C2B /* LHTaskBlocks.h */,
 				0111CC391BAB963900C19022 /* LHTaskQueue.h */,
-				01C6F8CC1BB6D6F500A13C1E /* LHTaskQueue.m */,
 				0186CAF01BACC29E00B22431 /* LHDescriptionHelpers.h */,
 				0186CAF11BACC29E00B22431 /* LHDescriptionHelpers.m */,
 			);
@@ -306,9 +313,11 @@
 		012112A41C4EC9830097B9E6 /* Router */ = {
 			isa = PBXGroup;
 			children = (
+				014C9F121C96EF1100D35950 /* Internal */,
 				01A01A651BA837B100608274 /* LHRouter.h */,
 				01A01A661BA837B100608274 /* LHRouter.m */,
 				01B3918C1C888FFD00579C2B /* LHRouterState.h */,
+				014C9F081C9620AF00D35950 /* LHRouterResumeToken.h */,
 				012497A01BAA1FDE007CD98B /* LHRouterObserver.h */,
 			);
 			name = Router;
@@ -394,6 +403,17 @@
 				012A953C1C4EFD5E000A4ECB /* Lighthouse.h */,
 			);
 			path = Lighthouse;
+			sourceTree = "<group>";
+		};
+		014C9F121C96EF1100D35950 /* Internal */ = {
+			isa = PBXGroup;
+			children = (
+				01B3918E1C88900A00579C2B /* LHRouterStateImpl.h */,
+				01B3918F1C88900A00579C2B /* LHRouterStateImpl.m */,
+				014C9F0E1C96EF0B00D35950 /* LHRouterResumeTokenImpl.h */,
+				014C9F0F1C96EF0B00D35950 /* LHRouterResumeTokenImpl.m */,
+			);
+			name = Internal;
 			sourceTree = "<group>";
 		};
 		015A4F791C6555FD00F950B3 /* Transition Styles */ = {
@@ -578,14 +598,14 @@
 		01C6F8DF1BB8AC0200A13C1E /* Implementations */ = {
 			isa = PBXGroup;
 			children = (
+				014C9F0A1C96E98E00D35950 /* LHTaskQueueImpl.h */,
+				014C9F0B1C96E98E00D35950 /* LHTaskQueueImpl.m */,
 				015A4FB01C681E7100F950B3 /* LHDriverProviderImpl.h */,
 				015A4FB11C681E7100F950B3 /* LHDriverProviderImpl.m */,
 				01A01AA61BA8E9FB00608274 /* LHDriverChannelImpl.h */,
 				01A01AA71BA8E9FB00608274 /* LHDriverChannelImpl.m */,
 				012A95321C4EF2E9000A4ECB /* LHUpdateBusImpl.h */,
 				012A95331C4EF2E9000A4ECB /* LHUpdateBusImpl.m */,
-				01B3918E1C88900A00579C2B /* LHRouterStateImpl.h */,
-				01B3918F1C88900A00579C2B /* LHRouterStateImpl.m */,
 			);
 			name = Implementations;
 			sourceTree = "<group>";
@@ -623,6 +643,7 @@
 				01DBF2D21C4EFE700034783C /* LHNodeForest.h in Headers */,
 				01B3918A1C88554800579C2B /* LHNodeUtils.h in Headers */,
 				01DBF2D31C4EFE700034783C /* LHLeafNode.h in Headers */,
+				014C9F091C9620AF00D35950 /* LHRouterResumeToken.h in Headers */,
 				01DBF2D41C4EFE700034783C /* LHStackNode.h in Headers */,
 				01DBF2D71C4EFE700034783C /* LHTabNode.h in Headers */,
 				01DBF2D81C4EFE700034783C /* LHNode.h in Headers */,
@@ -634,6 +655,7 @@
 				01A28DBD1C5CEFBD006F0A95 /* UIViewController+LHNavigationItemForwarding.h in Headers */,
 				01DBF2E01C4EFE700034783C /* LHTabBarControllerDriver.h in Headers */,
 				01DBF2E11C4EFE700034783C /* LHWindowDriver.h in Headers */,
+				014C9F0C1C96E98E00D35950 /* LHTaskQueueImpl.h in Headers */,
 				015A4F921C67014F00F950B3 /* LHContainerTransitionStyleRegistry.h in Headers */,
 				01DBF2E21C4EFE700034783C /* LHUpdateHandler.h in Headers */,
 				015A4F961C67018E00F950B3 /* LHModalTransitionStyleRegistry.h in Headers */,
@@ -661,6 +683,7 @@
 				015A4FAA1C67FF5700F950B3 /* LHTransitionContext.h in Headers */,
 				015A4FB21C681E7100F950B3 /* LHDriverProviderImpl.h in Headers */,
 				01DBF2F61C4EFEB00034783C /* LHBlockTask.h in Headers */,
+				014C9F101C96EF0B00D35950 /* LHRouterResumeTokenImpl.h in Headers */,
 				015A4FAF1C681D9900F950B3 /* LHDriverProvider.h in Headers */,
 				015A4F811C663F0500F950B3 /* LHContainerTransitionStyle.h in Headers */,
 				01DBF2F71C4EFEB00034783C /* LHNodeUpdateTask.h in Headers */,
@@ -788,6 +811,7 @@
 				012A95561C4EFD9A000A4ECB /* LHStackNode.m in Sources */,
 				01B391911C88900B00579C2B /* LHRouterStateImpl.m in Sources */,
 				012A95571C4EFD9A000A4ECB /* LHStackNodeChildrenState.m in Sources */,
+				014C9F0D1C96E98E00D35950 /* LHTaskQueueImpl.m in Sources */,
 				012A95591C4EFD9A000A4ECB /* LHTabNode.m in Sources */,
 				012A955B1C4EFD9A000A4ECB /* LHTarget.m in Sources */,
 				015A4F971C67018E00F950B3 /* LHModalTransitionStyleRegistry.m in Sources */,
@@ -801,13 +825,13 @@
 				01A28DBE1C5CEFBD006F0A95 /* UIViewController+LHNavigationItemForwarding.m in Sources */,
 				012A95601C4EFD9A000A4ECB /* LHTabBarControllerDriver.m in Sources */,
 				012A95611C4EFD9A000A4ECB /* LHWindowDriver.m in Sources */,
+				014C9F111C96EF0B00D35950 /* LHRouterResumeTokenImpl.m in Sources */,
 				012A95621C4EFD9A000A4ECB /* LHUpdateHandlerDriver.m in Sources */,
 				01B3918B1C88554800579C2B /* LHNodeUtils.m in Sources */,
 				012A95631C4EFD9A000A4ECB /* LHBlockDriverFactory.m in Sources */,
 				012A95641C4EFD9A000A4ECB /* LHCompositeDriverFactory.m in Sources */,
 				012A95651C4EFD9A000A4ECB /* LHCompositeDriver.m in Sources */,
 				012A95661C4EFD9A000A4ECB /* LHBasicCommandRegistry.m in Sources */,
-				012A95671C4EFD9A000A4ECB /* LHTaskQueue.m in Sources */,
 				015A4F931C67014F00F950B3 /* LHContainerTransitionStyleRegistry.m in Sources */,
 				015A4FAB1C67FF5700F950B3 /* LHTransitionContext.m in Sources */,
 				012A95681C4EFD9A000A4ECB /* LHDescriptionHelpers.m in Sources */,
