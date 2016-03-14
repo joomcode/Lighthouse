@@ -13,6 +13,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface LHTaskQueueImpl : NSObject <LHTaskQueue>
 
+@property (nonatomic, assign, readonly, getter = isBusy) BOOL busy;
+
 @property (nonatomic, assign, getter = isSuspended) BOOL suspended;
 
 @end

@@ -15,6 +15,8 @@
 
 @property (nonatomic, assign) BOOL taskInProgress;
 
+@property (nonatomic, assign, getter = isBusy) BOOL busy;
+
 @end
 
 
@@ -60,11 +62,14 @@
 #pragma mark - Private
 
 - (void)runNextTaskIfPossible {
-    if (self.suspended || self.taskInProgress || self.tasks.count == 0) {
-        return;
+    if (!self.suspended && !self.taskInProgress && self.tasks.count > 0) {
+        self.busy = YES;
+        [self doRunTask:self.tasks[0]];
+    } else {
+        if (self.busy && !self.taskInProgress) {
+            self.busy = NO;
+        }
     }
-    
-    [self doRunTask:self.tasks[0]];
 }
 
 - (void)doRunTask:(id<LHTask>)task {
@@ -72,7 +77,6 @@
     
     [task startWithCompletionBlock:^{
         [self.tasks removeObject:task];
-        
         self.taskInProgress = NO;
         
         [self runNextTaskIfPossible];

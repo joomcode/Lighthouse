@@ -25,6 +25,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong, readonly) id<LHRouterState> state;
 
+@property (nonatomic, assign, readonly, getter = isBusy) BOOL busy;
+
 @property (nonatomic, assign, readonly, getter = isSuspended) BOOL suspended;
 
 

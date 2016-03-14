@@ -69,6 +69,10 @@
     return self.components.nodeDataStorage.routerState;
 }
 
+- (BOOL)isBusy {
+    return self.commandQueue.busy;
+}
+
 - (BOOL)isSuspended {
     return self.commandQueue.suspended;
 }
@@ -78,6 +82,8 @@
     
     if ([key isEqualToString:LHClassKeyPath(LHRouter, state)]) {
         keyPaths = [keyPaths setByAddingObject:LHClassKeyPath(LHRouter, components.nodeDataStorage.routerState)];
+    } else if ([key isEqualToString:LHClassKeyPath(LHRouter, busy)]) {
+        keyPaths = [keyPaths setByAddingObject:LHClassKeyPath(LHRouter, commandQueue.busy)];
     } else if ([key isEqualToString:LHClassKeyPath(LHRouter, suspended)]) {
         keyPaths = [keyPaths setByAddingObject:LHClassKeyPath(LHRouter, commandQueue.suspended)];
     }
