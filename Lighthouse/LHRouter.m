@@ -24,6 +24,7 @@
 #import "LHCommandNodeUpdateTask.h"
 #import "LHManualNodeUpdateTask.h"
 #import "LHDriverChannelImpl.h"
+#import "LHMacro.h"
 
 @interface LHRouter () <LHNodeDataStorageDelegate>
 
@@ -75,10 +76,10 @@
 + (NSSet *)keyPathsForValuesAffectingValueForKey:(NSString *)key {
     NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
     
-    if ([key isEqualToString:@"state"]) {
-        keyPaths = [keyPaths setByAddingObject:@"components.nodeDataStorage.routerState"];
-    } else if ([key isEqualToString:@"suspended"]) {
-        keyPaths = [keyPaths setByAddingObject:@"commandQueue.suspended"];
+    if ([key isEqualToString:LHClassKeyPath(LHRouter, state)]) {
+        keyPaths = [keyPaths setByAddingObject:LHClassKeyPath(LHRouter, components.nodeDataStorage.routerState)];
+    } else if ([key isEqualToString:LHClassKeyPath(LHRouter, suspended)]) {
+        keyPaths = [keyPaths setByAddingObject:LHClassKeyPath(LHRouter, commandQueue.suspended)];
     }
     
     return keyPaths;
