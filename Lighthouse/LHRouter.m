@@ -121,31 +121,49 @@
 }
 
 - (void)executeCommand:(id<LHCommand>)command completion:(void (^)())completion {
+    [self executeCommandWithBlock:^id<LHCommand> {
+        return command;
+    } completion:completion];
+}
+
+- (void)executeCommandWithBlock:(LHRouterCommandBlock)block completion:(nullable LHRouterCompletionBlock)completion {
     id<LHTask> wrapperTask = [[LHBlockTask alloc] initWithAsyncBlock:^(LHTaskCompletionBlock wrapperCompletion) {
-        [self notifyObserversForSelector:@selector(router:willExecuteCommand:) withBlock:^(id<LHRouterObserver> observer) {
-            [observer router:self willExecuteCommand:command];
-        }];
+        id<LHCommand> command = block();
         
-        BOOL shouldAnimate = [self.internalDelegate router:self shouldAnimateDriverUpdatesForCommand:command];
+        if (!command) {
+            wrapperCompletion();
+            return;
+        }
         
-        id<LHTask> actualTask = [[LHCommandNodeUpdateTask alloc] initWithComponents:self.components
-                                                                           animated:shouldAnimate
-                                                                            command:command];
-        
-        [actualTask startWithCompletionBlock:^{
-            [self notifyObserversForSelector:@selector(router:didExecuteCommand:) withBlock:^(id<LHRouterObserver> observer) {
-                [observer router:self didExecuteCommand:command];
-            }];
-            
+        [self doExecuteCommand:command completion:^{
             if (completion) {
                 completion();
             }
-            
             wrapperCompletion();
         }];
     }];
     
     [self.commandQueue runTask:wrapperTask];
+}
+
+- (void)doExecuteCommand:(id<LHCommand>)command completion:(LHTaskCompletionBlock)completion {
+    [self notifyObserversForSelector:@selector(router:willExecuteCommand:) withBlock:^(id<LHRouterObserver> observer) {
+        [observer router:self willExecuteCommand:command];
+    }];
+    
+    BOOL shouldAnimate = [self.internalDelegate router:self shouldAnimateDriverUpdatesForCommand:command];
+    
+    id<LHTask> task = [[LHCommandNodeUpdateTask alloc] initWithComponents:self.components
+                                                                 animated:shouldAnimate
+                                                                  command:command];
+    
+    [task startWithCompletionBlock:^{
+        [self notifyObserversForSelector:@selector(router:didExecuteCommand:) withBlock:^(id<LHRouterObserver> observer) {
+            [observer router:self didExecuteCommand:command];
+        }];
+        
+        completion();
+    }];
 }
 
 #pragma mark - Suspending

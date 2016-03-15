@@ -21,6 +21,10 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef __nullable id<LHCommand> (^LHRouterCommandBlock)();
+
+typedef void (^LHRouterCompletionBlock)();
+
 
 @interface LHRouter : NSObject
 
@@ -43,7 +47,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)executeCommand:(id<LHCommand>)command;
 
-- (void)executeCommand:(id<LHCommand>)command completion:(nullable void (^)())completion;
+- (void)executeCommand:(id<LHCommand>)command completion:(nullable LHRouterCompletionBlock)completion;
+
+- (void)executeCommandWithBlock:(LHRouterCommandBlock)block completion:(nullable LHRouterCompletionBlock)completion;
 
 
 - (id<LHRouterResumeToken>)suspend;
