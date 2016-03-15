@@ -22,7 +22,7 @@
 #import "LHCommand.h"
 #import "LHCommandRegistry.h"
 #import "LHTaskQueueImpl.h"
-#import "LHWrapperTask.h"
+#import "LHBlockTask.h"
 #import "LHCommandNodeUpdateTask.h"
 #import "LHManualNodeUpdateTask.h"
 #import "LHDriverChannelImpl.h"
@@ -121,27 +121,31 @@
 }
 
 - (void)executeCommand:(id<LHCommand>)command completion:(void (^)())completion {
-    BOOL shouldAnimate = [self.internalDelegate router:self shouldAnimateDriverUpdatesForCommand:command];
-    
-    id<LHTask> task = [[LHCommandNodeUpdateTask alloc] initWithComponents:self.components
-                                                                 animated:shouldAnimate
-                                                                  command:command];
-    
-    task = [[LHWrapperTask alloc] initWithTask:task willStartBlock:^{
+    id<LHTask> wrapperTask = [[LHBlockTask alloc] initWithAsyncBlock:^(LHTaskCompletionBlock wrapperCompletion) {
         [self notifyObserversForSelector:@selector(router:willExecuteCommand:) withBlock:^(id<LHRouterObserver> observer) {
             [observer router:self willExecuteCommand:command];
         }];
-    } didFinishBlock:^{
-        [self notifyObserversForSelector:@selector(router:didExecuteCommand:) withBlock:^(id<LHRouterObserver> observer) {
-            [observer router:self didExecuteCommand:command];
-        }];
         
-        if (completion) {
-            completion();
-        }
+        BOOL shouldAnimate = [self.internalDelegate router:self shouldAnimateDriverUpdatesForCommand:command];
+        
+        id<LHTask> actualTask = [[LHCommandNodeUpdateTask alloc] initWithComponents:self.components
+                                                                           animated:shouldAnimate
+                                                                            command:command];
+        
+        [actualTask startWithCompletionBlock:^{
+            [self notifyObserversForSelector:@selector(router:didExecuteCommand:) withBlock:^(id<LHRouterObserver> observer) {
+                [observer router:self didExecuteCommand:command];
+            }];
+            
+            if (completion) {
+                completion();
+            }
+            
+            wrapperCompletion();
+        }];
     }];
     
-    [self.commandQueue runTask:task];
+    [self.commandQueue runTask:wrapperTask];
 }
 
 #pragma mark - Suspending

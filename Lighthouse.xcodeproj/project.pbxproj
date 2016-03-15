@@ -70,8 +70,6 @@
 		019DE7341C971DD900656C15 /* LHRouterDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 019DE7331C971DD900656C15 /* LHRouterDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		019DE7371C971F6800656C15 /* LHRouterDelegateImpl.h in Headers */ = {isa = PBXBuildFile; fileRef = 019DE7351C971F6800656C15 /* LHRouterDelegateImpl.h */; };
 		019DE7381C971F6800656C15 /* LHRouterDelegateImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 019DE7361C971F6800656C15 /* LHRouterDelegateImpl.m */; };
-		019DE73B1C97227900656C15 /* LHWrapperTask.h in Headers */ = {isa = PBXBuildFile; fileRef = 019DE7391C97227900656C15 /* LHWrapperTask.h */; };
-		019DE73C1C97227900656C15 /* LHWrapperTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 019DE73A1C97227900656C15 /* LHWrapperTask.m */; };
 		01A28DBD1C5CEFBD006F0A95 /* UIViewController+LHNavigationItemForwarding.h in Headers */ = {isa = PBXBuildFile; fileRef = 01A28DBB1C5CEFBD006F0A95 /* UIViewController+LHNavigationItemForwarding.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		01A28DBE1C5CEFBD006F0A95 /* UIViewController+LHNavigationItemForwarding.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A28DBC1C5CEFBD006F0A95 /* UIViewController+LHNavigationItemForwarding.m */; };
 		01B3917D1C86FE8F00579C2B /* LHTaskBlocks.h in Headers */ = {isa = PBXBuildFile; fileRef = 01B3917C1C86FE8F00579C2B /* LHTaskBlocks.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -220,8 +218,6 @@
 		019DE7331C971DD900656C15 /* LHRouterDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHRouterDelegate.h; sourceTree = "<group>"; };
 		019DE7351C971F6800656C15 /* LHRouterDelegateImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHRouterDelegateImpl.h; sourceTree = "<group>"; };
 		019DE7361C971F6800656C15 /* LHRouterDelegateImpl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHRouterDelegateImpl.m; sourceTree = "<group>"; };
-		019DE7391C97227900656C15 /* LHWrapperTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHWrapperTask.h; sourceTree = "<group>"; };
-		019DE73A1C97227900656C15 /* LHWrapperTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHWrapperTask.m; sourceTree = "<group>"; };
 		01A01A621BA8373B00608274 /* LHViewControllerDriver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHViewControllerDriver.h; sourceTree = "<group>"; };
 		01A01A631BA8373B00608274 /* LHViewControllerDriver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHViewControllerDriver.m; sourceTree = "<group>"; };
 		01A01A651BA837B100608274 /* LHRouter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHRouter.h; sourceTree = "<group>"; };
@@ -607,8 +603,6 @@
 			children = (
 				01C6F8CE1BB6D8DD00A13C1E /* LHBlockTask.h */,
 				01C6F8CF1BB6D8DD00A13C1E /* LHBlockTask.m */,
-				019DE7391C97227900656C15 /* LHWrapperTask.h */,
-				019DE73A1C97227900656C15 /* LHWrapperTask.m */,
 				01C6F8D11BB6DE8000A13C1E /* LHNodeUpdateTask.h */,
 				01C6F8D21BB6DE8000A13C1E /* LHNodeUpdateTask.m */,
 				01C6F8D51BB81FB700A13C1E /* LHCommandNodeUpdateTask.h */,
@@ -730,7 +724,6 @@
 				01DBF2DC1C4EFE700034783C /* LHViewControllerDriverHelpers.h in Headers */,
 				01B391901C88900B00579C2B /* LHRouterStateImpl.h in Headers */,
 				015A4FA61C67D77F00F950B3 /* LHContainerTransitionData.h in Headers */,
-				019DE73B1C97227900656C15 /* LHWrapperTask.h in Headers */,
 				01DBF2DD1C4EFE700034783C /* UIViewController+LHDismissalTracking.h in Headers */,
 				01B3917D1C86FE8F00579C2B /* LHTaskBlocks.h in Headers */,
 			);
@@ -873,7 +866,6 @@
 				012A956C1C4EFD9A000A4ECB /* LHComponents.m in Sources */,
 				01D57AB41C547557008E4EB5 /* LHTabNodeChildrenState.m in Sources */,
 				012A956D1C4EFD9A000A4ECB /* LHBlockTask.m in Sources */,
-				019DE73C1C97227900656C15 /* LHWrapperTask.m in Sources */,
 				012A956E1C4EFD9A000A4ECB /* LHNodeUpdateTask.m in Sources */,
 				015A4F9C1C67A49400F950B3 /* LHModalTransitionData.m in Sources */,
 				012A956F1C4EFD9A000A4ECB /* LHCommandNodeUpdateTask.m in Sources */,
