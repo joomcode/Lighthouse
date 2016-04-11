@@ -9,6 +9,7 @@
 #import "LHNodeUpdateTask.h"
 #import "LHComponents.h"
 #import "LHNodeDataStorage.h"
+#import "LHRouterState.h"
 #import "LHNodeData.h"
 #import "LHGraph.h"
 #import "LHDriver.h"
@@ -119,11 +120,9 @@
 
 - (void)cleanupAffectedNodes {
     [self.affectedNodes enumerateItemsWithBlock:^(id<LHNode> node, id<LHNode> previousNode, BOOL *stop) {
-        [LHNodeUtils enumerateChildrenOfNode:node withBlock:^(id<LHNode> childNode, LHNodeModelState childModelState) {
-            if (childModelState == LHNodeModelStateNotInitialized) {
-                [self.components.nodeDataStorage resetDataForNode:childNode];
-            }
-        }];
+        if ([self.components.nodeDataStorage.routerState stateForNode:node] == LHNodeStateNotInitialized) {
+            [self.components.nodeDataStorage resetDataForNode:node];
+        }
     }];
 }
 
@@ -137,7 +136,7 @@
     for (id<LHNode> childNode in [self.affectedNodes nextItems:node]) {
         [self updateDriversRecursively:childNode];
     }
-        
+    
     [self updateDriverForNode:node];
 }
 
@@ -168,8 +167,10 @@
 
 - (void)willUpdateDriverForNode:(id<LHNode>)node {
     [LHNodeUtils enumerateChildrenOfNode:node withBlock:^(id<LHNode> childNode, LHNodeModelState childModelState) {
-        LHNodeData *childData = [self.components.nodeDataStorage dataForNode:childNode];
-        childData.state = LHNodeStateForTransition(childData.state, childModelState);
+        if ([self.components.nodeDataStorage hasDataForNode:childNode]) {
+            LHNodeData *childData = [self.components.nodeDataStorage dataForNode:childNode];
+            childData.state = LHNodeStateForTransition(childData.state, childModelState);
+        }
     }];
     
     [self.components.nodeDataStorage updateRouterStateForAffectedNodeTree:self.affectedNodes];
@@ -177,8 +178,10 @@
 
 - (void)didUpdateDriverForNode:(id<LHNode>)node {
     [LHNodeUtils enumerateChildrenOfNode:node withBlock:^(id<LHNode> childNode, LHNodeModelState childModelState) {
-        LHNodeData *childData = [self.components.nodeDataStorage dataForNode:childNode];
-        childData.state = LHNodeStateWithModelState(childModelState);
+        if ([self.components.nodeDataStorage hasDataForNode:childNode]) {
+            LHNodeData *childData = [self.components.nodeDataStorage dataForNode:childNode];
+            childData.state = LHNodeStateWithModelState(childModelState);
+        }
     }];
     
     [self.components.nodeDataStorage updateRouterStateForAffectedNodeTree:self.affectedNodes];
