@@ -74,7 +74,14 @@
         
         [context.updateQueue runAsyncTaskWithBlock:^(LHTaskCompletionBlock completion) {
             viewController.lh_onDismissalBlock = nil;
-            [presentingViewController dismissViewControllerAnimated:context.animated completion:completion];
+            
+            if (![viewController isBeingDismissed]) {
+                [presentingViewController dismissViewControllerAnimated:context.animated completion:completion];
+            } else {
+                [viewController.transitionCoordinator animateAlongsideTransition:nil completion:^(id<UIViewControllerTransitionCoordinatorContext> context) {
+                    completion();
+                }];
+            }
         }];
     }
     
