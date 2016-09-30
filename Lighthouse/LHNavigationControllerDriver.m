@@ -109,6 +109,10 @@
     
     id<LHNode> oldActiveNode = self.node.childrenState.stack.lastObject;
     
+    if (viewController.lh_node == oldActiveNode) {
+        return;
+    }
+    
     [self.tools.channel startNodeUpdateWithBlock:^(id<LHNode> node) {
         [node updateChildrenState:[LHTarget withInactiveNode:oldActiveNode]];
     }];

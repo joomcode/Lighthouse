@@ -28,13 +28,23 @@
     for (id<LHNode> node in nodes) {
         id<LHDriver> driver = [driverProvider driverForNode:node];
         
-        if (![driver.data isKindOfClass:[UIViewController class]]) {
-            [NSException raise:NSInternalInconsistencyException format:@"Expected a non-nil data of UIViewController class, got %@", driver.data];
+        if ([driver.data isKindOfClass:[UIViewController class]]) {
+            UIViewController *viewController = driver.data;
+            
+            viewController.lh_node = node;
+            [viewControllers addObject:viewController];
+            
+        } else if ([driver.data isKindOfClass:[NSArray class]]) {
+            NSArray<UIViewController *> *controllers = driver.data;
+            
+            for (UIViewController *viewController in controllers) {
+                viewController.lh_node = node;
+            }
+            [viewControllers addObjectsFromArray:controllers];
+            
+        } else {
+            [NSException raise:NSInternalInconsistencyException format:@"Expected a non-nil data of either UIViewController or NSArray<UIViewController *> type, got %@", driver.data];
         }
-        
-        UIViewController *viewController = driver.data;
-        viewController.lh_node = node;
-        [viewControllers addObject:viewController];
     }
     
     return viewControllers;
