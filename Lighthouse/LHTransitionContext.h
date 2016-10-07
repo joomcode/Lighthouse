@@ -14,11 +14,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface LHTransitionContext : NSObject
 
-@property (nonatomic, strong, readonly) UIViewController *source;
-@property (nonatomic, strong, readonly) UIViewController *destination;
+@property (nonatomic, weak, readonly) UIViewController *source;
+@property (nonatomic, weak, readonly) UIViewController *destination;
 
-@property (nonatomic, strong, readonly) UIViewController *styleSource;
-@property (nonatomic, strong, readonly) UIViewController *styleDestination;
+@property (nonatomic, weak, readonly) UIViewController *styleSource;
+@property (nonatomic, weak, readonly) UIViewController *styleDestination;
 
 - (instancetype)initWithSource:(UIViewController *)source
                    destination:(UIViewController *)destination

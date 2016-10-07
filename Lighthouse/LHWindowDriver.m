@@ -42,7 +42,7 @@
     _node = node;
     _tools = tools;
     
-    _transitionDataByController = [NSMapTable strongToStrongObjectsMapTable];
+    _transitionDataByController = [NSMapTable weakToStrongObjectsMapTable];
     
     return self;
 }
