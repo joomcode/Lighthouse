@@ -33,7 +33,8 @@
 
     [self setupRouter];
     
-    [self performStuff];
+//    [self performStuff];
+    [self.router executeCommand:[[PXPresentRed alloc] init]];
     
     return YES;
 }

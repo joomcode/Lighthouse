@@ -7,6 +7,9 @@
 //
 
 #import "PXColorViewControllers.h"
+#import "PXPresentGreen.h"
+#import "PXPresentBlue.h"
+#import "LHRouter+Shared.h"
 #import <Lighthouse.h>
 
 @implementation PXRedViewController
@@ -20,6 +23,32 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor redColor];
+    
+    UIButton *showGreenButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    [showGreenButton setTitle:@"Show Green" forState:UIControlStateNormal];
+    [self.view addSubview:showGreenButton];
+    
+    [showGreenButton sizeToFit];
+    showGreenButton.center = CGPointMake(self.view.center.x, self.view.center.y -30);
+    
+    [showGreenButton addTarget:self action:@selector(showGreenPressed) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIButton *showBlueButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    [showBlueButton setTitle:@"Show Blue" forState:UIControlStateNormal];
+    [self.view addSubview:showBlueButton];
+    
+    [showBlueButton sizeToFit];
+    showBlueButton.center = CGPointMake(self.view.center.x, self.view.center.y + 30);
+    
+    [showBlueButton addTarget:self action:@selector(showBluePressed) forControlEvents:UIControlEventTouchUpInside];
+}
+
+- (void)showGreenPressed {
+    [[LHRouter sharedInstance] executeCommand:[PXPresentGreen new]];
+}
+
+- (void)showBluePressed {
+    [[LHRouter sharedInstance] executeCommand:[PXPresentBlue new]];
 }
 
 @end
@@ -36,6 +65,19 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor greenColor];
+    
+    UIButton *showBlueButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    [showBlueButton setTitle:@"Show Blue" forState:UIControlStateNormal];
+    [self.view addSubview:showBlueButton];
+    
+    [showBlueButton sizeToFit];
+    showBlueButton.center = CGPointMake(self.view.center.x, self.view.center.y + 30);
+    
+    [showBlueButton addTarget:self action:@selector(showBluePressed) forControlEvents:UIControlEventTouchUpInside];
+}
+
+- (void)showBluePressed {
+    [[LHRouter sharedInstance] executeCommand:[PXPresentBlue new]];
 }
 
 @end

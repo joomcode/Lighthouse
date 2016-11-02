@@ -45,13 +45,13 @@
                                                          multiplier:1.0
                                                            constant:0.0]];
     
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.view
-                                                          attribute:NSLayoutAttributeCenterY
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.topLayoutGuide
+                                                          attribute:NSLayoutAttributeBottom
                                                           relatedBy:NSLayoutRelationEqual
                                                              toItem:self.stateLabel
-                                                          attribute:NSLayoutAttributeCenterY
+                                                          attribute:NSLayoutAttributeTop
                                                          multiplier:1.0
-                                                           constant:0.0]];
+                                                           constant:-50.0]];
 }
 
 @end

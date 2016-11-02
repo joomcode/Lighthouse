@@ -7,16 +7,13 @@
 //
 
 #import "LHRouter+Shared.h"
+#import "AppDelegate.h"
 
 @implementation LHRouter (Shared)
 
 + (instancetype)sharedInstance {
-    static LHRouter *instance;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        instance = [[[self class] alloc] init];
-    });
-    return instance;
+    AppDelegate *delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    return delegate.router;
 }
 
 @end

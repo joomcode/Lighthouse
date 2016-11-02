@@ -38,7 +38,11 @@
 
 - (id<LHNode>)mainStackNode {
     if (!_mainStackNode) {
-        _mainStackNode = [[LHStackNode alloc] initWithSingleBranch:@[ self.redNode, self.greenNode, self.blueNode ]];
+        _mainStackNode = [[LHStackNode alloc] initWithTreeBlock:^(LHNodeTree *tree) {
+            [tree addItem:self.redNode afterItemOrNil:nil];
+            [tree addFork:@[self.greenNode, self.blueNode] afterItemOrNil:self.redNode];
+            [tree addItem:self.blueNode afterItemOrNil:self.greenNode];
+        }];
     }
     return _mainStackNode;
 }
