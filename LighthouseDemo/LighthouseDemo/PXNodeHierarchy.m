@@ -31,7 +31,7 @@
             [tree addItem:self.mainStackNode afterItemOrNil:nil];
             [tree addBranch:@[ self.modalStackNode, self.deepModalStackNode ] afterItemOrNil:self.mainStackNode];
             [tree addItem:self.anotherModalStackNode afterItemOrNil:self.mainStackNode];
-        }];
+        } label:@"rootStack"];
     }
     return _rootNode;
 }
@@ -42,63 +42,63 @@
             [tree addItem:self.redNode afterItemOrNil:nil];
             [tree addFork:@[self.greenNode, self.blueNode] afterItemOrNil:self.redNode];
             [tree addItem:self.blueNode afterItemOrNil:self.greenNode];
-        }];
+        } label:@"mainStack"];
     }
     return _mainStackNode;
 }
 
 - (id<LHNode>)redNode {
     if (!_redNode) {
-        _redNode = [[LHLeafNode alloc] init];
+        _redNode = [[LHLeafNode alloc] initWithLabel:@"Red"];
     }
     return _redNode;
 }
 
 - (id<LHNode>)greenNode {
     if (!_greenNode) {
-        _greenNode = [[LHLeafNode alloc] init];
+        _greenNode = [[LHLeafNode alloc] initWithLabel:@"Green"];
     }
     return _greenNode;
 }
 
 - (id<LHNode>)blueNode {
     if (!_blueNode) {
-        _blueNode = [[LHLeafNode alloc] init];
+        _blueNode = [[LHLeafNode alloc] initWithLabel:@"Blue"];
     }
     return _blueNode;
 }
 
 - (id<LHNode>)modalStackNode {
     if (!_modalStackNode) {
-        _modalStackNode = [[LHStackNode alloc] initWithSingleBranch:@[ self.modalNode ]];
+        _modalStackNode = [[LHStackNode alloc] initWithSingleBranch:@[ self.modalNode ] label:@"modalStack"];
     }
     return _modalStackNode;
 }
 
 - (id<LHNode>)modalNode {
     if (!_modalNode) {
-        _modalNode = [[LHLeafNode alloc] init];
+        _modalNode = [[LHLeafNode alloc] initWithLabel:@"Modal"];
     }
     return _modalNode;
 }
 
 - (id<LHNode>)deepModalStackNode {
     if (!_deepModalStackNode) {
-        _deepModalStackNode = [[LHStackNode alloc] initWithSingleBranch:@[ self.deepModalNode ]];
+        _deepModalStackNode = [[LHStackNode alloc] initWithSingleBranch:@[ self.deepModalNode ] label:@"deepModalStack"];
     }
     return _deepModalStackNode;
 }
 
 - (id<LHNode>)deepModalNode {
     if (!_deepModalNode) {
-        _deepModalNode = [[LHLeafNode alloc] init];
+        _deepModalNode = [[LHLeafNode alloc] initWithLabel:@"Deep Modal"];
     }
     return _deepModalNode;
 }
 
 - (id<LHNode>)anotherModalStackNode {
     if (!_anotherModalStackNode) {
-        _anotherModalStackNode = [[LHStackNode alloc] initWithSingleBranch:@[ self.anotherTabNode ]];
+        _anotherModalStackNode = [[LHStackNode alloc] initWithSingleBranch:@[ self.anotherTabNode ] label:@"anotherModalStack"];
     }
     return _anotherModalStackNode;
 }
@@ -107,28 +107,28 @@
     if (!_anotherTabNode) {
         NSArray *children = @[ self.anotherRedNode, self.anotherGreenNode, self.anotherBlueNode ];
         
-        _anotherTabNode = [[LHTabNode alloc] initWithChildren:[NSOrderedSet orderedSetWithArray:children]];
+        _anotherTabNode = [[LHTabNode alloc] initWithChildren:[NSOrderedSet orderedSetWithArray:children] label:@"anotherTab"];
     }
     return _anotherTabNode;
 }
 
 - (id<LHNode>)anotherRedNode {
     if (!_anotherRedNode) {
-        _anotherRedNode = [[LHLeafNode alloc] init];
+        _anotherRedNode = [[LHLeafNode alloc] initWithLabel:@"Another Red"];
     }
     return _anotherRedNode;
 }
 
 - (id<LHNode>)anotherGreenNode {
     if (!_anotherGreenNode) {
-        _anotherGreenNode = [[LHLeafNode alloc] init];
+        _anotherGreenNode = [[LHLeafNode alloc] initWithLabel:@"Another Green"];
     }
     return _anotherGreenNode;
 }
 
 - (id<LHNode>)anotherBlueNode {
     if (!_anotherBlueNode) {
-        _anotherBlueNode = [[LHLeafNode alloc] init];
+        _anotherBlueNode = [[LHLeafNode alloc] initWithLabel:@"Another Blue"];
     }
     return _anotherBlueNode;
 }

@@ -34,4 +34,16 @@
 @synthesize activeChildren = _activeChildren;
 @synthesize inactiveChildren = _inactiveChildren;
 
+#pragma mark - NSObject
+
+- (NSString *)description {
+    NSMutableString *description = [NSMutableString stringWithString:[super description]];    
+    [description appendFormat:@"{\n"];
+    [description appendFormat:@"   activeChildren: %@\n",  self.activeChildren];
+    [description appendFormat:@"   inactiveChildren: %@\n", self.inactiveChildren];
+    [description appendFormat:@"   stack: %@\n", self.stack];
+    [description appendFormat:@"}"];
+    return [description copy];
+}
+
 @end

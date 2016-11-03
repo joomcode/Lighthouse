@@ -25,37 +25,40 @@
 
 @implementation LHStackNode
 
+@synthesize label = _label;
+
 #pragma mark - Init
 
-- (instancetype)initWithSingleBranch:(NSArray<id<LHNode>> *)nodes {
+- (instancetype)initWithSingleBranch:(NSArray<id<LHNode>> *)nodes label:(NSString *)label {
     NSParameterAssert(nodes.count > 0);
     
     LHNodeTree *tree = [[LHNodeTree alloc] init];
     [tree addBranch:nodes afterItemOrNil:nil];
     
-    return [self initWithTree:tree];
+    return [self initWithTree:tree label:label];
 }
 
-- (instancetype)initWithTree:(LHNodeTree *)tree {
+- (instancetype)initWithTree:(LHNodeTree *)tree label:(NSString *)label {
     NSParameterAssert(tree.allItems.count > 0);
     
-    return [self initWithTrees:@[ tree ]];
+    return [self initWithTrees:@[ tree ] label:label];
 }
 
-- (instancetype)initWithTreeBlock:(void (^)(LHNodeTree *tree))treeBlock {
+- (instancetype)initWithTreeBlock:(void (^)(LHNodeTree *tree))treeBlock label:(NSString *)label {
     LHNodeTree *tree = [[LHNodeTree alloc] init];
     treeBlock(tree);
     
-    return [self initWithTree:tree];
+    return [self initWithTree:tree label:label];
 }
 
-- (instancetype)initWithTrees:(NSArray<LHNodeTree *> *)trees {
+- (instancetype)initWithTrees:(NSArray<LHNodeTree *> *)trees label:(NSString *)label {
     NSParameterAssert(trees.count > 0);
     
     self = [super init];
     if (!self) return nil;
     
     _trees = [trees copy];
+    _label = label;
     
     _allChildren = [self collectAllChildrenFromTrees:_trees];
     
@@ -179,6 +182,16 @@
     }
     
     self.childrenState = [[LHStackNodeChildrenState alloc] initWithStack:stack];
+}
+
+#pragma mark - NSObject
+
+- (NSString *)description {
+    NSMutableString *description = [NSMutableString stringWithString:[super description]];
+    [description appendString:@"{\n"];
+    [description appendFormat:@"   childrenState: %@\n", self.childrenState];
+    [description appendString:@"}"];
+    return [description copy];
 }
 
 @end

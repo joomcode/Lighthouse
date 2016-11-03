@@ -10,4 +10,8 @@
 
 @interface LHLeafNode : NSObject <LHNode>
 
+- (instancetype)initWithLabel:(nullable NSString *)label NS_DESIGNATED_INITIALIZER;
+
+- (instancetype)init NS_UNAVAILABLE;
+
 @end

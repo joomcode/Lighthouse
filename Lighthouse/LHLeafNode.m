@@ -11,6 +11,16 @@
 
 @implementation LHLeafNode
 
+@synthesize label = _label;
+
+- (instancetype)initWithLabel:(NSString *)label {
+    self = [super init];
+    if (self) {
+        _label = label;
+    }
+    return self;
+}
+
 #pragma mark - LHNode
 
 - (NSSet<id<LHNode>> *)allChildren {
@@ -30,6 +40,12 @@
     }
     
     return LHNodeUpdateResultNormal;
+}
+
+#pragma mark - NSObject
+
+- (NSString *)description {
+    return self.label;
 }
 
 @end

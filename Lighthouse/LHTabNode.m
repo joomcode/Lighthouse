@@ -18,14 +18,17 @@
 
 @implementation LHTabNode
 
+@synthesize label = _label;
+
 #pragma mark - Init
 
-- (instancetype)initWithChildren:(NSOrderedSet<id<LHNode>> *)children {
+- (instancetype)initWithChildren:(NSOrderedSet<id<LHNode>> *)children label:(NSString *)label {
     NSParameterAssert(children.count > 0);
     
     self = [super init];
     if (!self) return nil;
     
+    _label = label;
     _orderedChildren = [children copy];
     
     [self resetChildrenState];

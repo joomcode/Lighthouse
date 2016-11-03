@@ -23,6 +23,8 @@ typedef NS_ENUM(NSInteger, LHNodeUpdateResult) {
 
 @protocol LHNode <NSObject>
 
+@property (nonatomic, copy, readonly, nullable) NSString *label;
+
 @property (nonatomic, strong, readonly, nullable) NSSet<id<LHNode>> *allChildren;
 
 @property (nonatomic, strong, readonly, nullable) id<LHNodeChildrenState> childrenState;

@@ -43,4 +43,15 @@
     return [[[self class] alloc] initWithActiveNodes:nil inactiveNodes:[NSSet setWithArray:inactiveNodes]];
 }
 
+#pragma mark - NSObject
+
+- (NSString *)description {
+    NSMutableString *description = [NSMutableString stringWithString:[super description]];
+    [description appendString:@" {\n"];
+    [description appendFormat:@"   activeNodes: %@\n", self.activeNodes];
+    [description appendFormat:@"   inactiveNodes: %@\n", self.inactiveNodes];
+    [description appendString:@"}"];
+    return [description copy];
+}
+
 @end

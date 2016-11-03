@@ -18,13 +18,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong, readonly) LHStackNodeChildrenState *childrenState;
 
-- (instancetype)initWithSingleBranch:(NSArray<id<LHNode>> *)nodes;
+- (instancetype)initWithSingleBranch:(NSArray<id<LHNode>> *)nodes label:(nullable NSString *)label;
 
-- (instancetype)initWithTree:(LHNodeTree *)tree;
+- (instancetype)initWithTree:(LHNodeTree *)tree label:(nullable NSString *)label;
 
-- (instancetype)initWithTreeBlock:(void (^)(LHNodeTree *tree))treeBlock;
+- (instancetype)initWithTreeBlock:(void (^)(LHNodeTree *tree))treeBlock label:(nullable NSString *)label;
 
-- (instancetype)initWithTrees:(NSArray<LHNodeTree *> *)trees NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithTrees:(NSArray<LHNodeTree *> *)trees label:(nullable NSString *)label NS_DESIGNATED_INITIALIZER;
 
 - (instancetype)init NS_UNAVAILABLE;
 

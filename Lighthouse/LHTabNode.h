@@ -18,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong, readonly) LHTabNodeChildrenState *childrenState;
 
-- (instancetype)initWithChildren:(NSOrderedSet<id<LHNode>> *)children NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithChildren:(NSOrderedSet<id<LHNode>> *)children label:(nullable NSString *)label NS_DESIGNATED_INITIALIZER;
 
 - (instancetype)init NS_UNAVAILABLE;
 
