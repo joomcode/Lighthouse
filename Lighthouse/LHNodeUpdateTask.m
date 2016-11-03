@@ -11,7 +11,7 @@
 #import "LHNodeDataStorage.h"
 #import "LHRouterState.h"
 #import "LHNodeData.h"
-#import "LHGraph.h"
+#import "LHNodeGraph.h"
 #import "LHDriver.h"
 #import "LHTaskQueueImpl.h"
 #import "LHNode.h"

@@ -1,24 +1,24 @@
 //
-//  LHGraph.m
+//  LHNodeGraph.m
 //  Lighthouse
 //
 //  Created by Nick Tymchenko on 15/09/15.
 //  Copyright (c) 2015 Pixty. All rights reserved.
 //
 
-#import "LHGraph.h"
+#import "LHNodeGraph.h"
 #import "LHNode.h"
 #import "LHNodeTree.h"
 #import "LHNodeChildrenState.h"
 
-@interface LHGraph ()
+@interface LHNodeGraph ()
 
 @property (nonatomic, strong, readonly) LHNodeTree *tree;
 
 @end
 
 
-@implementation LHGraph
+@implementation LHNodeGraph
 
 #pragma mark - Init
 

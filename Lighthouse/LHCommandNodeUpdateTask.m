@@ -12,7 +12,7 @@
 #import "LHComponents.h"
 #import "LHNode.h"
 #import "LHTarget.h"
-#import "LHGraph.h"
+#import "LHNodeGraph.h"
 
 @interface LHCommandNodeUpdateTask ()
 

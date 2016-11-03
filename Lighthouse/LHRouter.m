@@ -18,7 +18,7 @@
 #import "LHNodeDataStorage.h"
 #import "LHNodeData.h"
 #import "LHComponents.h"
-#import "LHGraph.h"
+#import "LHNodeGraph.h"
 #import "LHCommand.h"
 #import "LHCommandRegistry.h"
 #import "LHTaskQueueImpl.h"
@@ -53,7 +53,7 @@
     self = [super init];
     if (!self) return nil;
     
-    _components = [[LHComponents alloc] initWithGraph:[[LHGraph alloc] initWithRootNode:rootNode]
+    _components = [[LHComponents alloc] initWithGraph:[[LHNodeGraph alloc] initWithRootNode:rootNode]
                                       nodeDataStorage:[[LHNodeDataStorage alloc] initWithRootNode:rootNode]
                                         driverFactory:driverFactory
                                       commandRegistry:commandRegistry];

@@ -13,7 +13,7 @@
 
 @implementation LHComponents
 
-- (instancetype)initWithGraph:(LHGraph *)graph
+- (instancetype)initWithGraph:(LHNodeGraph *)graph
               nodeDataStorage:(LHNodeDataStorage *)nodeDataStorage
                 driverFactory:(id<LHDriverFactory>)driverFactory
               commandRegistry:(id<LHCommandRegistry>)commandRegistry {
