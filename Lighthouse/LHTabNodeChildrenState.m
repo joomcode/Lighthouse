@@ -8,6 +8,7 @@
 
 #import "LHTabNodeChildrenState.h"
 #import "LHTabNode.h"
+#import "LHDebugDescription.h"
 
 @implementation LHTabNodeChildrenState
 
@@ -31,5 +32,21 @@
 
 @synthesize activeChildren = _activeChildren;
 @synthesize inactiveChildren = _inactiveChildren;
+
+
+#pragma mark - LHDebugPrintable
+
+- (NSString *)lh_descriptionWithIndent:(NSUInteger)indent {
+    return [self lh_descriptionWithIndent:indent block:^(NSMutableString *buffer, NSString *indentString, NSUInteger indent) {
+        [buffer appendFormat:@"%@activeChildren = %@\n", indentString, [self.activeChildren lh_descriptionWithIndent:indent]];
+        [buffer appendFormat:@"%@inactiveChildren = %@\n", indentString, [self.inactiveChildren lh_descriptionWithIndent:indent]];
+        [buffer appendFormat:@"%@activeChild = %@\n", indentString, [self.activeChild lh_descriptionWithIndent:indent]];
+        [buffer appendFormat:@"%@activeChildIndex = %@\n", indentString, @(self.activeChildIndex)];
+    }];
+}
+
+- (NSString *)description {
+    return [self lh_descriptionWithIndent:0];
+}
 
 @end

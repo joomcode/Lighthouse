@@ -7,13 +7,14 @@
 //
 
 #import "LHNodeChildrenState.h"
+#import "LHDebugPrintable.h"
 
 @class LHTabNode;
 
 NS_ASSUME_NONNULL_BEGIN
 
 
-@interface LHTabNodeChildrenState : NSObject <LHNodeChildrenState>
+@interface LHTabNodeChildrenState : NSObject <LHNodeChildrenState, LHDebugPrintable>
 
 @property (nonatomic, strong, readonly) id<LHNode> activeChild;
 @property (nonatomic, assign, readonly) NSUInteger activeChildIndex;

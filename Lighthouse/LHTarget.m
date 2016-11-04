@@ -7,6 +7,7 @@
 //
 
 #import "LHTarget.h"
+#import "LHDebugDescription.h"
 
 @implementation LHTarget
 
@@ -45,13 +46,15 @@
 
 #pragma mark - NSObject
 
+- (NSString *)lh_descriptionWithIndent:(NSUInteger)indent {
+    return [self lh_descriptionWithIndent:indent block:^(NSMutableString *buffer, NSString *indentString, NSUInteger indent) {
+        [buffer appendFormat:@"%@activeNodes: %@\n", indentString, [self.activeNodes lh_descriptionWithIndent:indent]];
+        [buffer appendFormat:@"%@inactiveNodes: %@\n", indentString, [self.inactiveNodes  lh_descriptionWithIndent:indent]];
+    }];
+}
+
 - (NSString *)description {
-    NSMutableString *description = [NSMutableString stringWithString:[super description]];
-    [description appendString:@" {\n"];
-    [description appendFormat:@"   activeNodes: %@\n", self.activeNodes];
-    [description appendFormat:@"   inactiveNodes: %@\n", self.inactiveNodes];
-    [description appendString:@"}"];
-    return [description copy];
+    return [self lh_descriptionWithIndent:0];
 }
 
 @end

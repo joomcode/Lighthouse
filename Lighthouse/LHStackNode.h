@@ -8,13 +8,14 @@
 
 #import "LHNode.h"
 #import "LHStackNodeChildrenState.h"
+#import "LHDebugPrintable.h"
 
 @class LHNodeTree;
 
 NS_ASSUME_NONNULL_BEGIN
 
 
-@interface LHStackNode : NSObject <LHNode>
+@interface LHStackNode : NSObject <LHNode, LHDebugPrintable>
 
 @property (nonatomic, strong, readonly) LHStackNodeChildrenState *childrenState;
 

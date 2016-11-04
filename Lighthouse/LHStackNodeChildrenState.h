@@ -7,11 +7,12 @@
 //
 
 #import "LHNodeChildrenState.h"
+#import "LHDebugPrintable.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 
-@interface LHStackNodeChildrenState : NSObject <LHNodeChildrenState>
+@interface LHStackNodeChildrenState : NSObject <LHNodeChildrenState, LHDebugPrintable>
 
 @property (nonatomic, copy, readonly) NSOrderedSet<id<LHNode>> *stack;
 

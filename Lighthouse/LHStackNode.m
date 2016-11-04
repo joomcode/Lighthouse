@@ -10,8 +10,9 @@
 #import "LHNodeTree.h"
 #import "LHStackNodeChildrenState.h"
 #import "LHTarget.h"
+#import "LHDebugDescription.h"
 
-@interface LHStackNode ()
+@interface LHStackNode () <LHDebugPrintable>
 
 @property (nonatomic, copy, readonly) NSArray<LHNodeTree *> *trees;
 
@@ -184,14 +185,17 @@
     self.childrenState = [[LHStackNodeChildrenState alloc] initWithStack:stack];
 }
 
-#pragma mark - NSObject
+#pragma mark - LHDebugPrintable
+
+- (NSString *)lh_descriptionWithIndent:(NSUInteger)indent {
+    return [self lh_descriptionWithIndent:indent block:^(NSMutableString *buffer, NSString *indentString, NSUInteger indent) {
+        [buffer appendFormat:@"%@label = %@\n", indentString, self.label];
+        [buffer appendFormat:@"%@childrenState = %@\n", indentString, [self.childrenState lh_descriptionWithIndent:indent]];
+    }];
+}
 
 - (NSString *)description {
-    NSMutableString *description = [NSMutableString stringWithString:[super description]];
-    [description appendString:@"{\n"];
-    [description appendFormat:@"   childrenState: %@\n", self.childrenState];
-    [description appendString:@"}"];
-    return [description copy];
+    return [self lh_descriptionWithIndent:0];
 }
 
 @end

@@ -6,6 +6,7 @@
 //  Copyright (c) 2015 Pixty. All rights reserved.
 //
 
+#import "LHDebugPrintable.h"
 #import <Foundation/Foundation.h>
 
 @protocol LHNodeChildrenState;
@@ -21,7 +22,7 @@ typedef NS_ENUM(NSInteger, LHNodeUpdateResult) {
 };
 
 
-@protocol LHNode <NSObject>
+@protocol LHNode <NSObject, LHDebugPrintable>
 
 @property (nonatomic, copy, readonly, nullable) NSString *label;
 

@@ -7,11 +7,16 @@
 //
 
 #import "LHNode.h"
+#import "LHDebugPrintable.h"
 
-@interface LHLeafNode : NSObject <LHNode>
+NS_ASSUME_NONNULL_BEGIN
+
+@interface LHLeafNode : NSObject <LHNode, LHDebugPrintable>
 
 - (instancetype)initWithLabel:(nullable NSString *)label NS_DESIGNATED_INITIALIZER;
 
 - (instancetype)init NS_UNAVAILABLE;
 
 @end
+
+NS_ASSUME_NONNULL_END

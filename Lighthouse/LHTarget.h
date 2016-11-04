@@ -6,6 +6,7 @@
 //  Copyright © 2015 Pixty. All rights reserved.
 //
 
+#import "LHDebugPrintable.h"
 #import <Foundation/Foundation.h>
 
 @protocol LHNode;
@@ -13,7 +14,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 
-@interface LHTarget : NSObject
+@interface LHTarget : NSObject <LHDebugPrintable>
 
 @property (nonatomic, copy, readonly) NSSet<id<LHNode>> *activeNodes;
 
