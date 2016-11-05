@@ -7,19 +7,20 @@
 //
 
 #import "LHStackNode.h"
-#import "LHNodeTree.h"
+#import "LHGraph.h"
 #import "LHStackNodeChildrenState.h"
 #import "LHTarget.h"
+#import "LHRouteHint.h"
 #import "LHDebugDescription.h"
 
 @interface LHStackNode () <LHDebugPrintable>
 
-@property (nonatomic, copy, readonly) NSArray<LHNodeTree *> *trees;
+@property (nonatomic, copy, readonly) NSArray<LHGraph<id<LHNode>> *> *graphs;
 
 @property (nonatomic, strong) LHStackNodeChildrenState *childrenState;
-@property (nonatomic, strong) NSArray<LHNodeTree *> *activeTrees;
+@property (nonatomic, strong) NSArray<LHGraph<id<LHNode>> *> *activeGraphs;
 
-@property (nonatomic, strong) NSMapTable<LHNodeTree *, NSOrderedSet<id<LHNode>> *> *nodeStackByTree;
+@property (nonatomic, strong) NSMapTable<LHGraph<id<LHNode>> *, NSOrderedSet<id<LHNode>> *> *nodeStackByGraph;
 
 @end
 
@@ -33,45 +34,52 @@
 - (instancetype)initWithSingleBranch:(NSArray<id<LHNode>> *)nodes label:(NSString *)label {
     NSParameterAssert(nodes.count > 0);
     
-    LHNodeTree *tree = [[LHNodeTree alloc] init];
-    [tree addBranch:nodes afterItemOrNil:nil];
+    LHMutableGraph *mutableGraph = [[LHMutableGraph alloc] init];
     
-    return [self initWithTree:tree label:label];
+    [mutableGraph addNode:nodes.firstObject];
+    mutableGraph.rootNode = nodes.firstObject;
+    
+    [nodes enumerateObjectsUsingBlock:^(id<LHNode> node, NSUInteger idx, BOOL *stop) {
+        if (idx > 0) {
+            id<LHNode> prevNode = [nodes objectAtIndex:idx - 1];
+            [mutableGraph addEdgeFromNode:prevNode toNode:node];
+        }
+    }];
+    return [self initWithGraph:[mutableGraph copy] label:label];
 }
 
-- (instancetype)initWithTree:(LHNodeTree *)tree label:(NSString *)label {
-    NSParameterAssert(tree.allItems.count > 0);
+- (instancetype)initWithGraph:(LHGraph<id<LHNode>> *)graph label:(NSString *)label {
+    NSParameterAssert(graph.nodes.count > 0);
     
-    return [self initWithTrees:@[ tree ] label:label];
+    return [self initWithGraphs:@[ graph ] label:label];
 }
 
-- (instancetype)initWithTreeBlock:(void (^)(LHNodeTree *tree))treeBlock label:(NSString *)label {
-    LHNodeTree *tree = [[LHNodeTree alloc] init];
-    treeBlock(tree);
+- (instancetype)initWithGraphBlock:(void (^)(LHMutableGraph<id<LHNode>> *graph))graphBlock label:(NSString *)label {
+    LHMutableGraph *mutableGraph = [[LHMutableGraph alloc] init];
+    graphBlock(mutableGraph);
     
-    return [self initWithTree:tree label:label];
+    return [self initWithGraph:[mutableGraph copy] label:label];
 }
 
-- (instancetype)initWithTrees:(NSArray<LHNodeTree *> *)trees label:(NSString *)label {
-    NSParameterAssert(trees.count > 0);
+- (instancetype)initWithGraphs:(NSArray<LHGraph<id<LHNode>> *> *)graphs label:(NSString *)label {
+    NSParameterAssert(graphs.count > 0);
     
     self = [super init];
     if (!self) return nil;
     
-    _trees = [trees copy];
     _label = label;
-    
-    _allChildren = [self collectAllChildrenFromTrees:_trees];
+    _graphs = [graphs copy];
+    _allChildren = [self collectAllChildrenFromGraphs:_graphs];
     
     [self resetChildrenState];
     
     return self;    
 }
 
-- (NSSet *)collectAllChildrenFromTrees:(NSArray<LHNodeTree *> *)trees {
+- (NSSet *)collectAllChildrenFromGraphs:(NSArray<LHGraph<id<LHNode>> *> *)graphs {
     NSMutableSet<id<LHNode>> *allChildren = [[NSMutableSet alloc] init];
-    for (LHNodeTree *tree in trees) {
-        [allChildren unionSet:tree.allItems];
+    for (LHGraph<id<LHNode>> *graph in graphs) {
+        [allChildren unionSet:graph.nodes];
     }
     return allChildren;
 }
@@ -81,14 +89,13 @@
 @synthesize allChildren = _allChildren;
 
 - (void)resetChildrenState {
-    self.nodeStackByTree = [NSMapTable strongToStrongObjectsMapTable];
+    self.nodeStackByGraph = [NSMapTable strongToStrongObjectsMapTable];
     
-    for (LHNodeTree *tree in self.trees) {
-        id<LHNode> firstNode = [tree nextItems:nil].firstObject;
-        [self.nodeStackByTree setObject:[NSOrderedSet orderedSetWithObject:firstNode] forKey:tree];
+    for (LHGraph<id<LHNode>> *graph in self.graphs) {
+        [self.nodeStackByGraph setObject:[NSOrderedSet orderedSetWithObject:graph.rootNode] forKey:graph];
     }
+    self.activeGraphs = @[ self.graphs.firstObject ];
     
-    self.activeTrees = @[ self.trees.firstObject ];
     [self doUpdateChildrenState];
 }
 
@@ -107,14 +114,17 @@
         return LHNodeUpdateResultDeactivation;
     }
     
-    LHNodeTree *tree = [self treeForChild:activeChild];
-    if (!tree) {
+    LHGraph<id<LHNode>> *graph = [self graphForChild:activeChild];
+    if (!graph) {
         return LHNodeUpdateResultInvalid;
     }
     
-    [self.nodeStackByTree setObject:[tree pathToItem:activeChild] forKey:tree];
+    NSOrderedSet<id<LHNode>> *path = [graph pathFromNode:graph.rootNode toNode:activeChild visitingNodes:target.routeHint.nodes];
+    NSAssert(path != nil, @"A path to the active node should exist");
     
-    [self activateTree:tree];
+    [self.nodeStackByGraph setObject:path forKey:graph];
+    
+    [self activateGraph:graph];
     [self doUpdateChildrenState];
     
     return LHNodeUpdateResultNormal;
@@ -155,31 +165,31 @@
     return childForTargetActiveNodes ?: childForTargetInactiveNodes;
 }
 
-- (LHNodeTree *)treeForChild:(id<LHNode>)child {
-    for (LHNodeTree *tree in self.trees) {
-        if ([tree.allItems containsObject:child]) {
-            return tree;
+- (LHGraph<id<LHNode>> *)graphForChild:(id<LHNode>)child {
+    for (LHGraph<id<LHNode>> *graph in self.graphs) {
+        if ([graph.nodes containsObject:child]) {
+            return graph;
         }
     }
     
     return nil;
 }
 
-- (void)activateTree:(LHNodeTree *)tree {
-    NSInteger activeTreesIndex = [self.activeTrees indexOfObject:tree];
+- (void)activateGraph:(LHGraph<id<LHNode>> *)graph {
+    NSInteger activeGraphsIndex = [self.activeGraphs indexOfObject:graph];
     
-    if (activeTreesIndex != NSNotFound) {
-        self.activeTrees = [self.activeTrees subarrayWithRange:NSMakeRange(0, activeTreesIndex + 1)];
+    if (activeGraphsIndex != NSNotFound) {
+        self.activeGraphs = [self.activeGraphs subarrayWithRange:NSMakeRange(0, activeGraphsIndex + 1)];
     } else {
-        self.activeTrees = [self.activeTrees arrayByAddingObject:tree];
+        self.activeGraphs = [self.activeGraphs arrayByAddingObject:graph];
     }
 }
 
 - (void)doUpdateChildrenState {
     NSMutableOrderedSet *stack = [[NSMutableOrderedSet alloc] init];
     
-    for (LHNodeTree *tree in self.activeTrees) {
-        [stack unionOrderedSet:[self.nodeStackByTree objectForKey:tree]];
+    for (LHGraph<id<LHNode>> *graph in self.activeGraphs) {
+        [stack unionOrderedSet:[self.nodeStackByGraph objectForKey:graph]];
     }
     
     self.childrenState = [[LHStackNodeChildrenState alloc] initWithStack:stack];

@@ -27,10 +27,11 @@
 
 - (id<LHNode>)rootNode {
     if (!_rootNode) {
-        _rootNode = [[LHStackNode alloc] initWithTreeBlock:^(LHNodeTree *tree) {
-            [tree addItem:self.mainStackNode afterItemOrNil:nil];
-            [tree addBranch:@[ self.modalStackNode, self.deepModalStackNode ] afterItemOrNil:self.mainStackNode];
-            [tree addItem:self.anotherModalStackNode afterItemOrNil:self.mainStackNode];
+        _rootNode = [[LHStackNode alloc] initWithGraphBlock:^(LHMutableGraph<id<LHNode>> *graph) {
+            graph.rootNode = self.mainStackNode;
+            [graph addEdgeFromNode:self.mainStackNode toNode:self.modalStackNode];
+            [graph addEdgeFromNode:self.modalStackNode toNode:self.deepModalStackNode];
+            [graph addEdgeFromNode:self.mainStackNode toNode:self.anotherModalStackNode];
         } label:@"rootStack"];
     }
     return _rootNode;
@@ -38,10 +39,11 @@
 
 - (id<LHNode>)mainStackNode {
     if (!_mainStackNode) {
-        _mainStackNode = [[LHStackNode alloc] initWithTreeBlock:^(LHNodeTree *tree) {
-            [tree addItem:self.redNode afterItemOrNil:nil];
-            [tree addFork:@[self.greenNode, self.blueNode] afterItemOrNil:self.redNode];
-            [tree addItem:self.blueNode afterItemOrNil:self.greenNode];
+        _mainStackNode = [[LHStackNode alloc] initWithGraphBlock:^(LHMutableGraph<id<LHNode>> *graph) {
+            graph.rootNode = self.redNode;
+            [graph addEdgeFromNode:self.redNode toNode:self.greenNode];
+            [graph addEdgeFromNode:self.redNode toNode:self.blueNode];
+            [graph addEdgeFromNode:self.greenNode toNode:self.blueNode];
         } label:@"mainStack"];
     }
     return _mainStackNode;

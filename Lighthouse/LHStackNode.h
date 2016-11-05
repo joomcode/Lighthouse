@@ -7,12 +7,13 @@
 //
 
 #import "LHNode.h"
+#import "LHGraph.h"
 #import "LHStackNodeChildrenState.h"
 #import "LHDebugPrintable.h"
 
-@class LHNodeTree;
-
 NS_ASSUME_NONNULL_BEGIN
+
+@class LHMutableGraph;
 
 
 @interface LHStackNode : NSObject <LHNode, LHDebugPrintable>
@@ -21,11 +22,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)initWithSingleBranch:(NSArray<id<LHNode>> *)nodes label:(nullable NSString *)label;
 
-- (instancetype)initWithTree:(LHNodeTree *)tree label:(nullable NSString *)label;
+- (instancetype)initWithGraph:(LHGraph<id<LHNode>> *)graph label:(nullable NSString *)label;
 
-- (instancetype)initWithTreeBlock:(void (^)(LHNodeTree *tree))treeBlock label:(nullable NSString *)label;
+- (instancetype)initWithGraphBlock:(void (^)(LHMutableGraph<id<LHNode>> *graph))graphBlock label:(nullable NSString *)label;
 
-- (instancetype)initWithTrees:(NSArray<LHNodeTree *> *)trees label:(nullable NSString *)label NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithGraphs:(NSArray<LHGraph<id<LHNode>> *> *)graphs label:(nullable NSString *)label NS_DESIGNATED_INITIALIZER;
 
 - (instancetype)init NS_UNAVAILABLE;
 
