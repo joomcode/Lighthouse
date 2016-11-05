@@ -126,11 +126,13 @@
 		01DBF2FA1C4EFEB00034783C /* LHDriverFeedbackUpdateTask.h in Headers */ = {isa = PBXBuildFile; fileRef = 01C6F9021BBA063800A13C1E /* LHDriverFeedbackUpdateTask.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		01DBF2FC1C4EFEB00034783C /* LHDriverChannelImpl.h in Headers */ = {isa = PBXBuildFile; fileRef = 01A01AA61BA8E9FB00608274 /* LHDriverChannelImpl.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		01DBF2FD1C4EFEB00034783C /* LHUpdateBusImpl.h in Headers */ = {isa = PBXBuildFile; fileRef = 012A95321C4EF2E9000A4ECB /* LHUpdateBusImpl.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		0F5FC6ED1DCBE158009596D4 /* LHGraph.h in Headers */ = {isa = PBXBuildFile; fileRef = 0F5FC6E91DCBE158009596D4 /* LHGraph.h */; };
 		0F27F8101DCE4366004F07DF /* NSMapTable+LHUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 0F27F80E1DCE4366004F07DF /* NSMapTable+LHUtils.h */; };
 		0F27F8111DCE4366004F07DF /* NSMapTable+LHUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F27F80F1DCE4366004F07DF /* NSMapTable+LHUtils.m */; };
+		0F27F8121DCE4B98004F07DF /* LHGraph.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F5FC6EA1DCBE158009596D4 /* LHGraph.m */; };
+		0F27F8131DCE4B9B004F07DF /* LHGraphEdge.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F5FC6EC1DCBE158009596D4 /* LHGraphEdge.m */; };
+		0F5FC6ED1DCBE158009596D4 /* LHGraph.h in Headers */ = {isa = PBXBuildFile; fileRef = 0F5FC6E91DCBE158009596D4 /* LHGraph.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0F5FC6EE1DCBE158009596D4 /* LHGraph.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F5FC6EA1DCBE158009596D4 /* LHGraph.m */; };
-		0F5FC6EF1DCBE158009596D4 /* LHGraphEdge.h in Headers */ = {isa = PBXBuildFile; fileRef = 0F5FC6EB1DCBE158009596D4 /* LHGraphEdge.h */; };
+		0F5FC6EF1DCBE158009596D4 /* LHGraphEdge.h in Headers */ = {isa = PBXBuildFile; fileRef = 0F5FC6EB1DCBE158009596D4 /* LHGraphEdge.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0F5FC6F01DCBE158009596D4 /* LHGraphEdge.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F5FC6EC1DCBE158009596D4 /* LHGraphEdge.m */; };
 		0F5FC7051DCCEB91009596D4 /* LHDebugDescription.h in Headers */ = {isa = PBXBuildFile; fileRef = 0F5FC7031DCCEB91009596D4 /* LHDebugDescription.h */; };
 		0F5FC7061DCCEB91009596D4 /* LHDebugDescription.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F5FC7041DCCEB91009596D4 /* LHDebugDescription.m */; };

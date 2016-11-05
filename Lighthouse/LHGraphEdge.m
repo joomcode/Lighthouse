@@ -7,6 +7,7 @@
 //
 
 #import "LHGraphEdge.h"
+#import "LHDebugDescription.h"
 
 @implementation LHGraphEdge
 
@@ -46,20 +47,26 @@
     
     result = prime * result + [self.fromNode hash];
     result = prime * result + [self.toNode hash];
-    
+    if (self.label.length > 0) {
+        result = prime * result + [self.label hash];
+    }
     return result;
 }
 
+#pragma mark - LHDebugPrintable
+
+- (NSString *)lh_descriptionWithIndent:(NSUInteger)indent {
+    return [self lh_descriptionWithIndent:indent block:^(NSMutableString *buffer, NSString *indentString, NSUInteger indent) {
+        if (self.label.length > 0) {
+            [buffer appendFormat:@"%@label = %@\n", indentString, self.label];
+        }
+        [buffer appendFormat:@"%@fromNode = %@\n", indentString, [self.fromNode lh_descriptionWithIndent:indent]];
+        [buffer appendFormat:@"%@toNode = %@\n", indentString, [self.toNode lh_descriptionWithIndent:indent]];
+    }];
+}
+
 - (NSString *)description {
-    NSMutableString *description = [NSMutableString stringWithString:[super description]];
-    [description appendString:@"  {\n"];
-    if (self.label.length > 0) {
-        [description appendFormat:@"  label: %@\n", self.label];
-    }
-    [description appendFormat:@"  from: %@\n", self.fromNode];
-    [description appendFormat:@"  to: %@\n", self.toNode];
-    [description appendString:@"}"];
-    return [description copy];
+    return [self lh_descriptionWithIndent:0];
 }
 
 @end

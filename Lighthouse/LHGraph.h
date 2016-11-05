@@ -7,44 +7,44 @@
 //
 
 #import "LHGraphEdge.h"
+#import "LHDebugPrintable.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface LHGraph<__covariant NodeType> : NSObject <NSCopying>
+@interface LHGraph<__covariant NodeType> : NSObject <NSCopying, NSMutableCopying, LHDebugPrintable>
 
 @property (nonatomic, strong, readonly, nullable) NodeType rootNode;
 
 @property (nonatomic, copy, readonly) NSSet<NodeType> *nodes;
-@property (nonatomic, copy, readonly) NSArray<LHGraphEdge<NodeType> *> *edges;
 
-@property (nonatomic, assign, readonly) NSUInteger nodeCount;
+@property (nonatomic, copy, readonly) NSSet<LHGraphEdge<NodeType> *> *edges;
 
 - (instancetype)initWithRootNode:(nullable NodeType)rootNode
-                           edges:(nullable NSArray<LHGraphEdge<NodeType> *> *)edges NS_DESIGNATED_INITIALIZER;
+                           nodes:(nullable NSSet<NodeType> *)nodes
+                           edges:(nullable NSSet<LHGraphEdge<NodeType> *> *)edges NS_DESIGNATED_INITIALIZER;
 
 - (nullable NSOrderedSet<NodeType> *)pathFromNode:(NodeType)source
                                            toNode:(NodeType)target
-                                    visitingNodes:(nullable NSArray<NodeType> *)nodes
-                                    visitingEdges:(nullable NSArray<LHGraphEdge<NodeType> *> *)edges;
+                                    visitingNodes:(nullable NSOrderedSet<NodeType> *)nodes;
 
 - (nullable NSOrderedSet<NodeType> *)pathFromNode:(NodeType)source toNode:(NodeType)target;
 
-- (BOOL)containsNode:(NodeType)node;
+- (NSSet<LHGraphEdge<NodeType> *> *)outgoingEdgesForNode:(NodeType)node;
 
 @end
 
 
-@interface LHMutableGraph<__covariant NodeType> : LHGraph<NodeType> <NSMutableCopying>
+@interface LHMutableGraph<__covariant NodeType> : LHGraph<NodeType>
 
 @property (nonatomic, strong, nullable) NodeType rootNode;
 
 - (void)addNode:(NodeType)node;
 
+- (void)removeNode:(NodeType)node;
+
 - (LHGraphEdge<NodeType> *)addEdgeFromNode:(NodeType)fromNode toNode:(NodeType)toNode label:(nullable NSString *)label;
 
 - (LHGraphEdge<NodeType> *)addEdgeFromNode:(NodeType)fromNode toNode:(NodeType)toNode;
-
-- (void)removeNode:(NodeType)node;
 
 - (void)removeEdge:(LHGraphEdge *)edge;
 

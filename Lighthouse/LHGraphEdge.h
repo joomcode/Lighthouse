@@ -6,6 +6,7 @@
 //  Copyright © 2016 Joom. All rights reserved.
 //
 
+#import "LHDebugPrintable.h"
 #import <Foundation/Foundation.h>
 
 NS_ASSUME_NONNULL_BEGIN
@@ -13,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @class LHGraphNode;
 
 
-@interface LHGraphEdge<__covariant NodeType> : NSObject
+@interface LHGraphEdge<__covariant NodeType> : NSObject <LHDebugPrintable>
 
 @property (nonatomic, strong, readonly) NodeType fromNode;
 @property (nonatomic, strong, readonly) NodeType toNode;
