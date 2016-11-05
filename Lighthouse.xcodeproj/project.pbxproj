@@ -134,6 +134,8 @@
 		0F5FC6EE1DCBE158009596D4 /* LHGraph.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F5FC6EA1DCBE158009596D4 /* LHGraph.m */; };
 		0F5FC6EF1DCBE158009596D4 /* LHGraphEdge.h in Headers */ = {isa = PBXBuildFile; fileRef = 0F5FC6EB1DCBE158009596D4 /* LHGraphEdge.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0F5FC6F01DCBE158009596D4 /* LHGraphEdge.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F5FC6EC1DCBE158009596D4 /* LHGraphEdge.m */; };
+		0F5FC6F71DCCB567009596D4 /* LHRouteHint.h in Headers */ = {isa = PBXBuildFile; fileRef = 0F5FC6F51DCCB567009596D4 /* LHRouteHint.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		0F5FC6F81DCCB567009596D4 /* LHRouteHint.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F5FC6F61DCCB567009596D4 /* LHRouteHint.m */; };
 		0F5FC7051DCCEB91009596D4 /* LHDebugDescription.h in Headers */ = {isa = PBXBuildFile; fileRef = 0F5FC7031DCCEB91009596D4 /* LHDebugDescription.h */; };
 		0F5FC7061DCCEB91009596D4 /* LHDebugDescription.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F5FC7041DCCEB91009596D4 /* LHDebugDescription.m */; };
 		0F5FC7081DCCECBB009596D4 /* LHDebugPrintable.h in Headers */ = {isa = PBXBuildFile; fileRef = 0F5FC6F91DCCEAD5009596D4 /* LHDebugPrintable.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -278,6 +280,8 @@
 		0F5FC6EA1DCBE158009596D4 /* LHGraph.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHGraph.m; sourceTree = "<group>"; };
 		0F5FC6EB1DCBE158009596D4 /* LHGraphEdge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHGraphEdge.h; sourceTree = "<group>"; };
 		0F5FC6EC1DCBE158009596D4 /* LHGraphEdge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHGraphEdge.m; sourceTree = "<group>"; };
+		0F5FC6F51DCCB567009596D4 /* LHRouteHint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHRouteHint.h; sourceTree = "<group>"; };
+		0F5FC6F61DCCB567009596D4 /* LHRouteHint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHRouteHint.m; sourceTree = "<group>"; };
 		0F5FC6F91DCCEAD5009596D4 /* LHDebugPrintable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LHDebugPrintable.h; sourceTree = "<group>"; };
 		0F5FC7031DCCEB91009596D4 /* LHDebugDescription.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHDebugDescription.h; sourceTree = "<group>"; };
 		0F5FC7041DCCEB91009596D4 /* LHDebugDescription.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHDebugDescription.m; sourceTree = "<group>"; };
@@ -494,6 +498,8 @@
 				01D57A101C502F3F008E4EB5 /* LHNodeState.h */,
 				013176A11BC1F7650007668B /* LHTarget.h */,
 				013176A21BC1F7650007668B /* LHTarget.m */,
+				0F5FC6F51DCCB567009596D4 /* LHRouteHint.h */,
+				0F5FC6F61DCCB567009596D4 /* LHRouteHint.m */,
 			);
 			name = Nodes;
 			sourceTree = "<group>";
@@ -699,6 +705,7 @@
 				01DBF2D71C4EFE700034783C /* LHTabNode.h in Headers */,
 				0F5FC7051DCCEB91009596D4 /* LHDebugDescription.h in Headers */,
 				01DBF2D81C4EFE700034783C /* LHNode.h in Headers */,
+				0F5FC6F71DCCB567009596D4 /* LHRouteHint.h in Headers */,
 				01DBF2D91C4EFE700034783C /* LHNodeModelState.h in Headers */,
 				01DBF2DA1C4EFE700034783C /* LHNodeChildrenState.h in Headers */,
 				01DBF2DB1C4EFE700034783C /* LHTarget.h in Headers */,
@@ -862,6 +869,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				012A95511C4EFD9A000A4ECB /* LHRouter.m in Sources */,
+				0F5FC6F81DCCB567009596D4 /* LHRouteHint.m in Sources */,
 				0F27F8111DCE4366004F07DF /* NSMapTable+LHUtils.m in Sources */,
 				012A95521C4EFD9A000A4ECB /* LHTree.m in Sources */,
 				012A95531C4EFD9A000A4ECB /* LHNodeTree.m in Sources */,

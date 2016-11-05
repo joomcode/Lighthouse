@@ -7,41 +7,58 @@
 //
 
 #import "LHTarget.h"
+#import "LHRouteHint.h"
 #import "LHDebugDescription.h"
 
 @implementation LHTarget
 
-@synthesize activeNodes = _activeNodes;
-@synthesize inactiveNodes = _inactiveNodes;
-
 - (instancetype)init {
-    return [self initWithActiveNodes:nil inactiveNodes:nil];
+    return [self initWithActiveNodes:nil inactiveNodes:nil routeHint:nil];
 }
 
-- (instancetype)initWithActiveNodes:(NSSet<id<LHNode>> *)activeNodes inactiveNodes:(NSSet<id<LHNode>> *)inactiveNodes {
+- (instancetype)initWithActiveNodes:(NSSet<id<LHNode>> *)activeNodes
+                      inactiveNodes:(NSSet<id<LHNode>> *)inactiveNodes
+                          routeHint:(LHRouteHint *)hint {
     self = [super init];
     if (!self) return nil;
     
     _activeNodes = [activeNodes copy] ?: [NSSet set];
     _inactiveNodes = [inactiveNodes copy] ?: [NSSet set];
+    _routeHint = hint;
     
     return self;
 }
 
++ (instancetype)withActiveNode:(id<LHNode>)activeNode routeHint:(LHRouteHint *)hint {
+    return [[[self class] alloc] initWithActiveNodes:[NSSet setWithObject:activeNode] inactiveNodes:nil routeHint:hint];
+}
+
 + (instancetype)withActiveNode:(id<LHNode>)activeNode {
-    return [[[self class] alloc] initWithActiveNodes:[NSSet setWithObject:activeNode] inactiveNodes:nil];
+    return [self withActiveNode:activeNode routeHint:nil];
+}
+
++ (instancetype)withActiveNodes:(NSArray<id<LHNode>> *)activeNodes routeHint:(LHRouteHint *)hint {
+    return [[[self class] alloc] initWithActiveNodes:[NSSet setWithArray:activeNodes] inactiveNodes:nil routeHint:hint];
 }
 
 + (instancetype)withActiveNodes:(NSArray<id<LHNode>> *)activeNodes {
-    return [[[self class] alloc] initWithActiveNodes:[NSSet setWithArray:activeNodes] inactiveNodes:nil];
+    return [self withActiveNodes:activeNodes routeHint:nil];
+}
+
++ (instancetype)withInactiveNode:(id<LHNode>)inactiveNode routeHint:(LHRouteHint *)hint {
+    return [[[self class] alloc] initWithActiveNodes:nil inactiveNodes:[NSSet setWithObject:inactiveNode] routeHint:hint];
 }
 
 + (instancetype)withInactiveNode:(id<LHNode>)inactiveNode {
-    return [[[self class] alloc] initWithActiveNodes:nil inactiveNodes:[NSSet setWithObject:inactiveNode]];
+    return [self withInactiveNode:inactiveNode routeHint:nil];
+}
+
++ (instancetype)withInactiveNodes:(NSArray<id<LHNode>> *)inactiveNodes routeHint:(LHRouteHint *)hint {
+    return [[[self class] alloc] initWithActiveNodes:nil inactiveNodes:[NSSet setWithArray:inactiveNodes] routeHint:hint];
 }
 
 + (instancetype)withInactiveNodes:(NSArray<id<LHNode>> *)inactiveNodes {
-    return [[[self class] alloc] initWithActiveNodes:nil inactiveNodes:[NSSet setWithArray:inactiveNodes]];
+    return [self withInactiveNodes:inactiveNodes routeHint:nil];
 }
 
 #pragma mark - NSObject
@@ -50,6 +67,7 @@
     return [self lh_descriptionWithIndent:indent block:^(NSMutableString *buffer, NSString *indentString, NSUInteger indent) {
         [buffer appendFormat:@"%@activeNodes: %@\n", indentString, [self.activeNodes lh_descriptionWithIndent:indent]];
         [buffer appendFormat:@"%@inactiveNodes: %@\n", indentString, [self.inactiveNodes  lh_descriptionWithIndent:indent]];
+        [buffer appendFormat:@"%@routeHint: %@\n", indentString, [self.routeHint  lh_descriptionWithIndent:indent]];
     }];
 }
 

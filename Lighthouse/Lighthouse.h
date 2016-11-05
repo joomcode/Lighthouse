@@ -30,6 +30,7 @@ FOUNDATION_EXPORT const unsigned char LighthouseVersionString[];
 #import <Lighthouse/LHNodeState.h>
 #import <Lighthouse/LHNodeChildrenState.h>
 #import <Lighthouse/LHTarget.h>
+#import <Lighthouse/LHRouteHint.h>
 
 #import <Lighthouse/LHLeafNode.h>
 #import <Lighthouse/LHStackNode.h>
