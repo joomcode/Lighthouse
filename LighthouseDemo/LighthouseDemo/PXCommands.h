@@ -23,6 +23,11 @@
 @end
 
 
+@interface PXPresentBlueThroughGreen : NSObject <LHCommand>
+
+@end
+
+
 @interface PXPresentModal : NSObject <LHCommand>
 
 @end
