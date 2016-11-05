@@ -7,8 +7,7 @@
 //
 
 #import "PXColorViewControllers.h"
-#import "PXPresentGreen.h"
-#import "PXPresentBlue.h"
+#import "PXCommands.h"
 #import "LHRouter+Shared.h"
 #import <Lighthouse.h>
 

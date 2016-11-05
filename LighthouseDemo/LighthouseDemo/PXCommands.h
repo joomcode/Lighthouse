@@ -6,9 +6,33 @@
 //  Copyright © 2015 Pixty. All rights reserved.
 //
 
-#import "PXPresentRed.h"
-#import "PXPresentGreen.h"
-#import "PXPresentBlue.h"
-#import "PXPresentModal.h"
-#import "PXDismissModal.h"
-#import "PXPresentAnotherModal.h"
+#import <Lighthouse.h>
+
+@interface PXPresentRed : NSObject <LHCommand>
+
+@end
+
+
+@interface PXPresentGreen : NSObject <LHCommand>
+
+@end
+
+
+@interface PXPresentBlue : NSObject <LHCommand>
+
+@end
+
+
+@interface PXPresentModal : NSObject <LHCommand>
+
+@end
+
+
+@interface PXDismissModal : NSObject <LHCommand>
+
+@end
+
+
+@interface PXPresentAnotherModal : NSObject <LHCommand>
+
+@end

@@ -8,8 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		0111CC271BAAED0D00C19022 /* PXDeepModalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0111CC261BAAED0D00C19022 /* PXDeepModalViewController.m */; };
-		012497921BA99994007CD98B /* PXPresentModal.m in Sources */ = {isa = PBXBuildFile; fileRef = 012497911BA99994007CD98B /* PXPresentModal.m */; };
-		012497951BA9C686007CD98B /* PXPresentAnotherModal.m in Sources */ = {isa = PBXBuildFile; fileRef = 012497941BA9C686007CD98B /* PXPresentAnotherModal.m */; };
 		013F68BD1BA62CA300B5797B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 013F68BC1BA62CA300B5797B /* main.m */; };
 		013F68C01BA62CA300B5797B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 013F68BF1BA62CA300B5797B /* AppDelegate.m */; };
 		013F68C81BA62CA300B5797B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 013F68C71BA62CA300B5797B /* Assets.xcassets */; };
@@ -18,24 +16,17 @@
 		017E5B1B1BC0281B00C6C831 /* PXStateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 017E5B1A1BC0281B00C6C831 /* PXStateViewController.m */; };
 		017E5B1E1BC031EE00C6C831 /* PXStateViewControllerDriver.m in Sources */ = {isa = PBXBuildFile; fileRef = 017E5B1D1BC031EE00C6C831 /* PXStateViewControllerDriver.m */; };
 		017E5B211BC14BBE00C6C831 /* PXNodeHierarchy.m in Sources */ = {isa = PBXBuildFile; fileRef = 017E5B201BC14BBE00C6C831 /* PXNodeHierarchy.m */; };
-		017E5B2B1BC1762800C6C831 /* PXDismissModal.m in Sources */ = {isa = PBXBuildFile; fileRef = 017E5B2A1BC1762800C6C831 /* PXDismissModal.m */; };
 		01A01A611BA8324700608274 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01A01A601BA8324700608274 /* LaunchScreen.xib */; };
 		01A01A871BA8777100608274 /* PXColorViewControllers.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A01A861BA8777100608274 /* PXColorViewControllers.m */; };
-		01A01A8B1BA8782700608274 /* PXPresentRed.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A01A8A1BA8782700608274 /* PXPresentRed.m */; };
-		01A01A8E1BA8783600608274 /* PXPresentGreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A01A8D1BA8783600608274 /* PXPresentGreen.m */; };
-		01A01A911BA8783E00608274 /* PXPresentBlue.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A01A901BA8783E00608274 /* PXPresentBlue.m */; };
 		01A01A941BA8786F00608274 /* LHRouter+Shared.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A01A931BA8786F00608274 /* LHRouter+Shared.m */; };
 		01A01AB41BA9887D00608274 /* PXModalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A01AB31BA9887D00608274 /* PXModalViewController.m */; };
+		0F27F7DC1DCDFD40004F07DF /* PXCommands.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F27F7DB1DCDFD40004F07DF /* PXCommands.m */; };
 		0FD21F7D1DCA018A0084325B /* Lighthouse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FD21F7C1DCA018A0084325B /* Lighthouse.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		0111CC251BAAED0D00C19022 /* PXDeepModalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXDeepModalViewController.h; sourceTree = "<group>"; };
 		0111CC261BAAED0D00C19022 /* PXDeepModalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXDeepModalViewController.m; sourceTree = "<group>"; };
-		012497901BA99994007CD98B /* PXPresentModal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXPresentModal.h; sourceTree = "<group>"; };
-		012497911BA99994007CD98B /* PXPresentModal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXPresentModal.m; sourceTree = "<group>"; };
-		012497931BA9C686007CD98B /* PXPresentAnotherModal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXPresentAnotherModal.h; sourceTree = "<group>"; };
-		012497941BA9C686007CD98B /* PXPresentAnotherModal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXPresentAnotherModal.m; sourceTree = "<group>"; };
 		013F68B81BA62CA300B5797B /* LighthouseDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LighthouseDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		013F68BC1BA62CA300B5797B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		013F68BE1BA62CA300B5797B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -52,23 +43,16 @@
 		017E5B1D1BC031EE00C6C831 /* PXStateViewControllerDriver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXStateViewControllerDriver.m; sourceTree = "<group>"; };
 		017E5B1F1BC14BBE00C6C831 /* PXNodeHierarchy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXNodeHierarchy.h; sourceTree = "<group>"; };
 		017E5B201BC14BBE00C6C831 /* PXNodeHierarchy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXNodeHierarchy.m; sourceTree = "<group>"; };
-		017E5B291BC1762800C6C831 /* PXDismissModal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXDismissModal.h; sourceTree = "<group>"; };
-		017E5B2A1BC1762800C6C831 /* PXDismissModal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXDismissModal.m; sourceTree = "<group>"; };
 		017E5B2C1BC1764A00C6C831 /* PXCommands.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PXCommands.h; sourceTree = "<group>"; };
 		01A01A601BA8324700608274 /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
 		01A01A851BA8777100608274 /* PXColorViewControllers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXColorViewControllers.h; sourceTree = "<group>"; };
 		01A01A861BA8777100608274 /* PXColorViewControllers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXColorViewControllers.m; sourceTree = "<group>"; };
-		01A01A891BA8782700608274 /* PXPresentRed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXPresentRed.h; sourceTree = "<group>"; };
-		01A01A8A1BA8782700608274 /* PXPresentRed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXPresentRed.m; sourceTree = "<group>"; };
-		01A01A8C1BA8783600608274 /* PXPresentGreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXPresentGreen.h; sourceTree = "<group>"; };
-		01A01A8D1BA8783600608274 /* PXPresentGreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXPresentGreen.m; sourceTree = "<group>"; };
-		01A01A8F1BA8783E00608274 /* PXPresentBlue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXPresentBlue.h; sourceTree = "<group>"; };
-		01A01A901BA8783E00608274 /* PXPresentBlue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXPresentBlue.m; sourceTree = "<group>"; };
 		01A01A921BA8786F00608274 /* LHRouter+Shared.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "LHRouter+Shared.h"; sourceTree = "<group>"; };
 		01A01A931BA8786F00608274 /* LHRouter+Shared.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "LHRouter+Shared.m"; sourceTree = "<group>"; };
 		01A01AB21BA9887D00608274 /* PXModalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXModalViewController.h; sourceTree = "<group>"; };
 		01A01AB31BA9887D00608274 /* PXModalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXModalViewController.m; sourceTree = "<group>"; };
 		01A28D811C597FF4006F0A95 /* Lighthouse.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = Lighthouse.framework; path = "/Users/nick/Library/Developer/Xcode/DerivedData/Lighthouse-bdgarndmkzqkomfjomolnzswkdlu/Build/Products/Debug-iphoneos/Lighthouse.framework"; sourceTree = "<absolute>"; };
+		0F27F7DB1DCDFD40004F07DF /* PXCommands.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXCommands.m; sourceTree = "<group>"; };
 		0FD21F7C1DCA018A0084325B /* Lighthouse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Lighthouse.framework; path = "../../../Library/Developer/Xcode/DerivedData/Lighthouse-fzrglhwpovpgihhffjaxqvrqnqph/Build/Products/Debug-iphonesimulator/Lighthouse.framework"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -168,18 +152,7 @@
 			isa = PBXGroup;
 			children = (
 				017E5B2C1BC1764A00C6C831 /* PXCommands.h */,
-				01A01A891BA8782700608274 /* PXPresentRed.h */,
-				01A01A8A1BA8782700608274 /* PXPresentRed.m */,
-				01A01A8C1BA8783600608274 /* PXPresentGreen.h */,
-				01A01A8D1BA8783600608274 /* PXPresentGreen.m */,
-				01A01A8F1BA8783E00608274 /* PXPresentBlue.h */,
-				01A01A901BA8783E00608274 /* PXPresentBlue.m */,
-				012497901BA99994007CD98B /* PXPresentModal.h */,
-				012497911BA99994007CD98B /* PXPresentModal.m */,
-				017E5B291BC1762800C6C831 /* PXDismissModal.h */,
-				017E5B2A1BC1762800C6C831 /* PXDismissModal.m */,
-				012497931BA9C686007CD98B /* PXPresentAnotherModal.h */,
-				012497941BA9C686007CD98B /* PXPresentAnotherModal.m */,
+				0F27F7DB1DCDFD40004F07DF /* PXCommands.m */,
 			);
 			name = Commands;
 			sourceTree = "<group>";
@@ -275,20 +248,15 @@
 				015A4FA31C67C64600F950B3 /* PXFadeContainerTransitionStyle.m in Sources */,
 				01A01A941BA8786F00608274 /* LHRouter+Shared.m in Sources */,
 				017E5B211BC14BBE00C6C831 /* PXNodeHierarchy.m in Sources */,
-				012497921BA99994007CD98B /* PXPresentModal.m in Sources */,
+				0F27F7DC1DCDFD40004F07DF /* PXCommands.m in Sources */,
 				015A4FA01C67AD1300F950B3 /* PXFlipModalTransitionStyle.m in Sources */,
-				017E5B2B1BC1762800C6C831 /* PXDismissModal.m in Sources */,
 				017E5B1B1BC0281B00C6C831 /* PXStateViewController.m in Sources */,
-				01A01A911BA8783E00608274 /* PXPresentBlue.m in Sources */,
 				01A01A871BA8777100608274 /* PXColorViewControllers.m in Sources */,
 				0111CC271BAAED0D00C19022 /* PXDeepModalViewController.m in Sources */,
 				01A01AB41BA9887D00608274 /* PXModalViewController.m in Sources */,
 				013F68C01BA62CA300B5797B /* AppDelegate.m in Sources */,
 				017E5B1E1BC031EE00C6C831 /* PXStateViewControllerDriver.m in Sources */,
-				01A01A8E1BA8783600608274 /* PXPresentGreen.m in Sources */,
-				012497951BA9C686007CD98B /* PXPresentAnotherModal.m in Sources */,
 				013F68BD1BA62CA300B5797B /* main.m in Sources */,
-				01A01A8B1BA8782700608274 /* PXPresentRed.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
