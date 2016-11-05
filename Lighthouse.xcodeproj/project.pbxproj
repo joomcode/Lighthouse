@@ -127,6 +127,8 @@
 		01DBF2FC1C4EFEB00034783C /* LHDriverChannelImpl.h in Headers */ = {isa = PBXBuildFile; fileRef = 01A01AA61BA8E9FB00608274 /* LHDriverChannelImpl.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		01DBF2FD1C4EFEB00034783C /* LHUpdateBusImpl.h in Headers */ = {isa = PBXBuildFile; fileRef = 012A95321C4EF2E9000A4ECB /* LHUpdateBusImpl.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		0F5FC6ED1DCBE158009596D4 /* LHGraph.h in Headers */ = {isa = PBXBuildFile; fileRef = 0F5FC6E91DCBE158009596D4 /* LHGraph.h */; };
+		0F27F8101DCE4366004F07DF /* NSMapTable+LHUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 0F27F80E1DCE4366004F07DF /* NSMapTable+LHUtils.h */; };
+		0F27F8111DCE4366004F07DF /* NSMapTable+LHUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F27F80F1DCE4366004F07DF /* NSMapTable+LHUtils.m */; };
 		0F5FC6EE1DCBE158009596D4 /* LHGraph.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F5FC6EA1DCBE158009596D4 /* LHGraph.m */; };
 		0F5FC6EF1DCBE158009596D4 /* LHGraphEdge.h in Headers */ = {isa = PBXBuildFile; fileRef = 0F5FC6EB1DCBE158009596D4 /* LHGraphEdge.h */; };
 		0F5FC6F01DCBE158009596D4 /* LHGraphEdge.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F5FC6EC1DCBE158009596D4 /* LHGraphEdge.m */; };
@@ -268,6 +270,8 @@
 		01D57AB21C547557008E4EB5 /* LHTabNodeChildrenState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHTabNodeChildrenState.m; sourceTree = "<group>"; };
 		01E8BB951BC01318000405D2 /* LHManualNodeUpdateTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHManualNodeUpdateTask.h; sourceTree = "<group>"; };
 		01E8BB961BC01318000405D2 /* LHManualNodeUpdateTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHManualNodeUpdateTask.m; sourceTree = "<group>"; };
+		0F27F80E1DCE4366004F07DF /* NSMapTable+LHUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMapTable+LHUtils.h"; sourceTree = "<group>"; };
+		0F27F80F1DCE4366004F07DF /* NSMapTable+LHUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMapTable+LHUtils.m"; sourceTree = "<group>"; };
 		0F5FC6E91DCBE158009596D4 /* LHGraph.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHGraph.h; sourceTree = "<group>"; };
 		0F5FC6EA1DCBE158009596D4 /* LHGraph.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHGraph.m; sourceTree = "<group>"; };
 		0F5FC6EB1DCBE158009596D4 /* LHGraphEdge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHGraphEdge.h; sourceTree = "<group>"; };
@@ -446,6 +450,8 @@
 			isa = PBXGroup;
 			children = (
 				014C9F141C96F94E00D35950 /* LHMacro.h */,
+				0F27F80E1DCE4366004F07DF /* NSMapTable+LHUtils.h */,
+				0F27F80F1DCE4366004F07DF /* NSMapTable+LHUtils.m */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -698,6 +704,7 @@
 				01DBF2DF1C4EFE700034783C /* LHNavigationControllerDriver.h in Headers */,
 				01A28DBD1C5CEFBD006F0A95 /* UIViewController+LHNavigationItemForwarding.h in Headers */,
 				01DBF2E01C4EFE700034783C /* LHTabBarControllerDriver.h in Headers */,
+				0F27F8101DCE4366004F07DF /* NSMapTable+LHUtils.h in Headers */,
 				01DBF2E11C4EFE700034783C /* LHWindowDriver.h in Headers */,
 				014C9F0C1C96E98E00D35950 /* LHTaskQueueImpl.h in Headers */,
 				015A4F921C67014F00F950B3 /* LHContainerTransitionStyleRegistry.h in Headers */,
@@ -853,6 +860,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				012A95511C4EFD9A000A4ECB /* LHRouter.m in Sources */,
+				0F27F8111DCE4366004F07DF /* NSMapTable+LHUtils.m in Sources */,
 				012A95521C4EFD9A000A4ECB /* LHTree.m in Sources */,
 				012A95531C4EFD9A000A4ECB /* LHNodeTree.m in Sources */,
 				012A95541C4EFD9A000A4ECB /* LHNodeForest.m in Sources */,
