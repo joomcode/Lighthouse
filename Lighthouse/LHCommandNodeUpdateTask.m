@@ -13,6 +13,30 @@
 #import "LHNode.h"
 #import "LHTarget.h"
 #import "LHNodeTree.h"
+#import "LHRouteHint.h"
+
+@implementation LHRouteHint (Helpers)
+
+- (LHRouteHint *)filteredByParentNode:(id<LHNode>)parentNode {
+    NSMutableOrderedSet<id<LHNode>> *nodes = [self.nodes mutableCopy];
+    NSMutableOrderedSet<LHGraphEdge<id<LHNode>> *> *edges = [self.edges mutableCopy];
+    
+    for (id<LHNode> node in self.nodes) {
+        if (![parentNode.allChildren containsObject:node]) {
+            [nodes removeObject:node];
+        }
+    }
+    for (LHGraphEdge<id<LHNode>> *edge in self.edges) {
+        if (![parentNode.allChildren containsObject:edge.fromNode] ||
+            ![parentNode.allChildren containsObject:edge.toNode]) {
+            [edges removeObject:edge];
+        }
+    }
+    return [LHRouteHint hintWithNodes:nodes edges:edges];
+}
+
+@end
+
 
 @interface LHCommandNodeUpdateTask ()
 
@@ -93,9 +117,10 @@
             
             if (target) {
                 target = [[LHTarget alloc] initWithActiveNodes:[target.activeNodes setByAddingObject:node]
-                                                  inactiveNodes:target.inactiveNodes];
+                                                 inactiveNodes:target.inactiveNodes
+                                                     routeHint:[jointTarget.routeHint filteredByParentNode:parent]];
             } else {
-                target = [LHTarget withActiveNode:node];
+                target = [LHTarget withActiveNode:node routeHint:[jointTarget.routeHint filteredByParentNode:parent]];
             }
             
             [targetsByParent setObject:target forKey:parent];
@@ -111,9 +136,10 @@
         
         if (target) {
             target = [[LHTarget alloc] initWithActiveNodes:target.activeNodes
-                                            inactiveNodes:[target.inactiveNodes setByAddingObject:inactiveNode]];
+                                             inactiveNodes:[target.inactiveNodes setByAddingObject:inactiveNode]
+                                                 routeHint:[jointTarget.routeHint filteredByParentNode:parent]];
         } else {
-            target = [LHTarget withInactiveNode:inactiveNode];
+            target = [LHTarget withInactiveNode:inactiveNode routeHint:[jointTarget.routeHint filteredByParentNode:parent]];
         }
         
         [targetsByParent setObject:target forKey:parent];
