@@ -10,9 +10,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-
 @interface LHTree<ObjectType> : NSObject <NSCopying>
 
+@property (nonatomic, strong, readonly, nullable) ObjectType rootItem;
 @property (nonatomic, strong, readonly) NSSet<ObjectType> *allItems;
 
 - (nullable ObjectType)previousItem:(ObjectType)item;

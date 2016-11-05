@@ -8,18 +8,19 @@
 
 #import <Foundation/Foundation.h>
 
-@class LHNodeGraph;
+@class LHNodeTree;
 @class LHNodeDataStorage;
 @protocol LHDriverFactory;
 @protocol LHCommandRegistry;
 @protocol LHDriverProvider;
+@protocol LHNode;
 
 NS_ASSUME_NONNULL_BEGIN
 
 
 @interface LHComponents : NSObject
 
-@property (nonatomic, strong, readonly) LHNodeGraph *graph;
+@property (nonatomic, strong, readonly) LHNodeTree *tree;
 
 @property (nonatomic, strong, readonly) LHNodeDataStorage *nodeDataStorage;
 
@@ -29,10 +30,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong, readonly) id<LHDriverProvider> driverProvider;
 
-- (instancetype)initWithGraph:(LHNodeGraph *)graph
-              nodeDataStorage:(LHNodeDataStorage *)nodeDataStorage
-                driverFactory:(id<LHDriverFactory>)driverFactory
-              commandRegistry:(id<LHCommandRegistry>)commandRegistry NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithTree:(LHNodeTree *)tree
+             nodeDataStorage:(LHNodeDataStorage *)nodeDataStorage
+               driverFactory:(id<LHDriverFactory>)driverFactory
+             commandRegistry:(id<LHCommandRegistry>)commandRegistry NS_DESIGNATED_INITIALIZER;
 
 - (instancetype)init NS_UNAVAILABLE;
 

@@ -13,14 +13,14 @@
 
 @implementation LHComponents
 
-- (instancetype)initWithGraph:(LHNodeGraph *)graph
-              nodeDataStorage:(LHNodeDataStorage *)nodeDataStorage
-                driverFactory:(id<LHDriverFactory>)driverFactory
-              commandRegistry:(id<LHCommandRegistry>)commandRegistry {
+- (instancetype)initWithTree:(LHNodeTree *)tree
+             nodeDataStorage:(LHNodeDataStorage *)nodeDataStorage
+               driverFactory:(id<LHDriverFactory>)driverFactory
+             commandRegistry:(id<LHCommandRegistry>)commandRegistry {
     self = [super init];
     if (!self) return nil;
     
-    _graph = graph;
+    _tree = tree;
     _nodeDataStorage = nodeDataStorage;
     _driverFactory = driverFactory;
     _commandRegistry = commandRegistry;

@@ -31,7 +31,6 @@
 		012A95651C4EFD9A000A4ECB /* LHCompositeDriver.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A01AAB1BA9743900608274 /* LHCompositeDriver.m */; };
 		012A95661C4EFD9A000A4ECB /* LHBasicCommandRegistry.m in Sources */ = {isa = PBXBuildFile; fileRef = 0111CC2A1BAB026B00C19022 /* LHBasicCommandRegistry.m */; };
 		012A95681C4EFD9A000A4ECB /* LHDescriptionHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 0186CAF11BACC29E00B22431 /* LHDescriptionHelpers.m */; };
-		012A95691C4EFD9A000A4ECB /* LHNodeGraph.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A01A711BA83B0B00608274 /* LHNodeGraph.m */; };
 		012A956A1C4EFD9A000A4ECB /* LHNodeData.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A01A7F1BA84D2500608274 /* LHNodeData.m */; };
 		012A956B1C4EFD9A000A4ECB /* LHNodeDataStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 012A87A51BB3791200C9679D /* LHNodeDataStorage.m */; };
 		012A956C1C4EFD9A000A4ECB /* LHComponents.m in Sources */ = {isa = PBXBuildFile; fileRef = 01C6F90D1BBB1C7E00A13C1E /* LHComponents.m */; };
@@ -117,7 +116,6 @@
 		01DBF2EF1C4EFE700034783C /* LHTask.h in Headers */ = {isa = PBXBuildFile; fileRef = 01C6F8CB1BB6D61D00A13C1E /* LHTask.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		01DBF2F01C4EFE710034783C /* LHTaskQueue.h in Headers */ = {isa = PBXBuildFile; fileRef = 0111CC391BAB963900C19022 /* LHTaskQueue.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		01DBF2F11C4EFE710034783C /* LHDescriptionHelpers.h in Headers */ = {isa = PBXBuildFile; fileRef = 0186CAF01BACC29E00B22431 /* LHDescriptionHelpers.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		01DBF2F21C4EFEB00034783C /* LHNodeGraph.h in Headers */ = {isa = PBXBuildFile; fileRef = 01A01A701BA83B0B00608274 /* LHNodeGraph.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		01DBF2F31C4EFEB00034783C /* LHNodeData.h in Headers */ = {isa = PBXBuildFile; fileRef = 01A01A7E1BA84D2500608274 /* LHNodeData.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		01DBF2F41C4EFEB00034783C /* LHNodeDataStorage.h in Headers */ = {isa = PBXBuildFile; fileRef = 012A87A41BB3791200C9679D /* LHNodeDataStorage.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		01DBF2F51C4EFEB00034783C /* LHComponents.h in Headers */ = {isa = PBXBuildFile; fileRef = 01C6F90C1BBB1C7E00A13C1E /* LHComponents.h */; settings = {ATTRIBUTES = (Private, ); }; };
@@ -229,8 +227,6 @@
 		01A01A631BA8373B00608274 /* LHViewControllerDriver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHViewControllerDriver.m; sourceTree = "<group>"; };
 		01A01A651BA837B100608274 /* LHRouter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHRouter.h; sourceTree = "<group>"; };
 		01A01A661BA837B100608274 /* LHRouter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHRouter.m; sourceTree = "<group>"; };
-		01A01A701BA83B0B00608274 /* LHNodeGraph.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHNodeGraph.h; sourceTree = "<group>"; };
-		01A01A711BA83B0B00608274 /* LHNodeGraph.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHNodeGraph.m; sourceTree = "<group>"; };
 		01A01A751BA83EA500608274 /* LHCommandRegistry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHCommandRegistry.h; sourceTree = "<group>"; };
 		01A01A791BA8420000608274 /* LHDriverFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHDriverFactory.h; sourceTree = "<group>"; };
 		01A01A7E1BA84D2500608274 /* LHNodeData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHNodeData.h; sourceTree = "<group>"; };
@@ -354,8 +350,6 @@
 				0F5FC6EA1DCBE158009596D4 /* LHGraph.m */,
 				0F5FC6EB1DCBE158009596D4 /* LHGraphEdge.h */,
 				0F5FC6EC1DCBE158009596D4 /* LHGraphEdge.m */,
-				01A01A701BA83B0B00608274 /* LHNodeGraph.h */,
-				01A01A711BA83B0B00608274 /* LHNodeGraph.m */,
 				0186CB051BAE038600B22431 /* LHTree.h */,
 				0186CB061BAE038600B22431 /* LHTree.m */,
 				0160A96E1BA7434B0035A331 /* LHNodeTree.h */,
@@ -727,7 +721,6 @@
 				01DBF2F01C4EFE710034783C /* LHTaskQueue.h in Headers */,
 				019DE7341C971DD900656C15 /* LHRouterDelegate.h in Headers */,
 				01DBF2F11C4EFE710034783C /* LHDescriptionHelpers.h in Headers */,
-				01DBF2F21C4EFEB00034783C /* LHNodeGraph.h in Headers */,
 				01DBF2F31C4EFEB00034783C /* LHNodeData.h in Headers */,
 				01DBF2F41C4EFEB00034783C /* LHNodeDataStorage.h in Headers */,
 				01DBF2F51C4EFEB00034783C /* LHComponents.h in Headers */,
@@ -895,7 +888,6 @@
 				015A4F931C67014F00F950B3 /* LHContainerTransitionStyleRegistry.m in Sources */,
 				015A4FAB1C67FF5700F950B3 /* LHTransitionContext.m in Sources */,
 				012A95681C4EFD9A000A4ECB /* LHDescriptionHelpers.m in Sources */,
-				012A95691C4EFD9A000A4ECB /* LHNodeGraph.m in Sources */,
 				015A4FA71C67D77F00F950B3 /* LHContainerTransitionData.m in Sources */,
 				012A956A1C4EFD9A000A4ECB /* LHNodeData.m in Sources */,
 				012A956B1C4EFD9A000A4ECB /* LHNodeDataStorage.m in Sources */,

@@ -12,7 +12,7 @@
 #import "LHComponents.h"
 #import "LHNode.h"
 #import "LHTarget.h"
-#import "LHNodeGraph.h"
+#import "LHNodeTree.h"
 
 @interface LHCommandNodeUpdateTask ()
 
@@ -80,7 +80,7 @@
     NSMapTable<id<LHNode>, LHTarget *> *targetsByParent = [NSMapTable strongToStrongObjectsMapTable];
     
     for (id<LHNode> activeNode in jointTarget.activeNodes) {
-        NSOrderedSet<id<LHNode>> *pathToNode = [self.components.graph pathToNode:activeNode];
+        NSOrderedSet<id<LHNode>> *pathToNode = [self.components.tree pathToItem:activeNode];
         
         [pathToNode enumerateObjectsUsingBlock:^(id<LHNode> node, NSUInteger idx, BOOL *stop) {
             if (idx == 0) {
@@ -103,7 +103,7 @@
     }
     
     for (id<LHNode> inactiveNode in jointTarget.inactiveNodes) {
-        NSOrderedSet<id<LHNode>> *pathToNode = [self.components.graph pathToNode:inactiveNode];
+        NSOrderedSet<id<LHNode>> *pathToNode = [self.components.tree pathToItem:inactiveNode];
         
         id<LHNode> parent = pathToNode[pathToNode.count - 2];
         

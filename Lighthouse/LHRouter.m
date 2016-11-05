@@ -17,8 +17,8 @@
 #import "LHDriverTools.h"
 #import "LHNodeDataStorage.h"
 #import "LHNodeData.h"
+#import "LHNodeTree.h"
 #import "LHComponents.h"
-#import "LHNodeGraph.h"
 #import "LHCommand.h"
 #import "LHCommandRegistry.h"
 #import "LHTaskQueueImpl.h"
@@ -53,10 +53,10 @@
     self = [super init];
     if (!self) return nil;
     
-    _components = [[LHComponents alloc] initWithGraph:[[LHNodeGraph alloc] initWithRootNode:rootNode]
-                                      nodeDataStorage:[[LHNodeDataStorage alloc] initWithRootNode:rootNode]
-                                        driverFactory:driverFactory
-                                      commandRegistry:commandRegistry];
+    _components = [[LHComponents alloc] initWithTree:[LHNodeTree treeWithDescendantsOfNode:rootNode]
+                                     nodeDataStorage:[[LHNodeDataStorage alloc] initWithRootNode:rootNode]
+                                       driverFactory:driverFactory
+                                     commandRegistry:commandRegistry];
     
     _components.nodeDataStorage.delegate = self;
     

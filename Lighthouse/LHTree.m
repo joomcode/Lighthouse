@@ -46,6 +46,10 @@
 
 #pragma mark - Query
 
+- (id)rootItem {
+    return [self nextItems:nil].firstObject;
+}
+
 - (NSSet *)allItems {
     return self.items;
 }

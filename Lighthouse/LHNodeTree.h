@@ -21,6 +21,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (instancetype)treeWithActiveDescendantsOfNode:(id<LHNode>)node;
 
+- (LHNodeTree *)activeNodesTree;
+
+- (LHNodeTree *)initializedNodesTree;
+
 @end
 
 

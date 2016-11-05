@@ -11,7 +11,6 @@
 #import "LHNodeDataStorage.h"
 #import "LHRouterState.h"
 #import "LHNodeData.h"
-#import "LHNodeGraph.h"
 #import "LHDriver.h"
 #import "LHTaskQueueImpl.h"
 #import "LHNode.h"
@@ -49,7 +48,7 @@
     _driverUpdateQueue = [[LHTaskQueueImpl alloc] init];
     
     _affectedNodes = [[LHNodeTree alloc] init];
-    [_affectedNodes addItem:_components.graph.rootNode afterItemOrNil:nil];
+    [_affectedNodes addItem:components.tree.rootItem afterItemOrNil:nil];
     
     return self;
 }
@@ -58,7 +57,7 @@
 
 - (void)startWithCompletionBlock:(LHTaskCompletionBlock)completionBlock {
     if (self.animated) {
-        self.nodesForAnimatedDriverUpdate = [self.components.graph activeNodesTree].allItems;
+        self.nodesForAnimatedDriverUpdate = [self.components.tree activeNodesTree].allItems;
     }
     
     [self markAffectedNodes];
@@ -111,7 +110,7 @@
 #pragma mark - Node state manipulation
 
 - (void)markAffectedNodes {
-    LHNodeTree *tree = [self.components.graph initializedNodesTree];
+    LHNodeTree *tree = [self.components.tree initializedNodesTree];
     
     [tree enumerateItemsWithBlock:^(id<LHNode> node, id<LHNode> previousNode, BOOL *stop) {
         [self.affectedNodes addItem:node afterItemOrNil:previousNode];
@@ -129,7 +128,7 @@
 #pragma mark - Driver manipulation
 
 - (void)updateDrivers {
-    [self updateDriversRecursively:self.components.graph.rootNode];
+    [self updateDriversRecursively:self.components.tree.rootItem];
 }
 
 - (void)updateDriversRecursively:(id<LHNode>)node {

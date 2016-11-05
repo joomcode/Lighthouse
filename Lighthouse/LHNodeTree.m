@@ -27,6 +27,14 @@
     return [self treeWithDescendantsOfNode:node withModelStates:LHNodeModelStateMaskActive];
 }
 
+- (LHNodeTree *)activeNodesTree {
+    return [LHNodeTree treeWithActiveDescendantsOfNode:self.rootItem];
+}
+
+- (LHNodeTree *)initializedNodesTree {
+    return [LHNodeTree treeWithInitializedDescendantsOfNode:self.rootItem];
+}
+
 #pragma mark - Private
 
 + (instancetype)treeWithDescendantsOfNode:(id<LHNode>)node withModelStates:(LHNodeModelStateMask)modelStateMask {
