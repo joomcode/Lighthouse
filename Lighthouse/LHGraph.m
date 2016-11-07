@@ -7,10 +7,10 @@
 //
 
 #import "LHGraph.h"
-#import "LHDebugDescription.h"
+#import "LHDebugPrintable.h"
 #import "NSMapTable+LHUtils.h"
 
-@interface LHGraph () {
+@interface LHGraph () <LHDebugPrintable> {
     
 @protected
     id _rootNode;
@@ -137,12 +137,8 @@
 
 #pragma mark - LHDebugPrintable
 
-- (NSString *)lh_descriptionWithIndent:(NSUInteger)indent {
-    return [self lh_descriptionWithIndent:indent block:^(NSMutableString *buffer, NSString *indentString, NSUInteger indent) {
-        [buffer appendFormat:@"%@rootNode = %@\n", indentString, [self.rootNode lh_descriptionWithIndent:indent]];
-        [buffer appendFormat:@"%@nodes = %@\n", indentString, [self.nodes lh_descriptionWithIndent:indent]];
-        [buffer appendFormat:@"%@edges = %@\n", indentString, [self.edges lh_descriptionWithIndent:indent]];
-    }];
+- (NSDictionary<NSString *,id> *)lh_debugProperties {
+    return @{ @"rootNode": self.rootNode ?: [NSNull null], @"nodes": self.nodes, @"edges": self.edges };
 }
 
 - (NSString *)description {

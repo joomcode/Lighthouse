@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol LHDebugPrintable <NSObject>
 
+- (nullable NSDictionary<NSString *, id> *)lh_debugProperties;
+
 - (NSString *)lh_descriptionWithIndent:(NSUInteger)indent;
 
 @end

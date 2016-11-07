@@ -8,7 +8,12 @@
 
 #import "LHLeafNode.h"
 #import "LHTarget.h"
-#import "LHDebugDescription.h"
+#import "LHDebugPrintable.h"
+
+@interface LHLeafNode () <LHDebugPrintable>
+
+@end
+
 
 @implementation LHLeafNode
 
@@ -45,10 +50,8 @@
 
 #pragma mark - LHDebugPrintable
 
-- (NSString *)lh_descriptionWithIndent:(NSUInteger)indent {
-    return [self lh_descriptionWithIndent:indent block:^(NSMutableString *buffer, NSString *indentString, NSUInteger indent) {
-        [buffer appendFormat:@"%@label = %@\n", indentString, self.label];
-    }];
+- (NSDictionary<NSString *,id> *)lh_debugProperties {
+    return @{@"label": self.label ?: [NSNull null]};
 }
 
 - (NSString *)description {

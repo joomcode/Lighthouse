@@ -9,14 +9,13 @@
 #import "LHNode.h"
 #import "LHGraph.h"
 #import "LHStackNodeChildrenState.h"
-#import "LHDebugPrintable.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @class LHMutableGraph;
 
 
-@interface LHStackNode : NSObject <LHNode, LHDebugPrintable>
+@interface LHStackNode : NSObject <LHNode>
 
 @property (nonatomic, strong, readonly) LHStackNodeChildrenState *childrenState;
 

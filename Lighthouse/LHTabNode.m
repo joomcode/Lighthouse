@@ -8,9 +8,9 @@
 
 #import "LHTabNode.h"
 #import "LHTarget.h"
-#import "LHDebugDescription.h"
+#import "LHDebugPrintable.h"
 
-@interface LHTabNode ()
+@interface LHTabNode () <LHDebugPrintable>
 
 @property (nonatomic, strong) LHTabNodeChildrenState *childrenState;
 
@@ -72,11 +72,8 @@
 
 #pragma mark - LHDebugPrintable
 
-- (NSString *)lh_descriptionWithIndent:(NSUInteger)indent {
-    return [self lh_descriptionWithIndent:indent block:^(NSMutableString *buffer, NSString *indentString, NSUInteger indent) {
-        [buffer appendFormat:@"%@label = %@\n", indentString, self.label];
-        [buffer appendFormat:@"%@childrenState = %@\n", indentString, [self.childrenState lh_descriptionWithIndent:indent]];
-    }];
+- (NSDictionary<NSString *,id> *)lh_debugProperties {
+    return @{ @"label": self.label ?: [NSNull null], @"childrenState": self.childrenState };
 }
 
 - (NSString *)description {

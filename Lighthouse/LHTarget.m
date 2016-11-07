@@ -8,7 +8,12 @@
 
 #import "LHTarget.h"
 #import "LHRouteHint.h"
-#import "LHDebugDescription.h"
+#import "LHDebugPrintable.h"
+
+@interface LHTarget () <LHDebugPrintable>
+
+@end
+
 
 @implementation LHTarget
 
@@ -63,12 +68,8 @@
 
 #pragma mark - NSObject
 
-- (NSString *)lh_descriptionWithIndent:(NSUInteger)indent {
-    return [self lh_descriptionWithIndent:indent block:^(NSMutableString *buffer, NSString *indentString, NSUInteger indent) {
-        [buffer appendFormat:@"%@activeNodes: %@\n", indentString, [self.activeNodes lh_descriptionWithIndent:indent]];
-        [buffer appendFormat:@"%@inactiveNodes: %@\n", indentString, [self.inactiveNodes  lh_descriptionWithIndent:indent]];
-        [buffer appendFormat:@"%@routeHint: %@\n", indentString, [self.routeHint  lh_descriptionWithIndent:indent]];
-    }];
+- (NSDictionary<NSString *,id> *)lh_debugProperties {
+    return @{ @"activeNodes": self.activeNodes, @"inactiveNodes": self.inactiveNodes, @"routeHint": self.routeHint ?: [NSNull null] };
 }
 
 - (NSString *)description {

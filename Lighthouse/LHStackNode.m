@@ -11,9 +11,14 @@
 #import "LHStackNodeChildrenState.h"
 #import "LHTarget.h"
 #import "LHRouteHint.h"
-#import "LHDebugDescription.h"
+#import "LHDebugPrintable.h"
 
 @interface LHStackNode () <LHDebugPrintable>
+
+@end
+
+
+@interface LHStackNode ()
 
 @property (nonatomic, copy, readonly) NSArray<LHGraph<id<LHNode>> *> *graphs;
 
@@ -197,11 +202,8 @@
 
 #pragma mark - LHDebugPrintable
 
-- (NSString *)lh_descriptionWithIndent:(NSUInteger)indent {
-    return [self lh_descriptionWithIndent:indent block:^(NSMutableString *buffer, NSString *indentString, NSUInteger indent) {
-        [buffer appendFormat:@"%@label = %@\n", indentString, self.label];
-        [buffer appendFormat:@"%@childrenState = %@\n", indentString, [self.childrenState lh_descriptionWithIndent:indent]];
-    }];
+- (NSDictionary<NSString *,id> *)lh_debugProperties {
+    return @{ @"label": self.label ?: [NSNull null], @"childrenState": self.childrenState };
 }
 
 - (NSString *)description {

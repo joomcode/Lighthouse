@@ -7,11 +7,10 @@
 //
 
 #import "LHGraphEdge.h"
-#import "LHDebugPrintable.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface LHGraph<__covariant NodeType> : NSObject <NSCopying, NSMutableCopying, LHDebugPrintable>
+@interface LHGraph<__covariant NodeType> : NSObject <NSCopying, NSMutableCopying>
 
 @property (nonatomic, strong, readonly, nullable) NodeType rootNode;
 

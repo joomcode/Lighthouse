@@ -7,7 +7,12 @@
 //
 
 #import "LHGraphEdge.h"
-#import "LHDebugDescription.h"
+#import "LHDebugPrintable.h"
+
+@interface LHGraphEdge () <LHDebugPrintable>
+
+@end
+
 
 @implementation LHGraphEdge
 
@@ -55,14 +60,8 @@
 
 #pragma mark - LHDebugPrintable
 
-- (NSString *)lh_descriptionWithIndent:(NSUInteger)indent {
-    return [self lh_descriptionWithIndent:indent block:^(NSMutableString *buffer, NSString *indentString, NSUInteger indent) {
-        if (self.label.length > 0) {
-            [buffer appendFormat:@"%@label = %@\n", indentString, self.label];
-        }
-        [buffer appendFormat:@"%@fromNode = %@\n", indentString, [self.fromNode lh_descriptionWithIndent:indent]];
-        [buffer appendFormat:@"%@toNode = %@\n", indentString, [self.toNode lh_descriptionWithIndent:indent]];
-    }];
+- (NSDictionary<NSString *,id> *)lh_debugProperties {
+    return @{ @"label": self.label ?: [NSNull null], @"fromNode": self.fromNode, @"toNode": self.toNode };
 }
 
 - (NSString *)description {

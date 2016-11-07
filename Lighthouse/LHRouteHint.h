@@ -7,14 +7,13 @@
 //
 
 #import "LHGraphEdge.h"
-#import "LHDebugPrintable.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @protocol LHNode;
 
 
-@interface LHRouteHint : NSObject <LHDebugPrintable>
+@interface LHRouteHint : NSObject
 
 @property (nonatomic, copy, readonly, nullable) NSOrderedSet<id<LHNode>> *nodes;
 @property (nonatomic, copy, readonly, nullable) NSOrderedSet<LHGraphEdge<id<LHNode>> *> *edges;

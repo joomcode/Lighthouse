@@ -6,8 +6,15 @@
 //  Copyright © 2016 Pixty. All rights reserved.
 //
 
-#import "LHDebugDescription.h"
+#import "LHDebugPrintable.h"
 #import <objc/runtime.h>
+
+@interface NSObject (LHDebugDescription) <LHDebugPrintable>
+
+- (NSString *)lh_description;
+
+@end
+
 
 @implementation NSString (LHDebugDescription)
 
@@ -17,6 +24,8 @@
 
 @end
 
+
+typedef void(^LHDebugDescriptionBlock)(NSMutableString *buffer, NSString *indentString, NSUInteger indent);
 
 static NSString *LHDescriptionWithTitleAndBraces(NSString *title, NSInteger indent, LHDebugDescriptionBlock block) {
     NSMutableString *description = [NSMutableString string];
@@ -67,27 +76,6 @@ static NSString *LHKeyValueContainerDescription(id<NSFastEnumeration, NSObject> 
 }
 
 
-@implementation NSObject (LHDebugDescription)
-
-- (NSString *)lh_descriptionWithIndent:(NSUInteger)indent block:(LHDebugDescriptionBlock)block {
-    NSString *objectDescription;
-    
-    if ([self conformsToProtocol:@protocol(LHDebugPrintable)]) {
-        NSString *title = [NSString stringWithFormat:@"<%@: %p>", NSStringFromClass([self class]), self];
-        objectDescription = LHDescriptionWithTitleAndBraces(title, indent, block);
-    } else {
-        objectDescription = [self description];
-    }
-    return [NSString stringWithFormat:@"%@\n", objectDescription];
-}
-
-- (NSString *)lh_description {
-    return nil;
-}
-
-@end
-
-
 static void LHSwizzleDescriptionForClasses(NSArray<NSString *> *classes, Class sourceClazz) {
     for (NSString *name in classes) {
         Class clazz = NSClassFromString(name);
@@ -98,6 +86,35 @@ static void LHSwizzleDescriptionForClasses(NSArray<NSString *> *classes, Class s
         method_setImplementation(m1, method_getImplementation(m2));
     }
 }
+
+
+@implementation NSObject (LHDebugDescription)
+
+- (NSString *)lh_descriptionWithIndent:(NSUInteger)indent {
+    NSDictionary<NSString *, id> *props = [self lh_debugProperties];
+    if (!props) {
+        return [self description];
+    }
+    NSString *title = [NSString stringWithFormat:@"<%@: %p>", NSStringFromClass([self class]), self];
+    
+    NSString *objectDescription = LHDescriptionWithTitleAndBraces(title, indent, ^(NSMutableString *buffer, NSString *indentString, NSUInteger indent) {
+        for (NSString *name in props) {
+            id value = props[name];
+            [buffer appendFormat:@"%@%@ = %@\n", indentString, name, [value lh_descriptionWithIndent:indent]];
+        }
+    });
+    return [NSString stringWithFormat:@"%@\n", objectDescription];
+}
+
+- (NSDictionary<NSString *,id> *)lh_debugProperties {
+    return nil;
+}
+
+- (NSString *)lh_description {
+    return [self description];
+}
+
+@end
 
 
 @implementation NSMapTable (LHDebugDescription)
@@ -113,7 +130,7 @@ static void LHSwizzleDescriptionForClasses(NSArray<NSString *> *classes, Class s
 
 #if DEBUG
 + (void)load {
-    LHSwizzleDescriptionForClasses(@[@"NSConcreteMapTable"], self);
+    LHSwizzleDescriptionForClasses(@[ @"NSConcreteMapTable" ], self);
 }
 #endif
 
@@ -133,7 +150,7 @@ static void LHSwizzleDescriptionForClasses(NSArray<NSString *> *classes, Class s
 
 #if DEBUG
 + (void)load {
-    LHSwizzleDescriptionForClasses(@[@"__NSSetI", @"__NSSetM", @"__NSSingleObjectSetI"], self);
+    LHSwizzleDescriptionForClasses(@[ @"__NSSetI", @"__NSSetM", @"__NSSingleObjectSetI" ], self);
 }
 #endif
 
@@ -153,7 +170,7 @@ static void LHSwizzleDescriptionForClasses(NSArray<NSString *> *classes, Class s
 
 #if DEBUG
 + (void)load {
-    LHSwizzleDescriptionForClasses(@[@"__NSOrderedSetI", @"__NSOrderedSetM"], self);
+    LHSwizzleDescriptionForClasses(@[ @"__NSOrderedSetI", @"__NSOrderedSetM" ], self);
 }
 #endif
 

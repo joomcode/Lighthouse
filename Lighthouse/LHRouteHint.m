@@ -7,7 +7,12 @@
 //
 
 #import "LHRouteHint.h"
-#import "LHDebugDescription.h"
+#import "LHDebugPrintable.h"
+
+@interface LHRouteHint () <LHDebugPrintable>
+
+@end
+
 
 @implementation LHRouteHint
 
@@ -38,11 +43,8 @@
 
 #pragma mark - LHDebugPrintable
 
-- (NSString *)lh_descriptionWithIndent:(NSUInteger)indent {
-    return [self lh_descriptionWithIndent:indent block:^(NSMutableString *buffer, NSString *indentString, NSUInteger indent) {
-        [buffer appendFormat:@"%@nodes = %@\n", indentString, [self.nodes lh_descriptionWithIndent:indent]];
-        [buffer appendFormat:@"%@edges = %@\n", indentString, [self.edges lh_descriptionWithIndent:indent]];
-    }];
+- (NSDictionary<NSString *,id> *)lh_debugProperties {
+    return @{ @"nodes": self.nodes ?: [NSNull null], @"edges": self.edges ?: [NSNull null] };
 }
 
 - (NSString *)description {

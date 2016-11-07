@@ -7,7 +7,12 @@
 //
 
 #import "LHStackNodeChildrenState.h"
-#import "LHDebugDescription.h"
+#import "LHDebugPrintable.h"
+
+@interface LHStackNodeChildrenState () <LHDebugPrintable>
+
+@end
+
 
 @implementation LHStackNodeChildrenState
 
@@ -37,12 +42,10 @@
 
 #pragma mark - LHDebugPrintable
 
-- (NSString *)lh_descriptionWithIndent:(NSUInteger)indent {
-    return [self lh_descriptionWithIndent:indent block:^(NSMutableString *buffer, NSString *indentString, NSUInteger indent) {
-        [buffer appendFormat:@"%@activeChildren = %@\n", indentString, [self.activeChildren lh_descriptionWithIndent:indent]];
-        [buffer appendFormat:@"%@inactiveChildren = %@\n", indentString, [self.inactiveChildren lh_descriptionWithIndent:indent]];
-        [buffer appendFormat:@"%@stack = %@\n", indentString, [self.stack lh_descriptionWithIndent:indent]];
-    }];
+- (NSDictionary<NSString *,id> *)lh_debugProperties {
+    return @{ @"activeChildren": self.activeChildren,
+              @"inactiveChildren": self.inactiveChildren,
+              @"stack": self.stack };
 }
 
 - (NSString *)description {
