@@ -114,8 +114,7 @@
     [commandRegistry bindCommandClass:[PXDismissModal class] toTarget:[LHTarget withInactiveNodes:@[ hierarchy.modalNode, hierarchy.deepModalNode ]]];
     [commandRegistry bindCommandClass:[PXPresentAnotherModal class] toTargetWithActiveNode:hierarchy.anotherBlueNode];
 
-    LHRouteHint *hint = [LHRouteHint hintWithNodes:[NSOrderedSet orderedSetWithObject:hierarchy.greenNode]];
-    LHTarget *target = [LHTarget withActiveNode:hierarchy.blueNode routeHint:hint];
+    LHTarget *target = [LHTarget withActiveNode:hierarchy.blueNode routeNodes:@[ hierarchy.greenNode ]];
     [commandRegistry bindCommandClass:[PXPresentBlueThroughGreen class] toTarget:target];
     
     // Router

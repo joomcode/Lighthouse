@@ -38,12 +38,22 @@
     return [[[self class] alloc] initWithActiveNodes:[NSSet setWithObject:activeNode] inactiveNodes:nil routeHint:hint];
 }
 
++ (instancetype)withActiveNode:(id<LHNode>)activeNode routeNodes:(NSArray<id<LHNode>> *)routeNodes {
+    LHRouteHint *hint = [LHRouteHint hintWithNodes:[NSOrderedSet orderedSetWithArray:routeNodes]];
+    return [self withActiveNode:activeNode routeHint:hint];
+}
+
 + (instancetype)withActiveNode:(id<LHNode>)activeNode {
     return [self withActiveNode:activeNode routeHint:nil];
 }
 
 + (instancetype)withActiveNodes:(NSArray<id<LHNode>> *)activeNodes routeHint:(LHRouteHint *)hint {
     return [[[self class] alloc] initWithActiveNodes:[NSSet setWithArray:activeNodes] inactiveNodes:nil routeHint:hint];
+}
+
++ (instancetype)withActiveNodes:(NSArray<id<LHNode>> *)activeNodes routeNodes:(NSArray<id<LHNode>> *)routeNodes {
+    LHRouteHint *hint = [LHRouteHint hintWithNodes:[NSOrderedSet orderedSetWithArray:routeNodes]];
+    return [self withActiveNodes:activeNodes routeHint:hint];
 }
 
 + (instancetype)withActiveNodes:(NSArray<id<LHNode>> *)activeNodes {
@@ -54,12 +64,22 @@
     return [[[self class] alloc] initWithActiveNodes:nil inactiveNodes:[NSSet setWithObject:inactiveNode] routeHint:hint];
 }
 
++ (instancetype)withInactiveNode:(id<LHNode>)inactiveNode routeNodes:(NSArray<id<LHNode>> *)routeNodes {
+    LHRouteHint *hint = [LHRouteHint hintWithNodes:[NSOrderedSet orderedSetWithArray:routeNodes]];
+    return [self withInactiveNode:inactiveNode routeHint:hint];
+}
+
 + (instancetype)withInactiveNode:(id<LHNode>)inactiveNode {
     return [self withInactiveNode:inactiveNode routeHint:nil];
 }
 
 + (instancetype)withInactiveNodes:(NSArray<id<LHNode>> *)inactiveNodes routeHint:(LHRouteHint *)hint {
     return [[[self class] alloc] initWithActiveNodes:nil inactiveNodes:[NSSet setWithArray:inactiveNodes] routeHint:hint];
+}
+
++ (instancetype)withInactiveNodes:(NSArray<id<LHNode>> *)inactiveNodes routeNodes:(NSArray<id<LHNode>> *)routeNodes {
+    LHRouteHint *hint = [LHRouteHint hintWithNodes:[NSOrderedSet orderedSetWithArray:routeNodes]];
+    return [self withInactiveNodes:inactiveNodes routeHint:hint];
 }
 
 + (instancetype)withInactiveNodes:(NSArray<id<LHNode>> *)inactiveNodes {
