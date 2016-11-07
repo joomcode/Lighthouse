@@ -231,8 +231,27 @@
     return [self addEdgeFromNode:fromNode toNode:toNode label:nil];
 }
 
-- (NSArray<LHGraphEdge *> *)addBidirectionalEdgeFromNode:(id)fromNode toNode:(id)toNode {
-    return @[ [self addEdgeFromNode:fromNode toNode:toNode], [self addEdgeFromNode:toNode toNode:fromNode] ];
+- (NSOrderedSet<LHGraphEdge *> *)addEdgesFromNode:(id)fromNode toNodes:(NSArray *)toNodes {
+    NSMutableOrderedSet<LHGraphEdge *> *edges = [NSMutableOrderedSet orderedSet];
+    
+    for (id node in toNodes) {
+        [edges addObject:[self addEdgeFromNode:fromNode toNode:node]];
+    }
+    return [edges copy];
+}
+
+- (NSOrderedSet<LHGraphEdge *> *)addBidirectionalEdgeFromNode:(id)fromNode toNode:(id)toNode {
+    return [NSOrderedSet orderedSetWithArray:@[ [self addEdgeFromNode:fromNode toNode:toNode],
+                                                [self addEdgeFromNode:toNode toNode:fromNode] ]];
+}
+
+- (NSOrderedSet<LHGraphEdge *> *)addBidirectionalEdgesFromNode:(id)fromNode toNodes:(NSArray *)toNodes {
+    NSMutableOrderedSet<LHGraphEdge *> *edges = [NSMutableOrderedSet orderedSet];
+    
+    for (id node in toNodes) {
+        [edges unionOrderedSet:[self addBidirectionalEdgeFromNode:fromNode toNode:node]];
+    }
+    return [edges copy];
 }
 
 - (void)removeEdge:(LHGraphEdge *)edge {

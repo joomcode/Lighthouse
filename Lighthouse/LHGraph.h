@@ -47,7 +47,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (LHGraphEdge<NodeType> *)addEdgeFromNode:(NodeType)fromNode toNode:(NodeType)toNode;
 
-- (NSArray<LHGraphEdge<NodeType> *> *)addBidirectionalEdgeFromNode:(NodeType)fromNode toNode:(NodeType)toNode;
+- (NSOrderedSet<LHGraphEdge<NodeType> *> *)addEdgesFromNode:(NodeType)fromNode toNodes:(NSArray<NodeType> *)toNodes;
+
+- (NSOrderedSet<LHGraphEdge<NodeType> *> *)addBidirectionalEdgeFromNode:(NodeType)fromNode toNode:(NodeType)toNode;
+
+- (NSOrderedSet<LHGraphEdge<NodeType> *> *)addBidirectionalEdgesFromNode:(NodeType)fromNode toNodes:(NSArray<NodeType> *)toNodes;
 
 - (void)removeEdge:(LHGraphEdge *)edge;
 
