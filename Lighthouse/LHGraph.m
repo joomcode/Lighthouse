@@ -231,6 +231,10 @@
     return [self addEdgeFromNode:fromNode toNode:toNode label:nil];
 }
 
+- (NSArray<LHGraphEdge *> *)addBidirectionalEdgeFromNode:(id)fromNode toNode:(id)toNode {
+    return @[ [self addEdgeFromNode:fromNode toNode:toNode], [self addEdgeFromNode:toNode toNode:fromNode] ];
+}
+
 - (void)removeEdge:(LHGraphEdge *)edge {
     [self.edges removeObject:edge];
     

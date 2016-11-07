@@ -29,9 +29,9 @@
     if (!_rootNode) {
         _rootNode = [[LHStackNode alloc] initWithGraphBlock:^(LHMutableGraph<id<LHNode>> *graph) {
             graph.rootNode = self.mainStackNode;
-            [graph addEdgeFromNode:self.mainStackNode toNode:self.modalStackNode];
-            [graph addEdgeFromNode:self.modalStackNode toNode:self.deepModalStackNode];
-            [graph addEdgeFromNode:self.mainStackNode toNode:self.anotherModalStackNode];
+            [graph addBidirectionalEdgeFromNode:self.mainStackNode toNode:self.modalStackNode];
+            [graph addBidirectionalEdgeFromNode:self.modalStackNode toNode:self.deepModalStackNode];
+            [graph addBidirectionalEdgeFromNode:self.mainStackNode toNode:self.anotherModalStackNode];
         } label:@"rootStack"];
     }
     return _rootNode;
@@ -41,9 +41,9 @@
     if (!_mainStackNode) {
         _mainStackNode = [[LHStackNode alloc] initWithGraphBlock:^(LHMutableGraph<id<LHNode>> *graph) {
             graph.rootNode = self.redNode;
-            [graph addEdgeFromNode:self.redNode toNode:self.greenNode];
-            [graph addEdgeFromNode:self.redNode toNode:self.blueNode];
-            [graph addEdgeFromNode:self.greenNode toNode:self.blueNode];
+            [graph addBidirectionalEdgeFromNode:self.redNode toNode:self.greenNode];
+            [graph addBidirectionalEdgeFromNode:self.redNode toNode:self.blueNode];
+            [graph addBidirectionalEdgeFromNode:self.greenNode toNode:self.blueNode];
         } label:@"mainStack"];
     }
     return _mainStackNode;
