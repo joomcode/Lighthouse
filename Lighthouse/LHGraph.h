@@ -30,6 +30,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSSet<LHGraphEdge<NodeType> *> *)outgoingEdgesForNode:(NodeType)node;
 
+- (BOOL)hasEdgeFromNode:(NodeType)source toNode:(NodeType)target;
+
 @end
 
 

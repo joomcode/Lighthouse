@@ -123,6 +123,15 @@
     return [[self.outgoingEdgesByNode objectForKey:node] copy];
 }
 
+- (BOOL)hasEdgeFromNode:(id)source toNode:(id)target {
+    for (LHGraphEdge *edge in [self outgoingEdgesForNode:source]) {
+        if (edge.toNode == target) {
+            return YES;
+        }
+    }
+    return NO;
+}
+
 #pragma mark - NSCopying
 
 - (id)copyWithZone:(NSZone *)zone {

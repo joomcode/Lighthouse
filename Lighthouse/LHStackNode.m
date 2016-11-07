@@ -127,6 +127,8 @@
     NSOrderedSet<id<LHNode>> *path = [graph pathFromNode:graph.rootNode toNode:activeChild visitingNodes:target.routeHint.nodes];
     NSAssert(path != nil, @"A path to the active node should exist");
     
+    path = [self bidirectionalTailFromPath:path inGraph:graph];
+    
     [self.nodeStackByGraph setObject:path forKey:graph];
     
     [self activateGraph:graph];
@@ -168,6 +170,25 @@
     }
     
     return childForTargetActiveNodes ?: childForTargetInactiveNodes;
+}
+
+- (NSOrderedSet<id<LHNode>> *)bidirectionalTailFromPath:(NSOrderedSet<id<LHNode>> *)path inGraph:(LHGraph *)graph {
+    NSMutableOrderedSet<id<LHNode>> *processedPath = [NSMutableOrderedSet orderedSet];
+    NSOrderedSet<id<LHNode>> *reversedPath = [path reverseObjectEnumerator].allObjects;
+    
+    [reversedPath enumerateObjectsUsingBlock:^(id<LHNode> node, NSUInteger idx, BOOL *stop) {
+        if (idx == 0) {
+            [processedPath addObject:node];
+            return;
+        }
+        id<LHNode> prevNode = [reversedPath objectAtIndex:idx - 1];
+        if ([graph hasEdgeFromNode:prevNode toNode:node]) {
+            [processedPath insertObject:node atIndex:0];
+        } else {
+            *stop = YES;
+        }
+    }];
+    return [processedPath copy];
 }
 
 - (LHGraph<id<LHNode>> *)graphForChild:(id<LHNode>)child {
