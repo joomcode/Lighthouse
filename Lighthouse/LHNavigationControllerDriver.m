@@ -13,6 +13,7 @@
 #import "LHDriverUpdateContext.h"
 #import "LHTaskQueue.h"
 #import "LHTarget.h"
+#import "LHRouteHint.h"
 #import "LHViewControllerDriverHelpers.h"
 #import "LHContainerTransitionStyleRegistry.h"
 #import "LHContainerTransitionData.h"
@@ -120,7 +121,8 @@
     [navigationController.transitionCoordinator notifyWhenInteractionEndsUsingBlock:^(id<UIViewControllerTransitionCoordinatorContext> context) {
         if ([context isCancelled]) {
             [self.tools.channel startNodeUpdateWithBlock:^(id<LHNode> node) {
-                [node updateChildrenState:[LHTarget withActiveNode:oldActiveNode]];
+                LHRouteHint *hint = [LHRouteHint hintWithNodes:self.node.childrenState.stack];
+                [node updateChildrenState:[LHTarget withActiveNode:oldActiveNode routeHint:hint]];
             }];
         }
     }];
