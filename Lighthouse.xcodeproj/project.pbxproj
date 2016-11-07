@@ -340,7 +340,6 @@
 		012112A41C4EC9830097B9E6 /* Router */ = {
 			isa = PBXGroup;
 			children = (
-				014C9F121C96EF1100D35950 /* Internal */,
 				01A01A651BA837B100608274 /* LHRouter.h */,
 				01A01A661BA837B100608274 /* LHRouter.m */,
 				01B3918C1C888FFD00579C2B /* LHRouterState.h */,
@@ -426,28 +425,13 @@
 				012112A41C4EC9830097B9E6 /* Router */,
 				0160A9651BA740480035A331 /* Nodes */,
 				0160A9771BA76CE70035A331 /* Drivers */,
-				01A01A781BA841DB00608274 /* Driver Factory */,
 				0160A9861BA821E10035A331 /* Command */,
-				01A01AA51BA8927500608274 /* Command Registry */,
 				0111CC371BAB95E500C19022 /* Misc */,
 				01A01A7A1BA8428B00608274 /* Internals */,
 				012A953B1C4EFD5E000A4ECB /* Supporting Files */,
 				012A953C1C4EFD5E000A4ECB /* Lighthouse.h */,
 			);
 			path = Lighthouse;
-			sourceTree = "<group>";
-		};
-		014C9F121C96EF1100D35950 /* Internal */ = {
-			isa = PBXGroup;
-			children = (
-				01B3918E1C88900A00579C2B /* LHRouterStateImpl.h */,
-				01B3918F1C88900A00579C2B /* LHRouterStateImpl.m */,
-				014C9F0E1C96EF0B00D35950 /* LHRouterResumeTokenImpl.h */,
-				014C9F0F1C96EF0B00D35950 /* LHRouterResumeTokenImpl.m */,
-				019DE7351C971F6800656C15 /* LHRouterDelegateImpl.h */,
-				019DE7361C971F6800656C15 /* LHRouterDelegateImpl.m */,
-			);
-			name = Internal;
 			sourceTree = "<group>";
 		};
 		014C9F131C96F93500D35950 /* Utils */ = {
@@ -460,18 +444,19 @@
 			name = Utils;
 			sourceTree = "<group>";
 		};
-		015A4F791C6555FD00F950B3 /* Transition Styles */ = {
+		015A4F791C6555FD00F950B3 /* Transitions */ = {
 			isa = PBXGroup;
 			children = (
+				015A4F981C6701B600F950B3 /* Registry */,
 				015A4FA81C67FF5700F950B3 /* LHTransitionContext.h */,
 				015A4FA91C67FF5700F950B3 /* LHTransitionContext.m */,
 				015A4F861C664BF200F950B3 /* LHModalTransitionStyle.h */,
 				015A4F801C663F0500F950B3 /* LHContainerTransitionStyle.h */,
 			);
-			name = "Transition Styles";
+			name = Transitions;
 			sourceTree = "<group>";
 		};
-		015A4F981C6701B600F950B3 /* Transition Style Registry */ = {
+		015A4F981C6701B600F950B3 /* Registry */ = {
 			isa = PBXGroup;
 			children = (
 				015A4F8C1C66950E00F950B3 /* LHTransitionStyleRegistry.h */,
@@ -481,7 +466,7 @@
 				015A4F901C67014F00F950B3 /* LHContainerTransitionStyleRegistry.h */,
 				015A4F911C67014F00F950B3 /* LHContainerTransitionStyleRegistry.m */,
 			);
-			name = "Transition Style Registry";
+			name = Registry;
 			sourceTree = "<group>";
 		};
 		0160A9651BA740480035A331 /* Nodes */ = {
@@ -529,6 +514,7 @@
 			children = (
 				0160A9821BA78DE00035A331 /* View Controllers */,
 				0111CC211BAA46E500C19022 /* Update Handler */,
+				01A01A781BA841DB00608274 /* Factory */,
 				0160A9781BA780AD0035A331 /* LHDriver.h */,
 				0160A9811BA78CAE0035A331 /* LHDriverUpdateContext.h */,
 				015A4FB41C68216900F950B3 /* LHDriverUpdateContext.m */,
@@ -543,8 +529,7 @@
 		0160A9821BA78DE00035A331 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				015A4F791C6555FD00F950B3 /* Transition Styles */,
-				015A4F981C6701B600F950B3 /* Transition Style Registry */,
+				015A4F791C6555FD00F950B3 /* Transitions */,
 				0124979F1BA9E825007CD98B /* Helpers */,
 				01A01A621BA8373B00608274 /* LHViewControllerDriver.h */,
 				01A01A631BA8373B00608274 /* LHViewControllerDriver.m */,
@@ -561,19 +546,20 @@
 		0160A9861BA821E10035A331 /* Command */ = {
 			isa = PBXGroup;
 			children = (
+				01A01AA51BA8927500608274 /* Registry */,
 				0160A9871BA822170035A331 /* LHCommand.h */,
 			);
 			name = Command;
 			sourceTree = "<group>";
 		};
-		01A01A781BA841DB00608274 /* Driver Factory */ = {
+		01A01A781BA841DB00608274 /* Factory */ = {
 			isa = PBXGroup;
 			children = (
 				01A01AAD1BA97B3B00608274 /* Block */,
 				01A01AAE1BA97B4500608274 /* Composite */,
 				01A01A791BA8420000608274 /* LHDriverFactory.h */,
 			);
-			name = "Driver Factory";
+			name = Factory;
 			sourceTree = "<group>";
 		};
 		01A01A7A1BA8428B00608274 /* Internals */ = {
@@ -596,13 +582,13 @@
 			name = Leaf;
 			sourceTree = "<group>";
 		};
-		01A01AA51BA8927500608274 /* Command Registry */ = {
+		01A01AA51BA8927500608274 /* Registry */ = {
 			isa = PBXGroup;
 			children = (
 				0111CC281BAB025B00C19022 /* Basic */,
 				01A01A751BA83EA500608274 /* LHCommandRegistry.h */,
 			);
-			name = "Command Registry";
+			name = Registry;
 			sourceTree = "<group>";
 		};
 		01A01AAD1BA97B3B00608274 /* Block */ = {
@@ -645,6 +631,12 @@
 		01C6F8DF1BB8AC0200A13C1E /* Implementations */ = {
 			isa = PBXGroup;
 			children = (
+				01B3918E1C88900A00579C2B /* LHRouterStateImpl.h */,
+				01B3918F1C88900A00579C2B /* LHRouterStateImpl.m */,
+				014C9F0E1C96EF0B00D35950 /* LHRouterResumeTokenImpl.h */,
+				014C9F0F1C96EF0B00D35950 /* LHRouterResumeTokenImpl.m */,
+				019DE7351C971F6800656C15 /* LHRouterDelegateImpl.h */,
+				019DE7361C971F6800656C15 /* LHRouterDelegateImpl.m */,
 				014C9F0A1C96E98E00D35950 /* LHTaskQueueImpl.h */,
 				014C9F0B1C96E98E00D35950 /* LHTaskQueueImpl.m */,
 				015A4FB01C681E7100F950B3 /* LHDriverProviderImpl.h */,
