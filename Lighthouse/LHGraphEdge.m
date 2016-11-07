@@ -30,34 +30,6 @@
     return [self initWithFromNode:fromNode toNode:toNode label:nil];
 }
 
-#pragma mark - NSObject
-
-- (BOOL)isEqual:(LHGraphEdge *)other {
-    if (other == self) {
-        return YES;
-    } else if (!other || ![other isKindOfClass:[self class]]) {
-        return NO;
-    } else {
-        return [self isEqualToEdge:other];
-    }
-}
-
-- (BOOL)isEqualToEdge:(LHGraphEdge *)other {
-    return [self.fromNode isEqual:other.fromNode] && [self.toNode isEqual:other.toNode];
-}
-
-- (NSUInteger)hash {
-    NSUInteger prime = 31;
-    NSUInteger result = 1;
-    
-    result = prime * result + [self.fromNode hash];
-    result = prime * result + [self.toNode hash];
-    if (self.label.length > 0) {
-        result = prime * result + [self.label hash];
-    }
-    return result;
-}
-
 #pragma mark - LHDebugPrintable
 
 - (NSDictionary<NSString *,id> *)lh_debugProperties {
