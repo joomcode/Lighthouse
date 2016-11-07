@@ -37,6 +37,7 @@ FOUNDATION_EXPORT const unsigned char LighthouseVersionString[];
 #import <Lighthouse/LHTabNode.h>
 
 #import <Lighthouse/LHNodeTree.h>
+#import <Lighthouse/LHGraph.h>
 #import <Lighthouse/LHNodeForest.h>
 
 
@@ -89,4 +90,5 @@ FOUNDATION_EXPORT const unsigned char LighthouseVersionString[];
 #import <Lighthouse/LHTaskBlocks.h>
 #import <Lighthouse/LHTaskQueue.h>
 #import <Lighthouse/LHDescriptionHelpers.h>
+#import <Lighthouse/LHDebugPrintable.h>
 
