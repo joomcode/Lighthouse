@@ -12,17 +12,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface NSMapTable<KeyType, ObjectType> (LHUtils)
 
-@property (nonatomic, copy, readonly) NSArray<KeyType> *allKeys;
+@property (nonatomic, copy, readonly) NSArray<KeyType> *lh_allKeys;
 
-@property (nonatomic, copy, readonly) NSArray<ObjectType> *allObjects;
+@property (nonatomic, copy, readonly) NSArray<ObjectType> *lh_allObjects;
 
-- (nullable ObjectType)objectForKeyedSubscript:(nullable KeyType)key;
+- (BOOL)lh_containsObject:(nullable ObjectType)object;
 
-- (void)setObject:(nullable ObjectType)object forKeyedSubscript:(nullable KeyType)key;
-
-- (BOOL)containsObject:(nullable ObjectType)object;
-
-- (nullable KeyType)keyForObject:(nullable ObjectType)object;
+- (nullable KeyType)lh_keyForObject:(nullable ObjectType)object;
 
 @end
 

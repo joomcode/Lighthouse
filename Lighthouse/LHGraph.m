@@ -7,8 +7,8 @@
 //
 
 #import "LHGraph.h"
-#import "NSMapTable+LHUtils.h"
 #import "LHDebugDescription.h"
+#import "NSMapTable+LHUtils.h"
 
 @interface LHGraph () {
     
@@ -52,7 +52,7 @@
 #pragma mark - Public
 
 - (NSSet *)nodes {
-    return [NSSet setWithArray:self.outgoingEdgesByNode.allKeys];
+    return [NSSet setWithArray:self.outgoingEdgesByNode.lh_allKeys];
 }
 
 - (NSOrderedSet *)pathFromNode:(id)source toNode:(id)target visitingNodes:(NSOrderedSet *)nodes {
@@ -98,7 +98,7 @@
             found = YES;
             break;
         }
-        for (LHGraphEdge *edge in self.outgoingEdgesByNode[node]) {
+        for (LHGraphEdge *edge in [self.outgoingEdgesByNode objectForKey:node]) {
             if (![visitedNodes containsObject:edge.toNode]) {
                 [visitedNodes addObject:edge.toNode];
                 
@@ -120,7 +120,7 @@
 }
 
 - (NSSet<LHGraphEdge *> *)outgoingEdgesForNode:(id)node {
-    return [self.outgoingEdgesByNode[node] copy];
+    return [[self.outgoingEdgesByNode objectForKey:node] copy];
 }
 
 #pragma mark - NSCopying
@@ -155,10 +155,9 @@
     NSMapTable<id, NSCountedSet<LHGraphEdge *> *> *outgoingEdges = [NSMapTable strongToStrongObjectsMapTable];
     
     for (id node in nodes) {
-        outgoingEdges[node] = [NSCountedSet set];
+        [outgoingEdges setObject:[NSCountedSet set] forKey:node];
     }
     for (LHGraphEdge *edge in edges) {
-        [outgoingEdges[edge.fromNode] addObject:edge];
         NSCountedSet *edgeBag = [outgoingEdges objectForKey:edge.fromNode];
         [edgeBag addObject:edge];
     }
@@ -189,14 +188,15 @@
 }
 
 - (void)addNode:(id)node {
-    if (self.outgoingEdgesByNode[node]) {
+    if ([self.outgoingEdgesByNode objectForKey:node]) {
         return;
     }
-    self.outgoingEdgesByNode[node] = [NSCountedSet set];
+    [self.outgoingEdgesByNode setObject:[NSCountedSet set] forKey:node];
 }
 
 - (void)removeNode:(id)node {
-    for (LHGraphEdge *edge in self.outgoingEdgesByNode[node]) {
+    NSCountedSet<LHGraphEdge *> *edgeBag = [self.outgoingEdgesByNode objectForKey:node];
+    for (LHGraphEdge *edge in edgeBag) {
         [self.edges removeObject:edge];
     }
     [self.outgoingEdgesByNode removeObjectForKey:node];
@@ -214,7 +214,9 @@
     
     LHGraphEdge *edge = [[LHGraphEdge alloc] initWithFromNode:fromNode toNode:toNode label:label];
     
-    [self.outgoingEdgesByNode[fromNode] addObject:edge];
+    NSCountedSet<LHGraphEdge *> *edgeBag = [self.outgoingEdgesByNode objectForKey:fromNode];
+    [edgeBag addObject:edge];
+    
     [self.edges addObject:edge];
     
     return edge;
@@ -226,7 +228,9 @@
 
 - (void)removeEdge:(LHGraphEdge *)edge {
     [self.edges removeObject:edge];
-    [self.outgoingEdgesByNode[edge.fromNode] removeObject:edge];
+    
+    NSCountedSet<LHGraphEdge *> *edgeBag = [self.outgoingEdgesByNode objectForKey:edge.fromNode];
+    [edgeBag removeObject:edge];
 }
 
 @end

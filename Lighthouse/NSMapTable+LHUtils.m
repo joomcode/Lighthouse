@@ -10,7 +10,7 @@
 
 @implementation NSMapTable (LHUtils)
 
-- (NSArray *)allKeys {
+- (NSArray *)lh_allKeys {
     NSMutableArray *allKeys = [[NSMutableArray alloc] initWithCapacity:self.count];
     for (id key in self) {
         [allKeys addObject:key];
@@ -18,29 +18,21 @@
     return allKeys;
 }
 
-- (NSArray *)allObjects {
+- (NSArray *)lh_allObjects {
     NSMutableArray *allObjects = [NSMutableArray array];
-    for (id key in self.allKeys) {
+    for (id key in self.lh_allKeys) {
         [allObjects addObject:[self objectForKey:key]];
     }
     return [allObjects copy];
 }
 
-- (id)objectForKeyedSubscript:(id)key {
-    return [self objectForKey:key];
-}
-
-- (void)setObject:(id)object forKeyedSubscript:(id)key {
-    [self setObject:object forKey:key];
-}
-
 - (BOOL)containsObject:(id)object {
-    return [self.allObjects containsObject:object];
+    return [self.lh_allObjects containsObject:object];
 }
 
-- (id)keyForObject:(id)object {
+- (id)lh_keyForObject:(id)object {
     for (id key in self) {
-        if ([self[key] isEqual:object]) {
+        if ([[self objectForKey:key] isEqual:object]) {
             return key;
         }
     }

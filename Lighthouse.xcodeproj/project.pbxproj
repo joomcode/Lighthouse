@@ -455,9 +455,9 @@
 		014C9F131C96F93500D35950 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				014C9F141C96F94E00D35950 /* LHMacro.h */,
 				0F27F80E1DCE4366004F07DF /* NSMapTable+LHUtils.h */,
 				0F27F80F1DCE4366004F07DF /* NSMapTable+LHUtils.m */,
+				014C9F141C96F94E00D35950 /* LHMacro.h */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
