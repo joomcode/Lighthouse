@@ -7,6 +7,7 @@
 //
 
 #import "LHDescriptionHelpers.h"
+#import "LHNode.h"
 
 @implementation LHDescriptionHelpers
 
@@ -23,6 +24,17 @@
         case LHNodeStateActive:
             return @"active";
     }
+}
+
++ (NSString *)descriptionForNodePath:(NSOrderedSet<id<LHNode>> *)path {
+    NSMutableString *description = [NSMutableString string];
+    for (id<LHNode> node in path) {
+        if (description.length > 0) {
+            [description appendString:@" -> "];
+        }
+        [description appendString:node.label ?: @"(unnamed)"];
+    }
+    return [description copy];
 }
 
 @end

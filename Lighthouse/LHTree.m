@@ -7,8 +7,9 @@
 //
 
 #import "LHTree.h"
+#import "LHDebugPrintable.h"
 
-@interface LHTree ()
+@interface LHTree () <LHDebugPrintable>
 
 @property (nonatomic, strong) NSMutableSet *items;
 @property (nonatomic, strong) NSMapTable *nextItems;
@@ -146,6 +147,16 @@
     for (id item in items) {
         [self addItem:item afterItemOrNil:previousItem];
     }
+}
+
+#pragma mark - LHDebugPrintable
+
+- (NSDictionary<NSString *,id> *)lh_debugProperties {
+    return @{ @"items": self.items };
+}
+
+- (NSString *)description {
+    return [self lh_descriptionWithIndent:0];
 }
 
 @end
