@@ -12,6 +12,7 @@
 #import "LHTarget.h"
 #import "LHRouteHint.h"
 #import "LHDebugPrintable.h"
+#import "LHDescriptionHelpers.h"
 
 @interface LHStackNode () <LHDebugPrintable>
 
@@ -107,27 +108,27 @@
 - (LHNodeUpdateResult)updateChildrenState:(LHTarget *)target {
     BOOL error = NO;
     
-    id<LHNode> activeChild = [self activeChildForApplyingTarget:target
-                                          toActiveChildrenStack:self.childrenState.stack
-                                                          error:&error];
+    id<LHNode> childToActivate = [self activeChildForApplyingTarget:target
+                                              toActiveChildrenStack:self.childrenState.stack
+                                                              error:&error];
     
     if (error) {
         return LHNodeUpdateResultInvalid;
     }
     
-    if (!activeChild) {
+    if (!childToActivate) {
         return LHNodeUpdateResultDeactivation;
     }
     
-    LHGraph<id<LHNode>> *graph = [self graphForChild:activeChild];
+    LHGraph<id<LHNode>> *graph = [self graphForChild:childToActivate];
     if (!graph) {
         return LHNodeUpdateResultInvalid;
     }
     
-    NSOrderedSet<id<LHNode>> *path = [graph pathFromNode:graph.rootNode toNode:activeChild visitingNodes:target.routeHint.nodes];
-    NSAssert(path != nil, @"A path to the active node should exist");
+    NSOrderedSet<id<LHNode>> *path = [self pathToNode:childToActivate inGraph:graph usingHint:target.routeHint];
+    NSAssert(path != nil, @"A path to the target node should exist");
     
-    path = [self bidirectionalTailFromPath:path inGraph:graph];
+//    NSLog(@"Calculated path: %@", [LHDescriptionHelpers descriptionForNodePath:path]);
     
     [self.nodeStackByGraph setObject:path forKey:graph];
     
@@ -170,6 +171,42 @@
     }
     
     return childForTargetActiveNodes ?: childForTargetInactiveNodes;
+}
+
+- (NSOrderedSet<id<LHNode>> *)pathToNode:(id<LHNode>)node inGraph:(LHGraph<id<LHNode>> *)graph usingHint:(LHRouteHint *)routeHint {
+    id<LHNode> activeChild = self.childrenState.stack.lastObject;
+    NSAssert(activeChild != nil, @"There should be an active node at this point");
+    
+    NSOrderedSet<id<LHNode>> *path = nil;
+    
+    if (!routeHint) {
+        if (![self.childrenState.stack containsObject:node]) {
+            path = [graph pathFromNode:activeChild toNode:node];
+            path = [self pathByConcatinatingPath:self.childrenState.stack withPath:path];
+        } else {
+            path = [self pathByCuttingPath:self.childrenState.stack toNode:node];
+        }
+    } else {
+        path = [graph pathFromNode:graph.rootNode toNode:node visitingNodes:routeHint.nodes];
+    }
+    return [self bidirectionalTailFromPath:path inGraph:graph];
+}
+
+- (NSOrderedSet<id<LHNode>> *)pathByConcatinatingPath:(NSOrderedSet<id<LHNode>> *)first withPath:(NSOrderedSet<id<LHNode>> *)second {
+    NSMutableOrderedSet<id<LHNode>> *mutablePath = [first mutableCopy];
+    [mutablePath unionOrderedSet:second];
+    return [mutablePath copy];
+}
+
+- (NSOrderedSet<id<LHNode>> *)pathByCuttingPath:(NSOrderedSet<id<LHNode>> *)path toNode:(id<LHNode>)cuttingNode {
+    NSMutableOrderedSet<id<LHNode>> *mutablePath = [NSMutableOrderedSet orderedSet];
+    for (id<LHNode> node in path) {
+        [mutablePath addObject:node];
+        if (node == cuttingNode) {
+            break;
+        }
+    }
+    return [mutablePath copy];
 }
 
 - (NSOrderedSet<id<LHNode>> *)bidirectionalTailFromPath:(NSOrderedSet<id<LHNode>> *)path inGraph:(LHGraph *)graph {
