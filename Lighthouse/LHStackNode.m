@@ -179,9 +179,9 @@
     
     NSOrderedSet<id<LHNode>> *path = nil;
     
-    if (!routeHint) {
+    if (!routeHint || routeHint.origin == LHRouteHintOriginActiveNode) {
         if (![self.childrenState.stack containsObject:node]) {
-            path = [graph pathFromNode:activeChild toNode:node];
+            path = [graph pathFromNode:activeChild toNode:node visitingNodes:routeHint.nodes];
             path = [self pathByConcatinatingPath:self.childrenState.stack withPath:path];
         } else {
             path = [self pathByCuttingPath:self.childrenState.stack toNode:node];

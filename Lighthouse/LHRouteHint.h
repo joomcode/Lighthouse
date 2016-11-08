@@ -13,13 +13,20 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol LHNode;
 
 
+typedef NS_ENUM(NSInteger, LHRouteHintOrigin) {
+    LHRouteHintOriginActiveNode,
+    LHRouteHintOriginRoot
+};
+
 @interface LHRouteHint : NSObject
 
 @property (nonatomic, copy, readonly, nullable) NSOrderedSet<id<LHNode>> *nodes;
 @property (nonatomic, copy, readonly, nullable) NSOrderedSet<LHGraphEdge<id<LHNode>> *> *edges;
+@property (nonatomic, assign, readonly) LHRouteHintOrigin origin;
 
 - (instancetype)initWithNodes:(nullable NSOrderedSet<id<LHNode>> *)nodes
-                        edges:(nullable NSOrderedSet<LHGraphEdge<id<LHNode>> *> *)edges NS_DESIGNATED_INITIALIZER;
+                        edges:(nullable NSOrderedSet<LHGraphEdge<id<LHNode>> *> *)edges
+                       origin:(LHRouteHintOrigin)origin NS_DESIGNATED_INITIALIZER;
 
 + (LHRouteHint *)hintWithNodes:(NSOrderedSet<id<LHNode>> *)nodes;
 
