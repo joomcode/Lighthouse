@@ -117,6 +117,26 @@ static void LHSwizzleDescriptionForClasses(NSArray<NSString *> *classes, Class s
 @end
 
 
+@implementation NSArray (LHDebugDescription)
+
+- (NSString *)lh_descriptionWithIndent:(NSUInteger)indent {
+    NSString *title = [NSString stringWithFormat:@"<NSArray: %p>", self];
+    return LHContainerDescription(self, title, indent);
+}
+
+- (NSString *)lh_description {
+    return [self lh_descriptionWithIndent:0];
+}
+
+#if DEBUG
++ (void)load {
+    LHSwizzleDescriptionForClasses(@[ @"__NSArrayI", @"__NSArrayM", @"__NSSingleObjectArrayI" ], self);
+}
+#endif
+
+@end
+
+
 @implementation NSMapTable (LHDebugDescription)
 
 - (NSString *)lh_descriptionWithIndent:(NSUInteger)indent {
