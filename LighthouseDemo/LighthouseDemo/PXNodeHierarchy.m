@@ -42,8 +42,10 @@
         _mainStackNode = [[LHStackNode alloc] initWithGraphBlock:^(LHMutableGraph<id<LHNode>> *graph) {
             graph.rootNode = self.redNode;
             [graph addBidirectionalEdgeFromNode:self.redNode toNode:self.greenNode];
+            [graph addBidirectionalEdgeFromNode:self.redNode toNode:self.redNode];
             [graph addBidirectionalEdgeFromNode:self.redNode toNode:self.blueNode];
             [graph addBidirectionalEdgeFromNode:self.greenNode toNode:self.blueNode];
+            [graph addBidirectionalEdgeFromNode:self.greenNode toNode:self.redNode];
         } label:@"mainStack"];
     }
     return _mainStackNode;
