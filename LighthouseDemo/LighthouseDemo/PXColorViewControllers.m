@@ -49,15 +49,6 @@
     showBlueThroughGreenButton.center = CGPointMake(self.view.center.x, self.view.center.y + 60);
     
     [showBlueThroughGreenButton addTarget:self action:@selector(showBlueThroughGreenPressed) forControlEvents:UIControlEventTouchUpInside];
-    
-    UIButton *showRed = [UIButton buttonWithType:UIButtonTypeSystem];
-    [showRed setTitle:@"Show Red" forState:UIControlStateNormal];
-    [self.view addSubview:showRed];
-    
-    [showRed sizeToFit];
-    showRed.center = CGPointMake(self.view.center.x, self.view.center.y + 90);
-    
-    [showRed addTarget:self action:@selector(showRedPressed) forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (void)showGreenPressed {
@@ -70,10 +61,6 @@
 
 - (void)showBlueThroughGreenPressed {
     [[LHRouter sharedInstance] executeCommand:[PXPresentBlueThroughGreen new]];
-}
-
-- (void)showRedPressed {
-    [[LHRouter sharedInstance] executeCommand:[PXPresentRed new]];
 }
 
 @end
