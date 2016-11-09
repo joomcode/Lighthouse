@@ -25,8 +25,19 @@
                                           driverProvider:(id<LHDriverProvider>)driverProvider {
     NSMutableArray<UIViewController *> *viewControllers = [NSMutableArray array];
     
+    NSMutableSet<id<LHDriver>> *usedDrivers = [NSMutableSet set];
+    
     for (id<LHNode> node in nodes) {
-        id<LHDriver> driver = [driverProvider driverForNode:node];
+        id<LHDriver> driver = nil;
+        
+        NSArray<id<LHDriver>> *drivers = [driverProvider driversForNode:node];
+        for (id<LHDriver> cadidate in drivers) {
+            if (![usedDrivers containsObject:cadidate]) {
+                driver = cadidate;
+                [usedDrivers addObject:driver];
+                break;
+            }
+        }
         
         if ([driver.data isKindOfClass:[UIViewController class]]) {
             UIViewController *viewController = driver.data;

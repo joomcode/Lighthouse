@@ -236,7 +236,8 @@
 #pragma mark - LHNodeDataStorageDelegate
 
 - (void)nodeDataStorage:(LHNodeDataStorage *)storage didCreateData:(LHNodeData *)data forNode:(id<LHNode>)node {
-    data.driver = [self createDriverForNode:node];
+    NSArray<id<LHDriver>> *drivers = data.drivers ?: @[];
+    data.drivers = [drivers arrayByAddingObject:[self createDriverForNode:node]];
 }
 
 - (id<LHDriver>)createDriverForNode:(id<LHNode>)node {
@@ -257,7 +258,7 @@
 - (void)nodeDataStorage:(LHNodeDataStorage *)storage didChangeResolvedStateForNodes:(NSArray<id<LHNode>> *)nodes {
     for (id<LHNode> node in nodes) {
         if ([self.components.nodeDataStorage hasDataForNode:node]) {
-            id<LHDriver> driver = [self.components.nodeDataStorage dataForNode:node].driver;
+            id<LHDriver> driver = [self.components.nodeDataStorage dataForNode:node].drivers.lastObject;
             [driver stateDidChange:[self.state stateForNode:node]];
         }
     }

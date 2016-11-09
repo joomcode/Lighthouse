@@ -14,9 +14,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface LHStackNodeChildrenState : NSObject <LHNodeChildrenState, LHDebugPrintable>
 
-@property (nonatomic, copy, readonly) NSOrderedSet<id<LHNode>> *stack;
+@property (nonatomic, copy, readonly) NSArray<id<LHNode>> *stack;
 
-- (instancetype)initWithStack:(NSOrderedSet<id<LHNode>> *)stack NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithStack:(NSArray<id<LHNode>> *)stack NS_DESIGNATED_INITIALIZER;
 
 - (instancetype)init NS_UNAVAILABLE;
 

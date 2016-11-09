@@ -18,7 +18,7 @@
 
 #pragma mark - Init
 
-- (instancetype)initWithStack:(NSOrderedSet<id<LHNode>> *)stack {
+- (instancetype)initWithStack:(NSArray<id<LHNode>> *)stack {
     NSParameterAssert(stack.count > 0);
     
     self = [super init];
@@ -26,7 +26,7 @@
     
     _stack = [stack copy];
     
-    NSMutableSet *inactiveChildren = [stack.set mutableCopy];
+    NSMutableSet *inactiveChildren = [NSMutableSet setWithArray:stack];
     [inactiveChildren removeObject:stack.lastObject];
     
     _activeChildren = [NSSet setWithObject:stack.lastObject];

@@ -31,6 +31,10 @@
 #pragma mark - LHDriverProvider
 
 - (id<LHDriver>)driverForNode:(id<LHNode>)node {
+    return self.block(node).lastObject;
+}
+
+- (NSArray<id<LHDriver>> *)driversForNode:(id<LHNode>)node {
     return self.block(node);
 }
 

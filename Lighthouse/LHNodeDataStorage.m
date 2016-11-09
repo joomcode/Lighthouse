@@ -11,6 +11,7 @@
 #import "LHNode.h"
 #import "LHNodeTree.h"
 #import "LHRouterStateImpl.h"
+#import "LHDriver.h"
 
 @interface LHNodeDataStorage ()
 
@@ -62,12 +63,30 @@
 }
 
 - (void)resetDataForNode:(id<LHNode>)node {
-    if (![self hasDataForNode:node]) {
+    LHNodeData *data = [self.dataByNode objectForKey:node];
+    if (!data) {
         return;
     }
-    
-    [self.delegate nodeDataStorage:self willResetData:[self.dataByNode objectForKey:node] forNode:node];
+    [self.delegate nodeDataStorage:self willResetData:data forNode:node];
     [self.dataByNode removeObjectForKey:node];
+}
+
+- (void)createDriverForNode:(id<LHNode>)node {
+    LHNodeData *data = [self.dataByNode objectForKey:node];
+    NSParameterAssert(data != nil);
+    [self.delegate nodeDataStorage:self didCreateData:data forNode:node];
+}
+
+- (void)removeDriverNodeNode:(id<LHNode>)node {
+    LHNodeData *data = [self.dataByNode objectForKey:node];
+    if (!data) {
+        return;
+    }
+    NSMutableArray<id<LHDriver>> *drivers = [data.drivers mutableCopy];
+    [drivers removeLastObject];
+    data.drivers = drivers;
+    
+    [self.delegate nodeDataStorage:self willResetData:data forNode:node];
 }
 
 #pragma mark - State

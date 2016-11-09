@@ -37,6 +37,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)resetDataForNode:(id<LHNode>)node;
 
+- (void)createDriverForNode:(id<LHNode>)node;
+
+- (void)removeDriverNodeNode:(id<LHNode>)node;
+
 @end
 
 

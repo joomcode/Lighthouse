@@ -25,8 +25,8 @@
     _driverFactory = driverFactory;
     _commandRegistry = commandRegistry;
     
-    _driverProvider = [[LHDriverProviderImpl alloc] initWithBlock:^(id<LHNode> node) {
-        return [nodeDataStorage dataForNode:node].driver;
+    _driverProvider = [[LHDriverProviderImpl alloc] initWithBlock:^NSArray<id<LHNode>> *(id<LHNode> node) {
+        return [nodeDataStorage dataForNode:node].drivers;
     }];
     
     return self;

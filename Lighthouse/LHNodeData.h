@@ -21,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, assign) LHNodeState state;
 
-@property (nonatomic, strong, nullable) id<LHDriver> driver;
+@property (nonatomic, strong, nullable) NSArray<id<LHDriver>> *drivers;
 
 - (instancetype)initWithNode:(id<LHNode>)node NS_DESIGNATED_INITIALIZER;
 

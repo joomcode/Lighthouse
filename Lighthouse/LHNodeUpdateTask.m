@@ -19,6 +19,7 @@
 #import "LHNodeUtils.h"
 #import "LHDriverUpdateContext.h"
 #import "LHDriverChannelImpl.h"
+#import "LHStackNode.h"
 
 
 @interface LHNodeUpdateTask ()
@@ -97,13 +98,12 @@
 }
 
 - (void)updateDriverForNode:(id<LHNode>)node withUpdateQueue:(id<LHTaskQueue>)updateQueue {
-    id<LHDriver> driver = [self.components.nodeDataStorage dataForNode:node].driver;
-    
+    id<LHDriver> driver = [self.components.nodeDataStorage dataForNode:node].drivers.lastObject;
+
     LHDriverUpdateContext *context = [[LHDriverUpdateContext alloc] initWithAnimated:[self.nodesForAnimatedDriverUpdate containsObject:node]
                                                                              command:[self command]
                                                                        childrenState:node.childrenState
                                                                          updateQueue:updateQueue];
-    
     [driver updateWithContext:context];
 }
 
@@ -121,6 +121,8 @@
     [self.affectedNodes enumerateItemsWithBlock:^(id<LHNode> node, id<LHNode> previousNode, BOOL *stop) {
         if ([self.components.nodeDataStorage.routerState stateForNode:node] == LHNodeStateNotInitialized) {
             [self.components.nodeDataStorage resetDataForNode:node];
+        } else if ([self shouldRemoveDriverForNode:node]) {
+            [self.components.nodeDataStorage removeDriverNodeNode:node];
         }
     }];
 }
@@ -139,11 +141,39 @@
     [self updateDriverForNode:node];
 }
 
+- (NSInteger)numberOfDriversNeededForNode:(id<LHNode>)node {
+    id<LHNode> parent = [self.components.tree previousItem:node];
+    if ([parent isKindOfClass:[LHStackNode class]]) {
+        LHStackNode *stackNode = (LHStackNode *)parent;
+        
+        NSInteger nodeCount = 0;
+        for (id<LHNode> child in stackNode.childrenState.stack) {
+            if (child == node) {
+                ++nodeCount;
+            }
+        }
+        return nodeCount;
+    }
+    return 1;
+}
+
+- (BOOL)shouldCreateDriverForNode:(id<LHNode>)node {
+    return [self numberOfDriversNeededForNode:node] > [self.components.nodeDataStorage dataForNode:node].drivers.count;
+}
+
+- (BOOL)shouldRemoveDriverForNode:(id<LHNode>)node {
+    return [self numberOfDriversNeededForNode:node] < [self.components.nodeDataStorage dataForNode:node].drivers.count;
+}
+
 - (void)updateDriverForNode:(id<LHNode>)node {
     LHNodeData *data = [self.components.nodeDataStorage dataForNode:node];
+    if ([self shouldCreateDriverForNode:node]) {
+        [self.components.nodeDataStorage createDriverForNode:node];
+    }
+    
     id<LHTaskQueue> localUpdateQueue = [[LHTaskQueueImpl alloc] init];
     
-    if (!data.driver) {
+    if (!data.drivers.lastObject) {
         [NSException raise:NSInternalInconsistencyException format:@"Expected a driver for node %@, got nothing - something went wrong", node];
     }
     
