@@ -32,7 +32,7 @@
             [edges removeObject:edge];
         }
     }
-    return [LHRouteHint hintWithNodes:nodes edges:edges];
+    return [[LHRouteHint alloc] initWithNodes:nodes edges:edges origin:self.origin];
 }
 
 @end
