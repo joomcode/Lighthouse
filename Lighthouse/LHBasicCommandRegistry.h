@@ -7,6 +7,7 @@
 //
 
 #import "LHCommandRegistry.h"
+#import "LHRouteHint.h"
 
 @protocol LHNode;
 @class LHTarget;
@@ -24,6 +25,10 @@ typedef LHTarget * _Nullable (^LHCommandTargetProvidingBlock)(__kindof id<LHComm
 - (void)bindCommandClass:(Class)commandClass toTargetWithActiveNode:(id<LHNode>)node;
 
 - (void)bindCommandClass:(Class)commandClass toTargetWithInactiveNode:(id<LHNode>)node;
+
+- (void)bindCommandClass:(Class)commandClass toTargetWithActiveNode:(id<LHNode>)node origin:(LHRouteHintOrigin)origin;
+
+- (void)bindCommandClass:(Class)commandClass toTargetWithInactiveNode:(id<LHNode>)node origin:(LHRouteHintOrigin)origin;
 
 - (void)bindCommandClass:(Class)commandClass toBlock:(LHCommandTargetProvidingBlock)block;
 

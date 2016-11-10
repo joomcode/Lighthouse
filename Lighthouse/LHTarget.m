@@ -43,6 +43,10 @@
     return [self withActiveNode:activeNode routeHint:hint];
 }
 
++ (instancetype)withActiveNode:(id<LHNode>)activeNode routeOrigin:(LHRouteHintOrigin)routeOrigin {
+    return [self withActiveNode:activeNode routeHint:[LHRouteHint hintWithOrigin:routeOrigin]];
+}
+
 + (instancetype)withActiveNode:(id<LHNode>)activeNode {
     return [self withActiveNode:activeNode routeHint:nil];
 }
@@ -54,6 +58,10 @@
 + (instancetype)withActiveNodes:(NSArray<id<LHNode>> *)activeNodes routeNodes:(NSArray<id<LHNode>> *)routeNodes {
     LHRouteHint *hint = [LHRouteHint hintWithNodes:[NSOrderedSet orderedSetWithArray:routeNodes]];
     return [self withActiveNodes:activeNodes routeHint:hint];
+}
+
++ (instancetype)withActiveNodes:(NSArray<id<LHNode>> *)activeNodes routeOrigin:(LHRouteHintOrigin)routeOrigin {
+    return [self withActiveNodes:activeNodes routeHint:[LHRouteHint hintWithOrigin:routeOrigin]];
 }
 
 + (instancetype)withActiveNodes:(NSArray<id<LHNode>> *)activeNodes {
@@ -69,6 +77,10 @@
     return [self withInactiveNode:inactiveNode routeHint:hint];
 }
 
++ (instancetype)withInactiveNode:(id<LHNode>)inactiveNode routeOrigin:(LHRouteHintOrigin)routeOrigin {
+    return [self withInactiveNode:inactiveNode routeOrigin:routeOrigin];
+}
+
 + (instancetype)withInactiveNode:(id<LHNode>)inactiveNode {
     return [self withInactiveNode:inactiveNode routeHint:nil];
 }
@@ -80,6 +92,10 @@
 + (instancetype)withInactiveNodes:(NSArray<id<LHNode>> *)inactiveNodes routeNodes:(NSArray<id<LHNode>> *)routeNodes {
     LHRouteHint *hint = [LHRouteHint hintWithNodes:[NSOrderedSet orderedSetWithArray:routeNodes]];
     return [self withInactiveNodes:inactiveNodes routeHint:hint];
+}
+
++ (instancetype)withInactiveNodes:(NSArray<id<LHNode>> *)inactiveNodes routeOrigin:(LHRouteHintOrigin)routeOrigin {
+    return [self withInactiveNodes:inactiveNodes routeOrigin:routeOrigin];
 }
 
 + (instancetype)withInactiveNodes:(NSArray<id<LHNode>> *)inactiveNodes {

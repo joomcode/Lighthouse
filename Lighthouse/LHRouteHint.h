@@ -34,6 +34,8 @@ typedef NS_ENUM(NSInteger, LHRouteHintOrigin) {
 
 + (LHRouteHint *)hintWithNodes:(NSOrderedSet<id<LHNode>> *)nodes edges:(NSOrderedSet<LHGraphEdge<id<LHNode>> *> *)edges;
 
++ (LHRouteHint *)hintWithOrigin:(LHRouteHintOrigin)origin;
+
 @end
 
 NS_ASSUME_NONNULL_END
