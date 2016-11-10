@@ -26,7 +26,7 @@
     }
 }
 
-+ (NSString *)descriptionForNodePath:(NSOrderedSet<id<LHNode>> *)path {
++ (NSString *)descriptionForNodePath:(NSArray<id<LHNode>> *)path {
     NSMutableString *description = [NSMutableString string];
     for (id<LHNode> node in path) {
         if (description.length > 0) {

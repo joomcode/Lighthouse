@@ -18,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (NSString *)stringFromNodeState:(LHNodeState)state;
 
-+ (NSString *)descriptionForNodePath:(NSOrderedSet<id<LHNode>> *)path;
++ (NSString *)descriptionForNodePath:(NSArray<id<LHNode>> *)path;
 
 @end
 
