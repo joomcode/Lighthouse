@@ -128,7 +128,7 @@
     NSArray<id<LHNode>> *path = [self pathToNode:childToActivate inGraph:graph target:target];
     NSAssert(path != nil, @"A path to the target node should exist");
     
-    NSLog(@"Calculated path: %@", [LHDescriptionHelpers descriptionForNodePath:path]);
+//    NSLog(@"Calculated path: %@", [LHDescriptionHelpers descriptionForNodePath:path]);
     
     [self.nodeStackByGraph setObject:path forKey:graph];
     
