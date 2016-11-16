@@ -79,7 +79,9 @@ static NSString *LHKeyValueContainerDescription(id<NSFastEnumeration, NSObject> 
 static void LHSwizzleDescriptionForClasses(NSArray<NSString *> *classes, Class sourceClazz) {
     for (NSString *name in classes) {
         Class clazz = NSClassFromString(name);
-        NSCAssert(clazz != nil, nil);
+        if (clazz == nil) {
+            return;
+        }
         
         Method m1 = class_getInstanceMethod(clazz, @selector(description));
         Method m2 = class_getInstanceMethod(sourceClazz, @selector(lh_description));
