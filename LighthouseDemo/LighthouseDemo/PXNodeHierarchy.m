@@ -45,6 +45,7 @@
             [graph addBidirectionalEdgeFromNode:self.redNode toNode:self.blueNode];
             [graph addBidirectionalEdgeFromNode:self.greenNode toNode:self.blueNode];
             [graph addBidirectionalEdgeFromNode:self.greenNode toNode:self.redNode];
+            [graph addBidirectionalEdgeFromNode:self.greenNode toNode:self.greenNode];
         } label:@"mainStack"];
     }
     return _mainStackNode;

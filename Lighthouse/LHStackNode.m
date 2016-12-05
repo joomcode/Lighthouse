@@ -183,11 +183,15 @@
     NSArray<id<LHNode>> *path = nil;
     
     if (!target.routeHint || target.routeHint.origin == LHRouteHintOriginActiveNode) {
-        if (isDeactivatingActiveNode && [self.childrenState.stack containsObject:node]) {
-            path = [self pathByCuttingPath:self.childrenState.stack toNode:node];
+        if (activeChild == node && target.routeHint.nodes.lastObject == node) {
+            path = [self.childrenState.stack arrayByAddingObject:node];
         } else {
-            NSOrderedSet<id<LHNode>> *graphPath = [graph pathFromNode:activeChild toNode:node visitingNodes:target.routeHint.nodes];
-            path = [self pathByConcatinatingPath:self.childrenState.stack withPath:graphPath.array];
+            if (isDeactivatingActiveNode && [self.childrenState.stack containsObject:node]) {
+                path = [self pathByCuttingPath:self.childrenState.stack toNode:node];
+            } else {
+                NSOrderedSet<id<LHNode>> *graphPath = [graph pathFromNode:activeChild toNode:node visitingNodes:target.routeHint.nodes];
+                path = [self pathByConcatinatingPath:self.childrenState.stack withPath:graphPath.array];
+            }
         }
     } else {
         path = [graph pathFromNode:graph.rootNode toNode:node visitingNodes:target.routeHint.nodes];

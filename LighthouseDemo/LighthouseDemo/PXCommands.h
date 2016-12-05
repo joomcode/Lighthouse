@@ -18,6 +18,11 @@
 @end
 
 
+@interface PXPresentGreenFromGreen : NSObject <LHCommand>
+
+@end
+
+
 @interface PXPresentBlue : NSObject <LHCommand>
 
 @end

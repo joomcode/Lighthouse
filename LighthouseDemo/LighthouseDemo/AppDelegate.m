@@ -117,6 +117,11 @@
     [commandRegistry bindCommandClass:[PXPresentBlueThroughGreen class]
                              toTarget:[LHTarget withActiveNode:hierarchy.blueNode routeNodes:@[ hierarchy.greenNode ]]];
     
+    LHRouteHint *hint = [[LHRouteHint alloc] initWithNodes:[NSOrderedSet orderedSetWithObject:hierarchy.greenNode]
+                                                     edges:nil origin:LHRouteHintOriginActiveNode];
+    [commandRegistry bindCommandClass:[PXPresentGreenFromGreen class]
+                             toTarget:[LHTarget withActiveNode:hierarchy.greenNode routeHint:hint]];
+    
     // Router
     
     LHRouter *router = [[LHRouter alloc] initWithRootNode:hierarchy.rootNode
