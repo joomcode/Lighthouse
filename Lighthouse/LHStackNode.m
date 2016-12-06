@@ -154,12 +154,14 @@
     
     id<LHNode> childForTargetInactiveNodes = nil;
     
+    BOOL inactiveNodeFound = NO;
+    
     for (id<LHNode> node in [activeChildrenStack reverseObjectEnumerator]) {
-        if (![target.inactiveNodes containsObject:node]) {
-            if (node != activeChildrenStack.lastObject) {
-                childForTargetInactiveNodes = node;
-            }
+        if (inactiveNodeFound) {
+            childForTargetInactiveNodes = node;
             break;
+        } else if ([target.inactiveNodes containsObject:node]) {
+            inactiveNodeFound = YES;
         }
     }
     
@@ -187,7 +189,7 @@
             path = [self.childrenState.stack arrayByAddingObject:node];
         } else {
             if (isDeactivatingActiveNode && [self.childrenState.stack containsObject:node]) {
-                path = [self pathByCuttingPath:self.childrenState.stack toNode:node];
+                path = [self.childrenState.stack subarrayWithRange:NSMakeRange(0, self.childrenState.stack.count - 1)];
             } else {
                 NSOrderedSet<id<LHNode>> *graphPath = [graph pathFromNode:activeChild toNode:node visitingNodes:target.routeHint.nodes];
                 path = [self pathByConcatinatingPath:self.childrenState.stack withPath:graphPath.array];
@@ -207,20 +209,6 @@
     }
     [mutablePath addObjectsFromArray:second];
     return [mutablePath copy];
-}
-
-- (NSArray<id<LHNode>> *)pathByCuttingPath:(NSArray<id<LHNode>> *)path toNode:(id<LHNode>)cuttingNode {
-    if (![path containsObject:cuttingNode]) {
-        return path;
-    }
-    NSInteger countLeft = path.count;
-    for (id<LHNode> node in [path reverseObjectEnumerator]) {
-        if (node == cuttingNode) {
-            break;
-        }
-        --countLeft;
-    }
-    return [path subarrayWithRange:NSMakeRange(0, countLeft)];
 }
 
 - (NSArray<id<LHNode>> *)bidirectionalTailFromPath:(NSArray<id<LHNode>> *)path inGraph:(LHGraph *)graph {
