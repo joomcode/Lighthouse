@@ -74,9 +74,10 @@
 
 - (void)doRunTask:(id<LHTask>)task {
     self.taskInProgress = YES;
-    
+
+    __weak typeof(task) wTask = task;
     [task startWithCompletionBlock:^{
-        [self.tasks removeObject:task];
+        [self.tasks removeObject:wTask];
         self.taskInProgress = NO;
         
         [self runNextTaskIfPossible];
