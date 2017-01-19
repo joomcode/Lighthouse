@@ -21,18 +21,14 @@ typedef NS_ENUM(NSInteger, LHRouteHintOrigin) {
 @interface LHRouteHint : NSObject
 
 @property (nonatomic, copy, readonly, nullable) NSOrderedSet<id<LHNode>> *nodes;
-@property (nonatomic, copy, readonly, nullable) NSOrderedSet<LHGraphEdge<id<LHNode>> *> *edges;
 @property (nonatomic, assign, readonly) LHRouteHintOrigin origin;
 
 - (instancetype)initWithNodes:(nullable NSOrderedSet<id<LHNode>> *)nodes
-                        edges:(nullable NSOrderedSet<LHGraphEdge<id<LHNode>> *> *)edges
                        origin:(LHRouteHintOrigin)origin NS_DESIGNATED_INITIALIZER;
 
+- (instancetype)init NS_UNAVAILABLE;
+
 + (LHRouteHint *)hintWithNodes:(NSOrderedSet<id<LHNode>> *)nodes;
-
-+ (LHRouteHint *)hintWithEdges:(NSOrderedSet<LHGraphEdge<id<LHNode>> *> *)edges;
-
-+ (LHRouteHint *)hintWithNodes:(NSOrderedSet<id<LHNode>> *)nodes edges:(NSOrderedSet<LHGraphEdge<id<LHNode>> *> *)edges;
 
 + (LHRouteHint *)hintWithOrigin:(LHRouteHintOrigin)origin;
 
