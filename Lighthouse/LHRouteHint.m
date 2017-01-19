@@ -17,32 +17,35 @@
 @implementation LHRouteHint
 
 - (instancetype)initWithNodes:(NSOrderedSet<id<LHNode>> *)nodes
-                       origin:(LHRouteHintOrigin)origin {
+                       origin:(LHRouteHintOrigin)origin
+                bidirectional:(BOOL)bidirectional {
     self = [super init];
     if (self) {
         _nodes = nodes;
         _origin = origin;
+        _bidirectional = bidirectional;
     }
     return self;
 }
 
 - (instancetype)init {
-    return [self initWithNodes:nil origin:LHRouteHintOriginRoot];
+    return [self initWithNodes:nil origin:LHRouteHintOriginRoot bidirectional:NO];
 }
 
 + (LHRouteHint *)hintWithNodes:(NSOrderedSet<id<LHNode>> *)nodes {
-    return [[LHRouteHint alloc] initWithNodes:nodes origin:LHRouteHintOriginRoot];
+    return [[LHRouteHint alloc] initWithNodes:nodes origin:LHRouteHintOriginRoot bidirectional:NO];
 }
 
 + (LHRouteHint *)hintWithOrigin:(LHRouteHintOrigin)origin {
-    return [[LHRouteHint alloc] initWithNodes:nil origin:origin];
+    return [[LHRouteHint alloc] initWithNodes:nil origin:origin bidirectional:NO];
 }
 
 #pragma mark - LHDebugPrintable
 
 - (NSDictionary<NSString *,id> *)lh_debugProperties {
     return @{ @"nodes": self.nodes ?: [NSNull null],
-              @"origin": self.origin == LHRouteHintOriginRoot ? @"root" : @"active node" };
+              @"origin": self.origin == LHRouteHintOriginRoot ? @"root" : @"active node",
+              @"bidirectional": self.bidirectional ? @"yes" : @"no"};
 }
 
 - (NSString *)description {

@@ -47,12 +47,12 @@
 }
 
 - (void)bindCommandClass:(Class)commandClass toTargetWithActiveNode:(id<LHNode>)node origin:(LHRouteHintOrigin)origin {
-    LHRouteHint *hint = [[LHRouteHint alloc] initWithNodes:nil edges:nil origin:origin];
+    LHRouteHint *hint = [[LHRouteHint alloc] initWithNodes:nil origin:origin bidirectional:NO];
     [self bindCommandClass:commandClass toTarget:[LHTarget withActiveNode:node routeHint:hint]];
 }
 
 - (void)bindCommandClass:(Class)commandClass toTargetWithInactiveNode:(id<LHNode>)node origin:(LHRouteHintOrigin)origin {
-    LHRouteHint *hint = [[LHRouteHint alloc] initWithNodes:nil edges:nil origin:origin];
+    LHRouteHint *hint = [[LHRouteHint alloc] initWithNodes:nil origin:origin bidirectional:NO];
     [self bindCommandClass:commandClass toTarget:[LHTarget withInactiveNode:node routeHint:hint]];
 }
 

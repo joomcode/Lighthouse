@@ -22,9 +22,11 @@ typedef NS_ENUM(NSInteger, LHRouteHintOrigin) {
 
 @property (nonatomic, copy, readonly, nullable) NSOrderedSet<id<LHNode>> *nodes;
 @property (nonatomic, assign, readonly) LHRouteHintOrigin origin;
+@property (nonatomic, assign, getter = isBidirecational, readonly) BOOL bidirectional;
 
 - (instancetype)initWithNodes:(nullable NSOrderedSet<id<LHNode>> *)nodes
-                       origin:(LHRouteHintOrigin)origin NS_DESIGNATED_INITIALIZER;
+                       origin:(LHRouteHintOrigin)origin
+                bidirectional:(BOOL)bidirectional NS_DESIGNATED_INITIALIZER;
 
 - (instancetype)init NS_UNAVAILABLE;
 

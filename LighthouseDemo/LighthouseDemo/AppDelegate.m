@@ -118,7 +118,8 @@
                              toTarget:[LHTarget withActiveNode:hierarchy.blueNode routeNodes:@[ hierarchy.greenNode ]]];
     
     LHRouteHint *hint = [[LHRouteHint alloc] initWithNodes:[NSOrderedSet orderedSetWithObject:hierarchy.greenNode]
-                                                     edges:nil origin:LHRouteHintOriginActiveNode];
+                                                    origin:LHRouteHintOriginActiveNode
+                                             bidirectional:NO];
     [commandRegistry bindCommandClass:[PXPresentGreenFromGreen class]
                              toTarget:[LHTarget withActiveNode:hierarchy.greenNode routeHint:hint]];
     

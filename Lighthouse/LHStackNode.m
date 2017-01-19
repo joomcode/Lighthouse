@@ -13,6 +13,7 @@
 #import "LHRouteHint.h"
 #import "LHDebugPrintable.h"
 #import "LHDescriptionHelpers.h"
+#import "NSArray+LHUtils.h"
 
 @interface LHStackNode () <LHDebugPrintable>
 
@@ -191,8 +192,20 @@
             if (isDeactivatingActiveNode && [self.childrenState.stack containsObject:node]) {
                 path = [self.childrenState.stack subarrayWithRange:NSMakeRange(0, self.childrenState.stack.count - 1)];
             } else {
-                NSOrderedSet<id<LHNode>> *graphPath = [graph pathFromNode:activeChild toNode:node visitingNodes:target.routeHint.nodes];
-                path = [self pathByConcatinatingPath:self.childrenState.stack withPath:graphPath.array];
+                NSArray<id<LHNode>> *graphPath = [graph pathFromNode:activeChild toNode:node visitingNodes:target.routeHint.nodes].array;
+                
+                if (target.routeHint.bidirectional && self.childrenState.stack.count > graphPath.count) {
+                    NSArray<id<LHNode>> *commonSuffix = [self.childrenState.stack lh_commonSuffixWithArray:[graphPath reverseObjectEnumerator].allObjects];
+                    if (commonSuffix.count > 1) {
+                        NSArray<id<LHNode>> *remainingPart = [graphPath lh_arraySuffixWithLength:graphPath.count - commonSuffix.count];
+                        path = [self.childrenState.stack subarrayWithRange:NSMakeRange(0, self.childrenState.stack.count - commonSuffix.count + 1)];
+                        path = [path arrayByAddingObjectsFromArray:remainingPart];
+                    } else {
+                        path = [self pathByConcatinatingPath:self.childrenState.stack withPath:graphPath];
+                    }
+                } else {
+                    path = [self pathByConcatinatingPath:self.childrenState.stack withPath:graphPath];
+                }
             }
         }
     } else {

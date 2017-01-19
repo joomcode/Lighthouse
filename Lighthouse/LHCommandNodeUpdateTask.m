@@ -19,20 +19,13 @@
 
 - (LHRouteHint *)filteredByParentNode:(id<LHNode>)parentNode {
     NSMutableOrderedSet<id<LHNode>> *nodes = [self.nodes mutableCopy];
-    NSMutableOrderedSet<LHGraphEdge<id<LHNode>> *> *edges = [self.edges mutableCopy];
     
     for (id<LHNode> node in self.nodes) {
         if (![parentNode.allChildren containsObject:node]) {
             [nodes removeObject:node];
         }
     }
-    for (LHGraphEdge<id<LHNode>> *edge in self.edges) {
-        if (![parentNode.allChildren containsObject:edge.fromNode] ||
-            ![parentNode.allChildren containsObject:edge.toNode]) {
-            [edges removeObject:edge];
-        }
-    }
-    return [[LHRouteHint alloc] initWithNodes:nodes edges:edges origin:self.origin];
+    return [[LHRouteHint alloc] initWithNodes:nodes origin:self.origin bidirectional:self.bidirectional];
 }
 
 @end
