@@ -139,7 +139,7 @@
     return LHNodeUpdateResultNormal;
 }
 
-#pragma mark - Stuff
+#pragma mark - Path Calculation
 
 - (id<LHNode>)activeChildForApplyingTarget:(LHTarget *)target
                      toActiveChildrenStack:(NSArray<id<LHNode>> *)activeChildrenStack
@@ -177,41 +177,52 @@
 }
 
 - (NSArray<id<LHNode>> *)pathToNode:(id<LHNode>)node inGraph:(LHGraph<id<LHNode>> *)graph target:(LHTarget *)target {
-    
-    id<LHNode> activeChild = self.childrenState.stack.lastObject;
-    NSAssert(activeChild != nil, @"There should be an active node at this point");
-    
-    BOOL isDeactivatingActiveNode = [target.inactiveNodes containsObject:activeChild];
-    
     NSArray<id<LHNode>> *path = nil;
     
     if (!target.routeHint || target.routeHint.origin == LHRouteHintOriginActiveNode) {
-        if (activeChild == node && target.routeHint.nodes.lastObject == node) {
-            path = [self.childrenState.stack arrayByAddingObject:node];
-        } else {
-            if (isDeactivatingActiveNode && [self.childrenState.stack containsObject:node]) {
-                path = [self.childrenState.stack subarrayWithRange:NSMakeRange(0, self.childrenState.stack.count - 1)];
-            } else {
-                NSArray<id<LHNode>> *graphPath = [graph pathFromNode:activeChild toNode:node visitingNodes:target.routeHint.nodes].array;
-                
-                if (target.routeHint.bidirectional && self.childrenState.stack.count > graphPath.count) {
-                    NSArray<id<LHNode>> *commonSuffix = [self.childrenState.stack lh_commonSuffixWithArray:[graphPath reverseObjectEnumerator].allObjects];
-                    if (commonSuffix.count > 1) {
-                        NSArray<id<LHNode>> *remainingPart = [graphPath lh_arraySuffixWithLength:graphPath.count - commonSuffix.count];
-                        path = [self.childrenState.stack subarrayWithRange:NSMakeRange(0, self.childrenState.stack.count - commonSuffix.count + 1)];
-                        path = [path arrayByAddingObjectsFromArray:remainingPart];
-                    } else {
-                        path = [self pathByConcatinatingPath:self.childrenState.stack withPath:graphPath];
-                    }
-                } else {
-                    path = [self pathByConcatinatingPath:self.childrenState.stack withPath:graphPath];
-                }
-            }
-        }
+        path = [self calculatePathFromActiveNodeToNode:node inGraph:graph target:target];
     } else {
-        path = [graph pathFromNode:graph.rootNode toNode:node visitingNodes:target.routeHint.nodes];
+        path = [self calculatePathFromRootToNode:node inGraph:graph target:target];
     }
     return [self bidirectionalTailFromPath:path inGraph:graph];
+}
+
+- (NSArray<id<LHNode>> *)calculatePathFromActiveNodeToNode:(id<LHNode>)node
+                                                   inGraph:(LHGraph<id<LHNode>> *)graph
+                                                    target:(LHTarget *)target {
+
+    id<LHNode> activeNode = self.childrenState.stack.lastObject;
+    NSAssert(activeNode != nil, @"There should be an active node at this point");
+    
+    if (activeNode == node && target.routeHint.nodes.lastObject == node) {
+        return [self.childrenState.stack arrayByAddingObject:node];
+    }
+    
+    BOOL isDeactivatingActiveNode = [target.inactiveNodes containsObject:activeNode];
+    if (isDeactivatingActiveNode && [self.childrenState.stack containsObject:node]) {
+        return [self.childrenState.stack subarrayWithRange:NSMakeRange(0, self.childrenState.stack.count - 1)];
+    }
+        
+    NSArray<id<LHNode>> *graphPath = [graph pathFromNode:activeNode toNode:node visitingNodes:target.routeHint.nodes].array;
+    
+    if (!target.routeHint.bidirectional || self.childrenState.stack.count <= graphPath.count) {
+        return [self pathByConcatinatingPath:self.childrenState.stack withPath:graphPath];
+    }
+    
+    NSArray<id<LHNode>> *commonSuffix = [self.childrenState.stack lh_commonSuffixWithArray:[graphPath reverseObjectEnumerator].allObjects];
+    if (commonSuffix.count > 1) {
+        NSArray<id<LHNode>> *remainingPart = [graphPath lh_arraySuffixWithLength:graphPath.count - commonSuffix.count];
+        NSArray<id<LHNode>> *path = [self.childrenState.stack subarrayWithRange:NSMakeRange(0, self.childrenState.stack.count - commonSuffix.count + 1)];
+        return [path arrayByAddingObjectsFromArray:remainingPart];
+    } else {
+        return [self pathByConcatinatingPath:self.childrenState.stack withPath:graphPath];
+    }
+}
+
+- (NSArray<id<LHNode>> *)calculatePathFromRootToNode:(id<LHNode>)node
+                                             inGraph:(LHGraph<id<LHNode>> *)graph
+                                              target:(LHTarget *)target {
+    return [graph pathFromNode:graph.rootNode toNode:node visitingNodes:target.routeHint.nodes];
 }
 
 - (NSArray<id<LHNode>> *)pathByConcatinatingPath:(NSArray<id<LHNode>> *)first withPath:(NSArray<id<LHNode>> *)second {
@@ -242,6 +253,8 @@
     }];
     return [processedPath copy];
 }
+
+#pragma mark - Graph Management
 
 - (LHGraph<id<LHNode>> *)graphForChild:(id<LHNode>)child {
     for (LHGraph<id<LHNode>> *graph in self.graphs) {
