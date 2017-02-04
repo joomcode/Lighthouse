@@ -205,7 +205,7 @@
         
     NSArray<id<LHNode>> *graphPath = [graph pathFromNode:activeNode toNode:node visitingNodes:target.routeHint.nodes].array;
     
-    if (!target.routeHint.bidirectional || self.childrenState.stack.count <= graphPath.count) {
+    if (!target.routeHint.bidirectional) {
         return [self pathByConcatinatingPath:self.childrenState.stack withPath:graphPath];
     }
     
