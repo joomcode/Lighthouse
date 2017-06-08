@@ -70,7 +70,7 @@
                                                             destinationViewController:destinationViewController
                                                                              registry:registry];
     
-    if (!entry) {
+    if (!entry.transitionStyle) {
         return nil;
     }
     

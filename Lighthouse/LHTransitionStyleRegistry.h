@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface LHTransitionStyleRegistry<StyleType> : NSObject
 
-- (void)registerTransitionStyle:(StyleType)transitionStyle
+- (void)registerTransitionStyle:(nullable StyleType)transitionStyle
                   forSourceNode:(nullable id<LHNode>)sourceNode
                 destinationNode:(nullable id<LHNode>)destinationNode;
 
