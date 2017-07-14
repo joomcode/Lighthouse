@@ -21,7 +21,7 @@ id<LHLogger> LHSharedLogger() {
     return LHCurrentSharedLogger;
 }
 
-void LHSetSharedLogger(id<LHLogger> logger) {
+__used void LHSetSharedLogger(id<LHLogger> logger) {
     NSCParameterAssert(logger);
     NSCAssert(NSThread.currentThread.isMainThread, @"%s should be called from the main thread.", __PRETTY_FUNCTION__);
     
