@@ -3,7 +3,7 @@ Pod::Spec.new do |s|
   s.version          = "0.4.0"
   s.summary          = "The iOS navigation framework you've been looking for. No more coupled view controllers or magic URL strings!"
 
-  s.homepage         = "https://github.com/pixty/Lighthouse"  
+  s.homepage         = "https://github.com/pixty/Lighthouse"
   s.license          = 'MIT'
   s.author           = { "Nick Tymchenko" => "t.nick.a@gmail.com" }
   s.source           = { :git => "https://github.com/pixty/Lighthouse.git", :tag => s.version.to_s }
