@@ -26,7 +26,7 @@
     return [allObjects copy];
 }
 
-- (BOOL)containsObject:(id)object {
+- (BOOL)lh_containsObject:(id)object {
     return [self.lh_allObjects containsObject:object];
 }
 
