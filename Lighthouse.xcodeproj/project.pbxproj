@@ -140,6 +140,11 @@
 		0F5FC6F81DCCB567009596D4 /* LHRouteHint.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F5FC6F61DCCB567009596D4 /* LHRouteHint.m */; };
 		0F5FC7061DCCEB91009596D4 /* LHDebugPrintable.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F5FC7041DCCEB91009596D4 /* LHDebugPrintable.m */; };
 		0F5FC7081DCCECBB009596D4 /* LHDebugPrintable.h in Headers */ = {isa = PBXBuildFile; fileRef = 0F5FC6F91DCCEAD5009596D4 /* LHDebugPrintable.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		ACC5686D1F18C45300602DEA /* LHLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = ACC5686B1F18C45300602DEA /* LHLogger.h */; };
+		ACC5686E1F18C45300602DEA /* LHLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = ACC5686C1F18C45300602DEA /* LHLogger.m */; };
+		ACC568721F18C90F00602DEA /* LHLogLevel.h in Headers */ = {isa = PBXBuildFile; fileRef = ACC568701F18C90E00602DEA /* LHLogLevel.h */; };
+		ACC568731F18C90F00602DEA /* LHLogLevel.m in Sources */ = {isa = PBXBuildFile; fileRef = ACC568711F18C90F00602DEA /* LHLogLevel.m */; };
+		ACC568751F18CE4500602DEA /* Lighthouse-PrefixHeader.pch in Headers */ = {isa = PBXBuildFile; fileRef = ACC568741F18CE4500602DEA /* Lighthouse-PrefixHeader.pch */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -287,6 +292,11 @@
 		0F5FC6F61DCCB567009596D4 /* LHRouteHint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHRouteHint.m; sourceTree = "<group>"; };
 		0F5FC6F91DCCEAD5009596D4 /* LHDebugPrintable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LHDebugPrintable.h; sourceTree = "<group>"; };
 		0F5FC7041DCCEB91009596D4 /* LHDebugPrintable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHDebugPrintable.m; sourceTree = "<group>"; };
+		ACC5686B1F18C45300602DEA /* LHLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHLogger.h; sourceTree = "<group>"; };
+		ACC5686C1F18C45300602DEA /* LHLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHLogger.m; sourceTree = "<group>"; };
+		ACC568701F18C90E00602DEA /* LHLogLevel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHLogLevel.h; sourceTree = "<group>"; };
+		ACC568711F18C90F00602DEA /* LHLogLevel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHLogLevel.m; sourceTree = "<group>"; };
+		ACC568741F18CE4500602DEA /* Lighthouse-PrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Lighthouse-PrefixHeader.pch"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -331,6 +341,7 @@
 		0111CC371BAB95E500C19022 /* Misc */ = {
 			isa = PBXGroup;
 			children = (
+				ACC5686F1F18C8E100602DEA /* Logs */,
 				0F5FC6FA1DCCEB50009596D4 /* Debug Printable */,
 				01C6F8CB1BB6D61D00A13C1E /* LHTask.h */,
 				01B3917C1C86FE8F00579C2B /* LHTaskBlocks.h */,
@@ -392,6 +403,7 @@
 			isa = PBXGroup;
 			children = (
 				012A953E1C4EFD5E000A4ECB /* Info.plist */,
+				ACC568741F18CE4500602DEA /* Lighthouse-PrefixHeader.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -680,6 +692,17 @@
 			name = "Debug Printable";
 			sourceTree = "<group>";
 		};
+		ACC5686F1F18C8E100602DEA /* Logs */ = {
+			isa = PBXGroup;
+			children = (
+				ACC5686B1F18C45300602DEA /* LHLogger.h */,
+				ACC5686C1F18C45300602DEA /* LHLogger.m */,
+				ACC568701F18C90E00602DEA /* LHLogLevel.h */,
+				ACC568711F18C90F00602DEA /* LHLogLevel.m */,
+			);
+			name = Logs;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -713,6 +736,7 @@
 				015A4F921C67014F00F950B3 /* LHContainerTransitionStyleRegistry.h in Headers */,
 				01DBF2E21C4EFE700034783C /* LHUpdateHandler.h in Headers */,
 				015A4F961C67018E00F950B3 /* LHModalTransitionStyleRegistry.h in Headers */,
+				ACC5686D1F18C45300602DEA /* LHLogger.h in Headers */,
 				01DBF2E31C4EFE700034783C /* LHUpdateBus.h in Headers */,
 				01DBF2E41C4EFE700034783C /* LHUpdateHandlerDriver.h in Headers */,
 				01DBF2E51C4EFE700034783C /* LHDriver.h in Headers */,
@@ -745,9 +769,11 @@
 				01DBF2F71C4EFEB00034783C /* LHNodeUpdateTask.h in Headers */,
 				01DBF2F81C4EFEB00034783C /* LHCommandNodeUpdateTask.h in Headers */,
 				01D57AB31C547557008E4EB5 /* LHTabNodeChildrenState.h in Headers */,
+				ACC568751F18CE4500602DEA /* Lighthouse-PrefixHeader.pch in Headers */,
 				015A4F9B1C67A49400F950B3 /* LHModalTransitionData.h in Headers */,
 				01DBF2F91C4EFEB00034783C /* LHManualNodeUpdateTask.h in Headers */,
 				01DBF2FA1C4EFEB00034783C /* LHDriverFeedbackUpdateTask.h in Headers */,
+				ACC568721F18C90F00602DEA /* LHLogLevel.h in Headers */,
 				01D57A111C50467F008E4EB5 /* LHNodeState.h in Headers */,
 				014C9F151C96F94E00D35950 /* LHMacro.h in Headers */,
 				0F5FC7081DCCECBB009596D4 /* LHDebugPrintable.h in Headers */,
@@ -870,11 +896,13 @@
 				012A95531C4EFD9A000A4ECB /* LHNodeTree.m in Sources */,
 				012A95541C4EFD9A000A4ECB /* LHNodeForest.m in Sources */,
 				012A95551C4EFD9A000A4ECB /* LHLeafNode.m in Sources */,
+				ACC5686E1F18C45300602DEA /* LHLogger.m in Sources */,
 				012A95561C4EFD9A000A4ECB /* LHStackNode.m in Sources */,
 				01B391911C88900B00579C2B /* LHRouterStateImpl.m in Sources */,
 				012A95571C4EFD9A000A4ECB /* LHStackNodeChildrenState.m in Sources */,
 				014C9F0D1C96E98E00D35950 /* LHTaskQueueImpl.m in Sources */,
 				012A95591C4EFD9A000A4ECB /* LHTabNode.m in Sources */,
+				ACC568731F18C90F00602DEA /* LHLogLevel.m in Sources */,
 				012A955B1C4EFD9A000A4ECB /* LHTarget.m in Sources */,
 				015A4F971C67018E00F950B3 /* LHModalTransitionStyleRegistry.m in Sources */,
 				012A955C1C4EFD9A000A4ECB /* LHViewControllerDriverHelpers.m in Sources */,
@@ -949,6 +977,8 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(PROJECT_NAME)/Lighthouse-PrefixHeader.pch";
 				INFOPLIST_FILE = Lighthouse/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -970,6 +1000,8 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(PROJECT_NAME)/Lighthouse-PrefixHeader.pch";
 				INFOPLIST_FILE = Lighthouse/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";

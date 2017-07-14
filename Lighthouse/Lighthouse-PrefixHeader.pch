@@ -1,0 +1,10 @@
+//
+//  Lighthouse-PrefixHeader.h
+//  Lighthouse
+//
+//  Created by Artem Starosvetskiy on 7/14/17.
+//  Copyright © 2017 Pixty. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+#import "LHLogger.h"
