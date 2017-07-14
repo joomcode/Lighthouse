@@ -14,6 +14,7 @@ Pod::Spec.new do |s|
 
   s.source_files = 'Lighthouse/**/*.{h,m}'
   s.public_header_files = 'Lighthouse/**/*.h'
+  s.prefix_header_file = 'Lighthouse/Lighthouse-PrefixHeader.pch'
 
   s.frameworks = 'UIKit'
 end
