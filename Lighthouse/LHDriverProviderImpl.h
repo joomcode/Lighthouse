@@ -12,7 +12,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 
-typedef NSArray<id<LHDriver>> *(^LHDriverProviderBlock)(id<LHNode> _Nonnull node);
+typedef NSArray<id<LHDriver>> * _Nonnull(^LHDriverProviderBlock)(id<LHNode> _Nonnull node);
 
 
 @interface LHDriverProviderImpl : NSObject <LHDriverProvider>
