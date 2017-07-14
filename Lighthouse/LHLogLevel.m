@@ -18,7 +18,7 @@ LHLogLevel LHAcceptedLogLevel() {
     return LHCurrentAcceptedLogLevel;
 }
 
-__used void LHSetAcceptedLogLevel(LHLogLevel logLevel) {
+void LHSetAcceptedLogLevel(LHLogLevel logLevel) {
     NSCAssert(NSThread.currentThread.isMainThread, @"%s should be called from the main thread.", __PRETTY_FUNCTION__);
 
     LHCurrentAcceptedLogLevel = logLevel;
