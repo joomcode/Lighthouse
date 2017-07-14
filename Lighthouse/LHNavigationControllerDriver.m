@@ -117,7 +117,7 @@
     [navigationController.transitionCoordinator notifyWhenInteractionEndsUsingBlock:^(id<UIViewControllerTransitionCoordinatorContext> context) {
         if ([context isCancelled]) {
             [self.tools.channel startNodeUpdateWithBlock:^(id<LHNode> node) {
-                LHRouteHint *hint = [LHRouteHint hintWithNodes:self.node.childrenState.stack];
+                LHRouteHint *hint = [LHRouteHint hintWithNodes:[NSOrderedSet orderedSetWithArray:self.node.childrenState.stack]];
                 [node updateChildrenState:[LHTarget withActiveNode:oldActiveNode routeHint:hint]];
             }];
         }
