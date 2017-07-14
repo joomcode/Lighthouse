@@ -140,9 +140,9 @@
 		0F5FC6F81DCCB567009596D4 /* LHRouteHint.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F5FC6F61DCCB567009596D4 /* LHRouteHint.m */; };
 		0F5FC7061DCCEB91009596D4 /* LHDebugPrintable.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F5FC7041DCCEB91009596D4 /* LHDebugPrintable.m */; };
 		0F5FC7081DCCECBB009596D4 /* LHDebugPrintable.h in Headers */ = {isa = PBXBuildFile; fileRef = 0F5FC6F91DCCEAD5009596D4 /* LHDebugPrintable.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		ACC5686D1F18C45300602DEA /* LHLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = ACC5686B1F18C45300602DEA /* LHLogger.h */; };
+		ACC5686D1F18C45300602DEA /* LHLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = ACC5686B1F18C45300602DEA /* LHLogger.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		ACC5686E1F18C45300602DEA /* LHLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = ACC5686C1F18C45300602DEA /* LHLogger.m */; };
-		ACC568721F18C90F00602DEA /* LHLogLevel.h in Headers */ = {isa = PBXBuildFile; fileRef = ACC568701F18C90E00602DEA /* LHLogLevel.h */; };
+		ACC568721F18C90F00602DEA /* LHLogLevel.h in Headers */ = {isa = PBXBuildFile; fileRef = ACC568701F18C90E00602DEA /* LHLogLevel.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		ACC568731F18C90F00602DEA /* LHLogLevel.m in Sources */ = {isa = PBXBuildFile; fileRef = ACC568711F18C90F00602DEA /* LHLogLevel.m */; };
 		ACC568751F18CE4500602DEA /* Lighthouse-PrefixHeader.pch in Headers */ = {isa = PBXBuildFile; fileRef = ACC568741F18CE4500602DEA /* Lighthouse-PrefixHeader.pch */; };
 /* End PBXBuildFile section */

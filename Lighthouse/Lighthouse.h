@@ -91,4 +91,5 @@ FOUNDATION_EXPORT const unsigned char LighthouseVersionString[];
 #import <Lighthouse/LHTaskQueue.h>
 #import <Lighthouse/LHDescriptionHelpers.h>
 #import <Lighthouse/LHDebugPrintable.h>
+#import <Lighthouse/LHLogger.h>
 
