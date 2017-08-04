@@ -107,6 +107,11 @@
 }
 
 - (LHNodeUpdateResult)updateChildrenState:(LHTarget *)target {
+    if (target.activeNodes.count == 0 && target.inactiveNodes.count > 0 && ![self hasChildrenToDeactivateForTarget:target]) {
+        LHLogWarning(@"Attempt to deactivate an already inactive node");
+        return LHNodeUpdateResultNormal;
+    }
+    
     BOOL error = NO;
     
     id<LHNode> childToActivate = [self activeChildForApplyingTarget:target
@@ -274,6 +279,17 @@
     } else {
         self.activeGraphs = [self.activeGraphs arrayByAddingObject:graph];
     }
+}
+
+#pragma mark - Helpers
+
+- (BOOL)hasChildrenToDeactivateForTarget:(LHTarget *)target {
+    for (id<LHNode> node in target.inactiveNodes) {
+        if ([self.childrenState.stack containsObject:node]) {
+            return YES;
+        }
+    }
+    return NO;
 }
 
 - (void)doUpdateChildrenState {
