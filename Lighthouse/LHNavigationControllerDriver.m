@@ -25,6 +25,9 @@
 
 @property (nonatomic, strong) LHContainerTransitionData *currentTransitionData;
 
+@property (nonatomic, strong, nullable) id willShowObserver;
+@property (nonatomic, strong, nullable) id didShowObserver;
+
 @end
 
 
@@ -39,12 +42,16 @@
     _node = node;
     _tools = tools;
     
+    [self subscribeToNotifications];
+    
     return self;
 }
 
 #pragma mark - Dealloc
 
 - (void)dealloc {
+    [self unsubscribeFromNotifications];
+    
     _data.delegate = nil;
 }
 
@@ -103,6 +110,8 @@
 - (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
     // Handle pop prompted by the default Back button or gesture
     
+    LHLogInfo(@"Will show view controller: %@", NSStringFromClass([viewController class]));
+    
     NSUInteger count = [navigationController.viewControllers count];
     if (count >= [self.node.childrenState.stack count]) {
         return;
@@ -129,6 +138,9 @@
 }
 
 - (void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
+    
+    LHLogInfo(@"Did show view controller: %@", NSStringFromClass([viewController class]));
+    
     [self updateCurrentTransitionDataForPop];
 }
 
@@ -186,6 +198,30 @@
                                                             destinationViewController:destinationViewController
                                                                              registry:self.transitionStyleRegistry
                                                                        driverProvider:self.tools.driverProvider];
+}
+
+#pragma mark - Notifications
+
+- (void)subscribeToNotifications {
+    NSString *(^noteName)(NSString *) = ^(NSString *base){
+        return [NSString stringWithFormat:@"%@%@%@", @"UINavigationController", base, @"ShowViewControllerNotification"];
+    };
+    
+    self.willShowObserver = [[NSNotificationCenter defaultCenter] addObserverForName:noteName(@"Will") object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification * _Nonnull note) {
+        LHLogInfo(@"Received notification: %@", note);
+    }];
+    
+    self.didShowObserver = [[NSNotificationCenter defaultCenter] addObserverForName:noteName(@"Did") object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification * _Nonnull note) {
+        LHLogInfo(@"Received notification: %@", note);
+    }];
+}
+
+- (void)unsubscribeFromNotifications {
+    [[NSNotificationCenter defaultCenter] removeObserver:self.willShowObserver];
+    self.willShowObserver = nil;
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self.didShowObserver];
+    self.didShowObserver = nil;    
 }
 
 @end
