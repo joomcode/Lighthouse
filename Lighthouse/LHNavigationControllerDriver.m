@@ -18,6 +18,8 @@
 #import "LHContainerTransitionStyleRegistry.h"
 #import "LHContainerTransitionData.h"
 
+#define LH_TRACE_NAVIGATION_CONTROLLER_NOTIFICATIONS 0
+
 @interface LHNavigationControllerDriver () <UINavigationControllerDelegate>
 
 @property (nonatomic, strong, readonly) LHStackNode *node;
@@ -202,6 +204,7 @@
 #pragma mark - Notifications
 
 - (void)subscribeToNotifications {
+#if LH_TRACE_NAVIGATION_CONTROLLER_NOTIFICATIONS
     NSString *(^noteName)(NSString *) = ^(NSString *base){
         return [NSString stringWithFormat:@"%@%@%@", @"UINavigationController", base, @"ShowViewControllerNotification"];
     };
@@ -213,14 +216,17 @@
     self.didShowObserver = [[NSNotificationCenter defaultCenter] addObserverForName:noteName(@"Did") object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification * _Nonnull note) {
         LHLogInfo(@"Received notification: %@", note);
     }];
+#endif
 }
 
 - (void)unsubscribeFromNotifications {
+#if LH_TRACE_NAVIGATION_CONTROLLER_NOTIFICATIONS
     [[NSNotificationCenter defaultCenter] removeObserver:self.willShowObserver];
     self.willShowObserver = nil;
     
     [[NSNotificationCenter defaultCenter] removeObserver:self.didShowObserver];
-    self.didShowObserver = nil;    
+    self.didShowObserver = nil;
+#endif
 }
 
 @end
