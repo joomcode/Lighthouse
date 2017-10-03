@@ -17,7 +17,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 
-@interface LHTabBarControllerDriver : NSObject <LHDriver>
+@interface LHTabBarControllerDriver : NSObject <LHDriver, UITabBarControllerDelegate>
 
 @property (nonatomic, strong, readonly) UITabBarController *data;
 
@@ -28,6 +28,13 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)init NS_UNAVAILABLE;
 
 - (void)bindDescendantNode:(id<LHNode>)descendantNode toTabBarItem:(UITabBarItem *)tabBarItem;
+
+@end
+
+
+@interface LHTabBarControllerDriver (Subclassing)
+
+- (UITabBarController *)loadData;
 
 @end
 

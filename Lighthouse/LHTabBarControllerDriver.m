@@ -19,7 +19,7 @@
 #import "LHContainerTransitionData.h"
 #import "UIViewController+LHNavigationItemForwarding.h"
 
-@interface LHTabBarControllerDriver () <UITabBarControllerDelegate>
+@interface LHTabBarControllerDriver ()
 
 @property (nonatomic, strong, readonly) LHTabNode *node;
 @property (nonatomic, strong, readonly) LHDriverTools *tools;
@@ -69,13 +69,19 @@
     [self.tabBarItemBoundNodes addObject:descendantNode];
 }
 
+#pragma mark - Subclassing
+
+- (UITabBarController *)loadData {
+    return [[UITabBarController alloc] init];
+}
+
 #pragma mark - LHDriver
 
 @synthesize data = _data;
 
 - (UITabBarController *)data {
     if (!_data) {
-        _data = [[UITabBarController alloc] init];
+        _data = [self loadData];
         _data.delegate = self;
     }
     return _data;

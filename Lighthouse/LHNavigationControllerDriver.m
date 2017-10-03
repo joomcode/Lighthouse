@@ -20,7 +20,7 @@
 
 #define LH_TRACE_NAVIGATION_CONTROLLER_NOTIFICATIONS 0
 
-@interface LHNavigationControllerDriver () <UINavigationControllerDelegate>
+@interface LHNavigationControllerDriver ()
 
 @property (nonatomic, strong, readonly) LHStackNode *node;
 @property (nonatomic, strong, readonly) LHDriverTools *tools;
@@ -66,13 +66,19 @@
     return _transitionStyleRegistry;
 }
 
+#pragma mark - Subclassing
+
+- (UINavigationController *)loadData {
+    return [[UINavigationController alloc] init];
+}
+
 #pragma mark - LHDriver
 
 @synthesize data = _data;
 
 - (UINavigationController *)data {
     if (!_data) {
-        _data = [[UINavigationController alloc] init];
+        _data = [self loadData];
         _data.delegate = self;
     }
     return _data;

@@ -16,7 +16,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 
-@interface LHNavigationControllerDriver : NSObject <LHDriver>
+@interface LHNavigationControllerDriver : NSObject <LHDriver, UINavigationControllerDelegate>
 
 @property (nonatomic, strong, readonly) UINavigationController *data;
 
@@ -28,5 +28,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+
+@interface LHNavigationControllerDriver (Subclassing)
+
+- (UINavigationController *)loadData;
+
+@end
 
 NS_ASSUME_NONNULL_END
