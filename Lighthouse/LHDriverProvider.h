@@ -20,8 +20,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSArray<id<LHDriver>> *)driversForNode:(id<LHNode>)node;
 
-- (nullable id<LHDriver>)createDriverForNode:(id<LHNode>)node;
-
 @end
 
 

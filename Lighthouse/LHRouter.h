@@ -21,9 +21,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-typedef __nullable id<LHCommand> (^LHRouterCommandBlock)();
+typedef __nullable id<LHCommand> (^LHRouterCommandBlock)(void);
 
-typedef void (^LHRouterCompletionBlock)();
+typedef void (^LHRouterCompletionBlock)(void);
 
 
 @interface LHRouter : NSObject

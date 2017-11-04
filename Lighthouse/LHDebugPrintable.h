@@ -18,4 +18,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+@interface NSObject (LHDebugDescription) <LHDebugPrintable>
+
+- (NSString *)lh_description;
+
+@end
+
 NS_ASSUME_NONNULL_END

@@ -12,7 +12,7 @@
 @interface LHDriverFeedbackUpdateTask ()
 
 @property (nonatomic, strong, readonly) id<LHNode> sourceNode;
-@property (nonatomic, copy, readonly) void (^nodeUpdateBlock)();
+@property (nonatomic, copy, readonly) void (^nodeUpdateBlock)(void);
 
 @property (nonatomic, copy) LHTaskCompletionBlock sourceDriverUpdateCompletionBlock;
 @property (nonatomic, assign) BOOL sourceDriverUpdateFinished;
@@ -27,7 +27,7 @@
 - (instancetype)initWithComponents:(LHComponents *)components
                           animated:(BOOL)animated
                         sourceNode:(id<LHNode>)node
-                   nodeUpdateBlock:(void (^)())block
+                   nodeUpdateBlock:(void (^)(void))block
 {
     self = [super initWithComponents:components animated:animated];
     if (!self) return nil;

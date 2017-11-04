@@ -9,13 +9,6 @@
 #import "LHDebugPrintable.h"
 #import <objc/runtime.h>
 
-@interface NSObject (LHDebugDescription) <LHDebugPrintable>
-
-- (NSString *)lh_description;
-
-@end
-
-
 @implementation NSString (LHDebugDescription)
 
 + (NSString *)lh_paddingForIndentLevel:(NSUInteger)indent {

@@ -20,7 +20,7 @@ typedef NS_ENUM(NSUInteger, LHLogLevel) {
 /// Returns the maximum accepted log level.
 ///
 /// @note Should be called from the main thread.
-extern LHLogLevel LHAcceptedLogLevel();
+extern LHLogLevel LHAcceptedLogLevel(void);
 
 /// Sets the maximum accepted log level.
 ///

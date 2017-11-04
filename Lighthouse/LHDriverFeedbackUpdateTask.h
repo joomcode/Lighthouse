@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithComponents:(LHComponents *)components
                           animated:(BOOL)animated
                         sourceNode:(id<LHNode>)node
-                   nodeUpdateBlock:(void (^)())block NS_DESIGNATED_INITIALIZER;
+                   nodeUpdateBlock:(void (^)(void))block NS_DESIGNATED_INITIALIZER;
 
 - (instancetype)initWithComponents:(LHComponents *)components animated:(BOOL)animated NS_UNAVAILABLE;
 

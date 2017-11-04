@@ -26,7 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// Defaults to an instance of `LHNSLogLogger`.
 ///
 /// @note Should be called from the main thread.
-extern id<LHLogger> LHSharedLogger();
+extern id<LHLogger> LHSharedLogger(void);
 
 /// Sets a shared logger.
 ///

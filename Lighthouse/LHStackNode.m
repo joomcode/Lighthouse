@@ -227,7 +227,7 @@
 - (NSArray<id<LHNode>> *)calculatePathFromRootToNode:(id<LHNode>)node
                                              inGraph:(LHGraph<id<LHNode>> *)graph
                                               target:(LHTarget *)target {
-    return [graph pathFromNode:graph.rootNode toNode:node visitingNodes:target.routeHint.nodes];
+    return [graph pathFromNode:graph.rootNode toNode:node visitingNodes:target.routeHint.nodes].array;
 }
 
 - (NSArray<id<LHNode>> *)pathByConcatinatingPath:(NSArray<id<LHNode>> *)first withPath:(NSArray<id<LHNode>> *)second {

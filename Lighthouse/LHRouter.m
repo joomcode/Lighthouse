@@ -120,7 +120,7 @@
     [self executeCommand:command completion:nil];
 }
 
-- (void)executeCommand:(id<LHCommand>)command completion:(void (^)())completion {
+- (void)executeCommand:(id<LHCommand>)command completion:(void (^)(void))completion {
     [self executeCommandWithBlock:^id<LHCommand> {
         return command;
     } completion:completion];
