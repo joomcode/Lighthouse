@@ -97,10 +97,10 @@
         }
         
         if (self.data.selectedIndex != self.node.childrenState.activeChildIndex) {
+            [self updateForSelectedViewController:self.data.viewControllers[self.node.childrenState.activeChildIndex]];
+            
             [self.data setSelectedIndex:self.node.childrenState.activeChildIndex];
         }
-        
-        [self updateForSelectedViewController:self.data.viewControllers[self.data.selectedIndex]];
         
         if (oldSelectedViewController != self.data.selectedViewController && context.animated && self.currentTransitionData) {
             [self.data.transitionCoordinator animateAlongsideTransition:nil completion:^(id<UIViewControllerTransitionCoordinatorContext> context) {
