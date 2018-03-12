@@ -96,9 +96,9 @@
             [self.data setViewControllers:childViewControllers animated:context.animated];
         }
         
+        [self updateForSelectedViewController:self.data.viewControllers[self.node.childrenState.activeChildIndex]];
+        
         if (self.data.selectedIndex != self.node.childrenState.activeChildIndex) {
-            [self updateForSelectedViewController:self.data.viewControllers[self.node.childrenState.activeChildIndex]];
-            
             [self.data setSelectedIndex:self.node.childrenState.activeChildIndex];
         }
         
