@@ -134,7 +134,13 @@
     [navigationController.transitionCoordinator notifyWhenInteractionEndsUsingBlock:^(id<UIViewControllerTransitionCoordinatorContext> context) {
         if ([context isCancelled]) {
             [self.tools.channel startNodeUpdateWithBlock:^(id<LHNode> node) {
-                [node updateChildrenState:[LHTarget withActiveNode:oldActiveNode routeOrigin:LHRouteHintOriginActiveNode]];
+                id<LHNode> activeNode = self.node.childrenState.stack.lastObject;
+                
+                LHRouteHint *hint = [[LHRouteHint alloc] initWithNodes:[NSOrderedSet orderedSetWithObject:activeNode]
+                                                                origin:LHRouteHintOriginActiveNode
+                                                         bidirectional:NO];
+                
+                [node updateChildrenState:[LHTarget withActiveNode:oldActiveNode routeHint:hint]];
             }];
         }
     }];
