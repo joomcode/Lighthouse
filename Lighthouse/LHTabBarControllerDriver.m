@@ -141,7 +141,8 @@
         [LHViewControllerDriverHelpers containerTransitionDataForSourceViewController:fromVC
                                                             destinationViewController:toVC
                                                                              registry:self.transitionStyleRegistry
-                                                                       driverProvider:self.tools.driverProvider];
+                                                                       driverProvider:self.tools.driverProvider
+                                                                              options:@{}];
     
     return [self.currentTransitionData animationController];
 }

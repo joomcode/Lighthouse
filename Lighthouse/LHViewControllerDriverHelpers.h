@@ -28,12 +28,14 @@ NS_ASSUME_NONNULL_BEGIN
 + (nullable LHModalTransitionData *)modalTransitionDataForSourceViewController:(UIViewController *)sourceViewController
                                                      destinationViewController:(UIViewController *)destinationViewController
                                                                       registry:(LHTransitionStyleRegistry *)registry
-                                                                driverProvider:(id<LHDriverProvider>)driverProvider;
+                                                                driverProvider:(id<LHDriverProvider>)driverProvider
+                                                                       options:(NSDictionary<NSString *, id> *)options;
 
 + (nullable LHContainerTransitionData *)containerTransitionDataForSourceViewController:(UIViewController *)sourceViewController
                                                              destinationViewController:(UIViewController *)destinationViewController
                                                                               registry:(LHTransitionStyleRegistry *)registry
-                                                                        driverProvider:(id<LHDriverProvider>)driverProvider;
+                                                                        driverProvider:(id<LHDriverProvider>)driverProvider
+                                                                               options:(NSDictionary<NSString *, id> *)options;
 
 @end
 

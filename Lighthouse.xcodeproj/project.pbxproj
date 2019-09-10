@@ -140,6 +140,8 @@
 		0F5FC6F81DCCB567009596D4 /* LHRouteHint.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F5FC6F61DCCB567009596D4 /* LHRouteHint.m */; };
 		0F5FC7061DCCEB91009596D4 /* LHDebugPrintable.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F5FC7041DCCEB91009596D4 /* LHDebugPrintable.m */; };
 		0F5FC7081DCCECBB009596D4 /* LHDebugPrintable.h in Headers */ = {isa = PBXBuildFile; fileRef = 0F5FC6F91DCCEAD5009596D4 /* LHDebugPrintable.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7CC84D5F23275891001FFE6A /* LHNavigationControllerTransitionOptions.h in Headers */ = {isa = PBXBuildFile; fileRef = 7CC84D5D23275891001FFE6A /* LHNavigationControllerTransitionOptions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7CC84D6023275891001FFE6A /* LHNavigationControllerTransitionOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CC84D5E23275891001FFE6A /* LHNavigationControllerTransitionOptions.m */; };
 		ACC5686D1F18C45300602DEA /* LHLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = ACC5686B1F18C45300602DEA /* LHLogger.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		ACC5686E1F18C45300602DEA /* LHLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = ACC5686C1F18C45300602DEA /* LHLogger.m */; };
 		ACC568721F18C90F00602DEA /* LHLogLevel.h in Headers */ = {isa = PBXBuildFile; fileRef = ACC568701F18C90E00602DEA /* LHLogLevel.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -292,6 +294,8 @@
 		0F5FC6F61DCCB567009596D4 /* LHRouteHint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHRouteHint.m; sourceTree = "<group>"; };
 		0F5FC6F91DCCEAD5009596D4 /* LHDebugPrintable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LHDebugPrintable.h; sourceTree = "<group>"; };
 		0F5FC7041DCCEB91009596D4 /* LHDebugPrintable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHDebugPrintable.m; sourceTree = "<group>"; };
+		7CC84D5D23275891001FFE6A /* LHNavigationControllerTransitionOptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHNavigationControllerTransitionOptions.h; sourceTree = "<group>"; };
+		7CC84D5E23275891001FFE6A /* LHNavigationControllerTransitionOptions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHNavigationControllerTransitionOptions.m; sourceTree = "<group>"; };
 		ACC5686B1F18C45300602DEA /* LHLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHLogger.h; sourceTree = "<group>"; };
 		ACC5686C1F18C45300602DEA /* LHLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHLogger.m; sourceTree = "<group>"; };
 		ACC568701F18C90E00602DEA /* LHLogLevel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHLogLevel.h; sourceTree = "<group>"; };
@@ -470,6 +474,8 @@
 				015A4FA91C67FF5700F950B3 /* LHTransitionContext.m */,
 				015A4F861C664BF200F950B3 /* LHModalTransitionStyle.h */,
 				015A4F801C663F0500F950B3 /* LHContainerTransitionStyle.h */,
+				7CC84D5D23275891001FFE6A /* LHNavigationControllerTransitionOptions.h */,
+				7CC84D5E23275891001FFE6A /* LHNavigationControllerTransitionOptions.m */,
 			);
 			name = Transitions;
 			sourceTree = "<group>";
@@ -740,6 +746,7 @@
 				01DBF2E31C4EFE700034783C /* LHUpdateBus.h in Headers */,
 				01DBF2E41C4EFE700034783C /* LHUpdateHandlerDriver.h in Headers */,
 				01DBF2E51C4EFE700034783C /* LHDriver.h in Headers */,
+				7CC84D5F23275891001FFE6A /* LHNavigationControllerTransitionOptions.h in Headers */,
 				01DBF2E61C4EFE700034783C /* LHDriverUpdateContext.h in Headers */,
 				01D57A191C505DF1008E4EB5 /* LHDriverTools.h in Headers */,
 				01DBF2E71C4EFE700034783C /* LHDriverChannel.h in Headers */,
@@ -854,6 +861,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 			);
 			mainGroup = 013F689A1BA62BE900B5797B;
@@ -892,6 +900,7 @@
 				012A95511C4EFD9A000A4ECB /* LHRouter.m in Sources */,
 				0F5FC6F81DCCB567009596D4 /* LHRouteHint.m in Sources */,
 				0F27F8111DCE4366004F07DF /* NSMapTable+LHUtils.m in Sources */,
+				7CC84D6023275891001FFE6A /* LHNavigationControllerTransitionOptions.m in Sources */,
 				012A95521C4EFD9A000A4ECB /* LHTree.m in Sources */,
 				012A95531C4EFD9A000A4ECB /* LHNodeTree.m in Sources */,
 				012A95541C4EFD9A000A4ECB /* LHNodeForest.m in Sources */,

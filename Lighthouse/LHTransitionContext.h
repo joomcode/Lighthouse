@@ -20,10 +20,13 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, weak, readonly) UIViewController *styleSource;
 @property (nonatomic, weak, readonly) UIViewController *styleDestination;
 
+@property (nonatomic, copy, readonly) NSDictionary<NSString *, id> *options;
+
 - (instancetype)initWithSource:(UIViewController *)source
                    destination:(UIViewController *)destination
                    styleSource:(UIViewController *)styleSource
-              styleDestination:(UIViewController *)styleDestination NS_DESIGNATED_INITIALIZER;
+              styleDestination:(UIViewController *)styleDestination
+                       options:(NSDictionary<NSString *, id> *)options NS_DESIGNATED_INITIALIZER;
 
 - (instancetype)init NS_UNAVAILABLE;
 

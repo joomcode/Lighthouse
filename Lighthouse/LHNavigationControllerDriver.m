@@ -11,6 +11,7 @@
 #import "LHDriverTools.h"
 #import "LHDriverChannel.h"
 #import "LHDriverUpdateContext.h"
+#import "LHNavigationControllerTransitionOptions.h"
 #import "LHTaskQueue.h"
 #import "LHTarget.h"
 #import "LHRouteHint.h"
@@ -93,10 +94,18 @@
     }
     
     [context.updateQueue runAsyncTaskWithBlock:^(LHTaskCompletionBlock completion) {
-        UIViewController *topChildViewController = childViewControllers.lastObject;
+        UIViewController *oldTopViewController = self.data.topViewController;
+        UIViewController *newTopViewController = childViewControllers.lastObject;
+
+        UINavigationControllerOperation operation = oldTopViewController == newTopViewController
+            ? UINavigationControllerOperationNone
+            : [self.data.viewControllers containsObject:newTopViewController]
+                ? UINavigationControllerOperationPop
+                : UINavigationControllerOperationPush;
         
-        [self updateCurrentTransitionDataForSourceViewController:self.data.topViewController
-                                       destinationViewController:topChildViewController];
+        [self updateCurrentTransitionDataForSourceViewController:oldTopViewController
+                                       destinationViewController:newTopViewController
+                                                       operation:operation];
         
         [self.data setViewControllers:childViewControllers animated:context.animated];
         
@@ -201,16 +210,19 @@
     UIViewController *destinationViewController = self.data.viewControllers[self.data.viewControllers.count - 2];
     
     [self updateCurrentTransitionDataForSourceViewController:sourceViewController
-                                   destinationViewController:destinationViewController];
+                                   destinationViewController:destinationViewController
+                                                   operation:UINavigationControllerOperationPop];
 }
 
 - (void)updateCurrentTransitionDataForSourceViewController:(UIViewController *)sourceViewController
-                                 destinationViewController:(UIViewController *)destinationViewController {
+                                 destinationViewController:(UIViewController *)destinationViewController
+                                                 operation:(UINavigationControllerOperation)operation {
     self.currentTransitionData =
         [LHViewControllerDriverHelpers containerTransitionDataForSourceViewController:sourceViewController
                                                             destinationViewController:destinationViewController
                                                                              registry:self.transitionStyleRegistry
-                                                                       driverProvider:self.tools.driverProvider];
+                                                                       driverProvider:self.tools.driverProvider
+                                                                              options:@{LHNavigationControllerOperationTransitionOption: @(operation)}];
 }
 
 #pragma mark - Notifications

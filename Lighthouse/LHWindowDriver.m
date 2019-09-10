@@ -142,7 +142,8 @@
         [LHViewControllerDriverHelpers modalTransitionDataForSourceViewController:presentingViewController
                                                         destinationViewController:viewControllerToPresent
                                                                          registry:self.transitionStyleRegistry
-                                                                   driverProvider:self.tools.driverProvider];
+                                                                   driverProvider:self.tools.driverProvider
+                                                                          options:@{}];
     
     if (transitionData) {
         // TODO: cleanup this later (on dismissal?)

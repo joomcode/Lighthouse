@@ -54,6 +54,8 @@ FOUNDATION_EXPORT const unsigned char LighthouseVersionString[];
 #import <Lighthouse/LHTabBarControllerDriver.h>
 #import <Lighthouse/LHWindowDriver.h>
 
+#import <Lighthouse/LHNavigationControllerTransitionOptions.h>
+
 #import <Lighthouse/LHContainerTransitionStyle.h>
 #import <Lighthouse/LHContainerTransitionStyleRegistry.h>
 #import <Lighthouse/LHModalTransitionStyle.h>

@@ -64,7 +64,8 @@
 + (LHModalTransitionData *)modalTransitionDataForSourceViewController:(UIViewController *)sourceViewController
                                             destinationViewController:(UIViewController *)destinationViewController
                                                              registry:(LHTransitionStyleRegistry *)registry
-                                                       driverProvider:(id<LHDriverProvider>)driverProvider {
+                                                       driverProvider:(id<LHDriverProvider>)driverProvider
+                                                              options:(NSDictionary<NSString *, id> *)options {
     
     LHTransitionStyleEntry *entry = [self transitionStyleEntryForSourceViewController:sourceViewController
                                                             destinationViewController:destinationViewController
@@ -77,7 +78,8 @@
     LHTransitionContext *context = [self transitionContextForSourceViewController:sourceViewController
                                                         destinationViewController:destinationViewController
                                                                             entry:entry
-                                                                   driverProvider:driverProvider];
+                                                                   driverProvider:driverProvider
+                                                                          options:options];
     
     return [[LHModalTransitionData alloc] initWithStyle:entry.transitionStyle context:context];
 }
@@ -85,7 +87,8 @@
 + (LHContainerTransitionData *)containerTransitionDataForSourceViewController:(UIViewController *)sourceViewController
                                                     destinationViewController:(UIViewController *)destinationViewController
                                                                      registry:(LHTransitionStyleRegistry *)registry
-                                                               driverProvider:(id<LHDriverProvider>)driverProvider {
+                                                               driverProvider:(id<LHDriverProvider>)driverProvider
+                                                                      options:(NSDictionary<NSString *, id> *)options {
     
     LHTransitionStyleEntry *entry = [self transitionStyleEntryForSourceViewController:sourceViewController
                                                             destinationViewController:destinationViewController
@@ -98,7 +101,8 @@
     LHTransitionContext *context = [self transitionContextForSourceViewController:sourceViewController
                                                         destinationViewController:destinationViewController
                                                                             entry:entry
-                                                                   driverProvider:driverProvider];
+                                                                   driverProvider:driverProvider
+                                                                          options:options];
     
     return [[LHContainerTransitionData alloc] initWithStyle:entry.transitionStyle context:context];
 }
@@ -122,7 +126,8 @@
 + (LHTransitionContext *)transitionContextForSourceViewController:(UIViewController *)sourceViewController
                                         destinationViewController:(UIViewController *)destinationViewController
                                                             entry:(LHTransitionStyleEntry *)entry
-                                                   driverProvider:(id<LHDriverProvider>)driverProvider {
+                                                   driverProvider:(id<LHDriverProvider>)driverProvider
+                                                          options:(NSDictionary<NSString *, id> *)options {
     UIViewController *styleSourceViewController =
         entry.sourceNode ? [driverProvider driverForNode:entry.sourceNode].data : sourceViewController;
     
@@ -132,7 +137,8 @@
     return [[LHTransitionContext alloc] initWithSource:sourceViewController
                                            destination:destinationViewController
                                            styleSource:styleSourceViewController
-                                      styleDestination:styleDestinationViewController];
+                                      styleDestination:styleDestinationViewController
+                                               options:options];
 }
 
 @end
