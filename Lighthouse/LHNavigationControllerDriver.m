@@ -128,28 +128,48 @@
     // Handle pop prompted by the default Back button or gesture
     
     LHLogInfo(@"Will show view controller: %@", NSStringFromClass([viewController class]));
-    
-    NSUInteger count = [navigationController.viewControllers count];
-    if (count >= [self.node.childrenState.stack count]) {
+
+    NSUInteger controllerCount = [navigationController.viewControllers count];
+    NSUInteger nodeCount = [self.node.childrenState.stack count];
+
+    if (controllerCount >= nodeCount) {
         return;
     }
-    
-    id<LHNode> oldActiveNode = self.node.childrenState.stack.lastObject;
-    
+
+    NSArray<UIViewController *> *childViewControllers =
+        [LHViewControllerDriverHelpers viewControllersForNodes:self.node.childrenState.stack driverProvider:self.tools.driverProvider];
+
+    NSUInteger unwindIndex = [childViewControllers indexOfObject:viewController];
+
+    NSUInteger popIndex = unwindIndex + 1;
+    NSUInteger popCount = nodeCount - popIndex;
+    NSRange popRange = NSMakeRange(popIndex, popCount);
+    NSIndexSet *popIndices = [[NSIndexSet alloc] initWithIndexesInRange:popRange];
+    NSArray<id<LHNode>> *nodesToPop = [self.node.childrenState.stack objectsAtIndexes:popIndices];
+
     [self.tools.channel startNodeUpdateWithBlock:^(id<LHNode> node) {
-        [node updateChildrenState:[LHTarget withInactiveNode:oldActiveNode]];
+        LHLog(LHLogLevelInfo, @"Updating children state due to navigation pop");
+        [nodesToPop enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(id<LHNode> nodeToPop, NSUInteger idx, BOOL *stop) {
+            [node updateChildrenState:[LHTarget withInactiveNode:nodeToPop]];
+        }];
     }];
     
     [navigationController.transitionCoordinator notifyWhenInteractionEndsUsingBlock:^(id<UIViewControllerTransitionCoordinatorContext> context) {
         if ([context isCancelled]) {
             [self.tools.channel startNodeUpdateWithBlock:^(id<LHNode> node) {
-                id<LHNode> activeNode = self.node.childrenState.stack.lastObject;
-                
-                LHRouteHint *hint = [[LHRouteHint alloc] initWithNodes:[NSOrderedSet orderedSetWithObject:activeNode]
-                                                                origin:LHRouteHintOriginActiveNode
-                                                         bidirectional:NO];
-                
-                [node updateChildrenState:[LHTarget withActiveNode:oldActiveNode routeHint:hint]];
+                LHLog(LHLogLevelInfo, @"Updating children state due to navigation pop cancellation");
+
+                __block id<LHNode> activeNode = self.node.childrenState.stack.lastObject;
+
+                [nodesToPop enumerateObjectsUsingBlock:^(id<LHNode> poppedNode, NSUInteger idx, BOOL *stop) {
+                    LHRouteHint *hint = [[LHRouteHint alloc] initWithNodes:[NSOrderedSet orderedSetWithObject:activeNode]
+                                                                    origin:LHRouteHintOriginActiveNode
+                                                             bidirectional:NO];
+
+                    [node updateChildrenState:[LHTarget withActiveNode:poppedNode routeHint:hint]];
+
+                    activeNode = poppedNode;
+                }];
             }];
         }
     }];
