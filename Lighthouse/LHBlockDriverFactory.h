@@ -19,11 +19,11 @@ typedef _Nonnull id<LHDriver> (^LHDriverFactoryBlock)(__kindof id<LHNode> node, 
 
 @interface LHBlockDriverFactory : NSObject <LHDriverFactory>
 
-- (void)bindNode:(id<LHNode>)node toBlock:(LHDriverFactoryBlock)block;
+- (void)bindNode:(id<LHNode>)node toBlock:(LHDriverFactoryBlock)block NS_SWIFT_NAME(bind(_:to:));
 
-- (void)bindNodes:(NSArray<id<LHNode>> *)nodes toBlock:(LHDriverFactoryBlock)block;
+- (void)bindNodes:(NSArray<id<LHNode>> *)nodes toBlock:(LHDriverFactoryBlock)block NS_SWIFT_NAME(bind(_:to:));
 
-- (void)bindNodeClass:(Class)nodeClass toBlock:(LHDriverFactoryBlock)block;
+- (void)bindNodeClass:(Class)nodeClass toBlock:(LHDriverFactoryBlock)block NS_SWIFT_NAME(bind(_:to:));
 
 @end
 
