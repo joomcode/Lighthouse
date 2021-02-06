@@ -25,9 +25,9 @@ typedef _Nonnull id (^LHDriverDataUpdateBlock)(id data, __kindof id<LHCommand> c
 
 - (instancetype)initWithDefaultDataInitBlock:(nullable LHDriverDataInitBlock)block NS_DESIGNATED_INITIALIZER;
 
-- (void)bindCommandClass:(Class)commandClass toDataInitBlock:(LHDriverDataInitBlock)block;
+- (void)bindCommandClass:(Class)commandClass toDataInitBlock:(LHDriverDataInitBlock)block NS_REFINED_FOR_SWIFT;
 
-- (void)bindCommandClass:(Class)commandClass toDataUpdateBlock:(LHDriverDataUpdateBlock)block;
+- (void)bindCommandClass:(Class)commandClass toDataUpdateBlock:(LHDriverDataUpdateBlock)block NS_REFINED_FOR_SWIFT;
 
 @end
 
