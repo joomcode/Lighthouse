@@ -229,7 +229,7 @@
 
 - (void)subscribeToNotifications {
 #if LH_TRACE_NAVIGATION_CONTROLLER_NOTIFICATIONS
-    NSString *(^noteName)(NSString *) = ^(NSString *base){
+    NSString *(^noteName)(NSString *) = ^(NSString *base) {
         return [NSString stringWithFormat:@"%@%@%@", @"UINavigationController", base, @"ShowViewControllerNotification"];
     };
     
