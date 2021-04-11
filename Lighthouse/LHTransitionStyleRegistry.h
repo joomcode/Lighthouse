@@ -17,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)registerTransitionStyle:(nullable StyleType)transitionStyle
                   forSourceNode:(nullable id<LHNode>)sourceNode
-                destinationNode:(nullable id<LHNode>)destinationNode NS_SWIFT_NAME(register(transitionStyle:sourceNode:destinationNode:));
+                destinationNode:(nullable id<LHNode>)destinationNode NS_SWIFT_NAME(register(_:source:destination:));
 
 - (void)registerDefaultTransitionStyle:(StyleType)transitionStyle;
 
