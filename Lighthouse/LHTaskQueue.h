@@ -18,6 +18,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)runTask:(id<LHTask>)task;
 
+- (void)runUrgentTask:(id<LHTask>)task;
+
 
 // TODO (swift): these methods belong to the protocol extension. Unfortunately, there are no protocol extensions in obj-c :)
 

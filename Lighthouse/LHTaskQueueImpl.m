@@ -41,6 +41,12 @@
     [self runNextTaskIfPossible];
 }
 
+- (void)runUrgentTask:(id<LHTask>)task {
+    [self.tasks insertObject:task atIndex:0];
+
+    [self runNextTaskIfPossible];
+}
+
 - (void)runTaskWithBlock:(LHTaskBlock)block {
     [self runTask:[[LHBlockTask alloc] initWithBlock:block]];
 }
