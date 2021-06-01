@@ -88,11 +88,11 @@
 - (void)updateWithContext:(LHDriverUpdateContext *)context {
     NSArray<UIViewController *> *childViewControllers =
         [LHViewControllerDriverHelpers viewControllersForNodes:self.node.childrenState.stack driverProvider:self.tools.driverProvider];
-    
+
     if ([childViewControllers isEqual:self.data.viewControllers]) {
         return;
     }
-    
+
     [context.updateQueue runAsyncTaskWithBlock:^(LHTaskCompletionBlock completion) {
         UIViewController *oldTopViewController = self.data.topViewController;
         UIViewController *newTopViewController = childViewControllers.lastObject;
@@ -102,15 +102,17 @@
             : [self.data.viewControllers containsObject:newTopViewController]
                 ? UINavigationControllerOperationPop
                 : UINavigationControllerOperationPush;
-        
+
         [self updateCurrentTransitionDataForSourceViewController:oldTopViewController
                                        destinationViewController:newTopViewController
                                                        operation:operation];
-        
+
         [self.data setViewControllers:childViewControllers animated:context.animated];
-        
-        if (context.animated) {
-            [self.data.transitionCoordinator animateAlongsideTransition:nil completion:^(id<UIViewControllerTransitionCoordinatorContext> context) {
+
+        id <UIViewControllerTransitionCoordinator> transitionCoordinator = self.data.transitionCoordinator;
+
+        if (context.animated && transitionCoordinator) {
+            [transitionCoordinator animateAlongsideTransition:nil completion:^(id<UIViewControllerTransitionCoordinatorContext> context) {
                 completion();
             }];
         } else {
@@ -128,28 +130,45 @@
     // Handle pop prompted by the default Back button or gesture
     
     LHLogInfo(@"Will show view controller: %@", NSStringFromClass([viewController class]));
-    
-    NSUInteger count = [navigationController.viewControllers count];
-    if (count >= [self.node.childrenState.stack count]) {
+
+    NSUInteger controllerCount = [navigationController.viewControllers count];
+    NSUInteger nodeCount = [self.node.childrenState.stack count];
+
+    if (controllerCount >= nodeCount) {
         return;
     }
-    
-    id<LHNode> oldActiveNode = self.node.childrenState.stack.lastObject;
-    
+
+    NSArray<UIViewController *> *childViewControllers =
+        [LHViewControllerDriverHelpers viewControllersForNodes:self.node.childrenState.stack driverProvider:self.tools.driverProvider];
+
+    NSUInteger popIndex = [childViewControllers indexOfObject:viewController] + 1; // `+ 1` because we need to deactivate nodes
+                                                                                   // for the controllers “above” the one being shown
+    NSRange popRange = NSMakeRange(popIndex, nodeCount - popIndex);
+    NSArray<id<LHNode>> *nodesToPop = [self.node.childrenState.stack subarrayWithRange:popRange];
+
     [self.tools.channel startNodeUpdateWithBlock:^(id<LHNode> node) {
-        [node updateChildrenState:[LHTarget withInactiveNode:oldActiveNode]];
+        LHLog(LHLogLevelInfo, @"Updating children state due to navigation pop");
+        [nodesToPop enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(id<LHNode> nodeToPop, NSUInteger idx, BOOL *stop) {
+            [node updateChildrenState:[LHTarget withInactiveNode:nodeToPop]];
+        }];
     }];
     
     [navigationController.transitionCoordinator notifyWhenInteractionChangesUsingBlock:^(id<UIViewControllerTransitionCoordinatorContext> context) {
         if ([context isCancelled]) {
             [self.tools.channel startUrgentNodeUpdateWithBlock:^(id<LHNode> node) {
-                id<LHNode> activeNode = self.node.childrenState.stack.lastObject;
-                
-                LHRouteHint *hint = [[LHRouteHint alloc] initWithNodes:[NSOrderedSet orderedSetWithObject:activeNode]
-                                                                origin:LHRouteHintOriginActiveNode
-                                                         bidirectional:NO];
-                
-                [node updateChildrenState:[LHTarget withActiveNode:oldActiveNode routeHint:hint]];
+                LHLog(LHLogLevelInfo, @"Updating children state due to navigation pop cancellation");
+
+                __block id<LHNode> activeNode = self.node.childrenState.stack.lastObject;
+
+                [nodesToPop enumerateObjectsUsingBlock:^(id<LHNode> poppedNode, NSUInteger idx, BOOL *stop) {
+                    LHRouteHint *hint = [[LHRouteHint alloc] initWithNodes:[NSOrderedSet orderedSetWithObject:activeNode]
+                                                                    origin:LHRouteHintOriginActiveNode
+                                                             bidirectional:NO];
+
+                    [node updateChildrenState:[LHTarget withActiveNode:poppedNode routeHint:hint]];
+
+                    activeNode = poppedNode;
+                }];
             }];
         }
     }];

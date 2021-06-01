@@ -108,7 +108,6 @@
 
 - (LHNodeUpdateResult)updateChildrenState:(LHTarget *)target {
     if (target.activeNodes.count == 0 && target.inactiveNodes.count > 0 && ![self hasChildrenToDeactivateForTarget:target]) {
-        LHLogWarning(@"Attempt to deactivate an already inactive node");
         return LHNodeUpdateResultNormal;
     }
     
@@ -160,14 +159,16 @@
     
     id<LHNode> childForTargetInactiveNodes = nil;
     
+    NSMutableSet<id<LHNode>> *nodesToDeactivate = [target.inactiveNodes mutableCopy];
     BOOL inactiveNodeFound = NO;
     
     for (id<LHNode> node in [activeChildrenStack reverseObjectEnumerator]) {
-        if (inactiveNodeFound) {
+        if ([nodesToDeactivate containsObject:node]) {
+            [nodesToDeactivate removeObject:node];
+            inactiveNodeFound = YES;
+        } else if (inactiveNodeFound) {
             childForTargetInactiveNodes = node;
             break;
-        } else if ([target.inactiveNodes containsObject:node]) {
-            inactiveNodeFound = YES;
         }
     }
     
@@ -184,12 +185,45 @@
 - (NSArray<id<LHNode>> *)pathToNode:(id<LHNode>)node inGraph:(LHGraph<id<LHNode>> *)graph target:(LHTarget *)target {
     NSArray<id<LHNode>> *path = nil;
     
-    if (!target.routeHint || target.routeHint.origin == LHRouteHintOriginActiveNode) {
+    if (!target.routeHint) {
+        if (target.activeNodes.count == 0 && target.inactiveNodes.count > 0) {
+            path = [self calculatePathByDeactivatingNodesAfterNode:node inGraph:graph target:target];
+        } else {
+            path = [self calculatePathFromActiveNodeToNode:node inGraph:graph target:target];
+        }
+    } else if (target.routeHint.origin == LHRouteHintOriginActiveNode) {
         path = [self calculatePathFromActiveNodeToNode:node inGraph:graph target:target];
     } else {
         path = [self calculatePathFromRootToNode:node inGraph:graph target:target];
     }
     return [self bidirectionalTailFromPath:path inGraph:graph];
+}
+
+- (NSArray<id<LHNode>> *)calculatePathByDeactivatingNodesAfterNode:(id<LHNode>)node inGraph:(LHGraph<id<LHNode>> *)graph target:(LHTarget *)target {
+    NSMutableSet<id<LHNode>> *nodesToDeactivate = [target.inactiveNodes mutableCopy];
+    __block NSUInteger lastActiveNodeIndex = NSNotFound;
+
+    [self.childrenState.stack enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(id<LHNode> obj, NSUInteger idx, BOOL *stop) {
+        if ([nodesToDeactivate containsObject:obj]) {
+            [nodesToDeactivate removeObject:obj];
+        } else {
+            lastActiveNodeIndex = idx;
+            *stop = YES;
+        }
+    }];
+
+    if (lastActiveNodeIndex == NSNotFound) {
+        NSAssert(NO, @"`target.inactiveNodes` shouldn't require to deactivate all nodes in active children stack");
+        return self.childrenState.stack;
+    }
+
+    id<LHNode> lastActiveNode = self.childrenState.stack[lastActiveNodeIndex];
+    if (node != lastActiveNode) {
+        NSAssert(NO, @"");
+        return self.childrenState.stack;
+    }
+    
+    return [self.childrenState.stack subarrayWithRange:(NSRange){ .length = lastActiveNodeIndex + 1 }];
 }
 
 - (NSArray<id<LHNode>> *)calculatePathFromActiveNodeToNode:(id<LHNode>)node

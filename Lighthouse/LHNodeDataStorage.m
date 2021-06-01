@@ -77,7 +77,7 @@
     [self.delegate nodeDataStorage:self didCreateData:data forNode:node];
 }
 
-- (void)removeDriverNodeNode:(id<LHNode>)node {
+- (void)removeDriverForNode:(id<LHNode>)node {
     LHNodeData *data = [self.dataByNode objectForKey:node];
     if (!data) {
         return;

@@ -122,7 +122,7 @@
         if ([self.components.nodeDataStorage.routerState stateForNode:node] == LHNodeStateNotInitialized) {
             [self.components.nodeDataStorage resetDataForNode:node];
         } else if ([self shouldRemoveDriverForNode:node]) {
-            [self.components.nodeDataStorage removeDriverNodeNode:node];
+            [self.components.nodeDataStorage removeDriverForNode:node];
         }
     }];
 }
