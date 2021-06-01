@@ -168,9 +168,9 @@
             [self.node updateChildrenState:[LHTarget withInactiveNode:oldActiveNode]];
         }];
         
-        [viewController.transitionCoordinator notifyWhenInteractionEndsUsingBlock:^(id<UIViewControllerTransitionCoordinatorContext> context) {
+        [viewController.transitionCoordinator notifyWhenInteractionChangesUsingBlock:^(id<UIViewControllerTransitionCoordinatorContext> context) {
             if ([context isCancelled]) {
-                [self.tools.channel startNodeUpdateWithBlock:^(id<LHNode> node) {
+                [self.tools.channel startUrgentNodeUpdateWithBlock:^(id<LHNode> node) {
                     LHTarget *target = [LHTarget withActiveNode:oldActiveNode];
                     [self.node updateChildrenState:target];
                 }];

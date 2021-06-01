@@ -140,9 +140,9 @@
         [node updateChildrenState:[LHTarget withInactiveNode:oldActiveNode]];
     }];
     
-    [navigationController.transitionCoordinator notifyWhenInteractionEndsUsingBlock:^(id<UIViewControllerTransitionCoordinatorContext> context) {
+    [navigationController.transitionCoordinator notifyWhenInteractionChangesUsingBlock:^(id<UIViewControllerTransitionCoordinatorContext> context) {
         if ([context isCancelled]) {
-            [self.tools.channel startNodeUpdateWithBlock:^(id<LHNode> node) {
+            [self.tools.channel startUrgentNodeUpdateWithBlock:^(id<LHNode> node) {
                 id<LHNode> activeNode = self.node.childrenState.stack.lastObject;
                 
                 LHRouteHint *hint = [[LHRouteHint alloc] initWithNodes:[NSOrderedSet orderedSetWithObject:activeNode]
