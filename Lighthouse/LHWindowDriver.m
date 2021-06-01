@@ -165,13 +165,14 @@
         id<LHNode> newActiveNode = self.node.childrenState.stack[index - 1];
         
         [self.tools.channel startNodeUpdateWithBlock:^(id<LHNode> node) {
-            [self.node updateChildrenState:[LHTarget withActiveNode:newActiveNode routeOrigin:LHRouteHintOriginRoot]];
+            [self.node updateChildrenState:[LHTarget withInactiveNode:oldActiveNode]];
         }];
         
         [viewController.transitionCoordinator notifyWhenInteractionEndsUsingBlock:^(id<UIViewControllerTransitionCoordinatorContext> context) {
             if ([context isCancelled]) {
                 [self.tools.channel startNodeUpdateWithBlock:^(id<LHNode> node) {
-                    [self.node updateChildrenState:[LHTarget withActiveNode:oldActiveNode routeOrigin:LHRouteHintOriginRoot]];
+                    LHTarget *target = [LHTarget withActiveNode:oldActiveNode];
+                    [self.node updateChildrenState:target];
                 }];
             }
         }];
