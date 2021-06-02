@@ -140,6 +140,8 @@
 		0F5FC6F81DCCB567009596D4 /* LHRouteHint.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F5FC6F61DCCB567009596D4 /* LHRouteHint.m */; };
 		0F5FC7061DCCEB91009596D4 /* LHDebugPrintable.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F5FC7041DCCEB91009596D4 /* LHDebugPrintable.m */; };
 		0F5FC7081DCCECBB009596D4 /* LHDebugPrintable.h in Headers */ = {isa = PBXBuildFile; fileRef = 0F5FC6F91DCCEAD5009596D4 /* LHDebugPrintable.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		74F2A4A626676E2A00CD86B0 /* LHBasicCommandRegistry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74F2A4A526676E2A00CD86B0 /* LHBasicCommandRegistry.swift */; };
+		74F2A4AA26676E5D00CD86B0 /* LHUpdateHandlerDriver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74F2A4A926676E5D00CD86B0 /* LHUpdateHandlerDriver.swift */; };
 		7CC84D5F23275891001FFE6A /* LHNavigationControllerTransitionOptions.h in Headers */ = {isa = PBXBuildFile; fileRef = 7CC84D5D23275891001FFE6A /* LHNavigationControllerTransitionOptions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7CC84D6023275891001FFE6A /* LHNavigationControllerTransitionOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CC84D5E23275891001FFE6A /* LHNavigationControllerTransitionOptions.m */; };
 		ACC5686D1F18C45300602DEA /* LHLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = ACC5686B1F18C45300602DEA /* LHLogger.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -294,6 +296,8 @@
 		0F5FC6F61DCCB567009596D4 /* LHRouteHint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHRouteHint.m; sourceTree = "<group>"; };
 		0F5FC6F91DCCEAD5009596D4 /* LHDebugPrintable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LHDebugPrintable.h; sourceTree = "<group>"; };
 		0F5FC7041DCCEB91009596D4 /* LHDebugPrintable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHDebugPrintable.m; sourceTree = "<group>"; };
+		74F2A4A526676E2A00CD86B0 /* LHBasicCommandRegistry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LHBasicCommandRegistry.swift; sourceTree = "<group>"; };
+		74F2A4A926676E5D00CD86B0 /* LHUpdateHandlerDriver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LHUpdateHandlerDriver.swift; sourceTree = "<group>"; };
 		7CC84D5D23275891001FFE6A /* LHNavigationControllerTransitionOptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHNavigationControllerTransitionOptions.h; sourceTree = "<group>"; };
 		7CC84D5E23275891001FFE6A /* LHNavigationControllerTransitionOptions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHNavigationControllerTransitionOptions.m; sourceTree = "<group>"; };
 		ACC5686B1F18C45300602DEA /* LHLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHLogger.h; sourceTree = "<group>"; };
@@ -325,6 +329,7 @@
 		0111CC211BAA46E500C19022 /* Update Handler */ = {
 			isa = PBXGroup;
 			children = (
+				74F2A4A926676E5D00CD86B0 /* LHUpdateHandlerDriver.swift */,
 				0186CAFD1BADF87F00B22431 /* LHUpdateHandler.h */,
 				012A952F1C4EEFAC000A4ECB /* LHUpdateBus.h */,
 				0111CC221BAA470D00C19022 /* LHUpdateHandlerDriver.h */,
@@ -336,6 +341,7 @@
 		0111CC281BAB025B00C19022 /* Basic */ = {
 			isa = PBXGroup;
 			children = (
+				74F2A4A526676E2A00CD86B0 /* LHBasicCommandRegistry.swift */,
 				0111CC291BAB026B00C19022 /* LHBasicCommandRegistry.h */,
 				0111CC2A1BAB026B00C19022 /* LHBasicCommandRegistry.m */,
 			);
@@ -850,6 +856,7 @@
 				TargetAttributes = {
 					012A95391C4EFD5E000A4ECB = {
 						CreatedOnToolsVersion = 7.2;
+						LastSwiftMigration = 1240;
 					};
 					012A95421C4EFD5E000A4ECB = {
 						CreatedOnToolsVersion = 7.2;
@@ -908,6 +915,7 @@
 				ACC5686E1F18C45300602DEA /* LHLogger.m in Sources */,
 				012A95561C4EFD9A000A4ECB /* LHStackNode.m in Sources */,
 				01B391911C88900B00579C2B /* LHRouterStateImpl.m in Sources */,
+				74F2A4AA26676E5D00CD86B0 /* LHUpdateHandlerDriver.swift in Sources */,
 				012A95571C4EFD9A000A4ECB /* LHStackNodeChildrenState.m in Sources */,
 				014C9F0D1C96E98E00D35950 /* LHTaskQueueImpl.m in Sources */,
 				012A95591C4EFD9A000A4ECB /* LHTabNode.m in Sources */,
@@ -921,6 +929,7 @@
 				012A955F1C4EFD9A000A4ECB /* LHNavigationControllerDriver.m in Sources */,
 				015A4FB51C68216900F950B3 /* LHDriverUpdateContext.m in Sources */,
 				015A4FAD1C6819C700F950B3 /* LHDriverTools.m in Sources */,
+				74F2A4A626676E2A00CD86B0 /* LHBasicCommandRegistry.swift in Sources */,
 				019DE7381C971F6800656C15 /* LHRouterDelegateImpl.m in Sources */,
 				01A28DBE1C5CEFBD006F0A95 /* UIViewController+LHNavigationItemForwarding.m in Sources */,
 				012A95601C4EFD9A000A4ECB /* LHTabBarControllerDriver.m in Sources */,
@@ -980,6 +989,7 @@
 		012A954C1C4EFD5E000A4ECB /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -994,6 +1004,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.pixty.Lighthouse;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -1003,6 +1015,7 @@
 		012A954D1C4EFD5E000A4ECB /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -1017,6 +1030,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.pixty.Lighthouse;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -1026,6 +1040,7 @@
 		012A954F1C4EFD5E000A4ECB /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				INFOPLIST_FILE = LighthouseTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -1037,6 +1052,7 @@
 		012A95501C4EFD5E000A4ECB /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				INFOPLIST_FILE = LighthouseTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
