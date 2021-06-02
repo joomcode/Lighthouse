@@ -25,6 +25,8 @@ NS_ASSUME_NONNULL_BEGIN
                       inactiveNodes:(nullable NSSet<id<LHNode>> *)inactiveNodes
                           routeHint:(nullable LHRouteHint *)hint NS_DESIGNATED_INITIALIZER;
 
++ (instancetype)withActiveNodes:(NSArray<id<LHNode>> *)activeNodes inactiveNodes:(NSArray<id<LHNode>> *)inactiveNodes;
+
 + (instancetype)withActiveNode:(id<LHNode>)activeNode routeHint:(nullable LHRouteHint *)hint;
 + (instancetype)withActiveNode:(id<LHNode>)activeNode routeNodes:(nullable NSArray<id<LHNode>> *)routeNodes;
 + (instancetype)withActiveNode:(id<LHNode>)activeNode routeOrigin:(LHRouteHintOrigin)routeOrigin;

@@ -11,22 +11,6 @@
 
 @implementation UIViewController (LHDismissalTracking)
 
-#pragma mark - Swizzling
-
-+ (void)load {
-    Method existingMethod = class_getInstanceMethod(self, @selector(viewWillDisappear:));
-    Method swizzledMethod = class_getInstanceMethod(self, @selector(lh_viewWillDisappear:));
-    method_exchangeImplementations(existingMethod, swizzledMethod);
-}
-
-- (void)lh_viewWillDisappear:(BOOL)animated {
-    [self lh_viewWillDisappear:animated];
-    
-    if (self.isBeingDismissed && self.lh_onDismissalBlock) {
-        self.lh_onDismissalBlock(self, animated);
-    }
-}
-
 #pragma mark - Block
 
 static const char kOnDismissalBlockKey;

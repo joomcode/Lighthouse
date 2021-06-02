@@ -21,9 +21,9 @@
     return [self initWithActiveNodes:nil inactiveNodes:nil routeHint:nil];
 }
 
-- (instancetype)initWithActiveNodes:(NSSet<id<LHNode>> *)activeNodes
-                      inactiveNodes:(NSSet<id<LHNode>> *)inactiveNodes
-                          routeHint:(LHRouteHint *)hint {
+- (instancetype)initWithActiveNodes:(nullable NSSet<id<LHNode>> *)activeNodes
+                      inactiveNodes:(nullable NSSet<id<LHNode>> *)inactiveNodes
+                          routeHint:(nullable LHRouteHint *)hint {
     self = [super init];
     if (!self) return nil;
     
@@ -32,6 +32,12 @@
     _routeHint = hint;
     
     return self;
+}
+
++ (instancetype)withActiveNodes:(NSArray<id<LHNode>> *)activeNodes inactiveNodes:(NSArray<id<LHNode>> *)inactiveNodes {
+    return [[[self class] alloc] initWithActiveNodes:[NSSet setWithArray:activeNodes]
+                                      inactiveNodes:[NSSet setWithArray:inactiveNodes]
+                                          routeHint:nil];
 }
 
 + (instancetype)withActiveNode:(id<LHNode>)activeNode routeHint:(LHRouteHint *)hint {

@@ -25,6 +25,8 @@
 
 @property (nonatomic, strong, readonly) NSMapTable<UIViewController *, LHModalTransitionData *> *transitionDataByController;
 
+@property (nonatomic, assign) NSInteger dismissCounter;
+
 @end
 
 
@@ -74,12 +76,18 @@
         
         [context.updateQueue runAsyncTaskWithBlock:^(LHTaskCompletionBlock completion) {
             viewController.lh_onDismissalBlock = nil;
+
+            ++self.dismissCounter;
             
             if (![viewController isBeingDismissed]) {
-                [presentingViewController dismissViewControllerAnimated:context.animated completion:completion];
+                [presentingViewController dismissViewControllerAnimated:context.animated completion:^{
+                    completion();
+                    --self.dismissCounter;
+                }];
             } else {
                 [viewController.transitionCoordinator animateAlongsideTransition:nil completion:^(id<UIViewControllerTransitionCoordinatorContext> context) {
                     completion();
+                    --self.dismissCounter;
                 }];
             }
         }];
@@ -153,8 +161,16 @@
         
         [transitionData prepareTransition];
     }
-    
-    [presentingViewController presentViewController:viewControllerToPresent animated:animated completion:completion];
+
+    void(^present)(void) = ^{
+        [presentingViewController presentViewController:viewControllerToPresent animated:animated completion:completion];
+    };
+
+    if (self.dismissCounter == 0) {
+        present();
+    } else {
+        dispatch_async(dispatch_get_main_queue(), present);
+    }
 }
 
 - (LHViewControllerDismissalTrackingBlock)onDismissalBlockForViewControllerAtIndex:(NSInteger)index {
@@ -163,15 +179,20 @@
         
         id<LHNode> oldActiveNode = self.node.childrenState.stack.lastObject;
         id<LHNode> newActiveNode = self.node.childrenState.stack[index - 1];
-        
+
+        ++self.dismissCounter;
+
         [self.tools.channel startNodeUpdateWithBlock:^(id<LHNode> node) {
-            [self.node updateChildrenState:[LHTarget withActiveNode:newActiveNode routeOrigin:LHRouteHintOriginRoot]];
+            LHLog(LHLogLevelInfo, @"Updating children state due to dismissal transition ");
+            [self.node updateChildrenState:[LHTarget withInactiveNode:oldActiveNode]];
         }];
         
-        [viewController.transitionCoordinator notifyWhenInteractionEndsUsingBlock:^(id<UIViewControllerTransitionCoordinatorContext> context) {
+        [viewController.transitionCoordinator notifyWhenInteractionChangesUsingBlock:^(id<UIViewControllerTransitionCoordinatorContext> context) {
             if ([context isCancelled]) {
-                [self.tools.channel startNodeUpdateWithBlock:^(id<LHNode> node) {
-                    [self.node updateChildrenState:[LHTarget withActiveNode:oldActiveNode routeOrigin:LHRouteHintOriginRoot]];
+                [self.tools.channel startUrgentNodeUpdateWithBlock:^(id<LHNode> node) {
+                    LHLog(LHLogLevelInfo, @"Updating children state due to dismissal transition cancellation");
+                    LHTarget *target = [LHTarget withActiveNode:oldActiveNode];
+                    [self.node updateChildrenState:target];
                 }];
             }
         }];
@@ -180,8 +201,9 @@
             if (![context isCancelled]) {
                 viewController.lh_onDismissalBlock = nil;
             }
-            
+
             [self.tools.channel finishNodeUpdate];
+            --self.dismissCounter;
         }];
     };
 }

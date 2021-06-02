@@ -12,10 +12,13 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef void(^LHDriverChannelUpdateBlock)(id<LHNode> node);
 
 @protocol LHDriverChannel <NSObject>
 
-- (void)startNodeUpdateWithBlock:(void (^)(id<LHNode> node))updateBlock;
+- (void)startNodeUpdateWithBlock:(LHDriverChannelUpdateBlock)updateBlock;
+
+- (void)startUrgentNodeUpdateWithBlock:(LHDriverChannelUpdateBlock)updateBlock;
 
 - (void)finishNodeUpdate;
 

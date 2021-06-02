@@ -64,6 +64,8 @@
         for (id<LHNode> parent in targetsByParent) {
             LHTarget *target = [targetsByParent objectForKey:parent];
             
+            LHLog(LHLogLevelInfo, @"Updating children state for command: %@", self.command);
+            
             LHNodeUpdateResult result = [parent updateChildrenState:target];
             
             switch (result) {

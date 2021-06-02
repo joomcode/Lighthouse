@@ -37,9 +37,9 @@
     return self;
 }
 
-#pragma mark - LHDriverFeedback
+#pragma mark - LHDriverChannel
 
-- (void)startNodeUpdateWithBlock:(void (^)(id<LHNode> node))updateBlock {
+- (void)startNodeUpdateWithBlock:(LHDriverChannelUpdateBlock)updateBlock {
     NSParameterAssert(updateBlock != nil);
 
     if (self.currentTask) {
@@ -55,6 +55,26 @@
                                                                }];
     
     [self.updateQueue runTask:self.currentTask];
+}
+
+- (void)startUrgentNodeUpdateWithBlock:(LHDriverChannelUpdateBlock)updateBlock {
+    NSParameterAssert(updateBlock != nil);
+
+    LHDriverFeedbackUpdateTask *task = [[LHDriverFeedbackUpdateTask alloc] initWithComponents:self.components
+                                                                                     animated:YES
+                                                                                   sourceNode:self.node
+                                                                              nodeUpdateBlock:^{
+                                                                                  updateBlock(self.node);
+                                                                              }];
+
+    [self.updateQueue runUrgentTask:task];
+
+    if (self.currentTask) {
+        [self.currentTask cancel];
+        [self finishNodeUpdate];
+    }
+
+    self.currentTask = task;
 }
 
 - (void)finishNodeUpdate {

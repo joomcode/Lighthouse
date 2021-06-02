@@ -122,6 +122,7 @@
         NSUInteger activeChildIndex = [tabBarController.viewControllers indexOfObject:viewController];
         id<LHNode> activeChild = self.node.orderedChildren[activeChildIndex];
         
+        LHLog(LHLogLevelInfo, @"Updating children state due to tab bar selection change");
         [node updateChildrenState:[LHTarget withActiveNode:activeChild]];
     }];
     

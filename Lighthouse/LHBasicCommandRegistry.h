@@ -20,17 +20,17 @@ typedef LHTarget * _Nullable (^LHCommandTargetProvidingBlock)(__kindof id<LHComm
 
 @interface LHBasicCommandRegistry : NSObject <LHCommandRegistry>
 
-- (void)bindCommandClass:(Class)commandClass toTarget:(LHTarget *)target;
+- (void)bindCommandClass:(Class)commandClass toTarget:(LHTarget *)target NS_REFINED_FOR_SWIFT;
 
-- (void)bindCommandClass:(Class)commandClass toTargetWithActiveNode:(id<LHNode>)node;
+- (void)bindCommandClass:(Class)commandClass toTargetWithActiveNode:(id<LHNode>)node NS_REFINED_FOR_SWIFT;
 
-- (void)bindCommandClass:(Class)commandClass toTargetWithInactiveNode:(id<LHNode>)node;
+- (void)bindCommandClass:(Class)commandClass toTargetWithInactiveNode:(id<LHNode>)node NS_REFINED_FOR_SWIFT;
 
-- (void)bindCommandClass:(Class)commandClass toTargetWithActiveNode:(id<LHNode>)node origin:(LHRouteHintOrigin)origin;
+- (void)bindCommandClass:(Class)commandClass toTargetWithActiveNode:(id<LHNode>)node origin:(LHRouteHintOrigin)origin NS_REFINED_FOR_SWIFT;
 
-- (void)bindCommandClass:(Class)commandClass toTargetWithInactiveNode:(id<LHNode>)node origin:(LHRouteHintOrigin)origin;
+- (void)bindCommandClass:(Class)commandClass toTargetWithInactiveNode:(id<LHNode>)node origin:(LHRouteHintOrigin)origin NS_REFINED_FOR_SWIFT;
 
-- (void)bindCommandClass:(Class)commandClass toBlock:(LHCommandTargetProvidingBlock)block;
+- (void)bindCommandClass:(Class)commandClass toBlock:(LHCommandTargetProvidingBlock)block NS_REFINED_FOR_SWIFT;
 
 @end
 
