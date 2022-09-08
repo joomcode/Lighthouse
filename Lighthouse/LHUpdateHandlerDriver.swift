@@ -11,9 +11,12 @@ public extension LHUpdateHandlerDriver {
 
     static func driver<Command>(
         for commandType: Command.Type,
-        with dataInitClosure: @escaping DataInitClosure<Command>
+        with dataInitClosure: @escaping DataInitClosure<Command>,
+        defaultViewControllerProvider: @autoclosure @escaping () -> UIViewController
     ) -> LHUpdateHandlerDriver where Command: LHCommand {
-        let driver = LHUpdateHandlerDriver()
+        let driver = LHUpdateHandlerDriver(defaultDataInitBlock: { _, _ in
+            defaultViewControllerProvider()
+        })
 
         driver.bind(commandType) { command, updateBus in
             guard let command = command as? Command else {

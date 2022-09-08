@@ -26,10 +26,6 @@
 
 #pragma mark - Init
 
-- (instancetype)init {
-    return [self initWithDefaultDataInitBlock:nil];
-}
-
 - (instancetype)initWithDefaultDataInitBlock:(LHDriverDataInitBlock)block {
     self = [super init];
     if (!self) return nil;
