@@ -812,9 +812,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 012A954B1C4EFD5E000A4ECB /* Build configuration list for PBXNativeTarget "Lighthouse" */;
 			buildPhases = (
+				012A95371C4EFD5E000A4ECB /* Headers */,
 				012A95351C4EFD5E000A4ECB /* Sources */,
 				012A95361C4EFD5E000A4ECB /* Frameworks */,
-				012A95371C4EFD5E000A4ECB /* Headers */,
 				012A95381C4EFD5E000A4ECB /* Resources */,
 			);
 			buildRules = (
