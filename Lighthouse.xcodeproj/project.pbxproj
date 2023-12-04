@@ -142,6 +142,8 @@
 		0F5FC7081DCCECBB009596D4 /* LHDebugPrintable.h in Headers */ = {isa = PBXBuildFile; fileRef = 0F5FC6F91DCCEAD5009596D4 /* LHDebugPrintable.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		74F2A4A626676E2A00CD86B0 /* LHBasicCommandRegistry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74F2A4A526676E2A00CD86B0 /* LHBasicCommandRegistry.swift */; };
 		74F2A4AA26676E5D00CD86B0 /* LHUpdateHandlerDriver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74F2A4A926676E5D00CD86B0 /* LHUpdateHandlerDriver.swift */; };
+		7C7C650A2B1E1A0E004CA9B6 /* LHWeakBox.h in Headers */ = {isa = PBXBuildFile; fileRef = 7C7C65082B1E1A0E004CA9B6 /* LHWeakBox.h */; };
+		7C7C650B2B1E1A0E004CA9B6 /* LHWeakBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C7C65092B1E1A0E004CA9B6 /* LHWeakBox.m */; };
 		7CC84D5F23275891001FFE6A /* LHNavigationControllerTransitionOptions.h in Headers */ = {isa = PBXBuildFile; fileRef = 7CC84D5D23275891001FFE6A /* LHNavigationControllerTransitionOptions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7CC84D6023275891001FFE6A /* LHNavigationControllerTransitionOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CC84D5E23275891001FFE6A /* LHNavigationControllerTransitionOptions.m */; };
 		ACC5686D1F18C45300602DEA /* LHLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = ACC5686B1F18C45300602DEA /* LHLogger.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -298,6 +300,8 @@
 		0F5FC7041DCCEB91009596D4 /* LHDebugPrintable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHDebugPrintable.m; sourceTree = "<group>"; };
 		74F2A4A526676E2A00CD86B0 /* LHBasicCommandRegistry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LHBasicCommandRegistry.swift; sourceTree = "<group>"; };
 		74F2A4A926676E5D00CD86B0 /* LHUpdateHandlerDriver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LHUpdateHandlerDriver.swift; sourceTree = "<group>"; };
+		7C7C65082B1E1A0E004CA9B6 /* LHWeakBox.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LHWeakBox.h; sourceTree = "<group>"; };
+		7C7C65092B1E1A0E004CA9B6 /* LHWeakBox.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LHWeakBox.m; sourceTree = "<group>"; };
 		7CC84D5D23275891001FFE6A /* LHNavigationControllerTransitionOptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHNavigationControllerTransitionOptions.h; sourceTree = "<group>"; };
 		7CC84D5E23275891001FFE6A /* LHNavigationControllerTransitionOptions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHNavigationControllerTransitionOptions.m; sourceTree = "<group>"; };
 		ACC5686B1F18C45300602DEA /* LHLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHLogger.h; sourceTree = "<group>"; };
@@ -468,6 +472,8 @@
 				0F0DD0621E30F8EA005C6C47 /* NSArray+LHUtils.h */,
 				0F0DD0631E30F8EA005C6C47 /* NSArray+LHUtils.m */,
 				014C9F141C96F94E00D35950 /* LHMacro.h */,
+				7C7C65082B1E1A0E004CA9B6 /* LHWeakBox.h */,
+				7C7C65092B1E1A0E004CA9B6 /* LHWeakBox.m */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -777,6 +783,7 @@
 				019DE7371C971F6800656C15 /* LHRouterDelegateImpl.h in Headers */,
 				01DBF2F61C4EFEB00034783C /* LHBlockTask.h in Headers */,
 				014C9F101C96EF0B00D35950 /* LHRouterResumeTokenImpl.h in Headers */,
+				7C7C650A2B1E1A0E004CA9B6 /* LHWeakBox.h in Headers */,
 				015A4FAF1C681D9900F950B3 /* LHDriverProvider.h in Headers */,
 				015A4F811C663F0500F950B3 /* LHContainerTransitionStyle.h in Headers */,
 				01DBF2F71C4EFEB00034783C /* LHNodeUpdateTask.h in Headers */,
@@ -924,6 +931,7 @@
 				015A4F971C67018E00F950B3 /* LHModalTransitionStyleRegistry.m in Sources */,
 				012A955C1C4EFD9A000A4ECB /* LHViewControllerDriverHelpers.m in Sources */,
 				012A955D1C4EFD9A000A4ECB /* UIViewController+LHDismissalTracking.m in Sources */,
+				7C7C650B2B1E1A0E004CA9B6 /* LHWeakBox.m in Sources */,
 				012A955E1C4EFD9A000A4ECB /* LHViewControllerDriver.m in Sources */,
 				015A4FB31C681E7100F950B3 /* LHDriverProviderImpl.m in Sources */,
 				012A955F1C4EFD9A000A4ECB /* LHNavigationControllerDriver.m in Sources */,

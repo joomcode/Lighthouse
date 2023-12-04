@@ -8,7 +8,41 @@
 
 #import "LHGraph.h"
 #import "LHDebugPrintable.h"
+#import "LHWeakBox.h"
 #import "NSMapTable+LHUtils.h"
+#import <objc/runtime.h>
+
+@interface NSObject (LHGraph)
+
+@property (nonatomic, weak, nullable) id lh_owningGraph;
+
+@end
+
+@implementation NSObject (LHGraph)
+
+static char const kOwningGraphKey;
+
+- (nullable id)lh_owningGraph {
+    LHWeakBox<id> *box = (LHWeakBox<id> *)objc_getAssociatedObject(self, &kOwningGraphKey);
+    return box.object;
+}
+
+- (void)setLh_owningGraph:(nullable id)owningGraph {
+    LHWeakBox<id> *box = owningGraph ? [[LHWeakBox<id> alloc] initWithObject:owningGraph] : nil;
+    objc_setAssociatedObject(self, &kOwningGraphKey, box, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+@end
+
+#if !defined(NS_BLOCK_ASSERTIONS)
+static void assertNoOwningGraph(id node) {
+    NSCAssert(
+        ((NSObject *)node).lh_owningGraph == nil,
+        @"An attempt to add a node to several graphs. The node should be added to a single graph only. Node: %@",
+        node
+    );
+}
+#endif
 
 @interface LHGraph () <LHDebugPrintable> {
     
@@ -27,7 +61,7 @@
 
 #pragma mark - Init
 
-- (instancetype)initWithRootNode:(id)rootNode nodes:(NSSet *)nodes edges:(NSSet *)edges {
+- (instancetype)initWithRootNode:(nullable id)rootNode nodes:(nullable NSSet *)nodes edges:(nullable NSSet *)edges {
     self = [super init];
     if (self) {
         if (rootNode && nodes) {
@@ -37,6 +71,13 @@
         } else if (nodes) {
             rootNode = nodes.anyObject;
         }
+
+#if !defined(NS_BLOCK_ASSERTIONS)
+        for (id node in nodes) {
+            assertNoOwningGraph(node);
+        }
+#endif
+
         _rootNode = rootNode;
         _edges = edges ?: [NSSet set];
         
@@ -197,6 +238,10 @@
         return;
     }
     [self.outgoingEdgesByNode setObject:[NSCountedSet set] forKey:node];
+
+#if !defined(NS_BLOCK_ASSERTIONS)
+    assertNoOwningGraph(node);
+#endif
 }
 
 - (void)removeNode:(id)node {
