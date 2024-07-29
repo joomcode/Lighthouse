@@ -51,18 +51,6 @@ NS_ASSUME_NONNULL_BEGIN
         __PRAGMA_POP_NO_EXTRA_ARG_WARNINGS \
     } while(0)
 
-//#undef NSAssert
-//#undef NSCAssert
-
-//#undef NSParameterAssert
-//#undef NSCParameterAssert
-
-//extern void NSAssert(BOOL condition, NSString *format, ...) NS_FORMAT_FUNCTION(2, 3) __attribute__((unavailable("Use `LHAssert` instead")));
-//extern void NSCAssert(BOOL condition, NSString *format, ...) NS_FORMAT_FUNCTION(2, 3) __attribute__((unavailable("Use `LHAssert` instead")));
-
-//extern void NSParameterAssert(BOOL condition) __attribute__((unavailable("Use `LHParameterAssert` instead")));
-//extern void NSCParameterAssert(BOOL condition) __attribute__((unavailable("Use `LHParameterAssert` instead")));
-
 #else // !TARGET_OS_SIMULATOR
 
 #define _LHAssert(condition_, description_...) do {} while (0)
