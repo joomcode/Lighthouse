@@ -7,4 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "LHAssert.h"
 #import "LHLogger.h"
+#import "LHMacro.h"

@@ -27,6 +27,7 @@
 #import "LHManualNodeUpdateTask.h"
 #import "LHDriverChannelImpl.h"
 #import "LHMacro.h"
+#import "NSError+LHUtils.h"
 
 @interface LHRouter () <LHNodeDataStorageDelegate>
 
@@ -236,8 +237,19 @@
 #pragma mark - LHNodeDataStorageDelegate
 
 - (void)nodeDataStorage:(LHNodeDataStorage *)storage didCreateData:(LHNodeData *)data forNode:(id<LHNode>)node {
-    NSArray<id<LHDriver>> *drivers = data.drivers ?: @[];
-    data.drivers = [drivers arrayByAddingObject:[self createDriverForNode:node]];
+    let existingDrivers = data.drivers ?: @[];
+    let newDriver = [self createDriverForNode:node];
+
+    if (newDriver) {
+        data.drivers = [existingDrivers arrayByAddingObject:newDriver];
+    } else {
+        LHAssertionFailure(@"Driver for node %@ not provided", node.label);
+
+        if (self.nonFatalErrorHandler) {
+            let error = [NSError lh_nonFatalErrorWithDescription:@"Driver for node %@ not provided", node.label];
+            self.nonFatalErrorHandler(error);
+        }
+    }
 }
 
 - (id<LHDriver>)createDriverForNode:(id<LHNode>)node {

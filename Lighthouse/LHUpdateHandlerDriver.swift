@@ -18,14 +18,7 @@ public extension LHUpdateHandlerDriver {
             defaultViewControllerProvider()
         })
 
-        driver.bind(commandType) { command, updateBus in
-            guard let command = command as? Command else {
-                assertionFailure()
-                return nil
-            }
-
-            return dataInitClosure(command, updateBus)
-        }
+        driver.bind(commandType, to: dataInitClosure)
 
         return driver
     }

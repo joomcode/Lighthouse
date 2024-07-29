@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 static LHLogLevel LHCurrentAcceptedLogLevel = LHLogLevelInfo;
 
-LHLogLevel LHAcceptedLogLevel() {
+LHLogLevel LHAcceptedLogLevel(void) {
     NSCAssert(NSThread.currentThread.isMainThread, @"%s should be called from the main thread.", __PRETTY_FUNCTION__);
 
     return LHCurrentAcceptedLogLevel;
