@@ -54,7 +54,7 @@
             [viewControllers addObjectsFromArray:controllers];
             
         } else {
-            [NSException raise:NSInternalInconsistencyException format:@"Expected a non-nil data of either UIViewController or NSArray<UIViewController *> type, got %@", driver.data];
+            LHAssertionFailure(@"Expected a non-nil data of either UIViewController or NSArray<UIViewController *> type, got %@", driver.data);
         }
     }
     

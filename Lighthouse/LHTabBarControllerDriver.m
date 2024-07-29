@@ -185,7 +185,7 @@
     [candidateNodes intersectSet:nodeDescendants];
     
     if (candidateNodes.count > 1) {
-        [NSException raise:NSInternalInconsistencyException format:@"Looking for a tabBarItem for node %@, found more than one", node];
+        LHAssertionFailure(@"Looking for a tabBarItem for node %@, found more than one", node);
         return nil;
     }
     
