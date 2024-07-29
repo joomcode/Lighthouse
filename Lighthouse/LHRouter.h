@@ -37,6 +37,8 @@ typedef void (^LHRouterCompletionBlock)(void);
 
 @property (nonatomic, weak, nullable) id<LHRouterDelegate> delegate;
 
+@property (nonatomic, copy, nullable) void(^nonFatalErrorHandler)(NSError *error);
+
 
 - (instancetype)initWithRootNode:(id<LHNode>)rootNode
                    driverFactory:(id<LHDriverFactory>)driverFactory

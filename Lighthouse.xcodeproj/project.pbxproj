@@ -146,6 +146,8 @@
 		7CC84D6023275891001FFE6A /* LHNavigationControllerTransitionOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CC84D5E23275891001FFE6A /* LHNavigationControllerTransitionOptions.m */; };
 		7CFC39092C5794FF00144A65 /* LHAssert.h in Headers */ = {isa = PBXBuildFile; fileRef = 7CFC39072C5794FF00144A65 /* LHAssert.h */; };
 		7CFC390A2C5794FF00144A65 /* LHAssert.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CFC39082C5794FF00144A65 /* LHAssert.m */; };
+		7CFC390D2C5803F900144A65 /* NSError+LHUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 7CFC390B2C5803F900144A65 /* NSError+LHUtils.h */; };
+		7CFC390E2C5803F900144A65 /* NSError+LHUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CFC390C2C5803F900144A65 /* NSError+LHUtils.m */; };
 		ACC5686D1F18C45300602DEA /* LHLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = ACC5686B1F18C45300602DEA /* LHLogger.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		ACC5686E1F18C45300602DEA /* LHLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = ACC5686C1F18C45300602DEA /* LHLogger.m */; };
 		ACC568721F18C90F00602DEA /* LHLogLevel.h in Headers */ = {isa = PBXBuildFile; fileRef = ACC568701F18C90E00602DEA /* LHLogLevel.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -304,6 +306,8 @@
 		7CC84D5E23275891001FFE6A /* LHNavigationControllerTransitionOptions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHNavigationControllerTransitionOptions.m; sourceTree = "<group>"; };
 		7CFC39072C5794FF00144A65 /* LHAssert.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LHAssert.h; sourceTree = "<group>"; };
 		7CFC39082C5794FF00144A65 /* LHAssert.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LHAssert.m; sourceTree = "<group>"; };
+		7CFC390B2C5803F900144A65 /* NSError+LHUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSError+LHUtils.h"; sourceTree = "<group>"; };
+		7CFC390C2C5803F900144A65 /* NSError+LHUtils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSError+LHUtils.m"; sourceTree = "<group>"; };
 		ACC5686B1F18C45300602DEA /* LHLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHLogger.h; sourceTree = "<group>"; };
 		ACC5686C1F18C45300602DEA /* LHLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHLogger.m; sourceTree = "<group>"; };
 		ACC568701F18C90E00602DEA /* LHLogLevel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHLogLevel.h; sourceTree = "<group>"; };
@@ -474,6 +478,8 @@
 				014C9F141C96F94E00D35950 /* LHMacro.h */,
 				7CFC39072C5794FF00144A65 /* LHAssert.h */,
 				7CFC39082C5794FF00144A65 /* LHAssert.m */,
+				7CFC390B2C5803F900144A65 /* NSError+LHUtils.h */,
+				7CFC390C2C5803F900144A65 /* NSError+LHUtils.m */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -802,6 +808,7 @@
 				01DBF2FC1C4EFEB00034783C /* LHDriverChannelImpl.h in Headers */,
 				01DBF2FD1C4EFEB00034783C /* LHUpdateBusImpl.h in Headers */,
 				01DBF2EA1C4EFE700034783C /* LHCompositeDriver.h in Headers */,
+				7CFC390D2C5803F900144A65 /* NSError+LHUtils.h in Headers */,
 				01DBF2D51C4EFE700034783C /* LHStackNodeChildrenState.h in Headers */,
 				01B3918D1C888FFD00579C2B /* LHRouterState.h in Headers */,
 				01DBF2DC1C4EFE700034783C /* LHViewControllerDriverHelpers.h in Headers */,
@@ -962,6 +969,7 @@
 				01D57AB41C547557008E4EB5 /* LHTabNodeChildrenState.m in Sources */,
 				012A956D1C4EFD9A000A4ECB /* LHBlockTask.m in Sources */,
 				012A956E1C4EFD9A000A4ECB /* LHNodeUpdateTask.m in Sources */,
+				7CFC390E2C5803F900144A65 /* NSError+LHUtils.m in Sources */,
 				015A4F9C1C67A49400F950B3 /* LHModalTransitionData.m in Sources */,
 				012A956F1C4EFD9A000A4ECB /* LHCommandNodeUpdateTask.m in Sources */,
 				012A95701C4EFD9A000A4ECB /* LHManualNodeUpdateTask.m in Sources */,
