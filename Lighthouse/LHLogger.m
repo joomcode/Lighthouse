@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 static id<LHLogger> LHCurrentSharedLogger;
 
-id<LHLogger> LHSharedLogger() {
+id<LHLogger> LHSharedLogger(void) {
     NSCAssert(NSThread.currentThread.isMainThread, @"%s should be called from the main thread.", __PRETTY_FUNCTION__);
     
     if (!LHCurrentSharedLogger) {
