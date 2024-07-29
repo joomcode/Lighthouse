@@ -240,17 +240,15 @@
     let existingDrivers = data.drivers ?: @[];
     let newDriver = [self createDriverForNode:node];
 
-    if (newDriver == nil) {
+    if (newDriver) {
+        data.drivers = [existingDrivers arrayByAddingObject:newDriver];
+    } else {
         LHAssertionFailure(@"Driver for node %@ not provided", node.label);
-        
+
         if (self.nonFatalErrorHandler) {
             let error = [NSError lh_nonFatalErrorWithDescription:@"Driver for node %@ not provided", node.label];
             self.nonFatalErrorHandler(error);
         }
-    }
-
-    if (newDriver) {
-        data.drivers = [existingDrivers arrayByAddingObject:newDriver];
     }
 }
 
