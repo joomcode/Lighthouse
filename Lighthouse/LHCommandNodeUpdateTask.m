@@ -78,7 +78,7 @@
                     break;
                     
                 case LHNodeUpdateResultInvalid:
-                    [NSException raise:NSInternalInconsistencyException format:@"Attempted to update children of node %@ with target %@, got invalid state", parent, target];
+                    LHAssertionFailure(@"Attempted to update children of node %@ with target %@, got invalid state", parent, target);
                     break;
             }
         }

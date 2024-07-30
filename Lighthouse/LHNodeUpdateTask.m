@@ -173,10 +173,8 @@
     
     id<LHTaskQueue> localUpdateQueue = [[LHTaskQueueImpl alloc] init];
     
-    if (!data.drivers.lastObject) {
-        [NSException raise:NSInternalInconsistencyException format:@"Expected a driver for node %@, got nothing - something went wrong", node];
-    }
-    
+    LHAssert(data.drivers.lastObject != nil, @"Expected a driver for node %@, got nothing - something went wrong", node);
+
     [self.driverUpdateQueue runTaskWithBlock:^{
         [self willUpdateDriverForNode:node];
     }];

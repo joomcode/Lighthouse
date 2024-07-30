@@ -71,7 +71,7 @@
         }
         
         if (!_data) {
-            [NSException raise:NSInternalInconsistencyException format:@"LHUpdateHandlerDriver couldn't create data for command %@. Consider using defaultDataInitBlock?", command];
+            LHAssertionFailure(@"LHUpdateHandlerDriver couldn't create data for command %@. Consider using defaultDataInitBlock?", command);
         }
     } else {
         LHDriverDataUpdateBlock block = [self.dataUpdateBlocksByCommandClass objectForKey:[command class]];
