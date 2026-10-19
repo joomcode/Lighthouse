@@ -155,8 +155,10 @@
     }
     
     if (target.activeNodes.count > 0) {
-        // Inactive nodes of a mixed target are deactivated before the path to the active node is calculated (see
-        // `stackByDeactivatingTrailingNodes:`), so the active node is the one to activate.
+        // A target may activate a node and deactivate others at once, e.g. push a screen in place of the one on top.
+        // The nodes to deactivate are popped from the top of the stack before the path is calculated (see
+        // `stackByDeactivatingTrailingNodes:`), so they don't affect which child gets activated.
+        LHAssert(target.activeNodes.count == 1);
         return target.activeNodes.anyObject;
     }
 
