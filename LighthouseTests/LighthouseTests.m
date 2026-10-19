@@ -137,4 +137,99 @@
     XCTAssertEqualObjects(stackNode.childrenState.stack, (@[node1, node2]));
 }
 
+- (void)testActivatingNodeAfterDeactivatingTopNode {
+    let root = [[LHLeafNode alloc] initWithLabel:@"root"];
+    let node1 = [[LHLeafNode alloc] initWithLabel:@"node 1"];
+    let node2 = [[LHLeafNode alloc] initWithLabel:@"node 2"];
+    let node3 = [[LHLeafNode alloc] initWithLabel:@"node 3"];
+
+    let stackNode = [[LHStackNode alloc] initWithGraphBlock:^(LHMutableGraph<id<LHNode>> *graph) {
+        graph.rootNode = root;
+        [graph addBidirectionalEdgeFromNode:root toNode:node1];
+        [graph addBidirectionalEdgesFromNode:node1 toNodes:@[node2, node3]];
+        [graph addBidirectionalEdgeFromNode:node2 toNode:node3];
+    } label:@"stack"];
+
+    [stackNode updateChildrenState:[LHTarget withActiveNode:node1]];
+    [stackNode updateChildrenState:[LHTarget withActiveNode:node2]];
+
+    let target = [[LHTarget alloc] initWithActiveNodes:[NSSet setWithObject:node3]
+                                         inactiveNodes:[NSSet setWithObject:node2]
+                                             routeHint:nil];
+
+    XCTAssertEqual([stackNode updateChildrenState:target], LHNodeUpdateResultNormal);
+    XCTAssertEqualObjects(stackNode.childrenState.stack, (@[root, node1, node3]));
+}
+
+- (void)testActivatingNodeAfterDeactivatingTopNodesOnce {
+    let root = [[LHLeafNode alloc] initWithLabel:@"root"];
+    let node1 = [[LHLeafNode alloc] initWithLabel:@"node 1"];
+    let node2 = [[LHLeafNode alloc] initWithLabel:@"node 2"];
+    let node3 = [[LHLeafNode alloc] initWithLabel:@"node 3"];
+    let node4 = [[LHLeafNode alloc] initWithLabel:@"node 4"];
+    let node5 = [[LHLeafNode alloc] initWithLabel:@"node 5"];
+
+    let stackNode = [[LHStackNode alloc] initWithGraphBlock:^(LHMutableGraph<id<LHNode>> *graph) {
+        graph.rootNode = root;
+        [graph addBidirectionalEdgeFromNode:root toNode:node1];
+        [graph addBidirectionalEdgesFromNode:node2 toNodes:@[node1, node3, node4]];
+        [graph addNode:node5];
+    } label:@"stack"];
+
+    [stackNode updateChildrenState:[LHTarget withActiveNode:node2]];
+    [stackNode updateChildrenState:[LHTarget withActiveNode:node3]];
+    [stackNode updateChildrenState:[LHTarget withActiveNode:node2]];
+
+    XCTAssertEqualObjects(stackNode.childrenState.stack, (@[root, node1, node2, node3, node2]));
+
+    let target = [[LHTarget alloc] initWithActiveNodes:[NSSet setWithObject:node4]
+                                         inactiveNodes:[NSSet setWithArray:@[node2, node3, node5]]
+                                             routeHint:nil];
+
+    XCTAssertEqual([stackNode updateChildrenState:target], LHNodeUpdateResultNormal);
+    XCTAssertEqualObjects(stackNode.childrenState.stack, (@[root, node1, node2, node4]));
+}
+
+- (void)testActivatingNodeWhenDeactivatedNodeIsNotOnTop {
+    let root = [[LHLeafNode alloc] initWithLabel:@"root"];
+    let node1 = [[LHLeafNode alloc] initWithLabel:@"node 1"];
+    let node2 = [[LHLeafNode alloc] initWithLabel:@"node 2"];
+    let node3 = [[LHLeafNode alloc] initWithLabel:@"node 3"];
+
+    let stackNode = [[LHStackNode alloc] initWithGraphBlock:^(LHMutableGraph<id<LHNode>> *graph) {
+        graph.rootNode = root;
+        [graph addBidirectionalEdgeFromNode:root toNode:node1];
+        [graph addBidirectionalEdgeFromNode:node1 toNode:node2];
+        [graph addBidirectionalEdgeFromNode:node2 toNode:node3];
+    } label:@"stack"];
+
+    [stackNode updateChildrenState:[LHTarget withActiveNode:node2]];
+
+    let target = [[LHTarget alloc] initWithActiveNodes:[NSSet setWithObject:node3]
+                                         inactiveNodes:[NSSet setWithObject:node1]
+                                             routeHint:nil];
+
+    XCTAssertEqual([stackNode updateChildrenState:target], LHNodeUpdateResultNormal);
+    XCTAssertEqualObjects(stackNode.childrenState.stack, (@[root, node1, node2, node3]));
+}
+
+- (void)testActivatingNodeThatBecomesTopAfterDeactivation {
+    let root = [[LHLeafNode alloc] initWithLabel:@"root"];
+    let node1 = [[LHLeafNode alloc] initWithLabel:@"node 1"];
+
+    let stackNode = [[LHStackNode alloc] initWithGraphBlock:^(LHMutableGraph<id<LHNode>> *graph) {
+        graph.rootNode = root;
+        [graph addBidirectionalEdgeFromNode:root toNode:node1];
+    } label:@"stack"];
+
+    [stackNode updateChildrenState:[LHTarget withActiveNode:node1]];
+
+    let target = [[LHTarget alloc] initWithActiveNodes:[NSSet setWithObject:root]
+                                         inactiveNodes:[NSSet setWithObject:node1]
+                                             routeHint:nil];
+
+    XCTAssertEqual([stackNode updateChildrenState:target], LHNodeUpdateResultNormal);
+    XCTAssertEqualObjects(stackNode.childrenState.stack, (@[root]));
+}
+
 @end
