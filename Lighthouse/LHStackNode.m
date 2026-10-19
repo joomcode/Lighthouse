@@ -154,13 +154,19 @@
         return nil;
     }
     
-    id<LHNode> childForTargetActiveNodes = target.activeNodes.anyObject;
-    
+    if (target.activeNodes.count > 0) {
+        // A target may activate a node and deactivate others at once, e.g. push a screen in place of the one on top.
+        // The nodes to deactivate are popped from the top of the stack before the path is calculated (see
+        // `stackByDeactivatingTrailingNodes:`), so they don't affect which child gets activated.
+        LHAssert(target.activeNodes.count == 1);
+        return target.activeNodes.anyObject;
+    }
+
     id<LHNode> childForTargetInactiveNodes = nil;
-    
+
     NSMutableSet<id<LHNode>> *nodesToDeactivate = [target.inactiveNodes mutableCopy];
     BOOL inactiveNodeFound = NO;
-    
+
     for (id<LHNode> node in [activeChildrenStack reverseObjectEnumerator]) {
         if ([nodesToDeactivate containsObject:node]) {
             [nodesToDeactivate removeObject:node];
@@ -170,28 +176,25 @@
             break;
         }
     }
-    
-    if (childForTargetActiveNodes && childForTargetInactiveNodes && childForTargetActiveNodes != childForTargetInactiveNodes) {
-        if (error) {
-            *error = YES;
-        }
-        return nil;
-    }
-    
-    return childForTargetActiveNodes ?: childForTargetInactiveNodes;
+
+    return childForTargetInactiveNodes;
 }
 
 - (NSArray<id<LHNode>> *)pathToNode:(id<LHNode>)node inGraph:(LHGraph<id<LHNode>> *)graph target:(LHTarget *)target {
     NSArray<id<LHNode>> *path = nil;
-    
+
+    NSArray<id<LHNode>> *stack = target.activeNodes.count > 0 && target.inactiveNodes.count > 0
+        ? [self stackByDeactivatingTrailingNodes:target.inactiveNodes]
+        : self.childrenState.stack;
+
     if (!target.routeHint) {
         if (target.activeNodes.count == 0 && target.inactiveNodes.count > 0) {
             path = [self calculatePathByDeactivatingNodesAfterNode:node inGraph:graph target:target];
         } else {
-            path = [self calculatePathFromActiveNodeToNode:node inGraph:graph target:target];
+            path = [self calculatePathFromStack:stack toNode:node inGraph:graph target:target];
         }
     } else if (target.routeHint.origin == LHRouteHintOriginActiveNode) {
-        path = [self calculatePathFromActiveNodeToNode:node inGraph:graph target:target];
+        path = [self calculatePathFromStack:stack toNode:node inGraph:graph target:target];
     } else {
         path = [self calculatePathFromRootToNode:node inGraph:graph target:target];
     }
@@ -225,25 +228,45 @@
     return [self.childrenState.stack subarrayWithRange:(NSRange){ .length = lastActiveNodeIndex + 1 }];
 }
 
-- (NSArray<id<LHNode>> *)calculatePathFromActiveNodeToNode:(id<LHNode>)node
-                                                   inGraph:(LHGraph<id<LHNode>> *)graph
-                                                    target:(LHTarget *)target {
+- (NSArray<id<LHNode>> *)stackByDeactivatingTrailingNodes:(NSSet<id<LHNode>> *)nodes {
+    // Each node is deactivated once, so `[a, b, c, b]` with `nodes = {b, c, d}` becomes `[a, b]`.
+    NSMutableSet<id<LHNode>> *nodesToDeactivate = [nodes mutableCopy];
+    NSArray<id<LHNode>> *stack = self.childrenState.stack;
+    NSUInteger count = stack.count;
 
-    id<LHNode> activeNode = self.childrenState.stack.lastObject;
+    while (count > 0 && [nodesToDeactivate containsObject:stack[count - 1]]) {
+        [nodesToDeactivate removeObject:stack[count - 1]];
+        --count;
+    }
+
+    if (count == 0) {
+        LHAssertionFailure(@"`target.inactiveNodes` shouldn't require to deactivate all nodes in active children stack");
+        return stack;
+    }
+
+    return [stack subarrayWithRange:NSMakeRange(0, count)];
+}
+
+- (NSArray<id<LHNode>> *)calculatePathFromStack:(NSArray<id<LHNode>> *)stack
+                                         toNode:(id<LHNode>)node
+                                        inGraph:(LHGraph<id<LHNode>> *)graph
+                                         target:(LHTarget *)target {
+
+    id<LHNode> activeNode = stack.lastObject;
     if (activeNode == nil) {
         LHAssertionFailure(@"There should be an active node at this point");
         return @[];
     }
 
     if (activeNode == node && target.routeHint.nodes.lastObject == node) {
-        return [self.childrenState.stack arrayByAddingObject:node];
+        return [stack arrayByAddingObject:node];
     }
-    
-    BOOL isDeactivatingActiveNode = [target.inactiveNodes containsObject:activeNode];
-    if (isDeactivatingActiveNode && [self.childrenState.stack containsObject:node]) {
-        return [self.childrenState.stack subarrayWithRange:NSMakeRange(0, self.childrenState.stack.count - 1)];
+
+    BOOL isDeactivatingActiveNode = target.activeNodes.count == 0 && [target.inactiveNodes containsObject:activeNode];
+    if (isDeactivatingActiveNode && [stack containsObject:node]) {
+        return [stack subarrayWithRange:NSMakeRange(0, stack.count - 1)];
     }
-        
+
     NSArray<id<LHNode>> *graphPath = [graph pathFromNode:activeNode toNode:node visitingNodes:target.routeHint.nodes].array;
     if (graphPath == nil) {
         return self.childrenState.stack;
@@ -251,7 +274,7 @@
 
     LHAssert(graphPath.firstObject == activeNode && graphPath.lastObject == node);
 
-    return [self pathByConcatinatingPathToActiveNode:self.childrenState.stack
+    return [self pathByConcatinatingPathToActiveNode:stack
                               withPathFromActiveNode:graphPath
                                  removingCommonNodes:target.routeHint.bidirectional];
 }
